@@ -313,6 +313,7 @@ export const crmLayoutDefaults = {
       { label: "Features", link: "/crm#features" },
       { label: "Pricing", link: "/crm/pricing" },
       { label: "About", link: "/crm/about" },
+      { label: "Blog", link: "/blog" },
       { label: "Contact", link: "/crm/contact" },
     ],
     loginLabel: "Login",
@@ -343,6 +344,7 @@ export const crmLayoutDefaults = {
       {
         heading: "Resources",
         links: [
+          { label: "Blog", link: "/blog" },
           { label: "FAQ", link: "/crm#faq" },
           { label: "Migration assistance", link: "/crm#features" },
           { label: "Book a demo", link: "/crm#demo" },

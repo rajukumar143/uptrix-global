@@ -11,6 +11,7 @@ export const homeDefaults = {
       { label: "HRMS", link: "#hrms" },
       { label: "CRM", link: "#crm" },
       { label: "About", link: "#about" },
+      { label: "Blog", link: "/blog" },
       { label: "Contact", link: "#contact" },
     ],
     buttonLabel: "Book a Free Demo",
@@ -228,6 +229,7 @@ export const homeDefaults = {
     companyHeading: "Company",
     companyLinks: [
       { label: "About", link: "#about" },
+      { label: "Blog", link: "/blog" },
       { label: "Contact", link: "#contact" },
       { label: "Careers", link: "#" },
     ],

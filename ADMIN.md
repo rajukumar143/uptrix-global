@@ -2,6 +2,20 @@
 
 Edit the text on every page at **/admin**. Changes go live as soon as you press **Save changes**.
 
+## Blog (for Google rankings)
+
+**Admin → Blog posts → + New post.** Write in the editor using the toolbar (H2, H3, bold, links, lists, images).
+Paste a screenshot straight into the text to upload it. **Preview** shows how the post will look.
+
+- **SEO panel:** set a focus keyword and watch the score and checklist update as you write. Aim for green
+  (80+). The Google preview shows how the result will look in search.
+- **Publish** makes it live; **Save draft** keeps it private. Set a future publish date to schedule a post.
+- Images are automatically resized and converted to WebP, so pages stay fast.
+- Each post automatically gets SEO title and description tags, Open Graph tags (for sharing on LinkedIn and
+  WhatsApp), Article and breadcrumb structured data, a table of contents, related articles, a sitemap entry
+  (`/sitemap.xml`) and an RSS entry (`/blog/rss.xml`).
+- **After going live:** add your site in Google Search Console and submit `https://yourdomain.com/sitemap.xml`.
+
 ## Login
 
 The username and password are set in `.env.local` (never commit or share this file):
@@ -23,8 +37,8 @@ npm run build
 npm start          # serves on port 3000 by default
 ```
 
-- **Keep the `content/` folder.** Saved text lives in `content/site.json`, with the last 30 versions in
-  `content/backups/`. Don't delete or overwrite it when you upload a new version of the code. The server
+- **Keep the `content/` folder.** Saved text lives in `content/site.json` (last 30 versions in
+  `content/backups/`), blog posts in `content/blog/`, and uploaded images in `content/uploads/`. Don't delete or overwrite it when you upload a new version of the code. The server
   needs permission to write to it. To store it elsewhere, set `CONTENT_DIR=/path/to/folder`.
 - **Use HTTPS.** The login cookie is only sent over HTTPS in production. If the site runs on plain http
   (not recommended), set `ADMIN_ALLOW_HTTP=true`.

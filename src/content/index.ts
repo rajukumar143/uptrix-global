@@ -1,4 +1,5 @@
 import { aboutDefaults } from "./about";
+import { blogDefaults } from "./blog";
 import { contactDefaults } from "./contact";
 import { crmDefaults, crmLayoutDefaults } from "./crm";
 import { homeDefaults } from "./home";
@@ -12,6 +13,7 @@ export const defaultContent = {
   pricing: pricingDefaults,
   about: aboutDefaults,
   contact: contactDefaults,
+  blog: blogDefaults,
 };
 
 export type SiteContent = typeof defaultContent;
@@ -29,6 +31,7 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   pricing: { title: "Pricing page", description: "Plans, prices, the comparison table and pricing FAQ. Prices also show on the CRM landing page.", paths: ["/crm/pricing", "/crm"] },
   about: { title: "About us page", description: "Your story, beliefs, roadmap and partners.", paths: ["/crm/about"] },
   contact: { title: "Contact us page", description: "Contact details, quick links and the contact form text.", paths: ["/crm/contact"] },
+  blog: { title: "Blog page text", description: "Headings, labels and the call to action around your blog posts. Write the posts in Blog posts.", paths: ["/blog"] },
 };
 
 export const pageKeys = Object.keys(defaultContent) as PageKey[];

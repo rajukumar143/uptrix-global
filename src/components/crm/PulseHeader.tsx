@@ -6,6 +6,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { CrmLayoutContent } from "@/content/crm";
 
+// A menu link is "current" on its own page and on pages below it (e.g. Blog on /blog/my-post)
+const isCurrent = (pathname: string, href: string) => href === pathname || (!href.includes("#") && href !== "/" && pathname.startsWith(`${href}/`));
+
 export default function PulseHeader({ content }: { content: CrmLayoutContent["header"] }) {
   const links = content.menuLinks.map((l) => ({ label: l.label, href: l.link || "#" }));
   const [open, setOpen] = useState(false);
@@ -44,8 +47,8 @@ export default function PulseHeader({ content }: { content: CrmLayoutContent["he
               <Link
                 key={i}
                 href={l.href}
-                aria-current={pathname === l.href ? "page" : undefined}
-                className={`hover:text-pulse ${pathname === l.href ? "text-pulse" : "text-[#2a2f4d]"}`}
+                aria-current={isCurrent(pathname, l.href) ? "page" : undefined}
+                className={`hover:text-pulse ${isCurrent(pathname, l.href) ? "text-pulse" : "text-[#2a2f4d]"}`}
               >
                 {l.label}
               </Link>
