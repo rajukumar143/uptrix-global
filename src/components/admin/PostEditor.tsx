@@ -392,7 +392,7 @@ export default function PostEditor({
                 className={`${input} mt-1.5`}
               />
             </label>
-            <p className="text-xs text-slate-500">Set a future date to schedule the post. It goes live within an hour of that time.</p>
+            <p className="text-xs text-slate-500">Set a future date to schedule the post. It goes live within a minute or two of that time.</p>
             {post.id && post.status === "published" && !isScheduled && (
               <a href={`/blog/${post.slug}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-indigo-700 hover:underline">
                 View live post ↗

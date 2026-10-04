@@ -6,8 +6,8 @@ import { getCategories, getPublishedPosts } from "@/lib/blog-store";
 import { getContent } from "@/lib/content-store";
 import { siteUrl } from "@/lib/site";
 
-// Re-check every hour so scheduled posts appear on time
-export const revalidate = 3600;
+// Re-check every minute so new and scheduled posts appear quickly
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = getContent().blog;

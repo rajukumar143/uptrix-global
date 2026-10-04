@@ -13,6 +13,10 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["600", "700", "800"],
 });
 
+// Hostinger CDN keeps copies of pages. Telling it to re-check every 60 seconds means changes saved
+// in the admin dashboard appear on the live site within about a minute.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   // Your live address (set SITE_URL in .env.local), so link previews on WhatsApp/LinkedIn use the right domain
   metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),

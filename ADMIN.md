@@ -9,7 +9,7 @@ Paste a screenshot straight into the text to upload it. **Preview** shows how th
 
 - **SEO panel:** set a focus keyword and watch the score and checklist update as you write. Aim for green
   (80+). The Google preview shows how the result will look in search.
-- **Publish** makes it live; **Save draft** keeps it private. Set a future publish date to schedule a post.
+- **Publish** makes it live; **Save draft** keeps it private. Set a future publish date to schedule a post (it appears within a couple of minutes of that time).
 - Images are automatically resized and converted to WebP, so pages stay fast.
 - Each post automatically gets SEO title and description tags, Open Graph tags (for sharing on LinkedIn and
   WhatsApp), Article and breadcrumb structured data, a table of contents, related articles, a sitemap entry

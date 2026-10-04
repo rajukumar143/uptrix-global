@@ -8,8 +8,8 @@ import { getContent } from "@/lib/content-store";
 import { markdownToText, readingMinutes, renderMarkdown, wordCount } from "@/lib/markdown";
 import { formatDate, siteUrl } from "@/lib/site";
 
-// Pages are built ahead of time; new posts are built on first visit; scheduled posts appear within the hour
-export const revalidate = 3600;
+// Pages are built ahead of time; new posts are built on first visit; changes and scheduled posts appear within a minute
+export const revalidate = 60;
 export const dynamicParams = true;
 
 export function generateStaticParams() {

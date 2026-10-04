@@ -6,7 +6,7 @@ import { container, eyebrow, h1 } from "@/components/crm/styles";
 import { categorySlug, getCategories, getPublishedPosts } from "@/lib/blog-store";
 import { getContent } from "@/lib/content-store";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 export const dynamicParams = true;
 
 export function generateStaticParams() {
