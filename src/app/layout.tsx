@@ -14,6 +14,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  // Your live address (set SITE_URL in .env.local), so link previews on WhatsApp/LinkedIn use the right domain
+  metadataBase: new URL(process.env.SITE_URL || "http://localhost:3000"),
   title: "Uptrix — HRMS & CRM for Growing Indian Businesses",
   description:
     "Uptrix offers HRMS and CRM software built for growing Indian businesses. Manage your people and your customers in one place.",
