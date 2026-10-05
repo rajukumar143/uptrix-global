@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PulseFooter from "@/components/crm/PulseFooter";
-import PulseHeader from "@/components/crm/PulseHeader";
+import Header from "@/components/site/Header";
 import { btnPrimary, container, eyebrow, h1, h2sm } from "@/components/crm/styles";
 import { formatPrice } from "@/content/pricing";
 import { getContent } from "@/lib/content-store";
@@ -49,7 +49,7 @@ export default function PricingPage() {
 
   return (
     <>
-      <PulseHeader content={all.crmLayout.header} />
+      <Header content={all.header} />
       <main>
         {/* Hero */}
         <section aria-labelledby="pricing-h" className={`${container} flex flex-col items-center gap-5 pt-[clamp(48px,8vw,96px)] pb-[clamp(36px,5vw,56px)] text-center`}>

@@ -32,7 +32,7 @@ export default async function AdminDashboard({ searchParams }: PageProps<"/admin
         {pageKeys.map((k) => (
           <li key={k}>
             <Link
-              href={`/admin/${k}`}
+              href={`/admin/pages/${k}`}
               className="flex h-full flex-col gap-1.5 rounded-xl border border-slate-200 bg-white p-5 transition hover:border-indigo-300 hover:shadow-sm"
             >
               <span className="text-base font-bold text-slate-900">{pageInfo[k].title}</span>

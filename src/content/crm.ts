@@ -304,23 +304,8 @@ export const crmDefaults = {
 
 export type CrmContent = typeof crmDefaults;
 
-// Menu, footer and shared bits used on every CRM page (/crm, /crm/pricing, /crm/about, /crm/contact)
+// Footer shared by the CRM pages, blog, case studies and video testimonials
 export const crmLayoutDefaults = {
-  header: {
-    badge: "Pulse",
-    menuLinks: [
-      { label: "Product", link: "/crm#product" },
-      { label: "Features", link: "/crm#features" },
-      { label: "Pricing", link: "/crm/pricing" },
-      { label: "About", link: "/crm/about" },
-      { label: "Blog", link: "/blog" },
-      { label: "Contact", link: "/crm/contact" },
-    ],
-    loginLabel: "Login",
-    loginLink: "/crm#demo",
-    demoButtonLabel: "Book a Demo",
-    demoButtonLink: "/crm#demo",
-  },
   footer: {
     tagline: "Uptrix Pulse is the connected CRM for leads, follow-ups and admissions.",
     columns: [
@@ -336,17 +321,18 @@ export const crmLayoutDefaults = {
       {
         heading: "Solutions",
         links: [
-          { label: "Education & coaching", link: "/crm#solutions" },
-          { label: "Admissions teams", link: "/crm#solutions" },
-          { label: "Multi-branch", link: "/crm#solutions" },
+          { label: "EduTech CRM", link: "/crm/edutech" },
+          { label: "Real Estate CRM", link: "/crm/real-estate" },
+          { label: "Uptrix HRMS", link: "/#hrms" },
         ],
       },
       {
         heading: "Resources",
         links: [
           { label: "Blog", link: "/blog" },
+          { label: "Case studies", link: "/case-studies" },
+          { label: "Video testimonials", link: "/video-testimonials" },
           { label: "FAQ", link: "/crm#faq" },
-          { label: "Migration assistance", link: "/crm#features" },
           { label: "Book a demo", link: "/crm#demo" },
         ],
       },

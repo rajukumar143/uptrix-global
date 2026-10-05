@@ -47,7 +47,7 @@ function humanize(key: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-const LONG_KEYS = /^(body|text|description|metaDescription|answer|quote|lead|detail|paragraphs|helpBoxText|mainCardBody|footnote|successBody|statLabel|tagline|address|office)$/;
+const LONG_KEYS = /^(body|intro|summary|challenge|solution|text|description|metaDescription|answer|quote|lead|detail|paragraphs|helpBoxText|mainCardBody|footnote|successBody|statLabel|tagline|address|office)$/;
 
 function itemTitle(v: Json, i: number) {
   if (typeof v === "string") return v || `Item ${i + 1}`;

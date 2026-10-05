@@ -2,6 +2,15 @@
 
 Edit the text on every page at **/admin**. Changes go live as soon as you press **Save changes**.
 
+## Menu, case studies and videos
+
+- **Top menu:** one menu is shared by every page. Edit it in **Page text → Top menu**: the Products drop-down
+  (Uptrix CRM with EduTech and Real Estate underneath, and Uptrix HRMS), the other links and the demo button.
+- **Case studies:** each story gets its own page at `/case-studies/<slug>`. The starter stories are marked
+  *Example* and hidden from Google. Replace them with real customers and turn off **Is example**.
+- **Video testimonials:** upload the video to YouTube and paste its link. Videos without a link stay hidden;
+  until there is one, the page shows "coming soon".
+
 ## Blog (for Google rankings)
 
 **Admin → Blog posts → + New post.** Write in the editor using the toolbar (H2, H3, bold, links, lists, images).

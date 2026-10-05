@@ -5,18 +5,6 @@ export const homeDefaults = {
     metaDescription:
       "Uptrix offers HRMS and CRM software built for growing Indian businesses. Manage your people and your customers in one place.",
   },
-  header: {
-    menuLinks: [
-      { label: "Home", link: "#top" },
-      { label: "HRMS", link: "#hrms" },
-      { label: "CRM", link: "#crm" },
-      { label: "About", link: "#about" },
-      { label: "Blog", link: "/blog" },
-      { label: "Contact", link: "#contact" },
-    ],
-    buttonLabel: "Book a Free Demo",
-    buttonLink: "#contact",
-  },
   heroSlides: [
     {
       eyebrow: "HRMS + CRM for Indian businesses",
@@ -225,13 +213,16 @@ export const homeDefaults = {
     productLinks: [
       { label: "HRMS", link: "#hrms" },
       { label: "CRM", link: "/crm" },
+      { label: "EduTech CRM", link: "/crm/edutech" },
+      { label: "Real Estate CRM", link: "/crm/real-estate" },
     ],
     companyHeading: "Company",
     companyLinks: [
       { label: "About", link: "#about" },
+      { label: "Case studies", link: "/case-studies" },
+      { label: "Video testimonials", link: "/video-testimonials" },
       { label: "Blog", link: "/blog" },
       { label: "Contact", link: "#contact" },
-      { label: "Careers", link: "#" },
     ],
     contactHeading: "Contact",
     email: "hello@uptrixglobal.com",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import SiteHeader from "@/components/home/SiteHeader";
+import Header from "@/components/site/Header";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
 import Testimonials from "@/components/home/Testimonials";
@@ -273,7 +273,7 @@ export default function Home() {
 
   return (
     <div className="overflow-x-clip">
-      <SiteHeader content={c.header} />
+      <Header content={getPageContent("header")} overlay />
       <main>
         <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
 

@@ -66,7 +66,7 @@ export async function resetPage(pageKey: string) {
   if (!isPageKey(pageKey)) return;
   await resetPageContent(pageKey);
   refreshSite();
-  redirect(`/admin/${pageKey}?reset=1`);
+  redirect(`/admin/pages/${pageKey}?reset=1`);
 }
 
 export async function restoreVersion(form: FormData) {

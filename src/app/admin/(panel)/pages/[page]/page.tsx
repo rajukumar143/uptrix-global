@@ -6,7 +6,7 @@ import type { Json } from "@/content/merge";
 import { requireAdmin } from "@/lib/admin-auth";
 import { getPageContent } from "@/lib/content-store";
 
-export default async function EditPage({ params, searchParams }: PageProps<"/admin/[page]">) {
+export default async function EditPage({ params, searchParams }: PageProps<"/admin/pages/[page]">) {
   await requireAdmin();
   const { page } = await params;
   const { reset } = await searchParams;

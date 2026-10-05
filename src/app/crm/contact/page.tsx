@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/crm/ContactForm";
 import PulseFooter from "@/components/crm/PulseFooter";
-import PulseHeader from "@/components/crm/PulseHeader";
+import Header from "@/components/site/Header";
 import { container, eyebrow, h1 } from "@/components/crm/styles";
 import { getContent } from "@/lib/content-store";
 
@@ -23,7 +23,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <PulseHeader content={all.crmLayout.header} />
+      <Header content={all.header} />
       <main>
         <section
           aria-labelledby="contact-h"
