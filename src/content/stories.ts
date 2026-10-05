@@ -133,6 +133,7 @@ export const videoTestimonialsDefaults = {
     intro: "Business owners, admissions heads and sales managers explain what changed after they moved to Uptrix.",
     playLabel: "Play video",
     viewAllLabel: "View all videos",
+    comingSoonLabel: "Video coming soon",
     emptyHeading: "Customer videos are coming soon",
     emptyBody: "We're recording stories with our customers. Meanwhile, read how teams use Uptrix in our case studies.",
     emptyButtonLabel: "Read case studies",
@@ -175,3 +176,50 @@ export function liveStudies(studies: CaseStudy[]) {
     .map((s) => ({ ...s, slug: studySlug(s) }))
     .filter((s) => s.title && s.slug && !seen.has(s.slug) && seen.add(s.slug));
 }
+
+// Written reviews (star rating + quote), shown in the "Customer stories" section on product pages
+export const reviewsDefaults = {
+  heading: "What customers say",
+  exampleLabel: "Example",
+  // Turn off "isExample" once a review is from a real customer. Product decides which pages show it.
+  items: [
+    {
+      isExample: true,
+      rating: 5,
+      quote: "Every enquiry now reaches a counsellor in minutes. We finally know which campaign brings admissions.",
+      name: "Admissions head",
+      role: "",
+      company: "Coaching institute, Hyderabad",
+      product: "EduTech CRM",
+    },
+    {
+      isExample: true,
+      rating: 5,
+      quote: "Portal leads get a call before they reach the next builder, and site visits don't get forgotten any more.",
+      name: "Sales manager",
+      role: "",
+      company: "Residential developer, Bengaluru",
+      product: "Real Estate CRM",
+    },
+    {
+      isExample: true,
+      rating: 5,
+      quote: "WhatsApp follow-ups and reminders run on their own. Our counsellors spend their time talking to parents.",
+      name: "Director",
+      role: "",
+      company: "School group, Pune",
+      product: "EduTech CRM",
+    },
+    {
+      isExample: true,
+      rating: 4,
+      quote: "Channel partners submit leads in the app now, so duplicate buyers are caught straight away.",
+      name: "Head of sales",
+      role: "",
+      company: "Real estate brokerage, Mumbai",
+      product: "Real Estate CRM",
+    },
+  ],
+};
+
+export type ReviewsContent = typeof reviewsDefaults;

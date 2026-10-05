@@ -6,7 +6,7 @@ import { headerDefaults } from "./header";
 import { homeDefaults } from "./home";
 import { edutechDefaults, realEstateDefaults } from "./industries";
 import { pricingDefaults } from "./pricing";
-import { caseStudiesDefaults, videoTestimonialsDefaults } from "./stories";
+import { caseStudiesDefaults, reviewsDefaults, videoTestimonialsDefaults } from "./stories";
 
 // Every editable page. The key is how the content is stored in content/site.json.
 export const defaultContent = {
@@ -17,6 +17,7 @@ export const defaultContent = {
   crmRealEstate: realEstateDefaults,
   caseStudies: caseStudiesDefaults,
   videoTestimonials: videoTestimonialsDefaults,
+  reviews: reviewsDefaults,
   pricing: pricingDefaults,
   about: aboutDefaults,
   contact: contactDefaults,
@@ -45,8 +46,13 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   },
   videoTestimonials: {
     title: "Video testimonials",
-    description: "Paste YouTube links of customer videos. Videos without a link stay hidden.",
+    description: "Paste YouTube links of customer videos. Until a product has a video, its pages show \"coming soon\" cards.",
     paths: ["/video-testimonials"],
+  },
+  reviews: {
+    title: "Reviews",
+    description: "Star ratings and quotes shown on the product pages. The product decides which pages show each review. Turn off \"Is example\" for real customers.",
+    paths: ["/crm", "/crm/edutech", "/crm/real-estate", "/"],
   },
   pricing: { title: "Pricing page", description: "Plans, prices, the comparison table and pricing FAQ. Prices also show on the CRM landing page.", paths: ["/crm/pricing", "/crm"] },
   about: { title: "About us page", description: "Your story, beliefs, roadmap and partners.", paths: ["/crm/about"] },
