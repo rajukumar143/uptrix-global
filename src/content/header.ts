@@ -22,8 +22,6 @@ export const headerDefaults = {
     },
   ],
   menuLinks: [
-    { label: "Video Testimonials", link: "/video-testimonials" },
-    { label: "Case Studies", link: "/case-studies" },
     { label: "Blog", link: "/blog" },
     { label: "Contact", link: "/crm/contact" },
   ],
