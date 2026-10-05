@@ -165,6 +165,28 @@ export default function CrmPage() {
           </div>
         </section>
 
+        {/* Same pipeline with Pulse */}
+        <section aria-labelledby="win-h" className="overflow-hidden border-t border-white/10 bg-pulse-night text-white">
+          <div className={`${container} flex flex-col gap-[clamp(28px,4vw,48px)] py-[clamp(48px,6vw,88px)]`}>
+            <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+              <div className="flex max-w-[560px] flex-col gap-3">
+                <p className="font-code text-xs tracking-[0.08em] text-[#5fe0ad] uppercase">{c.withPulse.eyebrow}</p>
+                <h2 id="win-h" className={h2sm}>
+                  {c.withPulse.heading}
+                </h2>
+              </div>
+              {c.withPulse.statValue && (
+                <div className="flex items-center gap-4 rounded-2xl border border-[rgba(34,176,125,0.35)] bg-[rgba(34,176,125,0.12)] px-5 py-3.5">
+                  <span className="text-[clamp(40px,4.5vw,54px)] leading-none font-extrabold tracking-[-0.04em] text-[#5fe0ad]">{c.withPulse.statValue}</span>
+                  <span className="max-w-[180px] text-[15px] leading-[1.35] font-semibold text-[#e3e4ff]">{c.withPulse.statLabel}</span>
+                </div>
+              )}
+            </div>
+            <LeakFunnel stages={c.withPulse.stages} leadsWord={c.withPulse.leadsWord} lostLabel={c.withPulse.lostLabel} tone="win" />
+            <p className="text-[13px] text-[#9a9ccc]">{c.withPulse.footnote}</p>
+          </div>
+        </section>
+
         {/* Before / after */}
         <section
           aria-labelledby="fix-h"

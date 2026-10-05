@@ -56,6 +56,24 @@ export const crmDefaults = {
     ],
     footnote: "Illustrative pipeline of 248 enquiries. Each drop-off is a lead your team paid for.",
   },
+  // Same design as "leakage", showing the pipeline once Pulse is in place
+  withPulse: {
+    eyebrow: "With Uptrix Pulse",
+    heading: "The same 248 enquiries, with Pulse",
+    statValue: "2.7x",
+    statLabel: "more enrollments from the same ad spend",
+    leadsWord: "leads",
+    lostLabel: "lost",
+    // "fix" is what stops the drop-off before that stage
+    stages: [
+      { name: "ENQUIRY", leads: 248, percent: 100, fix: "" },
+      { name: "CONTACTED", leads: 233, percent: 94, fix: "Auto-assigned in seconds" },
+      { name: "FOLLOW-UP", leads: 208, percent: 84, fix: "WhatsApp follow-ups on autopilot" },
+      { name: "COUNSELING", leads: 156, percent: 63, fix: "Reminders for every call-back" },
+      { name: "ADMISSION", leads: 104, percent: 42, fix: "Fees and documents tracked" },
+    ],
+    footnote: "Illustrative pipeline. Every recovered lead is ad spend that turns into revenue.",
+  },
   beforeAfter: {
     eyebrow: "How Pulse fixes this",
     heading: "One connected system from first enquiry to enrollment.",
