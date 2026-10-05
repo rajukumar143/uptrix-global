@@ -3,6 +3,7 @@ import PulseFaq from "@/components/crm/PulseFaq";
 import PulseFooter from "@/components/crm/PulseFooter";
 import { btnPrimary, container, eyebrow, h2 } from "@/components/crm/styles";
 import Header from "@/components/site/Header";
+import StoriesSection from "@/components/site/StoriesSection";
 import type { HeaderContent } from "@/content/header";
 import type { IndustryContent } from "@/content/industries";
 import type { CrmLayoutContent } from "@/content/crm";
@@ -161,36 +162,7 @@ export default function IndustryPage({ c, header, footer }: { c: IndustryContent
           </div>
         </section>
 
-        {/* Proof */}
-        {c.proof.heading && (
-          <section aria-labelledby="ind-proof-h">
-            <div className={`${container} py-[clamp(56px,8vw,96px)]`}>
-              <div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-pulse-soft p-[clamp(28px,4vw,48px)] md:flex-row md:items-center">
-                <div className="flex max-w-[620px] flex-col gap-3">
-                  <h2 id="ind-proof-h" className="text-[clamp(24px,2.6vw,32px)] leading-tight font-extrabold tracking-[-0.02em] text-balance">
-                    {c.proof.heading}
-                  </h2>
-                  <p className="text-base leading-relaxed text-pulse-muted">{c.proof.body}</p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {c.proof.caseStudiesLabel && (
-                    <Link href={c.proof.caseStudiesLink || "#"} className={btnPrimary}>
-                      {c.proof.caseStudiesLabel}
-                    </Link>
-                  )}
-                  {c.proof.videosLabel && (
-                    <Link
-                      href={c.proof.videosLink || "#"}
-                      className="rounded-xl border border-[#c9cbf3] bg-white px-6 py-4 text-base font-bold whitespace-nowrap text-pulse-ink hover:border-pulse"
-                    >
-                      ▶ {c.proof.videosLabel}
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+        <StoriesSection section={c.stories} />
 
         {/* FAQ */}
         <section aria-labelledby="ind-faq-h" className="border-t border-pulse-line bg-white">

@@ -56,13 +56,12 @@ export const edutechDefaults = {
       { title: "Admission confirmed", body: "Fees, documents and the enrolment are tracked to the end." },
     ],
   },
-  proof: {
+  stories: {
+    eyebrow: "Customer stories",
     heading: "See how institutes grow admissions with Uptrix",
-    body: "Read real stories from education teams and watch customers explain the difference in their own words.",
-    caseStudiesLabel: "Read case studies",
-    caseStudiesLink: "/case-studies",
-    videosLabel: "Watch video testimonials",
-    videosLink: "/video-testimonials",
+    intro: "Watch customers explain the difference and read how teams like yours use Uptrix.",
+    // Shows case studies and videos whose product contains this word. Leave empty to show all.
+    productFilter: "EduTech",
   },
   faq: {
     eyebrow: "FAQ",
@@ -141,13 +140,12 @@ export const realEstateDefaults: IndustryContent = {
       { title: "Booking closed", body: "Negotiation, booking amount and payments are tracked until registration." },
     ],
   },
-  proof: {
+  stories: {
+    eyebrow: "Customer stories",
     heading: "See how property teams sell more with Uptrix",
-    body: "Read real stories from builders and brokers and hear customers explain the results in their own words.",
-    caseStudiesLabel: "Read case studies",
-    caseStudiesLink: "/case-studies",
-    videosLabel: "Watch video testimonials",
-    videosLink: "/video-testimonials",
+    intro: "Watch customers explain the difference and read how teams like yours use Uptrix.",
+    // Shows case studies and videos whose product contains this word. Leave empty to show all.
+    productFilter: "Real Estate",
   },
   faq: {
     eyebrow: "FAQ",

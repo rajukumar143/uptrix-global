@@ -256,6 +256,13 @@ export const crmDefaults = {
     secondaryButtonLabel: "Contact Sales",
     secondaryButtonLink: "/crm/contact",
   },
+  stories: {
+    eyebrow: "Customer stories",
+    heading: "Teams that never lose a lead",
+    intro: "Watch customers explain the difference and read how teams like yours use Uptrix CRM.",
+    // Shows case studies and videos whose product contains this word. Leave empty to show all.
+    productFilter: "CRM",
+  },
   faq: {
     eyebrow: "FAQ",
     heading: "Questions, answered.",

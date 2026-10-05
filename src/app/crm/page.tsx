@@ -10,6 +10,7 @@ import PulseDemoForm from "@/components/crm/PulseDemoForm";
 import PulseFaq from "@/components/crm/PulseFaq";
 import PulseFooter from "@/components/crm/PulseFooter";
 import Header from "@/components/site/Header";
+import StoriesSection from "@/components/site/StoriesSection";
 import Shot from "@/components/crm/Shot";
 import { btnGhost, btnPrimary, container, eyebrow, h2, h2sm } from "@/components/crm/styles";
 import WorkflowTour from "@/components/crm/WorkflowTour";
@@ -543,6 +544,8 @@ export default function CrmPage() {
             </ul>
           </div>
         </section>
+
+        <StoriesSection section={c.stories} />
 
         {/* FAQ */}
         <section id="faq" aria-labelledby="faq-h" className="scroll-mt-18 border-t border-pulse-line bg-white">

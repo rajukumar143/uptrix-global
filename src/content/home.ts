@@ -176,6 +176,13 @@ export const homeDefaults = {
       { quote: "Having HR and CRM on one platform keeps our whole team aligned.", name: "Arjun Nair", role: "CEO", company: "Indus Fintech", city: "Mumbai" },
     ],
   },
+  stories: {
+    eyebrow: "Customer stories",
+    heading: "Growing businesses run on Uptrix",
+    intro: "Watch customers explain the difference and read how teams use Uptrix HRMS and CRM.",
+    // Shows case studies and videos whose product contains this word. Leave empty to show all.
+    productFilter: "",
+  },
   faq: {
     eyebrow: "FAQ",
     heading: "Frequently Asked Questions",

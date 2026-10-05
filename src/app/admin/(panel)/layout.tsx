@@ -21,6 +21,9 @@ export default async function PanelLayout({ children }: LayoutProps<"/admin">) {
           <Link href="/admin/blog" className="rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-100">
             Blog posts
           </Link>
+          <Link href="/admin/leads" className="rounded-lg px-3 py-2 font-semibold text-slate-800 hover:bg-slate-100">
+            Leads
+          </Link>
           <p className="mt-3 px-3 text-xs font-bold tracking-wider text-slate-400 uppercase">Page text</p>
           <nav aria-label="Pages" className="flex flex-row flex-wrap gap-1 md:flex-col">
             {pageKeys.map((k) => (

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Header from "@/components/site/Header";
+import StoriesSection from "@/components/site/StoriesSection";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
 import Testimonials from "@/components/home/Testimonials";
@@ -509,6 +510,8 @@ export default function Home() {
             <Testimonials content={c.testimonials} />
           </Reveal>
         </section>
+
+        <StoriesSection section={c.stories} />
 
         {/* FAQ */}
         <section aria-labelledby="faq-heading" className={`bg-white ${sectionPad}`}>
