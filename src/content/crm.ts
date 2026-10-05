@@ -41,6 +41,7 @@ export const crmDefaults = {
     ],
   },
   leakage: {
+    tabLabel: "Without Pulse",
     eyebrow: "Lead leakage",
     heading: "This is your pipeline without Pulse",
     statValue: "85%",
@@ -58,6 +59,7 @@ export const crmDefaults = {
   },
   // Same design as "leakage", showing the pipeline once Pulse is in place
   withPulse: {
+    tabLabel: "With Pulse",
     eyebrow: "With Uptrix Pulse",
     heading: "The same 248 enquiries, with Pulse",
     statValue: "2.7x",
