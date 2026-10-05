@@ -2,11 +2,40 @@
 
 import { Children, useEffect, useRef, useState, type ReactNode } from "react";
 
-const tabDots = ["bg-[#ff8a5c]", "bg-[#5fe0ad]"];
+const tabDots = ["bg-[#ff8a5c]", "bg-[#22b07d]"];
+const themes = {
+  dark: {
+    tabs: "border-white/12 bg-white/[0.05]",
+    tabOn: "bg-white text-pulse-night",
+    tabOff: "text-[#c9cbf0] hover:text-white",
+    arrow: "border-white/20 text-white hover:border-white/60",
+    dotOn: "bg-white",
+    dotOff: "bg-white/30",
+  },
+  light: {
+    tabs: "border-pulse-line bg-pulse-bg",
+    tabOn: "bg-pulse-night text-white",
+    tabOff: "text-pulse-muted hover:text-pulse-ink",
+    arrow: "border-[#d9dbe6] bg-white text-pulse-ink hover:border-pulse",
+    dotOn: "bg-pulse-ink",
+    dotOff: "bg-[#d4d7e4]",
+  },
+};
 const AUTOPLAY_MS = 9000;
 
-/** Slides between the pipeline "without Pulse" and "with Pulse". Moves on by itself until the visitor takes over. */
-export default function PipelineCarousel({ labels, children }: { labels: string[]; children: ReactNode }) {
+/** Slides between "without Pulse" and "with Pulse" views. Moves on by itself until the visitor takes over. */
+export default function PipelineCarousel({
+  labels,
+  children,
+  theme = "dark",
+  id = "pipe",
+}: {
+  labels: string[];
+  children: ReactNode;
+  theme?: keyof typeof themes;
+  id?: string;
+}) {
+  const t = themes[theme];
   const slides = Children.toArray(children);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -43,18 +72,18 @@ export default function PipelineCarousel({ labels, children }: { labels: string[
       className="flex flex-col gap-[clamp(24px,3vw,36px)]"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div role="tablist" aria-label="Pipeline view" className="flex rounded-full border border-white/12 bg-white/[0.05] p-1">
+        <div role="tablist" aria-label="Pipeline view" className={`flex rounded-full border p-1 ${t.tabs}`}>
           {labels.map((l, i) => (
             <button
               key={i}
               type="button"
               role="tab"
-              id={`pipe-tab-${i}`}
+              id={`${id}-tab-${i}`}
               aria-selected={index === i}
-              aria-controls={`pipe-slide-${i}`}
+              aria-controls={`${id}-slide-${i}`}
               onClick={() => go(i)}
               className={`flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
-                index === i ? "bg-white text-pulse-night" : "text-[#c9cbf0] hover:text-white"
+                index === i ? t.tabOn : t.tabOff
               }`}
             >
               <span aria-hidden className={`h-2 w-2 rounded-full ${tabDots[i % tabDots.length]}`} />
@@ -69,7 +98,7 @@ export default function PipelineCarousel({ labels, children }: { labels: string[
               type="button"
               aria-label={d < 0 ? "Previous" : "Next"}
               onClick={() => go(index + d)}
-              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-white/60"
+              className={`grid h-11 w-11 cursor-pointer place-items-center rounded-full border transition-colors ${t.arrow}`}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d={d < 0 ? "m15 18-6-6 6-6" : "m9 18 6-6-6-6"} />
@@ -84,9 +113,9 @@ export default function PipelineCarousel({ labels, children }: { labels: string[
           {slides.map((s, i) => (
             <div
               key={i}
-              id={`pipe-slide-${i}`}
+              id={`${id}-slide-${i}`}
               role="tabpanel"
-              aria-labelledby={`pipe-tab-${i}`}
+              aria-labelledby={`${id}-tab-${i}`}
               aria-hidden={index !== i}
               inert={index !== i}
               className="w-full shrink-0 px-1"
@@ -99,7 +128,7 @@ export default function PipelineCarousel({ labels, children }: { labels: string[
 
       <div className="flex justify-center gap-2" aria-hidden>
         {slides.map((_, i) => (
-          <span key={i} className={`h-1.5 rounded-full transition-all duration-300 ${index === i ? "w-8 bg-white" : "w-1.5 bg-white/30"}`} />
+          <span key={i} className={`h-1.5 rounded-full transition-all duration-300 ${index === i ? `w-8 ${t.dotOn}` : `w-1.5 ${t.dotOff}`}`} />
         ))}
       </div>
     </div>

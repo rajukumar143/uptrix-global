@@ -97,50 +97,108 @@ export default function CrmPage() {
           <HeroShots tabs={c.hero.screenshotTabs} address={c.hero.browserAddress} labelPrefix={c.hero.screenshotLabelPrefix} />
         </section>
 
-        {/* Problem */}
-        <section aria-labelledby="problem-h" className="border-t border-pulse-line bg-white">
-          <div
-            className={`${container} grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-center gap-[clamp(32px,4vw,56px)] py-[clamp(48px,6vw,80px)]`}
-          >
-            <div className="flex flex-col gap-[18px]">
-              <p className="font-code text-xs tracking-[0.08em] text-[#e0457b] uppercase">{c.problem.eyebrow}</p>
-              <h2 id="problem-h" className="text-[clamp(30px,3.4vw,42px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance">
-                {c.problem.heading}
-              </h2>
-              <p className="max-w-[440px] text-base leading-relaxed text-pretty text-pulse-muted">{c.problem.body}</p>
-              <div className="mt-1.5 flex flex-col gap-3.5 rounded-[20px] border border-dashed border-[#d4d7e4] bg-pulse-bg p-[clamp(18px,2.4vw,24px)]">
-                <span className="font-code text-[11px] tracking-[0.08em] text-pulse-faint uppercase">{c.problem.boxTitle}</span>
-                <div className="grid grid-cols-2 gap-3.5">
-                  {c.problem.leadPlaces.map((l, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col gap-1 rounded-[14px] border border-pulse-line bg-white px-4 py-3.5 shadow-[0_12px_24px_-16px_rgba(14,19,48,0.25)]"
-                    >
-                      <span className={`text-sm font-extrabold ${pick(leadPlaceColors, i)}`}>{l.title}</span>
-                      <span className="text-xs font-semibold text-pulse-faint">{l.detail}</span>
+        {/* Problem / how Pulse fixes it */}
+        <section aria-label={`${c.problem.tabLabel} / ${c.solution.tabLabel}`} className="border-t border-pulse-line bg-white">
+          <div className={`${container} py-[clamp(48px,6vw,80px)]`}>
+            <PipelineCarousel labels={[c.problem.tabLabel, c.solution.tabLabel]} theme="light" id="fix">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-center gap-[clamp(32px,4vw,56px)]">
+                <div className="flex flex-col gap-[18px]">
+                  <p className="font-code text-xs tracking-[0.08em] text-[#e0457b] uppercase">{c.problem.eyebrow}</p>
+                  <h2 id="problem-h" className="text-[clamp(30px,3.4vw,42px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance">
+                    {c.problem.heading}
+                  </h2>
+                  <p className="max-w-[440px] text-base leading-relaxed text-pretty text-pulse-muted">{c.problem.body}</p>
+                  <div className="mt-1.5 flex flex-col gap-3.5 rounded-[20px] border border-dashed border-[#d4d7e4] bg-pulse-bg p-[clamp(18px,2.4vw,24px)]">
+                    <span className="font-code text-[11px] tracking-[0.08em] text-pulse-faint uppercase">{c.problem.boxTitle}</span>
+                    <div className="grid grid-cols-2 gap-3.5">
+                      {c.problem.leadPlaces.map((l, i) => (
+                        <div
+                          key={i}
+                          className="flex flex-col gap-1 rounded-[14px] border border-pulse-line bg-white px-4 py-3.5 shadow-[0_12px_24px_-16px_rgba(14,19,48,0.25)]"
+                        >
+                          <span className={`text-sm font-extrabold ${pick(leadPlaceColors, i)}`}>{l.title}</span>
+                          <span className="text-xs font-semibold text-pulse-faint">{l.detail}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <span className="flex items-center gap-2 text-[13px] font-bold text-[#c42a62]">
-                  <span aria-hidden className="h-2 w-2 rounded-full bg-[#e0457b]" />
-                  {c.problem.boxFooter}
-                </span>
-              </div>
-            </div>
-            <ol className="m-0 flex list-none flex-col border-t border-pulse-line p-0">
-              {c.problem.problems.map((pr, i) => (
-                <li
-                  key={i}
-                  className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-3 border-b border-pulse-line py-[13px] pr-2 transition-[padding] duration-200 hover:pl-2"
-                >
-                  <span className="text-xl leading-[1.2] font-extrabold tracking-[-0.03em] text-[#e8c5d2]">{n2(i)}</span>
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-[17px] font-extrabold tracking-[-0.01em]">{pr.title}</h3>
-                    <p className="text-sm leading-[1.45] text-pulse-subtle">{pr.detail}</p>
+                    <span className="flex items-center gap-2 text-[13px] font-bold text-[#c42a62]">
+                      <span aria-hidden className="h-2 w-2 rounded-full bg-[#e0457b]" />
+                      {c.problem.boxFooter}
+                    </span>
                   </div>
-                </li>
-              ))}
-            </ol>
+                </div>
+                <ol className="m-0 flex list-none flex-col border-t border-pulse-line p-0">
+                  {c.problem.problems.map((pr, i) => (
+                    <li
+                      key={i}
+                      className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-3 border-b border-pulse-line py-[13px] pr-2 transition-[padding] duration-200 hover:pl-2"
+                    >
+                      <span className="text-xl leading-[1.2] font-extrabold tracking-[-0.03em] text-[#e8c5d2]">{n2(i)}</span>
+                      <div className="flex flex-col gap-1">
+                        <h3 className="text-[17px] font-extrabold tracking-[-0.01em]">{pr.title}</h3>
+                        <p className="text-sm leading-[1.45] text-pulse-subtle">{pr.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-center gap-[clamp(32px,4vw,56px)]">
+                <div className="flex flex-col gap-[18px]">
+                  <p className="font-code text-xs tracking-[0.08em] text-[#11744f] uppercase">{c.solution.eyebrow}</p>
+                  <h2 id="solution-h" className="text-[clamp(30px,3.4vw,42px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance">
+                    {c.solution.heading}
+                  </h2>
+                  <p className="max-w-[440px] text-base leading-relaxed text-pretty text-pulse-muted">{c.solution.body}</p>
+                  <div className="mt-1.5 flex flex-col gap-3.5 rounded-[20px] border border-[#bfe9d6] bg-[#f1fbf6] p-[clamp(18px,2.4vw,24px)]">
+                    <span className="font-code text-[11px] tracking-[0.08em] text-[#3f8f6c] uppercase">{c.solution.boxTitle}</span>
+                    <div className="flex items-center gap-3 rounded-[14px] bg-pulse-night px-4 py-3.5 text-white shadow-[0_16px_30px_-18px_rgba(14,19,48,0.6)]">
+                      <span aria-hidden className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#22b07d] text-base font-extrabold">
+                        ✓
+                      </span>
+                      <span className="flex flex-col">
+                        <span className="text-[15px] font-extrabold">{c.solution.hubTitle}</span>
+                        <span className="text-xs font-semibold text-[#b8baff]">{c.solution.hubDetail}</span>
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3.5">
+                      {c.solution.leadPlaces.map((l, i) => (
+                        <div
+                          key={i}
+                          className="flex flex-col gap-1 rounded-[14px] border border-[#d5efe2] bg-white px-4 py-3.5 shadow-[0_12px_24px_-16px_rgba(14,19,48,0.25)]"
+                        >
+                          <span className="flex items-center gap-1.5 text-sm font-extrabold text-[#11744f]">
+                            <span aria-hidden className="text-xs">
+                              ✓
+                            </span>
+                            {l.title}
+                          </span>
+                          <span className="text-xs font-semibold text-pulse-faint">{l.detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <span className="flex items-center gap-2 text-[13px] font-bold text-[#11744f]">
+                      <span aria-hidden className="h-2 w-2 rounded-full bg-[#22b07d]" />
+                      {c.solution.boxFooter}
+                    </span>
+                  </div>
+                </div>
+                <ol className="m-0 flex list-none flex-col border-t border-pulse-line p-0">
+                  {c.solution.solutions.map((so, i) => (
+                    <li
+                      key={i}
+                      className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-3 border-b border-pulse-line py-[13px] pr-2 transition-[padding] duration-200 hover:pl-2"
+                    >
+                      <span className="text-xl leading-[1.2] font-extrabold tracking-[-0.03em] text-[#9fdcc0]">{n2(i)}</span>
+                      <div className="flex flex-col gap-1">
+                        <h3 className="text-[17px] font-extrabold tracking-[-0.01em]">{so.title}</h3>
+                        <p className="text-sm leading-[1.45] text-pulse-subtle">{so.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </PipelineCarousel>
           </div>
         </section>
 

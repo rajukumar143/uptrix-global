@@ -19,6 +19,7 @@ export const crmDefaults = {
     screenshotLabelPrefix: "Uptrix CRM screenshot —",
   },
   problem: {
+    tabLabel: "Without Pulse",
     eyebrow: "The problem",
     heading: "Your leads are growing. So are the problems.",
     body: "When leads live in spreadsheets, phones and chat groups, admissions slip through the gaps.",
@@ -38,6 +39,32 @@ export const crmDefaults = {
       { title: "Admissions are hard to track", detail: "No clear view of where each student is in the process." },
       { title: "Spend is disconnected", detail: "Marketing budget is not linked to actual enrollments." },
       { title: "Branches run separately", detail: "Each location reports differently, if at all." },
+    ],
+  },
+  // Same layout as "problem", showing how Pulse fixes each point
+  solution: {
+    tabLabel: "With Pulse",
+    eyebrow: "The fix",
+    heading: "One CRM. Every lead. No gaps.",
+    body: "Pulse brings every enquiry, call and chat into one place, so nothing slips through and everyone works from the same view.",
+    boxTitle: "Where your leads live with Pulse",
+    hubTitle: "Uptrix Pulse",
+    hubDetail: "One record for every lead",
+    leadPlaces: [
+      { title: "Spreadsheets", detail: "Imported once, kept in one list" },
+      { title: "WhatsApp", detail: "Every chat saved on the lead" },
+      { title: "Calls", detail: "Logged for the whole team" },
+      { title: "Ad platforms", detail: "Leads arrive with their source" },
+    ],
+    boxFooter: "One view of every lead",
+    solutions: [
+      { title: "Every lead has an owner", detail: "Enquiries are captured and assigned automatically, in seconds." },
+      { title: "Follow-ups happen on time", detail: "Reminders and WhatsApp nudges go out before a lead goes cold." },
+      { title: "One shared pipeline", detail: "Every counselor works from the same live list." },
+      { title: "Full counselor visibility", detail: "See who called, who followed up and what happened." },
+      { title: "Admissions tracked end to end", detail: "Each student's stage, documents and fees in one place." },
+      { title: "Spend linked to enrollments", detail: "See the cost of every enrollment, campaign by campaign." },
+      { title: "All branches in one view", detail: "Every location on the same report, in real time." },
     ],
   },
   leakage: {
