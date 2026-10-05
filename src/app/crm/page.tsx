@@ -11,6 +11,7 @@ import PulseDemoForm from "@/components/crm/PulseDemoForm";
 import PulseFaq from "@/components/crm/PulseFaq";
 import PulseFooter from "@/components/crm/PulseFooter";
 import Header from "@/components/site/Header";
+import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
 import Shot from "@/components/crm/Shot";
 import { btnGhost, btnPrimary, container, eyebrow, h2, h2sm } from "@/components/crm/styles";
@@ -96,6 +97,8 @@ export default function CrmPage() {
           </div>
           <HeroShots tabs={c.hero.screenshotTabs} address={c.hero.browserAddress} labelPrefix={c.hero.screenshotLabelPrefix} />
         </section>
+
+        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} />
 
         {/* Problem / how Pulse fixes it */}
         <section aria-label={`${c.problem.tabLabel} / ${c.solution.tabLabel}`} className="border-t border-pulse-line bg-white">

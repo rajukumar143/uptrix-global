@@ -18,6 +18,11 @@ export const crmDefaults = {
     screenshotTabs: ["Dashboard", "Leads", "Follow-ups", "Analytics"],
     screenshotLabelPrefix: "Uptrix CRM screenshot —",
   },
+  // Client names scrolling under the hero (same as the home page)
+  trustBar: {
+    heading: "Trusted by institutes across India",
+    clientNames: ["Nexora", "Vistara", "BrightPath", "Kaveri Foods", "Sarthi", "Indus Fintech", "Tarang", "Meridian", "Orbit", "Saffron Labs"],
+  },
   problem: {
     tabLabel: "Without Pulse",
     eyebrow: "The problem",

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Header from "@/components/site/Header";
+import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
@@ -12,7 +13,6 @@ import { ArrowRight, Icon } from "@/components/home/icons";
 import { getPageContent } from "@/lib/content-store";
 
 // Client logo colours, by position. Names come from the admin dashboard.
-const logoColors = ["#4F46E5", "#0284C7", "#D97706", "#16A34A", "#DC2626", "#7C3AED", "#DB2777", "#0D9488", "#EA580C", "#CA8A04"];
 
 // Icons for each card, by position (they repeat if more cards are added in the admin dashboard)
 const hrmsIcons = [
@@ -270,7 +270,6 @@ function ProductCard({
 export default function Home() {
   const c = getPageContent("home");
   const year = new Date().getFullYear();
-  const logos = c.trustBar.clientNames.filter(Boolean);
 
   return (
     <div className="overflow-x-clip">
@@ -278,34 +277,7 @@ export default function Home() {
       <main>
         <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
 
-        {/* Trust bar */}
-        <section aria-labelledby="trust-heading" className="border-b border-[#EEF1F6] bg-white">
-          <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-12 gap-y-6 px-6 py-9">
-            <div className="flex flex-[0_1_240px] flex-col gap-2.5">
-              <Image src="/logo-dark.png" alt="Uptrix" width={756} height={235} className="h-8 w-auto self-start" />
-              <h2 id="trust-heading" className="font-display text-base leading-snug font-bold text-slate-900">
-                {c.trustBar.heading}
-              </h2>
-            </div>
-            <div className="pause-on-hover min-w-0 flex-[1_1_400px] overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-              <ul aria-label="Client logos" className="animate-marquee flex w-max gap-14 px-7 py-2.5">
-                {[...logos, ...logos].map((l, i) => (
-                  <li
-                    key={i}
-                    aria-hidden={i >= logos.length}
-                    className="logo-item flex flex-none cursor-default items-center gap-2.5 text-slate-400 transition-colors duration-300"
-                    style={{ ["--hover" as string]: pick(logoColors, i % logos.length) }}
-                  >
-                    <span className="grid h-6.5 w-6.5 flex-none place-items-center rounded-lg bg-current">
-                      <span className="font-display text-[13px] leading-none font-extrabold text-white">{l[0]}</span>
-                    </span>
-                    <span className="font-display text-[17px] leading-none font-bold whitespace-nowrap">{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} />
 
         {/* HRMS overview */}
         <section id="hrms" aria-labelledby="hrms-heading" className="scroll-mt-18 bg-slate-50 pt-[clamp(64px,12vw,112px)] pb-4">
