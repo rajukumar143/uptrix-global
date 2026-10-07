@@ -12,8 +12,8 @@
   --color-navy: #0b1433;
   --color-navy-deep: #070d24;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', var(--font-inter, ui-sans-serif), system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', var(--font-jakarta, ui-sans-serif), system-ui, sans-serif;
 
   /* Uptrix Pulse (CRM landing page) */
   --color-pulse: #3b3fd4;
@@ -26,8 +26,8 @@
   --color-pulse-muted: #4a5072;
   --color-pulse-subtle: #5a6080;
   --color-pulse-faint: #7a7f99;
-  --font-pulse: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-code: var(--font-jetbrains), ui-monospace, monospace;
+  --font-pulse: 'Manrope', var(--font-manrope, ui-sans-serif), system-ui, sans-serif;
+  --font-code: 'JetBrains Mono', var(--font-jetbrains, ui-monospace), monospace;
 }
 
 html {
@@ -40,6 +40,30 @@ body {
   font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar across Chrome, Safari, Edge, Firefox for carousels and no-scrollbar elements */
+.no-scrollbar,
+[data-no-scrollbar="true"],
+.carousel-track,
+[data-carousel="track"],
+.overflow-x-auto {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox and modern Chrome/Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.no-scrollbar *::-webkit-scrollbar,
+[data-no-scrollbar="true"]::-webkit-scrollbar,
+.carousel-track::-webkit-scrollbar,
+[data-carousel="track"]::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar,
+::-webkit-scrollbar:horizontal {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
 }
 
 :focus-visible {

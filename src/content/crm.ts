@@ -217,6 +217,8 @@ export const crmDefaults = {
         body: "Capture enquiries from forms, ads and walk-ins, then search, filter and bookmark the leads that matter most.",
         points: ["Lead source and status on every record", "Assign to counselors automatically or manually", "Search, filters and bookmarked leads", "Full lead history in one timeline"],
         screenshotLabel: "Screenshot — Leads list & filters",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: [] as string[],
       },
       {
@@ -225,6 +227,8 @@ export const crmDefaults = {
         body: "A clear pipeline shows where every student is, so nothing stalls between counseling and enrollment.",
         points: ["Stage-by-stage pipeline view", "Customised fields for your own process", "See stuck leads at a glance"],
         screenshotLabel: "Screenshot — Admissions pipeline",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: ["New", "Contacted", "Follow-up", "Counseling", "Application", "Enrolled"],
       },
       {
@@ -233,6 +237,8 @@ export const crmDefaults = {
         body: "Know who owns each lead, which follow-ups are due and how each counselor converts.",
         points: ["Counselor ownership of leads", "Follow-ups and counseling activity", "Admissions and conversion by counselor"],
         screenshotLabel: "Screenshot — Counsellor view",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: [] as string[],
       },
       {
@@ -241,6 +247,8 @@ export const crmDefaults = {
         body: "Reach leads on the channel they reply to, and keep every message attached to the lead record.",
         points: ["WhatsApp, SMS and email integrations", "Call and chat support", "Conversation history on the lead"],
         screenshotLabel: "Screenshot — WhatsApp / SMS / email",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: [] as string[],
       },
       {
@@ -249,6 +257,8 @@ export const crmDefaults = {
         body: "Keep the student journey going after enrollment with fee and batch management in the same system.",
         points: ["Fee management and payment tracking", "Outstanding amounts at a glance", "Batch management for courses"],
         screenshotLabel: "Screenshot — Fees & batches",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: [] as string[],
       },
       {
@@ -257,6 +267,8 @@ export const crmDefaults = {
         body: "Work logs and attendance show how your team spends its day, without separate tools.",
         points: ["Employee work logs", "Employee attendance", "Counselor and team activity"],
         screenshotLabel: "Screenshot — Work logs & attendance",
+        videoUrl: "",
+        youtubeId: "",
         pipelineStages: [] as string[],
       },
     ],

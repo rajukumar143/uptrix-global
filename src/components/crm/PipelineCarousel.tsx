@@ -21,7 +21,7 @@ const themes = {
     dotOff: "bg-[#d4d7e4]",
   },
 };
-const AUTOPLAY_MS = 9000;
+const AUTOPLAY_MS = 5000;
 
 /** Slides between "without Pulse" and "with Pulse" views. Moves on by itself until the visitor takes over. */
 export default function PipelineCarousel({
@@ -39,19 +39,17 @@ export default function PipelineCarousel({
   const slides = Children.toArray(children);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [userPicked, setUserPicked] = useState(false);
   const touchX = useRef<number | null>(null);
 
   const go = (i: number) => {
-    setUserPicked(true);
     setIndex((i + slides.length) % slides.length);
   };
 
   useEffect(() => {
-    if (paused || userPicked || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setTimeout(() => setIndex((i) => (i + 1) % slides.length), AUTOPLAY_MS);
     return () => clearTimeout(t);
-  }, [index, paused, userPicked, slides.length]);
+  }, [index, paused, slides.length]);
 
   return (
     <div
@@ -69,7 +67,7 @@ export default function PipelineCarousel({
         if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
         touchX.current = null;
       }}
-      className="flex flex-col gap-[clamp(24px,3vw,36px)]"
+      className="flex flex-col gap-[clamp(18px,2.4vw,28px)]"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div role="tablist" aria-label="Pipeline view" className={`flex rounded-full border p-1 ${t.tabs}`}>

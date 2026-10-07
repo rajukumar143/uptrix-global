@@ -30,6 +30,14 @@ export default function Testimonials({ content }: { content: HomeContent["testim
   const ti = Math.min(start, maxStart);
   const setT = (n: number) => setStart(Math.max(0, Math.min(maxStart, n)));
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const interval = setInterval(() => {
+      setStart((prev) => (prev >= maxStart ? 0 : prev + 1));
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [maxStart]);
+
   const navBtn =
     "grid h-12 w-12 cursor-pointer place-items-center rounded-full border border-slate-200 bg-white text-slate-900 transition hover:border-slate-900 hover:bg-slate-900 hover:text-white disabled:cursor-default disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:bg-white disabled:hover:text-slate-900";
 

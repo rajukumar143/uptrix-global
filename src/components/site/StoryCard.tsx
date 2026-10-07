@@ -21,7 +21,17 @@ function alreadyFilled() {
  * A case study card. "Read the story" opens a short form in a pop-up; once it's sent the story opens.
  * Visitors who filled it in before go straight to the story.
  */
-export default function StoryCard({ study: s, index, text }: { study: CaseStudy; index: number; text: CaseStudiesContent["page"] }) {
+export default function StoryCard({
+  study: s,
+  index,
+  text,
+  dark = false,
+}: {
+  study: CaseStudy;
+  index: number;
+  text: CaseStudiesContent["page"];
+  dark?: boolean;
+}) {
   const href = `/case-studies/${s.slug}`;
   const accent = accents[index % accents.length];
   const router = useRouter();
@@ -63,18 +73,22 @@ export default function StoryCard({ study: s, index, text }: { study: CaseStudy;
       <Link
         href={href}
         onClick={open}
-        className="group flex h-full flex-col overflow-hidden rounded-3xl border border-pulse-line bg-white shadow-[0_18px_40px_-30px_rgba(14,19,48,0.35)] transition-transform duration-200 hover:-translate-y-1"
+        className={`group flex h-full flex-col overflow-hidden rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 ${
+          dark
+            ? "border-white/12 bg-[#12163b] text-white shadow-[0_25px_60px_-20px_rgba(0,0,0,0.6)] hover:border-pulse/70 hover:shadow-[0_25px_60px_-15px_rgba(91,95,240,0.35)] ring-1 ring-white/5"
+            : "border-pulse-line bg-white shadow-[0_18px_40px_-30px_rgba(14,19,48,0.35)]"
+        }`}
       >
-        <div className="relative flex flex-col gap-5 bg-pulse-night p-7 text-white">
+        <div className={`relative flex flex-col gap-5 p-7 ${dark ? "bg-[#0a0d24] border-b border-white/10" : "bg-pulse-night text-white"}`}>
           <div aria-hidden className="absolute inset-x-0 top-0 h-1" style={{ background: accent }} />
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
-            <span className="rounded-full bg-white/10 px-3 py-1">{s.product}</span>
+            <span className={`rounded-full px-3 py-1 ${dark ? "bg-white/15 text-white" : "bg-white/10 text-white"}`}>{s.product}</span>
             {s.isExample && <span className="rounded-full border border-white/25 px-3 py-1 text-[#cfd0f0]">{text.exampleLabel}</span>}
           </div>
           <div className="grid grid-cols-3 gap-3">
             {s.metrics.slice(0, 3).map((m, j) => (
               <div key={j} className="flex flex-col gap-1">
-                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: j === 0 ? "#fff" : "#cfd0f0" }}>
+                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: j === 0 ? (dark ? "#7ff0c2" : "#fff") : "#cfd0f0" }}>
                   {m.value}
                 </span>
                 <span className="text-xs leading-snug text-[#a9abd6]">{m.label}</span>
@@ -83,13 +97,13 @@ export default function StoryCard({ study: s, index, text }: { study: CaseStudy;
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-3 p-7">
-          <p className="text-sm font-semibold text-pulse-faint">
+          <p className={`text-sm font-semibold ${dark ? "text-[#9a9ccc]" : "text-pulse-faint"}`}>
             {s.client}
             {s.location && ` · ${s.location}`}
           </p>
-          <h3 className="text-xl leading-snug font-extrabold tracking-[-0.01em] text-balance text-pulse-ink group-hover:text-pulse">{s.title}</h3>
-          <p className="text-[15px] leading-[1.6] text-pulse-subtle">{s.summary}</p>
-          <span className="mt-auto pt-2 text-[15px] font-bold text-pulse">{text.readMoreLabel} →</span>
+          <h3 className={`text-xl leading-snug font-extrabold tracking-[-0.01em] text-balance transition-colors ${dark ? "text-white group-hover:text-[#a5a7ff]" : "text-pulse-ink group-hover:text-pulse"}`}>{s.title}</h3>
+          <p className={`text-[15px] leading-[1.6] ${dark ? "text-[#c9cbf0]" : "text-pulse-subtle"}`}>{s.summary}</p>
+          <span className={`mt-auto pt-2 text-[15px] font-bold ${dark ? "text-[#7ff0c2] group-hover:text-[#a5ffd4]" : "text-pulse"}`}>{text.readMoreLabel} →</span>
         </div>
       </Link>
 

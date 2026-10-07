@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import AutoFlow from "@/components/crm/AutoFlow";
 import HeroShots from "@/components/crm/HeroShots";
-import HowSteps from "@/components/crm/HowSteps";
 import LeakFunnel from "@/components/crm/LeakFunnel";
 import PipelineCarousel from "@/components/crm/PipelineCarousel";
 import PulseDemoForm from "@/components/crm/PulseDemoForm";
@@ -13,8 +12,9 @@ import PulseFooter from "@/components/crm/PulseFooter";
 import Header from "@/components/site/Header";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
+import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import Shot from "@/components/crm/Shot";
-import { btnGhost, btnPrimary, container, eyebrow, h2, h2sm } from "@/components/crm/styles";
+import { btnGhost, btnPrimary, container, eyebrow, h2 } from "@/components/crm/styles";
 import WorkflowTour from "@/components/crm/WorkflowTour";
 import { formatPrice } from "@/content/pricing";
 import { getContent } from "@/lib/content-store";
@@ -37,8 +37,6 @@ const queueColors = [
 ];
 const channelChipColors = ["bg-[#e7f7ef] text-[#11744f]", "bg-pulse-soft text-pulse", "bg-[#fdf0e3] text-[#9a4f0b]", "bg-[#f3f4f8] text-pulse-muted"];
 const featureDots = ["#22b07d", "#22b07d", "#3b3fd4", "#3b3fd4", "#3b3fd4", "#f08a24", "#f08a24", "#8b4fd8", "#8b4fd8", "#e0457b"];
-const audienceColors = ["#3b3fd4", "#22b07d", "#f08a24", "#8b4fd8"];
-const channelColors = ["#22b07d", "#f08a24", "#3b3fd4", "#8b4fd8"];
 
 const pick = <T,>(list: T[], i: number) => list[i % list.length];
 const n2 = (i: number) => String(i + 1).padStart(2, "0");
@@ -207,85 +205,48 @@ export default function CrmPage() {
 
         {/* Pipeline without Pulse / with Pulse */}
         <section aria-label={`${c.leakage.tabLabel} / ${c.withPulse.tabLabel}`} className="overflow-hidden bg-pulse-night text-white">
-          <div className={`${container} py-[clamp(48px,6vw,88px)]`}>
+          <div className={`${container} py-[clamp(36px,4.5vw,64px)]`}>
             <PipelineCarousel labels={[c.leakage.tabLabel, c.withPulse.tabLabel]}>
-              <div className="flex flex-col gap-[clamp(28px,4vw,48px)]">
-                <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-                  <div className="flex max-w-[560px] flex-col gap-3">
-                    <p className="font-code text-xs tracking-[0.08em] text-[#a9abff] uppercase">{c.leakage.eyebrow}</p>
-                    <h2 id="leak-h" className={h2sm}>
+              <div className="flex flex-col gap-[clamp(20px,2.6vw,32px)]">
+                <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+                  <div className="flex max-w-[540px] flex-col gap-2">
+                    <p className="font-code text-[11px] tracking-[0.08em] text-[#a9abff] uppercase">{c.leakage.eyebrow}</p>
+                    <h2 id="leak-h" className="text-[clamp(24px,2.6vw,34px)] leading-[1.14] font-extrabold tracking-[-0.03em] text-balance">
                       {c.leakage.heading}
                     </h2>
                   </div>
                   {c.leakage.statValue && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-[rgba(255,138,92,0.28)] bg-[rgba(255,138,92,0.1)] px-5 py-3.5">
-                      <span className="text-[clamp(40px,4.5vw,54px)] leading-none font-extrabold tracking-[-0.04em] text-[#ff8a5c]">{c.leakage.statValue}</span>
-                      <span className="max-w-[180px] text-[15px] leading-[1.35] font-semibold text-[#e3e4ff]">{c.leakage.statLabel}</span>
+                    <div className="flex items-center gap-3.5 rounded-xl border border-[rgba(255,138,92,0.28)] bg-[rgba(255,138,92,0.1)] px-4 py-2.5">
+                      <span className="text-[clamp(32px,3.4vw,44px)] leading-none font-extrabold tracking-[-0.04em] text-[#ff8a5c]">{c.leakage.statValue}</span>
+                      <span className="max-w-[170px] text-[13px] leading-snug font-semibold text-[#e3e4ff]">{c.leakage.statLabel}</span>
                     </div>
                   )}
                 </div>
                 <LeakFunnel stages={c.leakage.stages} leadsWord={c.leakage.leadsWord} lostLabel={c.leakage.lostLabel} />
-                <p className="text-[13px] text-[#9a9ccc]">{c.leakage.footnote}</p>
+                <p className="text-xs text-[#9a9ccc]">{c.leakage.footnote}</p>
               </div>
-              <div className="flex flex-col gap-[clamp(28px,4vw,48px)]">
-                <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-                  <div className="flex max-w-[560px] flex-col gap-3">
-                    <p className="font-code text-xs tracking-[0.08em] text-[#5fe0ad] uppercase">{c.withPulse.eyebrow}</p>
-                    <h2 id="win-h" className={h2sm}>
+              <div className="flex flex-col gap-[clamp(20px,2.6vw,32px)]">
+                <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+                  <div className="flex max-w-[540px] flex-col gap-2">
+                    <p className="font-code text-[11px] tracking-[0.08em] text-[#5fe0ad] uppercase">{c.withPulse.eyebrow}</p>
+                    <h2 id="win-h" className="text-[clamp(24px,2.6vw,34px)] leading-[1.14] font-extrabold tracking-[-0.03em] text-balance">
                       {c.withPulse.heading}
                     </h2>
                   </div>
                   {c.withPulse.statValue && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-[rgba(34,176,125,0.35)] bg-[rgba(34,176,125,0.12)] px-5 py-3.5">
-                      <span className="text-[clamp(40px,4.5vw,54px)] leading-none font-extrabold tracking-[-0.04em] text-[#5fe0ad]">{c.withPulse.statValue}</span>
-                      <span className="max-w-[180px] text-[15px] leading-[1.35] font-semibold text-[#e3e4ff]">{c.withPulse.statLabel}</span>
+                    <div className="flex items-center gap-3.5 rounded-xl border border-[rgba(34,176,125,0.35)] bg-[rgba(34,176,125,0.12)] px-4 py-2.5">
+                      <span className="text-[clamp(32px,3.4vw,44px)] leading-none font-extrabold tracking-[-0.04em] text-[#5fe0ad]">{c.withPulse.statValue}</span>
+                      <span className="max-w-[170px] text-[13px] leading-snug font-semibold text-[#e3e4ff]">{c.withPulse.statLabel}</span>
                     </div>
                   )}
                 </div>
                 <LeakFunnel stages={c.withPulse.stages} leadsWord={c.withPulse.leadsWord} lostLabel={c.withPulse.lostLabel} tone="win" />
-                <p className="text-[13px] text-[#9a9ccc]">{c.withPulse.footnote}</p>
+                <p className="text-xs text-[#9a9ccc]">{c.withPulse.footnote}</p>
               </div>
             </PipelineCarousel>
           </div>
         </section>
 
-        {/* Before / after */}
-        <section
-          aria-labelledby="fix-h"
-          className={`${container} grid grid-cols-1 items-center gap-[clamp(28px,4vw,56px)] py-[clamp(48px,6vw,80px)] min-[860px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]`}
-        >
-          <div className="flex max-w-[420px] flex-col gap-4">
-            <p className={eyebrow}>{c.beforeAfter.eyebrow}</p>
-            <h2 id="fix-h" className="text-[clamp(28px,3vw,36px)] leading-[1.12] font-extrabold tracking-[-0.03em] text-balance">
-              {c.beforeAfter.heading}
-            </h2>
-            <p className="text-base leading-relaxed text-pulse-muted">{c.beforeAfter.body}</p>
-          </div>
-          <div className="min-w-0 overflow-hidden rounded-[20px] border border-[#e1e3ee] bg-white shadow-[0_30px_60px_-45px_rgba(30,34,120,0.4)]">
-            <div className="grid grid-cols-[minmax(0,1fr)_36px_minmax(0,1fr)] gap-3 border-b border-[#eceef5] bg-pulse-bg px-[clamp(16px,2.5vw,24px)] py-3.5 font-code text-[11px] tracking-[0.08em] uppercase">
-              <span className="text-pulse-faint">{c.beforeAfter.beforeColumnLabel}</span>
-              <span />
-              <span className="text-pulse">{c.beforeAfter.afterColumnLabel}</span>
-            </div>
-            <ul className="m-0 list-none p-0">
-              {c.beforeAfter.rows.map((r, i) => (
-                <li
-                  key={i}
-                  className="grid grid-cols-[minmax(0,1fr)_36px_minmax(0,1fr)] items-center gap-3 border-b border-[#f0f1f6] px-[clamp(16px,2.5vw,24px)] py-[11px]"
-                >
-                  <span className="text-[15px] font-semibold text-pulse-faint line-through decoration-[#d0d3e0]">{r.before}</span>
-                  <span aria-hidden className="grid h-7 w-7 place-items-center rounded-full bg-pulse-soft text-sm font-extrabold text-pulse">
-                    →
-                  </span>
-                  <span className="flex items-center gap-2 text-[15px] font-extrabold">
-                    <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-[#22b07d]" />
-                    {r.after}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
 
         {/* Follow-up automation */}
         <section aria-labelledby="hot-h" className="border-y border-pulse-line bg-white">
@@ -408,35 +369,7 @@ export default function CrmPage() {
           </div>
         </section>
 
-        {/* Partners */}
-        <section aria-labelledby="partners-h" className="border-y border-pulse-line bg-white">
-          <div className={`${container} flex flex-wrap items-center justify-between gap-x-12 gap-y-6 py-[clamp(40px,6vw,64px)]`}>
-            <h2 id="partners-h" className="font-code text-xs font-medium tracking-[0.08em] text-pulse-faint uppercase">
-              {c.partners.heading}
-            </h2>
-            <div className="flex flex-wrap items-center gap-x-[clamp(32px,5vw,72px)] gap-y-5 text-[clamp(20px,2.2vw,26px)] font-extrabold tracking-[-0.02em] text-[#3d4263]">
-              {c.partners.names.map((n, i) => (
-                <span key={i}>{n}</span>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* How it works */}
-        <section aria-labelledby="how-h" className="border-y border-[#e3e5f3] bg-[#f1f2fb]">
-          <div className={`${container} flex flex-col gap-[clamp(28px,4vw,40px)] py-[clamp(48px,6vw,88px)]`}>
-            <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4">
-              <div className="flex flex-col gap-3">
-                <p className={eyebrow}>{c.howItWorks.eyebrow}</p>
-                <h2 id="how-h" className={h2sm}>
-                  {c.howItWorks.heading}
-                </h2>
-              </div>
-              <p className="max-w-[400px] text-base leading-relaxed text-pulse-muted">{c.howItWorks.body}</p>
-            </div>
-            <HowSteps steps={c.howItWorks.steps} />
-          </div>
-        </section>
 
         {/* Features */}
         <section id="features" aria-labelledby="features-h" className="scroll-mt-18 border-t border-pulse-line bg-white">
@@ -484,8 +417,11 @@ export default function CrmPage() {
         </section>
 
         {/* Workflow tour */}
-        <section aria-labelledby="tour-h" className="border-b border-pulse-line bg-white">
-          <div className={`${container} pb-[clamp(64px,9vw,120px)]`}>
+        <section
+          aria-labelledby="tour-h"
+          className="relative w-full overflow-hidden border-b border-pulse-line bg-gradient-to-b from-[#fafbfe] via-white to-[#fafbfe] py-[clamp(56px,7vw,104px)]"
+        >
+          <div className="mx-auto w-full max-w-[1720px] px-[clamp(20px,4vw,64px)] 2xl:px-20">
             <WorkflowTour content={c.workflowTour} />
           </div>
         </section>
@@ -542,61 +478,7 @@ export default function CrmPage() {
           </div>
         </section>
 
-        {/* Audiences */}
-        <section aria-labelledby="who-h" className={`${container} flex flex-col gap-12 py-[clamp(64px,9vw,120px)]`}>
-          <div className="flex max-w-[640px] flex-col gap-4">
-            <p className={eyebrow}>{c.audiences.eyebrow}</p>
-            <h2 id="who-h" className={h2}>
-              {c.audiences.heading}
-            </h2>
-          </div>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-4">
-            {c.audiences.items.map((a, i) => (
-              <article
-                key={i}
-                className="flex flex-col gap-3 rounded-[20px] border border-t-4 border-pulse-line bg-white p-7"
-                style={{ borderTopColor: pick(audienceColors, i) }}
-              >
-                <h3 className="text-xl font-extrabold tracking-[-0.01em]">{a.title}</h3>
-                <p className="text-[15px] leading-[1.55] text-pulse-subtle">{a.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
 
-        {/* Integrations + migration */}
-        <section aria-labelledby="int-h" className="border-y border-pulse-line bg-white">
-          <div className={`${container} grid grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] gap-5 py-[clamp(64px,9vw,120px)]`}>
-            <div className="flex flex-col gap-5 rounded-3xl border border-pulse-line bg-pulse-bg p-[clamp(24px,3.5vw,44px)]">
-              <p className={eyebrow}>{c.integrations.eyebrow}</p>
-              <h2 id="int-h" className="text-[clamp(26px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
-                {c.integrations.heading}
-              </h2>
-              <p className="text-base leading-relaxed text-pulse-muted">{c.integrations.body}</p>
-              <div className="mt-auto grid grid-cols-2 gap-2.5">
-                {c.integrations.channels.map((ch, i) => (
-                  <span key={i} className="flex items-center gap-2.5 rounded-[14px] border border-pulse-line bg-white p-[18px] font-extrabold">
-                    <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ background: pick(channelColors, i) }} />
-                    {ch}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col gap-5 rounded-3xl bg-pulse p-[clamp(24px,3.5vw,44px)] text-white">
-              <p className="font-code text-xs tracking-[0.08em] text-[#d6d7ff] uppercase">{c.migration.eyebrow}</p>
-              <h3 className="text-[clamp(26px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.02em]">{c.migration.heading}</h3>
-              <p className="text-base leading-relaxed text-[#e3e4ff]">{c.migration.body}</p>
-              <ol className="mt-auto flex list-none flex-col gap-2.5 p-0">
-                {c.migration.steps.map((s, i) => (
-                  <li key={i} className="flex items-center gap-3.5 rounded-xl bg-white/10 px-4 py-3.5 font-bold">
-                    <span className="font-code text-xs text-[#d6d7ff]">{n2(i)}</span>
-                    {s}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
 
         {/* Pricing */}
         <section id="pricing" aria-labelledby="pricing-h" className={`${container} scroll-mt-18 py-[clamp(64px,9vw,120px)]`}>
@@ -630,6 +512,9 @@ export default function CrmPage() {
         </section>
 
         <StoriesSection section={c.stories} />
+
+        {/* Case Studies: Highlighted Standalone Section */}
+        <CaseStudiesSection productFilter={c.stories.productFilter} />
 
         {/* FAQ */}
         <section id="faq" aria-labelledby="faq-h" className="scroll-mt-18 border-t border-pulse-line bg-white">

@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Header from "@/components/site/Header";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
+import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
 import Testimonials from "@/components/home/Testimonials";
@@ -484,6 +485,9 @@ export default function Home() {
         </section>
 
         <StoriesSection section={c.stories} />
+
+        {/* Case Studies: Highlighted Standalone Section */}
+        <CaseStudiesSection productFilter={c.stories.productFilter} />
 
         {/* FAQ */}
         <section aria-labelledby="faq-heading" className={`bg-white ${sectionPad}`}>
