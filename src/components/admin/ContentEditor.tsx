@@ -383,7 +383,7 @@ export default function ContentEditor({
         </form>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white/95 backdrop-blur md:left-64">
+      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white/95 backdrop-blur md:left-72 shadow-lg">
         <div className="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-3 px-5 py-3 md:px-10">
           <p
             role="status"
