@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
+import LogoMarquee from "@/components/site/LogoMarquee";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 
@@ -325,6 +326,24 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
             </div>
           </div>
         </section>
+
+        {/* Client Logo Carousel (Same as Home Page) */}
+        <LogoMarquee
+          heading="Trusted by 180+ Real Estate Developers & Promoters Across India"
+          names={[
+            "Prestige Group",
+            "Sobha Ltd",
+            "Oberoi Realty",
+            "Godrej Properties",
+            "Brigade Enterprises",
+            "Puravankara",
+            "Casagrand",
+            "Mahindra Lifespaces",
+            "DLF",
+            "Lodha Group",
+          ]}
+          id="real-estate-trust-heading"
+        />
 
         {/* =========================================================================
             SECTION 2: THE CHALLENGE (WHY REAL ESTATE POINT SOLUTIONS BREAK DOWN)

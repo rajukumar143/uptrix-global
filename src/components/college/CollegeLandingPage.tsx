@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
+import LogoMarquee from "@/components/site/LogoMarquee";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 
@@ -464,6 +465,24 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
             </div>
           </div>
         </section>
+
+        {/* Client Logo Carousel (Same as Home Page) */}
+        <LogoMarquee
+          heading="Trusted by 140+ Colleges, Universities & Higher Ed Institutions"
+          names={[
+            "Apex Institute of Technology",
+            "Vistara Global University",
+            "BrightPath Business School",
+            "Kaveri Academy of Sciences",
+            "Indus Engineering College",
+            "Meridian International University",
+            "Tarang Institute of Management",
+            "Orbit Polytechnic",
+            "Zenith College of Pharmacy",
+            "Saffron Institute of Design",
+          ]}
+          id="college-trust-heading"
+        />
 
         {/* =========================================================================
             SECTION 2: THE CHALLENGE
