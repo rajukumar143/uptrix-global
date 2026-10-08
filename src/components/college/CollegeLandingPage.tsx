@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
+import { submitLead } from "@/app/actions/lead";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 
@@ -26,6 +27,9 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
 
   // Interactive modal state for "See How It Works" / "Book a Demo"
   const [showDemoModal, setShowDemoModal] = useState<boolean>(false);
+  const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
+  const [demoSubmitting, setDemoSubmitting] = useState<boolean>(false);
+  const [demoError, setDemoError] = useState<string>("");
 
   // Interactive state for The Complete Journey stepper
   const [activeJourneyStep, setActiveJourneyStep] = useState<string>("Lead");
@@ -3566,56 +3570,170 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
         </section>
       </main>
 
-      {/* Interactive Modal for "See How It Works" */}
+      {/* Interactive Modal for "See How It Works" / "Book a Demo" */}
       {showDemoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-200">
             <button
               type="button"
-              onClick={() => setShowDemoModal(false)}
+              onClick={() => {
+                setShowDemoModal(false);
+                setDemoSubmitted(false);
+                setDemoError("");
+              }}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold p-1 cursor-pointer"
             >
               ✕
             </button>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-3">
               🎓
             </div>
             <h3 className="text-2xl font-black text-slate-900">
-              Interactive System Tour
+              Book College ERP &amp; CRM Demo
             </h3>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-              Experience the unified Education CRM + ERP platform tailored specifically for your college, institute or coaching network.
+            <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+              Experience automated student admissions, fee collections, counselor pipelines, and parent WhatsApp updates.
             </p>
-            <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <span className="text-emerald-600 font-bold">✓</span>
-                <span>Live lead ingestion &amp; automated WhatsApp brochure</span>
+
+            {demoSubmitted ? (
+              <div className="py-8 text-center space-y-3">
+                <span className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 text-2xl flex items-center justify-center mx-auto">
+                  ✓
+                </span>
+                <h4 className="text-lg font-bold text-slate-900">Demo Scheduled Successfully!</h4>
+                <p className="text-xs text-slate-600 max-w-sm mx-auto">
+                  Our higher education solution consultant will connect with you via WhatsApp and phone within 15 minutes.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowDemoModal(false);
+                    setDemoSubmitted(false);
+                  }}
+                  className="mt-4 px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
+                >
+                  Done
+                </button>
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <span className="text-emerald-600 font-bold">✓</span>
-                <span>Counselor pipeline &amp; token seat locking</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <span className="text-emerald-600 font-bold">✓</span>
-                <span>Automated installment recovery &amp; GST receipts</span>
-              </div>
-            </div>
-            <div className="mt-8 flex gap-3">
-              <Link
-                href="/crm#demo"
-                onClick={() => setShowDemoModal(false)}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-center text-sm shadow-md transition"
+            ) : (
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setDemoSubmitting(true);
+                  setDemoError("");
+                  const fd = new FormData(e.currentTarget);
+                  fd.append("source", "College ERP Demo Modal");
+                  fd.append("pageUrl", typeof window !== "undefined" ? window.location.href : "/college");
+                  const res = await submitLead(fd).catch(() => ({ ok: false, error: "Network error. Please try again." }));
+                  setDemoSubmitting(false);
+                  if (!res.ok) {
+                    setDemoError(res.error || "Submission failed. Please try again.");
+                    return;
+                  }
+                  setDemoSubmitted(true);
+                }}
+                className="space-y-3 pt-3 text-xs"
               >
-                Book Personal Demo
-              </Link>
-              <button
-                type="button"
-                onClick={() => setShowDemoModal(false)}
-                className="px-5 py-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-50 transition cursor-pointer"
-              >
-                Close
-              </button>
-            </div>
+                {demoError && (
+                  <div role="alert" className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-semibold text-xs">
+                    ⚠️ {demoError}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Contact Name *</label>
+                    <input
+                      required
+                      name="name"
+                      type="text"
+                      placeholder="e.g. Dr. Rajesh Sharma"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">College / Institution Name *</label>
+                    <input
+                      required
+                      name="company"
+                      type="text"
+                      placeholder="e.g. Apex Institute of Tech"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Gmail / Official Email *</label>
+                    <input
+                      required
+                      name="email"
+                      type="email"
+                      placeholder="principal@apex.edu.in"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Mobile / WhatsApp Number *</label>
+                    <input
+                      required
+                      name="phone"
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Business / Institution Type *</label>
+                  <select
+                    name="businessType"
+                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden bg-white text-slate-700 font-medium"
+                  >
+                    <option value="College / University">University / Deemed University</option>
+                    <option value="Degree / Engineering College">Engineering &amp; Technology College</option>
+                    <option value="Management & Business School">Management &amp; Business School</option>
+                    <option value="Medical & Health Sciences">Medical &amp; Allied Health Sciences</option>
+                    <option value="Coaching & Test Prep Network">Coaching &amp; Test Prep Multi-Branch</option>
+                    <option value="Other Higher Ed">Other Higher Ed Institution</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    What would you like to solve? <span className="font-normal text-slate-400">(Optional)</span>
+                  </label>
+                  <textarea
+                    name="solveProblem"
+                    rows={2}
+                    placeholder="e.g. Incomplete student seat lock-in, counselor drop-offs, automatic fee reminders..."
+                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden resize-none"
+                  />
+                </div>
+
+                <div className="pt-1">
+                  <button
+                    type="submit"
+                    disabled={demoSubmitting}
+                    className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
+                  >
+                    {demoSubmitting ? (
+                      <span>Reserving Personal Demo…</span>
+                    ) : (
+                      <>
+                        <span>Confirm Demo Booking</span>
+                        <span>→</span>
+                      </>
+                    )}
+                  </button>
+                  <p className="text-[10px] text-center text-slate-400 mt-2">
+                    🔒 100% confidential. No spam. Direct demo room link sent on WhatsApp.
+                  </p>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}

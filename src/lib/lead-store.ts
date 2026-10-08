@@ -6,17 +6,24 @@ const CONTENT_DIR = process.env.CONTENT_DIR || path.join(process.cwd(), "content
 const LEADS_FILE = path.join(CONTENT_DIR, "leads.jsonl");
 
 export type Lead = {
-  createdAt: string;
-  source: string; // where the form was filled in, e.g. "Case study: real-estate-site-visits"
-  name: string;
-  phone: string;
-  email: string;
-  company: string;
+  createdAt: string; // ISO date-time string
+  source: string; // where the form was filled in, e.g. "Real Estate Demo", "College ERP Tour"
+  name: string; // Lead's name
+  company: string; // Company / Institution name
+  email: string; // Gmail / Email address
+  phone: string; // Mobile / WhatsApp number
+  businessType?: string; // Business type (e.g. Real Estate Developer, College / Higher Ed, etc.)
+  solveProblem?: string; // "What would you like to solve? Optional"
+  pageUrl?: string; // Page URL where the form was submitted
 };
 
 export async function addLead(lead: Omit<Lead, "createdAt">) {
   await fs.mkdir(CONTENT_DIR, { recursive: true });
-  await fs.appendFile(LEADS_FILE, JSON.stringify({ createdAt: new Date().toISOString(), ...lead }) + "\n", "utf8");
+  const entry: Lead = {
+    createdAt: new Date().toISOString(),
+    ...lead,
+  };
+  await fs.appendFile(LEADS_FILE, JSON.stringify(entry) + "\n", "utf8");
 }
 
 /** Every lead, newest first. */

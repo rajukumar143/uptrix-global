@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { ContactContent } from "@/content/contact";
+import { submitLead } from "@/app/actions/lead";
 
 type Text = ContactContent["form"];
 type Form = { name: string; email: string; phone: string; company: string; topic: string; message: string };
@@ -25,14 +26,16 @@ export default function ContactForm({ text }: { text: Text }) {
   const [form, setForm] = useState<Form>(empty);
   const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
   const [status, setStatus] = useState<"idle" | "error" | "loading" | "success">("idle");
+  const [submitError, setSubmitError] = useState<string>("");
 
   const set = (k: Key) => (e: { target: { value: string } }) => {
     const v = e.target.value;
     setForm((f) => ({ ...f, [k]: v }));
     setErrors((er) => ({ ...er, [k]: "" }));
+    setSubmitError("");
   };
 
-  const submit = (ev: FormEvent) => {
+  const submit = async (ev: FormEvent) => {
     ev.preventDefault();
     const e = validate(form, text);
     if (Object.keys(e).length) {
@@ -42,8 +45,26 @@ export default function ContactForm({ text }: { text: Text }) {
     }
     setErrors({});
     setStatus("loading");
-    // PLACEHOLDER: send `form` to your email / CRM endpoint here. This currently only simulates a successful submit.
-    setTimeout(() => setStatus("success"), 1200);
+    setSubmitError("");
+
+    const fd = new FormData();
+    fd.append("name", form.name);
+    fd.append("company", form.company);
+    fd.append("email", form.email);
+    fd.append("phone", form.phone);
+    fd.append("businessType", form.topic);
+    fd.append("solveProblem", form.message);
+    fd.append("source", "Contact Us Page");
+    fd.append("pageUrl", typeof window !== "undefined" ? window.location.href : "/crm/contact");
+
+    const res = await submitLead(fd).catch(() => ({ ok: false, error: "Network error. Please try again." }));
+    if (!res.ok) {
+      setStatus("error");
+      setSubmitError(res.error || "Submission failed. Please try again.");
+      return;
+    }
+
+    setStatus("success");
   };
 
   if (status === "success") {
@@ -68,11 +89,9 @@ export default function ContactForm({ text }: { text: Text }) {
     );
   }
 
-  const field = (k: Key, label: string, type: string, autoComplete: string, optional = false) => (
+  const input = (k: Key, label: string, type: string, autoComplete: string) => (
     <label className="flex flex-col gap-1.5 text-sm font-bold">
-      <span>
-        {label} {optional && <span className="font-medium text-pulse-faint">{text.optionalLabel}</span>}
-      </span>
+      {label}
       <input
         name={k}
         type={type}
@@ -80,10 +99,10 @@ export default function ContactForm({ text }: { text: Text }) {
         value={form[k]}
         onChange={set(k)}
         aria-invalid={!!errors[k]}
-        aria-describedby={errors[k] ? `cerr-${k}` : undefined}
+        aria-describedby={errors[k] ? `err-${k}` : undefined}
         className={`${fieldCls} ${errors[k] ? "border-[#d93a5b]" : "border-[#d9dbe6]"}`}
       />
-      <span id={`cerr-${k}`} className="text-[13px] font-semibold text-[#c42a4f]">
+      <span id={`err-${k}`} className="text-[13px] font-semibold text-[#c42a4f]">
         {errors[k]}
       </span>
     </label>
@@ -93,19 +112,21 @@ export default function ContactForm({ text }: { text: Text }) {
 
   return (
     <form noValidate onSubmit={submit} aria-labelledby="contact-form-h" className="flex flex-col gap-4">
-      <h2 id="contact-form-h" className="text-[22px] font-extrabold tracking-[-0.02em]">
-        {text.heading}
-      </h2>
+      {submitError && (
+        <div role="alert" className="rounded-[10px] bg-[#fdecef] px-3.5 py-3 text-sm font-semibold text-[#a3203f]">
+          {submitError}
+        </div>
+      )}
       {status === "error" && Object.values(errors).some(Boolean) && (
         <div role="alert" className="rounded-[10px] bg-[#fdecef] px-3.5 py-3 text-sm font-semibold text-[#a3203f]">
           {text.errorSummary}
         </div>
       )}
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3.5">
-        {field("name", text.nameLabel, "text", "name")}
-        {field("email", text.emailLabel, "email", "email")}
-        {field("phone", text.phoneLabel, "tel", "tel")}
-        {field("company", text.companyLabel, "text", "organization", true)}
+        {input("name", text.nameLabel, "text", "name")}
+        {input("email", text.emailLabel, "email", "email")}
+        {input("phone", text.phoneLabel, "tel", "tel")}
+        {input("company", text.companyLabel, "text", "organization")}
       </div>
       {text.topics.length > 0 && (
         <label className="flex flex-col gap-1.5 text-sm font-bold">
@@ -126,11 +147,14 @@ export default function ContactForm({ text }: { text: Text }) {
           rows={4}
           value={form.message}
           onChange={set("message")}
+          placeholder="Tell us what you would like to solve or discuss..."
           aria-invalid={!!errors.message}
-          aria-describedby={errors.message ? "cerr-message" : undefined}
-          className={`resize-y rounded-[10px] border-[1.5px] bg-white px-3.5 py-3 text-base text-pulse-ink ${errors.message ? "border-[#d93a5b]" : "border-[#d9dbe6]"}`}
+          aria-describedby={errors.message ? "err-message" : undefined}
+          className={`resize-y rounded-[10px] border-[1.5px] bg-white px-3.5 py-3 text-base text-pulse-ink ${
+            errors.message ? "border-[#d93a5b]" : "border-[#d9dbe6]"
+          }`}
         />
-        <span id="cerr-message" className="text-[13px] font-semibold text-[#c42a4f]">
+        <span id="err-message" className="text-[13px] font-semibold text-[#c42a4f]">
           {errors.message}
         </span>
       </label>

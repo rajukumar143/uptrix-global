@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
+import { submitLead } from "@/app/actions/lead";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 
@@ -27,6 +28,8 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
   // Interactive modal state for "Book a VIP Demo"
   const [showDemoModal, setShowDemoModal] = useState<boolean>(false);
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
+  const [demoSubmitting, setDemoSubmitting] = useState<boolean>(false);
+  const [demoError, setDemoError] = useState<string>("");
 
   // Interactive state for The Complete Journey stepper
   const [activeJourneyStep, setActiveJourneyStep] = useState<string>("Lead");
@@ -2307,60 +2310,120 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
               </div>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
+                  setDemoSubmitting(true);
+                  setDemoError("");
+                  const fd = new FormData(e.currentTarget);
+                  fd.append("source", "Real Estate Demo Modal");
+                  fd.append("pageUrl", typeof window !== "undefined" ? window.location.href : "/real-estate");
+                  const res = await submitLead(fd).catch(() => ({ ok: false, error: "Network error. Please try again." }));
+                  setDemoSubmitting(false);
+                  if (!res.ok) {
+                    setDemoError(res.error || "Submission failed. Please try again.");
+                    return;
+                  }
                   setDemoSubmitted(true);
                 }}
-                className="space-y-4 pt-4 text-xs"
+                className="space-y-3.5 pt-2 text-xs"
               >
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Developer / Firm Name *</label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="e.g. Prestige / Oberoi Realty"
-                    className="w-full p-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
-                  />
-                </div>
+                {demoError && (
+                  <div role="alert" className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-semibold text-xs">
+                    ⚠️ {demoError}
+                  </div>
+                )}
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="font-bold text-slate-700 block mb-1">Contact Name *</label>
                     <input
                       required
+                      name="name"
                       type="text"
-                      placeholder="Your name"
-                      className="w-full p-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                      placeholder="e.g. Vikram Malhotra"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Phone / WhatsApp *</label>
+                    <label className="font-bold text-slate-700 block mb-1">Company / Developer Name *</label>
                     <input
                       required
+                      name="company"
+                      type="text"
+                      placeholder="e.g. Prestige / Oberoi Realty"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Gmail / Official Email *</label>
+                    <input
+                      required
+                      name="email"
+                      type="email"
+                      placeholder="vikram@gmail.com"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Mobile / WhatsApp Number *</label>
+                    <input
+                      required
+                      name="phone"
                       type="tel"
                       placeholder="+91 98765 43210"
-                      className="w-full p-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
+                      className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Project Portfolio Scale</label>
-                  <select className="w-full p-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden bg-white text-slate-700">
-                    <option>Single Project (&lt; 200 Units)</option>
-                    <option>Mid-Scale (200 - 800 Units)</option>
-                    <option>Large Township (800+ Units)</option>
-                    <option>Channel Partner / Master Brokerage</option>
+                  <label className="font-bold text-slate-700 block mb-1">Business Type *</label>
+                  <select
+                    name="businessType"
+                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden bg-white text-slate-700 font-medium"
+                  >
+                    <option value="Real Estate Developer">Real Estate Developer / Builder</option>
+                    <option value="Channel Partner / Master Broker">Channel Partner / Master Brokerage</option>
+                    <option value="Township & Plotted Developer">Township &amp; Plotted Developer</option>
+                    <option value="Commercial & IT Park Developer">Commercial &amp; IT Park Developer</option>
+                    <option value="Real Estate Marketing Agency">Real Estate Marketing Agency</option>
+                    <option value="Other Real Estate Business">Other Real Estate Enterprise</option>
                   </select>
                 </div>
 
-                <div className="pt-2">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    What would you like to solve? <span className="font-normal text-slate-400">(Optional)</span>
+                  </label>
+                  <textarea
+                    name="solveProblem"
+                    rows={2}
+                    placeholder="e.g. Portal lead leakage, 3D inventory sync across brokers, automated payment recovery..."
+                    className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden resize-none"
+                  />
+                </div>
+
+                <div className="pt-1">
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition cursor-pointer"
+                    disabled={demoSubmitting}
+                    className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
                   >
-                    Confirm Demo Booking →
+                    {demoSubmitting ? (
+                      <span>Scheduling VIP Demo…</span>
+                    ) : (
+                      <>
+                        <span>Confirm Demo Booking</span>
+                        <span>→</span>
+                      </>
+                    )}
                   </button>
+                  <p className="text-[10px] text-center text-slate-400 mt-2">
+                    🔒 100% confidential. No spam. Instant confirmation on WhatsApp &amp; Email.
+                  </p>
                 </div>
               </form>
             )}

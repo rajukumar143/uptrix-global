@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { CrmContent } from "@/content/crm";
+import { submitLead } from "@/app/actions/lead";
 
 type Text = CrmContent["demo"]["form"];
 type Form = { name: string; company: string; email: string; phone: string; type: string; req: string };
@@ -25,14 +26,16 @@ export default function PulseDemoForm({ text }: { text: Text }) {
   const [form, setForm] = useState<Form>(empty);
   const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
   const [status, setStatus] = useState<"idle" | "error" | "loading" | "success">("idle");
+  const [submitError, setSubmitError] = useState<string>("");
 
   const set = (k: Key) => (e: { target: { value: string } }) => {
     const v = e.target.value;
     setForm((f) => ({ ...f, [k]: v }));
     setErrors((er) => ({ ...er, [k]: "" }));
+    setSubmitError("");
   };
 
-  const submit = (ev: FormEvent) => {
+  const submit = async (ev: FormEvent) => {
     ev.preventDefault();
     const e = validate(form, text);
     if (Object.keys(e).length) {
@@ -42,8 +45,26 @@ export default function PulseDemoForm({ text }: { text: Text }) {
     }
     setErrors({});
     setStatus("loading");
-    // PLACEHOLDER: send `form` to your CRM / email endpoint here. This currently only simulates a successful submit.
-    setTimeout(() => setStatus("success"), 1200);
+    setSubmitError("");
+
+    const fd = new FormData();
+    fd.append("name", form.name);
+    fd.append("company", form.company);
+    fd.append("email", form.email);
+    fd.append("phone", form.phone);
+    fd.append("businessType", form.type);
+    fd.append("solveProblem", form.req);
+    fd.append("source", "Pulse CRM Demo Form");
+    fd.append("pageUrl", typeof window !== "undefined" ? window.location.href : "/crm");
+
+    const res = await submitLead(fd).catch(() => ({ ok: false, error: "Network error. Please try again." }));
+    if (!res.ok) {
+      setStatus("error");
+      setSubmitError(res.error || "Submission failed. Please try again.");
+      return;
+    }
+
+    setStatus("success");
   };
 
   if (status === "success") {
@@ -92,6 +113,11 @@ export default function PulseDemoForm({ text }: { text: Text }) {
   return (
     <form noValidate onSubmit={submit} aria-label={text.heading} className="flex flex-col gap-4">
       <h3 className="text-[22px] font-extrabold tracking-[-0.02em]">{text.heading}</h3>
+      {submitError && (
+        <div role="alert" className="rounded-[10px] bg-[#fdecef] px-3.5 py-3 text-sm font-semibold text-[#a3203f]">
+          {submitError}
+        </div>
+      )}
       {status === "error" && Object.values(errors).some(Boolean) && (
         <div role="alert" className="rounded-[10px] bg-[#fdecef] px-3.5 py-3 text-sm font-semibold text-[#a3203f]">
           {text.errorSummary}
@@ -124,6 +150,7 @@ export default function PulseDemoForm({ text }: { text: Text }) {
           rows={3}
           value={form.req}
           onChange={set("req")}
+          placeholder="Tell us what bottlenecks, pipeline leakages, or workflows you would like to solve..."
           className="resize-y rounded-[10px] border-[1.5px] border-[#d9dbe6] bg-white px-3.5 py-3 text-base text-pulse-ink"
         />
       </label>

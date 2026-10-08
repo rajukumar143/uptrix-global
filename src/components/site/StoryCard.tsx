@@ -133,22 +133,48 @@ export default function StoryCard({
 
           <form onSubmit={onSubmit} className="flex flex-col gap-3.5">
             <input type="hidden" name="source" value={`Case study: ${s.slug}`} />
+            <input type="hidden" name="pageUrl" value={typeof window !== "undefined" ? window.location.href : `/case-studies/${s.slug}`} />
             <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
             <label className="flex flex-col gap-1.5 text-sm font-bold">
               {text.nameLabel}
               <input name="name" required maxLength={100} autoComplete="name" className={field} />
             </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="flex flex-col gap-1.5 text-sm font-bold">
+                {text.phoneLabel}
+                <input name="phone" type="tel" required maxLength={30} autoComplete="tel" inputMode="tel" className={field} />
+              </label>
+              <label className="flex flex-col gap-1.5 text-sm font-bold">
+                {text.emailLabel}
+                <input name="email" type="email" maxLength={150} autoComplete="email" placeholder="name@gmail.com" className={field} />
+              </label>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label className="flex flex-col gap-1.5 text-sm font-bold">
+                {text.companyLabel}
+                <input name="company" maxLength={120} autoComplete="organization" className={field} />
+              </label>
+              <label className="flex flex-col gap-1.5 text-sm font-bold">
+                Business Type
+                <select name="businessType" className={field}>
+                  <option value="Real Estate">Real Estate Developer / Broker</option>
+                  <option value="Education / College">College / University / School</option>
+                  <option value="Coaching / EdTech">Coaching / EdTech Academy</option>
+                  <option value="Corporate Enterprise">Corporate Enterprise</option>
+                  <option value="Other">Other Business</option>
+                </select>
+              </label>
+            </div>
             <label className="flex flex-col gap-1.5 text-sm font-bold">
-              {text.phoneLabel}
-              <input name="phone" type="tel" required maxLength={30} autoComplete="tel" inputMode="tel" className={field} />
-            </label>
-            <label className="flex flex-col gap-1.5 text-sm font-bold">
-              {text.emailLabel}
-              <input name="email" type="email" maxLength={150} autoComplete="email" className={field} />
-            </label>
-            <label className="flex flex-col gap-1.5 text-sm font-bold">
-              {text.companyLabel}
-              <input name="company" maxLength={120} autoComplete="organization" className={field} />
+              <span>
+                What would you like to solve? <span className="font-normal text-pulse-faint">(Optional)</span>
+              </span>
+              <input
+                name="solveProblem"
+                maxLength={200}
+                placeholder="e.g. Lead conversion drop-offs, payment followups..."
+                className={field}
+              />
             </label>
             {error && (
               <p role="alert" className="rounded-lg bg-[#fdecef] px-3 py-2 text-sm font-semibold text-[#b4234f]">
