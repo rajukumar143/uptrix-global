@@ -220,7 +220,7 @@ export const homeDefaults = {
     productLinks: [
       { label: "HRMS", link: "#hrms" },
       { label: "CRM", link: "/crm" },
-      { label: "EduTech CRM", link: "/crm/edutech" },
+      { label: "College ERP & CRM", link: "/college" },
       { label: "Real Estate CRM", link: "/crm/real-estate" },
     ],
     companyHeading: "Company",

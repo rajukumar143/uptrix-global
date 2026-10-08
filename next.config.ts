@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
     cpus: 1,
     workerThreads: false,
   },
+  async redirects() {
+    return [
+      { source: "/edutech", destination: "/college", permanent: true },
+      { source: "/education", destination: "/college", permanent: true },
+      { source: "/crm/edutech", destination: "/college", permanent: true },
+      { source: "/collage", destination: "/college", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

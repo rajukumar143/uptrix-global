@@ -1229,11 +1229,11 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
             </p>
 
             {/* Stepper with 10 Circular Nodes */}
-            <div className="mt-14 overflow-x-auto pb-4">
-              <div className="min-w-[920px] flex items-center justify-between relative px-6">
+            <div className="mt-10 overflow-x-auto py-6">
+              <div className="min-w-[920px] flex items-center justify-between relative px-6 pt-4 pb-2">
                 
                 {/* Connecting Track Line */}
-                <div className="absolute top-6 left-12 right-12 h-0.5 bg-slate-200 z-0" />
+                <div className="absolute top-[40px] -translate-y-1/2 left-12 right-12 h-0.5 bg-slate-200 z-0" />
 
                 {/* 10 Nodes */}
                 {[

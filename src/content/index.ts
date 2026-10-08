@@ -4,7 +4,7 @@ import { contactDefaults } from "./contact";
 import { crmDefaults, crmLayoutDefaults } from "./crm";
 import { headerDefaults } from "./header";
 import { homeDefaults } from "./home";
-import { edutechDefaults, realEstateDefaults } from "./industries";
+import { realEstateDefaults } from "./industries";
 import { pricingDefaults } from "./pricing";
 import { caseStudiesDefaults, reviewsDefaults, videoTestimonialsDefaults } from "./stories";
 
@@ -13,7 +13,6 @@ export const defaultContent = {
   header: headerDefaults,
   home: homeDefaults,
   crm: crmDefaults,
-  crmEdutech: edutechDefaults,
   crmRealEstate: realEstateDefaults,
   caseStudies: caseStudiesDefaults,
   videoTestimonials: videoTestimonialsDefaults,
@@ -32,12 +31,11 @@ export type PageKey = keyof SiteContent;
 export const pageInfo: Record<PageKey, { title: string; description: string; paths: string[] }> = {
   header: {
     title: "Top menu",
-    description: "The menu at the top of every page: Home, the Products drop-down (CRM, EduTech, Real Estate, HRMS), other links and the demo button.",
+    description: "The menu at the top of every page: Home, the Products drop-down (CRM, College, Real Estate, HRMS), other links and the demo button.",
     paths: ["/"],
   },
   home: { title: "Home page", description: "The main Uptrix page: hero slides, HRMS and CRM sections, FAQ and footer.", paths: ["/"] },
   crm: { title: "CRM landing page", description: "The Uptrix Pulse CRM page: hero, features, workflow, FAQ and demo form.", paths: ["/crm"] },
-  crmEdutech: { title: "EduTech CRM page", description: "The CRM page for schools, colleges and coaching institutes.", paths: ["/crm/edutech"] },
   crmRealEstate: { title: "Real Estate CRM page", description: "The CRM page for builders, brokers and property teams.", paths: ["/crm/real-estate"] },
   caseStudies: {
     title: "Case studies",
@@ -52,7 +50,7 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   reviews: {
     title: "Reviews",
     description: "Star ratings and quotes shown on the product pages. The product decides which pages show each review. Turn off \"Is example\" for real customers.",
-    paths: ["/crm", "/crm/edutech", "/crm/real-estate", "/"],
+    paths: ["/crm", "/college", "/crm/real-estate", "/"],
   },
   pricing: { title: "Pricing page", description: "Plans, prices, the comparison table and pricing FAQ. Prices also show on the CRM landing page.", paths: ["/crm/pricing", "/crm"] },
   about: { title: "About us page", description: "Your story, beliefs, roadmap and partners.", paths: ["/crm/about"] },

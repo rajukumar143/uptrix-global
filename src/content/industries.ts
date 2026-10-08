@@ -1,89 +1,5 @@
-// Industry pages under Products → CRM: /crm/edutech and /crm/real-estate. Both share one layout.
-export const edutechDefaults = {
-  seo: {
-    pageTitle: "EduTech CRM for Schools, Colleges & Coaching Institutes | Uptrix",
-    metaDescription:
-      "Uptrix EduTech CRM captures every enquiry, automates WhatsApp and call follow-ups, tracks counsellors and turns more enquiries into admissions across every branch.",
-  },
-  hero: {
-    eyebrow: "EduTech CRM",
-    heading: "Turn every enquiry into an admission",
-    body: "One CRM for schools, colleges, coaching institutes and ed-tech teams. Capture enquiries from every source, follow up on WhatsApp in minutes and see exactly where each student is in the admission journey.",
-    primaryButtonLabel: "Book a Demo",
-    primaryButtonLink: "/crm#demo",
-    secondaryButtonLabel: "See pricing",
-    secondaryButtonLink: "/crm/pricing",
-    points: ["Website, Meta, Google and walk-in enquiries", "WhatsApp, call and email follow-ups", "Counsellor and branch reports"],
-  },
-  pipeline: {
-    title: "Admissions pipeline",
-    stages: [
-      { name: "New enquiry", count: "128" },
-      { name: "Counselling", count: "64" },
-      { name: "Campus visit", count: "31" },
-      { name: "Application", count: "22" },
-      { name: "Enrolled", count: "18" },
-    ],
-  },
-  problems: {
-    eyebrow: "The problem",
-    heading: "Admissions slip away in spreadsheets and WhatsApp chats",
-    items: [
-      { title: "Enquiries go cold", body: "Leads from ads, the website and walk-ins sit unanswered for hours. By the time someone calls, the parent has chosen another institute." },
-      { title: "No one owns the follow-up", body: "Counsellors share Excel sheets, forget call-backs and duplicate each other's work." },
-      { title: "You can't see what works", body: "You spend on ads every month but can't tell which campaign actually brings admissions." },
-    ],
-  },
-  features: {
-    eyebrow: "Built for admissions",
-    heading: "Everything your admissions team needs, in one place",
-    items: [
-      { title: "Capture every enquiry", body: "Website forms, Meta and Google ads, JustDial, missed calls and walk-ins land in one list automatically." },
-      { title: "Auto-assign to counsellors", body: "Share leads by course, branch or language, so every enquiry has an owner within seconds." },
-      { title: "WhatsApp follow-ups", body: "Send brochures, fee details and reminders on WhatsApp from the CRM, with every reply saved to the student's record." },
-      { title: "Campus visits and demos", body: "Book visits and demo classes, send reminders and record the outcome in one click." },
-      { title: "Fees and applications", body: "Track application status, documents and fee payments until the student is enrolled." },
-      { title: "Branch and counsellor reports", body: "See enquiries, conversions and cost per admission for every counsellor, course and branch." },
-    ],
-  },
-  journey: {
-    eyebrow: "How it works",
-    heading: "From first enquiry to enrolment",
-    steps: [
-      { title: "Enquiry arrives", body: "The lead is captured with its source and course interest." },
-      { title: "Counsellor assigned", body: "The right counsellor is notified and the first WhatsApp goes out automatically." },
-      { title: "Follow-ups on schedule", body: "Reminders make sure every call-back and visit happens on time." },
-      { title: "Admission confirmed", body: "Fees, documents and the enrolment are tracked to the end." },
-    ],
-  },
-  stories: {
-    eyebrow: "Customer stories",
-    heading: "See how institutes grow admissions with Uptrix",
-    intro: "Watch customers explain the difference and read how teams like yours use Uptrix.",
-    // Shows case studies and videos whose product contains this word. Leave empty to show all.
-    productFilter: "EduTech",
-  },
-  faq: {
-    eyebrow: "FAQ",
-    heading: "Questions from education teams",
-    questions: [
-      { question: "Can it handle multiple branches?", answer: "Yes. Each branch has its own leads, counsellors and reports, and management sees everything in one dashboard." },
-      { question: "Does it work with WhatsApp?", answer: "Yes. Send and receive WhatsApp messages from the CRM, use templates for brochures and fee details, and keep every chat on the student's record." },
-      { question: "Can we import our existing enquiries?", answer: "Yes. Our team helps you import enquiries from Excel or your old CRM during onboarding at no extra cost." },
-      { question: "How long does setup take?", answer: "Most institutes are live within a week, including lead sources, counsellors and WhatsApp templates." },
-    ],
-  },
-  cta: {
-    heading: "Ready for your best admission season?",
-    body: "See Uptrix EduTech CRM with your own courses and branches in a free 30-minute demo.",
-    buttonLabel: "Book a free demo",
-    buttonLink: "/crm#demo",
-  },
-};
-
-export type IndustryContent = typeof edutechDefaults;
-
-export const realEstateDefaults: IndustryContent = {
+// Industry page under Products → CRM: /crm/real-estate
+export const realEstateDefaults = {
   seo: {
     pageTitle: "Real Estate CRM for Builders, Brokers & Channel Partners | Uptrix",
     metaDescription:
@@ -164,3 +80,5 @@ export const realEstateDefaults: IndustryContent = {
     buttonLink: "/crm#demo",
   },
 };
+
+export type IndustryContent = typeof realEstateDefaults;

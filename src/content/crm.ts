@@ -392,7 +392,7 @@ export const crmLayoutDefaults = {
       {
         heading: "Solutions",
         links: [
-          { label: "EduTech CRM", link: "/crm/edutech" },
+          { label: "College ERP & CRM", link: "/college" },
           { label: "Real Estate CRM", link: "/crm/real-estate" },
           { label: "Uptrix HRMS", link: "/#hrms" },
         ],

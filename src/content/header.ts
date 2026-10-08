@@ -10,7 +10,6 @@ export const headerDefaults = {
       link: "/crm",
       description: "Capture every lead and automate follow-ups",
       subLinks: [
-        { label: "EduTech CRM", link: "/crm/edutech", description: "Schools, coaching and ed-tech" },
         { label: "College ERP & CRM", link: "/college", description: "Higher education, colleges & universities" },
         { label: "Real Estate CRM", link: "/crm/real-estate", description: "Builders, brokers and property teams" },
       ],
