@@ -68,6 +68,26 @@ function singular(key: string) {
   return "item";
 }
 
+function countFields(value: Json): number {
+  if (Array.isArray(value)) return value.reduce<number>((total, item) => total + countFields(item), 0);
+  if (value && typeof value === "object") {
+    return Object.values(value).reduce<number>((total, item) => total + countFields(item), 0);
+  }
+  return 1;
+}
+
+const SECTION_DETAILS: Record<string, { icon: string; description: string }> = {
+  seo: { icon: "⌕", description: "Search results, browser title and metadata" },
+  hero: { icon: "✦", description: "The first section visitors see" },
+  heroSlides: { icon: "✦", description: "Homepage headline slides and buttons" },
+  trustBar: { icon: "◇", description: "Trusted-by heading and names" },
+  insights: { icon: "◉", description: "Dashboard cards, filters and reports" },
+  journey: { icon: "↗", description: "Lifecycle steps and details" },
+  faq: { icon: "?", description: "Frequently asked questions" },
+  finalCta: { icon: "→", description: "Closing call to action" },
+  footer: { icon: "⌄", description: "Footer links and contact details" },
+};
+
 // ---------- immutable update ----------
 function setIn(root: Json, path: Path, value: Json): Json {
   if (path.length === 0) return value;
@@ -344,13 +364,18 @@ export default function ContentEditor({
     setStatus({ kind: "idle" });
   };
 
-  // Top-level lists and groups become sections; loose single fields go into "General"
   const sections = useMemo(() => {
     const obj = value as Obj;
     const general = Object.keys(obj).filter((k) => typeof obj[k] !== "object");
     const groups = Object.keys(obj).filter((k) => typeof obj[k] === "object");
     return { general, groups };
   }, [value]);
+  const sectionKeys = sections.general.length > 0 ? ["__general", ...sections.groups] : sections.groups;
+  const [activeSection, setActiveSection] = useState(() => {
+    const obj = initial as Obj;
+    return Object.keys(obj).find((key) => typeof obj[key] === "object") ?? "__general";
+  });
+  const currentSection = sectionKeys.includes(activeSection) ? activeSection : sectionKeys[0] ?? "__general";
 
   const save = () =>
     startTransition(async () => {
@@ -363,64 +388,146 @@ export default function ContentEditor({
 
   const obj = value as Obj;
 
+  const sectionValue = currentSection === "__general"
+    ? undefined
+    : obj[currentSection] as Json;
+  const detail = SECTION_DETAILS[currentSection] ?? {
+    icon: "✳",
+    description: `Manage the ${humanize(currentSection).toLowerCase()} content on this page`,
+  };
+  const fieldCount = currentSection === "__general"
+    ? sections.general.reduce((total, key) => total + countFields(obj[key]), 0)
+    : countFields(sectionValue ?? "");
+
   return (
-    <div className="pb-28">
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 bg-white px-5 py-6 md:px-10">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
-          <p className="mt-1 max-w-[640px] text-slate-500">{description}</p>
+    <div className="mx-auto max-w-[1440px] pb-32">
+      <header className="mb-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-5 px-6 py-6 sm:px-8">
+          <div className="flex min-w-0 items-start gap-4">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-500 text-xl font-bold text-white shadow-lg shadow-indigo-200">
+              ✎
+            </div>
+            <div className="min-w-0">
+              <div className="mb-1 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400">
+                <span>WEBSITE CONTENT</span><span>/</span><span className="text-indigo-600">EDITOR</span>
+              </div>
+              <h1 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{title}</h1>
+              <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-500">{description}</p>
+            </div>
+          </div>
+          <a
+            href={viewPath}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-10 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+          >
+            Preview page <span aria-hidden>↗</span>
+          </a>
         </div>
-        <a href={viewPath} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">
-          View page ↗
-        </a>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-slate-100 bg-slate-50/80 px-6 py-3 text-xs font-semibold text-slate-500 sm:px-8">
+          <span><strong className="text-slate-900">{sectionKeys.length}</strong> content sections</span>
+          <span><strong className="text-slate-900">{Object.keys(obj).length}</strong> editable groups</span>
+          <span className={`inline-flex items-center gap-1.5 ${dirty ? "text-amber-700" : "text-emerald-700"}`}>
+            <span className={`h-1.5 w-1.5 rounded-full ${dirty ? "bg-amber-500" : "bg-emerald-500"}`} />
+            {dirty ? "Unsaved edits" : "All changes saved"}
+          </span>
+        </div>
       </header>
 
-      <div className="mx-auto flex max-w-[960px] flex-col gap-4 px-5 py-6 md:px-10">
-        {sections.general.length > 0 && (
-          <details open className="rounded-2xl border border-slate-200 bg-white">
-            <summary className="cursor-pointer px-5 py-4 text-lg font-bold text-slate-900">General</summary>
-            <div className="flex flex-col gap-4 border-t border-slate-100 p-5">
-              {sections.general.map((k) => (
-                <Field key={k} name={k} path={[k]} value={obj[k]} defaults={defaults} onChange={onChange} />
-              ))}
-            </div>
-          </details>
-        )}
-        {sections.groups.map((k, i) => (
-          <details key={k} open={i === 0} className="rounded-2xl border border-slate-200 bg-white">
-            <summary className="cursor-pointer px-5 py-4 text-lg font-bold text-slate-900">{humanize(k)}</summary>
-            <div className="flex flex-col gap-4 border-t border-slate-100 p-5">
-              {Array.isArray(obj[k]) ? (
-                <Field name={k} path={[k]} value={obj[k]} defaults={defaults} onChange={onChange} />
-              ) : (
-                Object.entries(obj[k] as Obj).map(([ck, cv]) => (
-                  <Field key={ck} name={ck} path={[k, ck]} value={cv} defaults={defaults} onChange={onChange} />
-                ))
-              )}
-            </div>
-          </details>
-        ))}
+      <div className="grid items-start gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
+        <nav aria-label="Editor sections" className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm lg:sticky lg:top-20">
+          <div className="px-3 pb-2 pt-1 text-[11px] font-extrabold uppercase tracking-[.12em] text-slate-400">
+            Sections
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible">
+            {sectionKeys.map((key, index) => {
+              const label = key === "__general" ? "General" : humanize(key);
+              const selected = key === currentSection;
+              const valueForCount = key === "__general" ? undefined : obj[key];
+              const fields = key === "__general"
+                ? sections.general.reduce<number>((total, field) => total + countFields(obj[field]), 0)
+                : valueForCount === undefined ? 0 : countFields(valueForCount);
+              const itemDetail = SECTION_DETAILS[key];
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setActiveSection(key)}
+                  aria-current={selected ? "step" : undefined}
+                  className={`group flex min-w-[190px] items-center gap-3 rounded-xl px-3 py-3 text-left transition lg:min-w-0 ${
+                    selected
+                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-200"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+                  }`}
+                >
+                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sm font-bold ${
+                    selected ? "bg-white/15 text-white" : "bg-slate-100 text-slate-500 group-hover:bg-indigo-50 group-hover:text-indigo-600"
+                  }`}>
+                    {itemDetail?.icon ?? (key === "__general" ? "⚙" : String(index).padStart(2, "0"))}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-bold">{label}</span>
+                    <span className={`mt-0.5 block text-[11px] ${selected ? "text-indigo-100" : "text-slate-400"}`}>
+                      {fields} fields
+                    </span>
+                  </span>
+                  <span className={`text-xs ${selected ? "text-white/70" : "text-slate-300"}`}>›</span>
+                </button>
+              );
+            })}
+          </div>
+          <form action={resetAction} className="mt-3 border-t border-slate-100 pt-3">
+            <button
+              type="submit"
+              onClick={(e) => {
+                if (!window.confirm("Put every field on this page back to the original text? Your edits to this page will be replaced.")) e.preventDefault();
+              }}
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-xs font-bold text-rose-600 transition hover:bg-rose-50"
+            >
+              <span aria-hidden>↺</span> Reset page content
+            </button>
+          </form>
+        </nav>
 
-        <form action={resetAction} className="mt-6 border-t border-slate-200 pt-6">
-          <button
-            type="submit"
-            onClick={(e) => {
-              if (!window.confirm("Put every field on this page back to the original text? Your edits to this page will be replaced.")) e.preventDefault();
-            }}
-            className="cursor-pointer text-sm font-semibold text-red-600 hover:underline"
-          >
-            Reset this page to the original text
-          </button>
-        </form>
+        <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-5 py-5 sm:px-7">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-indigo-50 text-lg font-bold text-indigo-600">
+                {detail.icon}
+              </span>
+              <div>
+                <h2 className="text-lg font-extrabold text-slate-950">
+                  {currentSection === "__general" ? "General" : humanize(currentSection)}
+                </h2>
+                <p className="mt-0.5 text-xs text-slate-500">{detail.description}</p>
+              </div>
+            </div>
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
+              {fieldCount} editable fields
+            </span>
+          </div>
+          <div className="flex flex-col gap-5 p-5 sm:p-7">
+            {currentSection === "__general"
+              ? sections.general.map((key) => (
+                  <Field key={key} name={key} path={[key]} value={obj[key]} defaults={defaults} onChange={onChange} />
+                ))
+              : Array.isArray(sectionValue)
+                ? <Field name={currentSection} path={[currentSection]} value={sectionValue} defaults={defaults} onChange={onChange} />
+                : Object.entries(sectionValue as Obj).map(([key, child]) => (
+                    <Field key={key} name={key} path={[currentSection, key]} value={child} defaults={defaults} onChange={onChange} />
+                  ))}
+          </div>
+        </section>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white/95 backdrop-blur md:left-72 shadow-lg">
-        <div className="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-3 px-5 py-3 md:px-10">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 shadow-[0_-8px_30px_-18px_rgba(15,23,42,.25)] backdrop-blur md:left-72">
+        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-8">
           <p
             role="status"
-            className={`text-sm font-medium ${status.kind === "error" ? "text-red-600" : status.kind === "ok" ? "text-emerald-700" : "text-slate-500"}`}
+            className={`flex items-center gap-2 text-sm font-semibold ${status.kind === "error" ? "text-rose-700" : status.kind === "ok" ? "text-emerald-700" : dirty ? "text-amber-700" : "text-slate-500"}`}
           >
-            {status.text ?? (dirty ? "You have unsaved changes." : "No unsaved changes.")}
+            <span className={`h-2 w-2 rounded-full ${status.kind === "error" ? "bg-rose-500" : status.kind === "ok" || !dirty ? "bg-emerald-500" : "bg-amber-500"}`} />
+            {status.text ?? (dirty ? "You have unsaved changes." : "All changes are saved.")}
           </p>
           <div className="flex gap-2">
             <button
@@ -430,7 +537,7 @@ export default function ContentEditor({
                 setValue(JSON.parse(saved));
                 setStatus({ kind: "idle" });
               }}
-              className="h-10 cursor-pointer rounded-lg border border-slate-300 px-4 font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-default disabled:opacity-40"
+              className="h-10 cursor-pointer rounded-xl border border-slate-200 px-4 text-sm font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-default disabled:opacity-40"
             >
               Discard
             </button>
@@ -438,8 +545,9 @@ export default function ContentEditor({
               type="button"
               disabled={!dirty || pending}
               onClick={save}
-              className="h-10 cursor-pointer rounded-lg bg-indigo-600 px-5 font-semibold text-white hover:bg-indigo-700 disabled:cursor-default disabled:opacity-40"
+              className="inline-flex h-10 cursor-pointer items-center gap-2 rounded-xl bg-indigo-600 px-5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-default disabled:bg-slate-300 disabled:shadow-none"
             >
+              {pending && <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />}
               {pending ? "Saving…" : "Save changes"}
             </button>
           </div>
