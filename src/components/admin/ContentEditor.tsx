@@ -179,6 +179,11 @@ function Field({ name, path, value, defaults, onChange, hideLabel }: FieldProps)
     else if (path.length === 1 && path[0] === "erpFeatures") fixedSize = 3;
     else if (path.length === 2 && path[0] === "journey" && path[1] === "steps") fixedSize = 10;
     else if (path.length === 2 && path[0] === "journey" && path[1] === "stepDetails") fixedSize = 10;
+    else if (path.length === 2 && path[0] === "insights" && path[1] === "filters") fixedSize = 4;
+    else if (path.length === 2 && path[0] === "insights" && path[1] === "signalGroups") fixedSize = 4;
+    else if (path.length === 4 && path[0] === "insights" && path[1] === "signalGroups" && path[3] === "cards") fixedSize = 4;
+    else if (path.length === 3 && path[0] === "insights" && path[1] === "reportModal" && path[2] === "metrics") fixedSize = 4;
+    else if (path.length === 3 && path[0] === "insights" && path[1] === "reportModal" && path[2] === "details") fixedSize = 4;
     return (
       <ListField
         name={name}

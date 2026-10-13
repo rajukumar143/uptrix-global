@@ -38,6 +38,74 @@ export const collegeDefaults = {
     heading: "Key Insights From Your Education Data",
     body: "Real-time automated telemetry across tuition collections, counselor velocity, and installment aging.",
     reportButton: "View Detailed Reports",
+    filterLabel: "Filter Signals",
+    viewingLabel: "Viewing",
+    filters: [
+      { id: "all", label: "All Insights (10)", viewing: "All 10 Telemetry Signals" },
+      { id: "counselor", label: "Counselors", viewing: "Counselor Performance" },
+      { id: "course", label: "Courses & Risk", viewing: "Cohort Yield & Defaulters" },
+      { id: "cashflow", label: "Cashflow & Rails", viewing: "Cashflow & UPI Rails" },
+    ],
+    signalGroups: [
+      {
+        id: "all",
+        cards: [
+          { eyebrow: "Period Velocity", icon: "📈", value: "+100.0%", title: "Tuition Intake Volume", body: "Revenue growth vs previous period: +100.0% with 2x acceleration in enrollments.", footer: "2x Volume Intake Surge" },
+          { eyebrow: "Expected Pipeline", icon: "💼", value: "₹12,32,000", title: "Active Receivables Ledger", body: "Expected revenue if all pending installments collected across visible students.", footer: "Active Receivables Ledger" },
+          { eyebrow: "Collection Efficiency", icon: "🎯", value: "88.8%", title: "Collection Success Rate", body: "88.8% Realized • 11.2% in automated WhatsApp recovery cadence.", footer: "88.8% Realized • 11.2% in Recovery", progress: 88.8 },
+          { eyebrow: "Defaulter Attention", icon: "⚠️", value: "7 Students", title: "Overdue Installments", body: "7 student(s) with overdue installments. 1-click WhatsApp payment links staged.", footer: "Installment 2 & 3 Follow-up Ready" },
+        ],
+      },
+      {
+        id: "counselor",
+        cards: [
+          { eyebrow: "Counselor Leaderboard #1", icon: "👑", value: "₹646,000", title: "Madhuri Tirlangi (Top Performer)", body: "Closed 42 enrollments with 100% token fee clearance and zero applicant churn.", footer: "42 Enrollments Closed" },
+          { eyebrow: "Counselor Desk Audit", icon: "⚠️", value: "₹37,000", title: "Kavitha Lingampally (Audit Flag)", body: "Lowest collection desk. 17.5x performance gap vs top desk; flagged for call script coaching.", footer: "17.5x Gap vs Top Desk" },
+          { eyebrow: "Conversion Velocity", icon: "⚡", value: "4.2 Days", title: "Average Lead-to-Token Speed", body: "From initial WhatsApp enquiry to booking token deposit. 35% faster than average.", footer: "35% Faster Conversions" },
+          { eyebrow: "Daily Call Queue", icon: "📞", value: "128 Leads", title: "Active Scheduled Touchpoints", body: "High-intent applicants scheduled across engineering and management counselor shifts today.", footer: "94% Connect Rate" },
+        ],
+      },
+      {
+        id: "course",
+        cards: [
+          { eyebrow: "Academic Yield Star", icon: "🎓", value: "₹954,000", title: "Data Analytics - Gen AI", body: "Most profitable course cohort across campuses. Highest average tuition fee collected per seat.", footer: "Top Grossing Academic Cohort" },
+          { eyebrow: "Defaulter Hotspot", icon: "🚨", value: "6 Students", title: "Data Analytics - Gen AI", body: "Accounts for 85.7% of all overdue accounts. Concentrated installment risk in 2nd semester fees.", footer: "85.7% of Total Overdue" },
+          { eyebrow: "Admissions Rush", icon: "🔥", value: "18 Seats Left", title: "B.Tech Computer Science", body: "92% of merit intake quota filled. High demand ratio with 3.8x applicants per available desk.", footer: "92% Capacity Reached" },
+          { eyebrow: "Tuition Clearance", icon: "⚖️", value: "91.4%", title: "On-Time Milestone Rate", body: "Semester 1 milestone fee clearance pace institute-wide with automatic receipts issued.", footer: "On-Time Milestone Clearance" },
+        ],
+      },
+      {
+        id: "cashflow",
+        cards: [
+          { eyebrow: "Active Receivables", icon: "💼", value: "₹12,32,000", title: "Active Receivables Ledger", body: "Installments scheduled across next 45 days. Auto-debit and WhatsApp link reminders pre-queued.", footer: "Tracked in Daily Cashbook" },
+          { eyebrow: "Collection Efficiency", icon: "🎯", value: "88.8%", title: "88.8% Realized • 11.2% Recovery", body: "Instant reconciliation into institute bank account. 11.2% in automated WhatsApp 3-step recovery.", footer: "Direct Bank Settlement", progress: 88.8 },
+          { eyebrow: "Tuition Milestone", icon: "💎", value: "₹60,000", title: "Full Upfront Tuition Clear", body: "Biggest single payment on record: ₹60,000 upfront annual tuition cleared via direct UPI payment link.", footer: "Cleared in Full via UPI" },
+          { eyebrow: "Preferred Payment Rails", icon: "📱", value: "84% UPI", title: "UPI Rails (Razorpay / Instant QR)", body: "8 out of 10 parents choose direct WhatsApp UPI links over offline cash or manual NEFT bank visits.", footer: "84% Digital Rail Share" },
+        ],
+      },
+    ],
+    reminderBanner: "7 student accounts with overdue installments. Automated WhatsApp reminder cadence ready.",
+    sendRemindersButton: "Send Bulk Reminders (7 Overdue) →",
+    sentRemindersButton: "7 WhatsApp Links Sent",
+    reminderSuccess: "Automated WhatsApp payment reminders and QR links dispatched to 7 parents. Counselor desks notified.",
+    reportModal: {
+      heading: "Institutional Financial Telemetry Report",
+      body: "Aggregated tuition fee deposits, aging receivables, counselor conversion ratios, and payment rail distributions.",
+      metrics: [
+        { label: "Total Fees", value: "₹82.4L" },
+        { label: "Collected", value: "₹51.6L" },
+        { label: "Expected", value: "₹12.32L" },
+        { label: "Overdue (7)", value: "₹18.48L" },
+      ],
+      details: [
+        { label: "Top Grossing Program:", value: "Data Analytics - Gen AI (₹9.54 Lakhs)" },
+        { label: "Top Counselor Desk:", value: "Madhuri Tirlangi (₹6.46 Lakhs collected)" },
+        { label: "Default Recovery Action:", value: "7 Installments Pending Reminder Wave" },
+        { label: "Accounting Engine Sync:", value: "Tally ERP Prime & Zoho Books Connected (0 Discrepancy)" },
+      ],
+      sendRemindersButton: "Send WhatsApp Overdue Wave",
+      closeButton: "Close",
+    },
   },
   journey: {
     eyebrow: "THE COMPLETE JOURNEY",

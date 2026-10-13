@@ -37,7 +37,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   const [activeJourneyStep, setActiveJourneyStep] = useState<string>(content.journey.steps[0] ?? "Lead");
 
   // Interactive state for Business Insights
-  const [insightFilter, setInsightFilter] = useState<"all" | "counselor" | "course" | "cashflow">("all");
+  const [insightFilter, setInsightFilter] = useState("all");
   const [bulkReminderSent, setBulkReminderSent] = useState<boolean>(false);
   const [showReportsModal, setShowReportsModal] = useState<boolean>(false);
 
@@ -131,6 +131,14 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   const activeVideo = videos.cards.find((video) => video.id === activeVideoId) ?? videos.cards[0];
   const selectedCaseStudyIndex = selectedCaseStudy === "apex" ? 0 : selectedCaseStudy === "vanguard" ? 1 : 2;
   const selectedCaseStudyCard = caseStudies.cards[selectedCaseStudyIndex] ?? caseStudies.cards[0];
+  const activeInsightGroup = insights.signalGroups.find((group) => group.id === insightFilter)
+    ?? insights.signalGroups[0];
+  const insightCardStyles = [
+    { border: "border-emerald-200 hover:border-emerald-400", gradient: "from-emerald-50/50", eyebrow: "text-emerald-800", icon: "bg-emerald-100 text-emerald-800", value: "text-emerald-700", footer: "border-emerald-100 text-emerald-800", progress: "bg-emerald-600" },
+    { border: "border-indigo-200 hover:border-indigo-400", gradient: "from-indigo-50/50", eyebrow: "text-indigo-900", icon: "bg-indigo-100 text-indigo-900", value: "text-indigo-950", footer: "border-indigo-100 text-indigo-900", progress: "bg-indigo-600" },
+    { border: "border-teal-200 hover:border-teal-400", gradient: "from-teal-50/50", eyebrow: "text-teal-900", icon: "bg-teal-100 text-teal-900", value: "text-teal-800", footer: "border-teal-100 text-teal-900", progress: "bg-teal-600" },
+    { border: "border-rose-200 hover:border-rose-400", gradient: "from-rose-50/50", eyebrow: "text-rose-900", icon: "bg-rose-100 text-rose-800", value: "text-rose-600", footer: "border-rose-100 text-rose-700", progress: "bg-rose-600" },
+  ];
 
   return (
     <div className="min-h-screen bg-[#fafbfc] text-[#1e293b] font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900">
@@ -577,18 +585,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-100/90 p-1.5 rounded-xl border border-slate-200">
               <div className="flex flex-wrap items-center gap-1 text-xs">
                 <span className="text-[11px] font-bold text-slate-500 uppercase px-2 font-mono hidden sm:inline">
-                  Filter Signals:
+                  {insights.filterLabel}:
                 </span>
-                {[
-                  { id: "all", label: "All Insights (10)" },
-                  { id: "counselor", label: "Counselors" },
-                  { id: "course", label: "Courses & Risk" },
-                  { id: "cashflow", label: "Cashflow & Rails" },
-                ].map((tab) => (
+                {insights.filters.map((tab) => (
                   <button
                     key={tab.id}
                     type="button"
-                    onClick={() => setInsightFilter(tab.id as typeof insightFilter)}
+                    onClick={() => setInsightFilter(tab.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       insightFilter === tab.id
                         ? "bg-slate-900 text-white shadow-xs"
@@ -603,15 +606,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-mono px-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>
-                  Viewing:{" "}
+                  {insights.viewingLabel}:{" "}
                   <strong className="text-slate-900 uppercase">
-                    {insightFilter === "all"
-                      ? "All 10 Telemetry Signals"
-                      : insightFilter === "counselor"
-                      ? "Counselor Performance"
-                      : insightFilter === "course"
-                      ? "Cohort Yield & Defaulters"
-                      : "Cashflow & UPI Rails"}
+                    {insights.filters.find((filter) => filter.id === insightFilter)?.viewing}
                   </strong>
                 </span>
               </div>
@@ -624,7 +621,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               key={insightFilter}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 animate-in fade-in zoom-in-98 duration-150"
             >
-              {insightFilter === "all" && (
+              {false && insightFilter === "all" && (
                 <>
                   {/* Card 1: Revenue Velocity */}
                   <div className="group rounded-xl border border-emerald-200 bg-gradient-to-br from-emerald-50/50 via-white to-white p-3.5 shadow-2xs hover:shadow-md hover:border-emerald-400 transition-all flex flex-col justify-between gap-2.5">
@@ -738,7 +735,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </>
               )}
 
-              {insightFilter === "counselor" && (
+              {false && insightFilter === "counselor" && (
                 <>
                   {/* Counselor Card 1: Top Leader */}
                   <div className="group rounded-xl border border-emerald-200 bg-gradient-to-br from-emerald-50/50 via-white to-white p-3.5 shadow-2xs hover:shadow-md hover:border-emerald-400 transition-all flex flex-col justify-between gap-2.5">
@@ -846,7 +843,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </>
               )}
 
-              {insightFilter === "course" && (
+              {false && insightFilter === "course" && (
                 <>
                   {/* Course Card 1: Most Profitable */}
                   <div className="group rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50/50 via-white to-white p-3.5 shadow-2xs hover:shadow-md hover:border-blue-400 transition-all flex flex-col justify-between gap-2.5">
@@ -954,7 +951,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </>
               )}
 
-              {insightFilter === "cashflow" && (
+              {false && insightFilter === "cashflow" && (
                 <>
                   {/* Cashflow Card 1: Receivables */}
                   <div className="group rounded-xl border border-indigo-200 bg-gradient-to-br from-indigo-50/50 via-white to-white p-3.5 shadow-2xs hover:shadow-md hover:border-indigo-400 transition-all flex flex-col justify-between gap-2.5">
@@ -1061,6 +1058,42 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   </div>
                 </>
               )}
+
+              {activeInsightGroup?.cards.map((card, index) => {
+                const style = insightCardStyles[index % insightCardStyles.length];
+                return (
+                  <article
+                    key={`${activeInsightGroup.id}-${index}`}
+                    className={`group rounded-xl border ${style.border} bg-gradient-to-br ${style.gradient} via-white to-white p-3.5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between gap-2.5`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${style.eyebrow}`}>
+                        {card.eyebrow}
+                      </span>
+                      <span className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold ${style.icon}`}>
+                        {card.icon}
+                      </span>
+                    </div>
+                    <div>
+                      <div className={`text-2xl font-black font-mono tracking-tight ${style.value}`}>
+                        {card.value}
+                      </div>
+                      <p className="text-xs font-bold text-slate-800 mt-0.5 leading-snug">{card.title}</p>
+                      <p className="text-[11px] text-slate-500 mt-1 leading-snug">{card.body}</p>
+                    </div>
+                    <div className={`pt-2 border-t text-[10px] font-medium font-mono ${style.footer}`}>
+                      {card.progress !== undefined ? (
+                        <div className="flex flex-col gap-1">
+                          <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div className={`h-full rounded-full ${style.progress}`} style={{ width: `${Math.min(100, Math.max(0, card.progress))}%` }} />
+                          </div>
+                          <span>{card.footer}</span>
+                        </div>
+                      ) : card.footer}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
 
             {/* Compact Action Banner for 7 Overdue Reminders */}
@@ -1069,9 +1102,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold shrink-0">
                   ⚡
                 </span>
-                <span className="text-xs font-bold text-slate-800">
-                  7 student accounts with overdue installments. Automated WhatsApp reminder cadence ready.
-                </span>
+                <span className="text-xs font-bold text-slate-800">{insights.reminderBanner}</span>
               </div>
 
               <button
@@ -1084,15 +1115,15 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 }`}
               >
                 {bulkReminderSent
-                  ? "✓ 7 WhatsApp Links Sent"
-                  : "Send Bulk Reminders (7 Overdue) →"}
+                  ? `✓ ${insights.sentRemindersButton}`
+                  : insights.sendRemindersButton}
               </button>
             </div>
 
             {bulkReminderSent && (
               <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2 text-xs text-emerald-800 font-semibold flex items-center gap-2 animate-in fade-in duration-150">
                 <span>✓</span>
-                <span>Automated WhatsApp payment reminders and QR links dispatched to 7 parents. Counselor desks notified.</span>
+                <span>{insights.reminderSuccess}</span>
               </div>
             )}
 
@@ -1114,48 +1145,37 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 📊
               </div>
               <h3 className="text-2xl font-black text-slate-900">
-                Institutional Financial Telemetry Report
+                {insights.reportModal.heading}
               </h3>
               <p className="mt-1 text-sm text-slate-600 leading-relaxed">
-                Aggregated tuition fee deposits, aging receivables, counselor conversion ratios, and payment rail distributions.
+                {insights.reportModal.body}
               </p>
 
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center font-mono text-xs">
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                  <span className="text-[10px] text-slate-500 uppercase block font-bold">Total Fees</span>
-                  <span className="text-base font-black text-slate-900">₹82.4L</span>
-                </div>
-                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
-                  <span className="text-[10px] text-emerald-700 uppercase block font-bold">Collected</span>
-                  <span className="text-base font-black text-emerald-800">₹51.6L</span>
-                </div>
-                <div className="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                  <span className="text-[10px] text-indigo-700 uppercase block font-bold">Expected</span>
-                  <span className="text-base font-black text-indigo-800">₹12.32L</span>
-                </div>
-                <div className="bg-rose-50 p-3 rounded-xl border border-rose-200">
-                  <span className="text-[10px] text-rose-700 uppercase block font-bold">Overdue (7)</span>
-                  <span className="text-base font-black text-rose-800">₹6.4L</span>
-                </div>
+                {insights.reportModal.metrics.map((metric, index) => {
+                  const styles = [
+                    "bg-slate-50 border-slate-200 text-slate-500 text-slate-900",
+                    "bg-emerald-50 border-emerald-200 text-emerald-700 text-emerald-800",
+                    "bg-indigo-50 border-indigo-200 text-indigo-700 text-indigo-800",
+                    "bg-rose-50 border-rose-200 text-rose-700 text-rose-800",
+                  ];
+                  const [background, border, labelColor, valueColor] = styles[index % styles.length].split(" ");
+                  return (
+                    <div key={index} className={`${background} p-3 rounded-xl border ${border}`}>
+                      <span className={`text-[10px] ${labelColor} uppercase block font-bold`}>{metric.label}</span>
+                      <span className={`text-base font-black ${valueColor}`}>{metric.value}</span>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="mt-6 space-y-2 text-xs text-slate-700">
-                <div className="flex justify-between py-1.5 border-b border-slate-100">
-                  <span className="font-medium">Top Grossing Program:</span>
-                  <span className="font-bold text-slate-900">Data Analytics - Gen AI (₹9.54 Lakhs)</span>
-                </div>
-                <div className="flex justify-between py-1.5 border-b border-slate-100">
-                  <span className="font-medium">Top Counselor Desk:</span>
-                  <span className="font-bold text-slate-900">Madhuri Tirlangi (₹6.46 Lakhs collected)</span>
-                </div>
-                <div className="flex justify-between py-1.5 border-b border-slate-100">
-                  <span className="font-medium">Default Recovery Action:</span>
-                  <span className="font-bold text-amber-700">7 Installments Pending Reminder Wave</span>
-                </div>
-                <div className="flex justify-between py-1.5">
-                  <span className="font-medium">Accounting Engine Sync:</span>
-                  <span className="font-bold text-emerald-700">Tally ERP Prime &amp; Zoho Books Connected (0 Discrepancy)</span>
-                </div>
+                {insights.reportModal.details.map((detail, index) => (
+                  <div key={index} className={`flex justify-between py-1.5 ${index < insights.reportModal.details.length - 1 ? "border-b border-slate-100" : ""}`}>
+                    <span className="font-medium">{detail.label}</span>
+                    <span className="font-bold text-slate-900">{detail.value}</span>
+                  </div>
+                ))}
               </div>
 
               <div className="mt-8 flex gap-3">
@@ -1167,14 +1187,14 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   }}
                   className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-center text-sm shadow-md transition cursor-pointer"
                 >
-                  Send WhatsApp Overdue Wave
+                  {insights.reportModal.sendRemindersButton}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowReportsModal(false)}
                   className="px-5 py-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-50 transition cursor-pointer"
                 >
-                  Close
+                  {insights.reportModal.closeButton}
                 </button>
               </div>
             </div>

@@ -9,7 +9,7 @@ affected pages; a CDN may take up to a minute to show the update.
   (Uptrix CRM with EduTech and Real Estate underneath, and Uptrix HRMS), the other links and the demo button.
 - **College page:** open **Page text → College page** to edit the SEO fields, hero, trust strip, section headings
   and copy, feature lists, management metrics, case studies (including the implementation dialog), testimonials,
-  reviews, FAQs, demo form text and final calls to action.
+  reviews, FAQs, demo form text, the Business Insights radar cards and report dialog, and final calls to action.
 - **Case studies:** each story gets its own page at `/case-studies/<slug>`. The starter stories are marked
   *Example* and hidden from Google. Replace them with real customers and turn off **Is example**.
 - **Video testimonials:** upload the video to YouTube and paste its link. Videos without a link stay hidden;
