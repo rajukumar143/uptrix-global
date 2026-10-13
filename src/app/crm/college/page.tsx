@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 
 export default function CrmCollegePage() {
   const all = getContent();
-  return <CollegeLandingPage header={all.header} footer={all.crmLayout.footer} />;
+  return <CollegeLandingPage header={all.header} footer={all.crmLayout.footer} content={all.college} />;
 }

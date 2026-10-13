@@ -1,5 +1,6 @@
 import { aboutDefaults } from "./about";
 import { blogDefaults } from "./blog";
+import { collegeDefaults } from "./college";
 import { contactDefaults } from "./contact";
 import { crmDefaults, crmLayoutDefaults } from "./crm";
 import { headerDefaults } from "./header";
@@ -13,6 +14,7 @@ export const defaultContent = {
   header: headerDefaults,
   home: homeDefaults,
   crm: crmDefaults,
+  college: collegeDefaults,
   crmRealEstate: realEstateDefaults,
   caseStudies: caseStudiesDefaults,
   videoTestimonials: videoTestimonialsDefaults,
@@ -36,6 +38,11 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   },
   home: { title: "Home page", description: "The main Uptrix page: hero slides, HRMS and CRM sections, FAQ and footer.", paths: ["/"] },
   crm: { title: "CRM landing page", description: "The Uptrix Pulse CRM page: hero, features, workflow, FAQ and demo form.", paths: ["/crm"] },
+  college: {
+    title: "College page",
+    description: "The education CRM / ERP landing page for colleges, universities and admission-led institutions.",
+    paths: ["/college", "/crm/college"],
+  },
   crmRealEstate: { title: "Real Estate CRM page", description: "The CRM page for builders, brokers and property teams.", paths: ["/crm/real-estate"] },
   caseStudies: {
     title: "Case studies",

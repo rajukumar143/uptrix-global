@@ -29,6 +29,12 @@ const CATEGORY_MAP: Record<string, { label: string; icon: string; tag: string; t
     tag: "Flagship",
     tagColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
   },
+  college: {
+    label: "Industry CRM",
+    icon: "🎓",
+    tag: "Education",
+    tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  },
   home: {
     label: "Core Platform",
     icon: "🏠",

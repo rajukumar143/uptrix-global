@@ -7,15 +7,17 @@ import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import { submitLead } from "@/app/actions/lead";
+import type { CollegeContent } from "@/content/college";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 
 interface CollegeLandingPageProps {
   header: HeaderContent;
   footer: CrmLayoutContent["footer"];
+  content: CollegeContent;
 }
 
-export default function CollegeLandingPage({ header, footer }: CollegeLandingPageProps) {
+export default function CollegeLandingPage({ header, footer, content }: CollegeLandingPageProps) {
   // Interactive state for admissions table filter
   const [selectedPipelineStage, setSelectedPipelineStage] = useState<string>("all");
   
@@ -107,6 +109,8 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
       : leadsTableData.filter(
           (lead) => lead.stage.toLowerCase() === selectedPipelineStage.toLowerCase()
         );
+
+  const hero = content.hero;
 
   return (
     <div className="min-h-screen bg-[#fafbfc] text-[#1e293b] font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900">
