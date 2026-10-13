@@ -136,11 +136,11 @@ export default function CollegeLandingPage({ header, footer }: CollegeLandingPag
 
                 {/* Main Heading */}
                 <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.14] font-black tracking-tight text-slate-900">
-                  Run Your Entire <br className="hidden sm:inline" />
-                  Education Business <br className="hidden sm:inline" />
+                  The Intelligent  <br className="hidden sm:inline" />
+                  AI-powered CRM <br className="hidden sm:inline" />
                   From{" "}
                   <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                    One Powerful Platform
+                    Platform for Education Businesses
                   </span>
                 </h1>
 
