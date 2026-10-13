@@ -34,7 +34,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   const [demoError, setDemoError] = useState<string>("");
 
   // Interactive state for The Complete Journey stepper
-  const [activeJourneyStep, setActiveJourneyStep] = useState<string>("Lead");
+  const [activeJourneyStep, setActiveJourneyStep] = useState<string>(content.journey.steps[0] ?? "Lead");
 
   // Interactive state for Business Insights
   const [insightFilter, setInsightFilter] = useState<"all" | "counselor" | "course" | "cashflow">("all");
@@ -46,11 +46,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   const [showCaseStudyModal, setShowCaseStudyModal] = useState<boolean>(false);
 
   // Interactive state for Video Testimonials
-  const [activeVideoId, setActiveVideoId] = useState<string>("video-1");
+  const [activeVideoId, setActiveVideoId] = useState<string>(content.videos.cards[0]?.id ?? "video-1");
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
 
   // Interactive state for Reviews
-  const [reviewFilter, setReviewFilter] = useState<"all" | "engineering" | "management" | "health">("all");
+  const [reviewFilter, setReviewFilter] = useState("all");
 
   // Interactive state for FAQ accordion
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
@@ -110,7 +110,27 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
           (lead) => lead.stage.toLowerCase() === selectedPipelineStage.toLowerCase()
         );
 
-  const hero = content.hero;
+  const {
+    hero,
+    challenge,
+    insights,
+    journey,
+    platform,
+    admissions,
+    studentProfile,
+    erpFeatures,
+    management,
+    caseStudies,
+    videos,
+    reviews,
+    faq,
+    finalCta,
+    demoModal,
+  } = content;
+  const reviewCategories = Array.from(new Set(reviews.cards.map((review) => review.category)));
+  const activeVideo = videos.cards.find((video) => video.id === activeVideoId) ?? videos.cards[0];
+  const selectedCaseStudyIndex = selectedCaseStudy === "apex" ? 0 : selectedCaseStudy === "vanguard" ? 1 : 2;
+  const selectedCaseStudyCard = caseStudies.cards[selectedCaseStudyIndex] ?? caseStudies.cards[0];
 
   return (
     <div className="min-h-screen bg-[#fafbfc] text-[#1e293b] font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900">
@@ -135,32 +155,30 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 {/* Eyebrow Pill */}
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase w-fit shadow-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>EDUCATION CRM + ERP</span>
+                  <span>{hero.eyebrow}</span>
                 </div>
 
                 {/* Main Heading */}
                 <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.14] font-black tracking-tight text-slate-900">
-                  The Intelligent  <br className="hidden sm:inline" />
-                  AI-powered CRM <br className="hidden sm:inline" />
-                  From{" "}
+                  {hero.headingStart} <br className="hidden sm:inline" />
+                  {hero.headingEnd ? `${hero.headingEnd} ` : ""}
                   <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                    Platform for Education Businesses
+                    {hero.headingHighlight}
                   </span>
                 </h1>
 
                 {/* Description */}
                 <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
-                  Manage leads, admissions, students, academics, fees, communication, staff and
-                  operations — all from one connected system.
+                  {hero.body}
                 </p>
 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap items-center gap-4 pt-1">
                   <Link
-                    href="/crm#demo"
+                    href={hero.primaryButtonLink}
                     className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-[0_10px_25px_-5px_rgba(16,185,129,0.4)] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                   >
-                    <span>Book a Demo</span>
+                    <span>{hero.primaryButtonLabel}</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.4" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
@@ -175,7 +193,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    <span>See How It Works</span>
+                    <span>{hero.secondaryButtonLabel}</span>
                   </button>
                 </div>
 
@@ -476,19 +494,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
         {/* Client Logo Carousel (Same as Home Page) */}
         <LogoMarquee
-          heading="Trusted by 140+ Colleges, Universities & Higher Ed Institutions"
-          names={[
-            "Apex Institute of Technology",
-            "Vistara Global University",
-            "BrightPath Business School",
-            "Kaveri Academy of Sciences",
-            "Indus Engineering College",
-            "Meridian International University",
-            "Tarang Institute of Management",
-            "Orbit Polytechnic",
-            "Zenith College of Pharmacy",
-            "Saffron Institute of Design",
-          ]}
+          heading={content.trustBar.heading}
+          names={content.trustBar.clientNames}
           id="college-trust-heading"
         />
 
@@ -500,99 +507,37 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             
             {/* Section Tag */}
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold tracking-wider uppercase mb-3">
-              THE CHALLENGE
+              {challenge.eyebrow}
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-              Your Education Business Is Growing. <br />
-              Your Systems Are Not.
+              {challenge.heading}
             </h2>
             
             <p className="mt-3 text-slate-500 text-base sm:text-lg max-w-2xl mx-auto">
-              Disconnected tools and manual processes slow down your team and impact your growth.
+              {challenge.body}
             </p>
 
-            {/* 6 Problem Cards Grid */}
+            {/* Problem cards */}
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 text-left">
-              
-              {/* Card 1 */}
-              <div className="bg-[#fffbfb] rounded-2xl p-5 border border-rose-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg mb-3">
-                    📢
+              {challenge.cards.map((card, index) => (
+                <div
+                  key={index}
+                  className={`rounded-2xl p-5 border shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between ${
+                    ["bg-[#fffbfb] border-rose-200/70", "bg-[#fffdfa] border-amber-200/70", "bg-[#fbfdff] border-blue-200/70", "bg-[#f9fefd] border-teal-200/70", "bg-[#fcfaff] border-purple-200/70", "bg-[#fff9f9] border-rose-200/70"][index % 6]
+                  }`}
+                >
+                  <div>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 ${
+                      ["bg-rose-100 text-rose-600", "bg-amber-100 text-amber-600", "bg-blue-100 text-blue-600", "bg-teal-100 text-teal-600", "bg-purple-100 text-purple-600", "bg-rose-100 text-rose-600"][index % 6]
+                    }`}>
+                      {["📢", "⏰", "📁", "⚙️", "👁️", "🛑"][index % 6]}
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 mb-1.5">{card.title}</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed">{card.body}</p>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">Leads Are Everywhere</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Website, Meta Ads, Google Ads, WhatsApp, phone calls and walk-ins create disconnected inquiries.
-                  </p>
                 </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="bg-[#fffdfa] rounded-2xl p-5 border border-amber-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3">
-                    ⏰
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">Follow-Ups Get Missed</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Counselors forget who needs a call, document reminder or payment follow-up.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="bg-[#fbfdff] rounded-2xl p-5 border border-blue-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg mb-3">
-                    📁
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">Student Data Is Scattered</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Admissions, fees, documents, attendance and campus activities live in different systems.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 4 */}
-              <div className="bg-[#f9fefd] rounded-2xl p-5 border border-teal-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg mb-3">
-                    ⚙️
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">Too Much Manual Work</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Teams waste hours updating spreadsheets, sending messages and generating reports.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 5 */}
-              <div className="bg-[#fcfaff] rounded-2xl p-5 border border-purple-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg mb-3">
-                    👁️
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">Management Lacks Visibility</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Owners can't reliably see admission conversion, counselor performance or pending payments.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 6 */}
-              <div className="bg-[#fff9f9] rounded-2xl p-5 border border-rose-200/70 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg mb-3">
-                    🛑
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-1.5">CRM Stops After Admission</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Most CRMs focus on converting the lead — but you need to manage the student after enrollment too.
-                  </p>
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
         </section>
@@ -608,13 +553,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               <div>
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-bold uppercase tracking-wider font-mono mb-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
-                  <span>⚡ AI FINANCIAL RADAR • AUTOMATED HIGHLIGHTS</span>
+                  <span>{insights.eyebrow}</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-tight">
-                  Key Insights From Your Education Data
+                  {insights.heading}
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5 max-w-xl">
-                  Real-time automated telemetry across tuition collections, counselor velocity, and installment aging.
+                  {insights.body}
                 </p>
               </div>
 
@@ -623,7 +568,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 onClick={() => setShowReportsModal(true)}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-slate-700 hover:text-emerald-700 hover:border-emerald-300 text-xs font-bold shadow-2xs transition self-start sm:self-auto shrink-0 cursor-pointer"
               >
-                <span>View Detailed Reports</span>
+                <span>{insights.reportButton}</span>
                 <span className="text-emerald-600 font-bold">→</span>
               </button>
             </div>
@@ -1244,15 +1189,15 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             
             {/* Pill */}
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
-              THE COMPLETE JOURNEY
+              {journey.eyebrow}
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-              From First Inquiry to Graduation — One Connected System
+              {journey.heading}
             </h2>
 
             <p className="mt-2 text-slate-500 text-base sm:text-lg max-w-2xl mx-auto">
-              Manage the entire student lifecycle on a single platform.
+              {journey.body}
             </p>
 
             {/* Stepper with 10 Circular Nodes */}
@@ -1263,7 +1208,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <div className="absolute top-[40px] -translate-y-1/2 left-12 right-12 h-0.5 bg-slate-200 z-0" />
 
                 {/* 10 Nodes */}
-                {[
+                {journey.steps.map((step, index) => {
+                  const styles = [
                   { step: "Lead", icon: "🌱", color: "bg-emerald-50 text-emerald-700 border-emerald-400" },
                   { step: "Counseling", icon: "💬", color: "bg-blue-50 text-blue-700 border-blue-400" },
                   { step: "Application", icon: "📝", color: "bg-amber-50 text-amber-700 border-amber-400" },
@@ -1274,7 +1220,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   { step: "Attendance", icon: "📅", color: "bg-amber-50 text-amber-700 border-amber-400" },
                   { step: "Communication", icon: "📲", color: "bg-cyan-50 text-cyan-700 border-cyan-400" },
                   { step: "Graduation", icon: "🎖️", color: "bg-purple-50 text-purple-700 border-purple-400" },
-                ].map((item, idx) => {
+                  ];
+                  const item = { ...styles[index % styles.length], step };
                   const isActive = activeJourneyStep === item.step;
                   return (
                     <button
@@ -1504,7 +1451,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 },
               };
 
-              const stepNames = [
+              const stepDetailKeys = [
                 "Lead",
                 "Counseling",
                 "Application",
@@ -1516,8 +1463,12 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 "Communication",
                 "Graduation",
               ];
+              const stepNames = journey.steps;
               const currentIndex = stepNames.indexOf(activeJourneyStep);
-              const info = journeyDetails[activeJourneyStep] || journeyDetails["Lead"];
+              const info = {
+                ...(journeyDetails[stepDetailKeys[currentIndex]] || journeyDetails["Lead"]),
+                ...(journey.stepDetails[currentIndex] ?? {}),
+              };
 
               const handlePrev = () => {
                 if (currentIndex > 0) setActiveJourneyStep(stepNames[currentIndex - 1]);
@@ -1622,7 +1573,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
             {/* Handwritten style quote */}
             <div className="mt-10 font-serif italic text-lg sm:text-xl text-emerald-800 tracking-wide">
-              &ldquo;One student. One profile. One system. Complete visibility.&rdquo;
+              &ldquo;{journey.quote}&rdquo;
             </div>
 
           </div>
@@ -1642,12 +1593,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             
             {/* Pill */}
             <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider uppercase mb-3">
-              TWO SIDES. ONE PLATFORM.
+              {platform.eyebrow}
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white">
-              CRM Brings Students In. <br />
-              ERP Manages Everything After They Join.
+              {platform.heading}
             </h2>
 
             {/* 3-Part Architecture Grid */}
@@ -1659,20 +1609,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-4">
                     📢
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900">Admissions CRM</h3>
+                  <h3 className="text-2xl font-black text-slate-900">{platform.crmTitle}</h3>
                   <p className="mt-1.5 text-xs text-slate-500">
-                    Capture, track and convert every inquiry into an admission.
+                    {platform.crmBody}
                   </p>
 
                   <ul className="mt-6 space-y-3 text-xs sm:text-sm text-slate-700 font-semibold">
-                    {[
-                      "Lead management",
-                      "Counselor management",
-                      "Follow-ups & reminders",
-                      "Application tracking",
-                      "WhatsApp & email campaigns",
-                      "Admission pipeline",
-                    ].map((feature) => (
+                    {platform.crmFeatures.map((feature) => (
                       <li key={feature} className="flex items-center gap-2.5">
                         <span className="w-4.5 h-4.5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs shrink-0 font-bold">
                           ✓
@@ -1698,13 +1641,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <div className="flex items-center gap-2 text-emerald-400 text-sm font-bold">
                   <span>←</span>
                   <span className="text-[11px] font-mono tracking-wider uppercase text-emerald-300">
-                    ONE CENTRAL DATABASE
+                    {platform.databaseLabel}
                   </span>
                   <span>→</span>
                 </div>
 
                 <p className="text-[11px] text-slate-400 max-w-[180px] leading-tight">
-                  Leads, Students, Fees, Academic, Communication and More
+                  {platform.databaseBody}
                 </p>
               </div>
 
@@ -1714,20 +1657,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-4">
                     🎓
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900">Education ERP</h3>
+                  <h3 className="text-2xl font-black text-slate-900">{platform.erpTitle}</h3>
                   <p className="mt-1.5 text-xs text-slate-500">
-                    Manage everything after admission in one connected system.
+                    {platform.erpBody}
                   </p>
 
                   <ul className="mt-6 space-y-3 text-xs sm:text-sm text-slate-700 font-semibold">
-                    {[
-                      "Student management",
-                      "Course & batch management",
-                      "Fees & payments",
-                      "Attendance & exams",
-                      "Certificates & documents",
-                      "Reports & analytics",
-                    ].map((feature) => (
+                    {platform.erpFeatures.map((feature) => (
                       <li key={feature} className="flex items-center gap-2.5">
                         <span className="w-4.5 h-4.5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs shrink-0 font-bold">
                           ✓
@@ -1753,27 +1689,19 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               {/* Left Column */}
               <div className="lg:col-span-5 flex flex-col gap-5">
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase w-fit">
-                  ADMISSIONS MANAGEMENT
+                  {admissions.eyebrow}
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-black tracking-tight text-slate-900 leading-tight">
-                  Turn Every Inquiry Into an Enrollment Opportunity
+                  {admissions.heading}
                 </h2>
 
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  Track leads, manage counseling, collect documents and convert more students with a
-                  structured process.
+                  {admissions.body}
                 </p>
 
                 <ul className="space-y-2.5 pt-2 text-xs sm:text-sm font-semibold text-slate-700">
-                  {[
-                    "Lead capture & course tracking",
-                    "Counselor assignment",
-                    "Follow-up reminders",
-                    "Counseling scheduling",
-                    "Application & document tracking",
-                    "Enrollment management",
-                  ].map((item) => (
+                  {admissions.features.map((item) => (
                     <li key={item} className="flex items-center gap-2.5">
                       <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
                         ✓
@@ -1932,17 +1860,15 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               {/* Left Column */}
               <div className="lg:col-span-5 flex flex-col gap-4">
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase w-fit">
-                  STUDENT 360° PROFILE
+                  {studentProfile.eyebrow}
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-black tracking-tight text-slate-900 leading-tight">
-                  Everything About a Student. <br />
-                  In One Place.
+                  {studentProfile.heading}
                 </h2>
 
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  Get a complete view of student details, fees, attendance, academic progress,
-                  documents and communication history.
+                  {studentProfile.body}
                 </p>
               </div>
 
@@ -2461,19 +2387,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
                     🎓
                   </div>
-                  <h3 className="text-xl font-black text-slate-900">Academic Management</h3>
-                  <p className="text-xs text-slate-500 mt-1">Manage what happens after admission.</p>
+                  <h3 className="text-xl font-black text-slate-900">{erpFeatures[0].title}</h3>
+                  <p className="text-xs text-slate-500 mt-1">{erpFeatures[0].body}</p>
 
                   <ul className="mt-5 space-y-2 text-xs font-semibold text-slate-700">
-                    {[
-                      "Course & curriculum management",
-                      "Batch management",
-                      "Attendance tracking",
-                      "Examinations & results",
-                      "Assignments",
-                      "Certificates",
-                      "Student progress tracking",
-                    ].map((f) => (
+                    {erpFeatures[0].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
                           ✓
@@ -2511,19 +2429,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl mb-4">
                     💳
                   </div>
-                  <h3 className="text-xl font-black text-slate-900">Fees &amp; Finance</h3>
-                  <p className="text-xs text-slate-500 mt-1">Stop chasing payments manually.</p>
+                  <h3 className="text-xl font-black text-slate-900">{erpFeatures[1].title}</h3>
+                  <p className="text-xs text-slate-500 mt-1">{erpFeatures[1].body}</p>
 
                   <ul className="mt-5 space-y-2 text-xs font-semibold text-slate-700">
-                    {[
-                      "Fee structure & installments",
-                      "Online payments & payment links",
-                      "Automatic receipts",
-                      "Due date reminders",
-                      "Outstanding payments",
-                      "Refund management",
-                      "Revenue reports",
-                    ].map((f) => (
+                    {erpFeatures[1].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
                           ✓
@@ -2563,19 +2473,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
                     💬
                   </div>
-                  <h3 className="text-xl font-black text-slate-900">WhatsApp &amp; Communication</h3>
-                  <p className="text-xs text-slate-500 mt-1">Keep students engaged automatically.</p>
+                  <h3 className="text-xl font-black text-slate-900">{erpFeatures[2].title}</h3>
+                  <p className="text-xs text-slate-500 mt-1">{erpFeatures[2].body}</p>
 
                   <ul className="mt-5 space-y-2 text-xs font-semibold text-slate-700">
-                    {[
-                      "WhatsApp, SMS & Email",
-                      "Bulk campaigns",
-                      "Automated reminders",
-                      "AI chatbot",
-                      "AI lead qualification",
-                      "Two-way conversations",
-                      "Templates & broadcasts",
-                    ].map((f) => (
+                    {erpFeatures[2].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
                           ✓
@@ -2643,43 +2545,20 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase mb-2">
                     <span>📊</span>
-                    <span>MANAGEMENT DASHBOARD</span>
+                    <span>{management.dashboardEyebrow}</span>
                   </div>
                   <h3 className="text-2xl font-black text-slate-900">
-                    Finally know what is happening across your business.
+                    {management.dashboardHeading}
                   </h3>
 
                   {/* 6 Grid Metrics */}
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-6">
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Leads</span>
-                      <span className="text-lg font-black text-slate-900 font-mono">12,482</span>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Admissions</span>
-                      <span className="text-lg font-black text-emerald-700 font-mono">2,184</span>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Revenue</span>
-                      <span className="text-lg font-black text-amber-700 font-mono">₹4.82Cr</span>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Conversion</span>
-                      <span className="text-lg font-black text-blue-700 font-mono">17.5%</span>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Pending Fees</span>
-                      <span className="text-lg font-black text-rose-700 font-mono">₹28.4L</span>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <span className="text-[10px] text-slate-500 font-bold uppercase block">Active Students</span>
-                      <span className="text-lg font-black text-indigo-700 font-mono">8,421</span>
-                    </div>
+                    {management.metrics.map((metric, index) => (
+                      <div key={index} className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+                        <span className="text-[10px] text-slate-500 font-bold uppercase block">{metric.label}</span>
+                        <span className="text-lg font-black text-slate-900 font-mono">{metric.value}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -2731,30 +2610,21 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold tracking-wider uppercase mb-2">
                     <span>⚡</span>
-                    <span>Before vs After</span>
+                    <span>{management.comparisonEyebrow}</span>
                   </div>
                   <h3 className="text-2xl font-black text-slate-900">
-                    From chaos &amp; spreadsheets to complete control.
+                    {management.comparisonHeading}
                   </h3>
 
                   {/* Comparison Table */}
                   <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200/90 text-xs">
                     <div className="grid grid-cols-2 bg-slate-50 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
-                      <div className="p-3 text-rose-700 bg-rose-50/50">Before</div>
-                      <div className="p-3 text-emerald-800 bg-emerald-50/50">With Our Platform</div>
+                      <div className="p-3 text-rose-700 bg-rose-50/50">{management.comparisonBeforeLabel}</div>
+                      <div className="p-3 text-emerald-800 bg-emerald-50/50">{management.comparisonAfterLabel}</div>
                     </div>
 
                     <div className="divide-y divide-slate-100 font-medium">
-                      {[
-                        { before: "Excel spreadsheets", after: "Centralized student database" },
-                        { before: "Missed follow-ups", after: "Automated workflows" },
-                        { before: "Personal WhatsApp", after: "Business communication" },
-                        { before: "Scattered student data", after: "Student 360° profile" },
-                        { before: "Manual fee tracking", after: "Automated fee management" },
-                        { before: "Separate academic tools", after: "Integrated ERP" },
-                        { before: "Guessing performance", after: "Real-time analytics" },
-                        { before: "Multiple software tools", after: "One powerful platform" },
-                      ].map((row, i) => (
+                      {management.comparisons.map((row, i) => (
                         <div key={i} className="grid grid-cols-2 hover:bg-slate-50/50 transition">
                           <div className="p-2.5 text-slate-500 flex items-center gap-1.5">
                             <span className="text-rose-400">✕</span>
@@ -2800,17 +2670,17 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex flex-col gap-3 text-center max-w-[840px] mx-auto">
               <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 font-mono">
                 <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span>📊 PROVEN INSTITUTIONAL RESULTS • CASE STUDIES</span>
+                <span>{caseStudies.eyebrow}</span>
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
-                Real College Turnarounds: Results Across 140+ Campuses
+                {caseStudies.heading}
               </h2>
               <p className="text-sm sm:text-base leading-relaxed text-slate-600">
-                Explore how leading engineering institutes, business schools, and multi-campus universities eliminated seat leakages, cut counseling cycles by 70%, and automated ₹3.2+ Cr in tuition fee collections.
+                {caseStudies.body}
               </p>
             </div>
 
-            {/* 3 High-Impact Visual Case Study Story Cards Grid */}
+            {/* Case study story cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6.5">
               
               {/* Case Study Card 1: Apex Institute of Technology */}
@@ -2821,29 +2691,29 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500" />
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-mono font-bold text-emerald-300 border border-white/10">
-                        Autonomous Engineering
+                        {caseStudies.cards[0].category}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">4 Campuses • 4,200 Students</span>
+                      <span className="text-xs text-slate-400 font-mono">{caseStudies.cards[0].campuses}</span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-emerald-400 font-mono leading-none">
-                          +184%
+                          {caseStudies.cards[0].metric1}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Token Velocity</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[0].metric1Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-white font-mono leading-none">
-                          91.8%
+                          {caseStudies.cards[0].metric2}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Fee Realization</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[0].metric2Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-emerald-300 font-mono leading-none">
-                          0%
+                          {caseStudies.cards[0].metric3}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Seat Leakage</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[0].metric3Label}</span>
                       </div>
                     </div>
                   </div>
@@ -2852,26 +2722,26 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="p-6 flex flex-col gap-4">
                     <div>
                       <span className="text-[11px] font-mono font-bold uppercase text-emerald-700 tracking-wider">
-                        Case Study #01 • Bengaluru &amp; Hyderabad
+                        {caseStudies.cards[0].location}
                       </span>
                       <h3 className="text-lg font-black text-slate-900 mt-1 leading-snug group-hover:text-emerald-700 transition-colors">
-                        How Apex Institute Cut Admission Cycles from 14 Days to 4 Days and Recovered ₹3.2 Cr
+                        {caseStudies.cards[0].title}
                       </h3>
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Before Uptrix, 35% of engineering leads dropped off in unmonitored Excel sheets, and 40% of semester 2 fee installments were overdue.
+                      {caseStudies.cards[0].body}
                     </p>
 
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
                         <span className="text-rose-500 font-bold shrink-0">✕</span>
-                        <span className="text-slate-500"><strong>Before:</strong> 14-day manual counseling delay; double seat bookings across campus desks.</span>
+                        <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[0].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
                         <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                        <span className="text-slate-800"><strong>With Uptrix:</strong> 14-sec WhatsApp brochures, 1-click UPI seat locking, zero double bookings.</span>
+                        <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[0].after}</span>
                       </div>
                     </div>
 
@@ -2882,10 +2752,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       </div>
                       <div>
                         <p className="text-[11px] text-slate-600 italic line-clamp-2">
-                          &quot;Uptrix gave our engineering campus complete financial peace of mind. Zero seat leakage.&quot;
+                          &quot;{caseStudies.cards[0].quote}&quot;
                         </p>
                         <span className="text-[10px] font-bold text-slate-900 block mt-0.5">
-                          Dr. Arvind Singhal — Director of Admissions
+                          {caseStudies.cards[0].author}
                         </span>
                       </div>
                     </div>
@@ -2916,29 +2786,29 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-500" />
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-mono font-bold text-blue-300 border border-white/10">
-                        Post-Graduate &amp; MBA
+                        {caseStudies.cards[1].category}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">2 Campuses • 1,600 Students</span>
+                      <span className="text-xs text-slate-400 font-mono">{caseStudies.cards[1].campuses}</span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-blue-400 font-mono leading-none">
-                          3.2x
+                          {caseStudies.cards[1].metric1}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Conversion Rate</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[1].metric1Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-white font-mono leading-none">
-                          14 Sec
+                          {caseStudies.cards[1].metric2}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Brochure SLA</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[1].metric2Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-indigo-300 font-mono leading-none">
-                          ₹1.4 Cr
+                          {caseStudies.cards[1].metric3}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Upfront Tuition</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[1].metric3Label}</span>
                       </div>
                     </div>
                   </div>
@@ -2947,26 +2817,26 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="p-6 flex flex-col gap-4">
                     <div>
                       <span className="text-[11px] font-mono font-bold uppercase text-blue-700 tracking-wider">
-                        Case Study #02 • Mumbai &amp; Pune
+                        {caseStudies.cards[1].location}
                       </span>
                       <h3 className="text-lg font-black text-slate-900 mt-1 leading-snug group-hover:text-blue-700 transition-colors">
-                        How Vanguard Tripled Lead-to-Enrollment Yield with Instant WhatsApp Multi-Touch Automation
+                        {caseStudies.cards[1].title}
                       </h3>
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Prospective MBA applicants waited up to 48 hours for email brochures, leading to high dropouts before counseling interviews took place.
+                      {caseStudies.cards[1].body}
                     </p>
 
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
                         <span className="text-rose-500 font-bold shrink-0">✕</span>
-                        <span className="text-slate-500"><strong>Before:</strong> Untracked phone calls; high dropout rate between offer letter and seat fee deposit.</span>
+                        <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[1].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
                         <span className="text-blue-600 font-bold shrink-0">✓</span>
-                        <span className="text-slate-800"><strong>With Uptrix:</strong> Sub-14s WhatsApp brochures, auto-dialer queues, and 1-click token reservations.</span>
+                        <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[1].after}</span>
                       </div>
                     </div>
 
@@ -2977,10 +2847,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       </div>
                       <div>
                         <p className="text-[11px] text-slate-600 italic line-clamp-2">
-                          &quot;Our lead-to-enrollment conversion rate more than tripled in our very first intake season.&quot;
+                          &quot;{caseStudies.cards[1].quote}&quot;
                         </p>
                         <span className="text-[10px] font-bold text-slate-900 block mt-0.5">
-                          Prof. Meenakshi Sundaram — Dean
+                          {caseStudies.cards[1].author}
                         </span>
                       </div>
                     </div>
@@ -2997,7 +2867,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     }}
                     className="w-full py-3 rounded-xl bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
                   >
-                    <span>Read Full Case Study</span>
+                    <span>{caseStudies.readButton}</span>
                     <span className="text-blue-400 group-hover:text-white transition-colors">→</span>
                   </button>
                 </div>
@@ -3011,29 +2881,29 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-teal-400 via-cyan-300 to-indigo-500" />
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-mono font-bold text-teal-300 border border-white/10">
-                        Nursing &amp; Allied Health
+                        {caseStudies.cards[2].category}
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">3 Campuses • 2,100 Students</span>
+                      <span className="text-xs text-slate-400 font-mono">{caseStudies.cards[2].campuses}</span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-teal-400 font-mono leading-none">
-                          98.2%
+                          {caseStudies.cards[2].metric1}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Recovery Rate</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[2].metric1Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-white font-mono leading-none">
-                          -76%
+                          {caseStudies.cards[2].metric2}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Admin Overtime</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[2].metric2Label}</span>
                       </div>
                       <div>
                         <div className="text-2xl sm:text-[26px] font-black text-cyan-300 font-mono leading-none">
-                          100%
+                          {caseStudies.cards[2].metric3}
                         </div>
-                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">Digital Receipts</span>
+                        <span className="text-[10px] text-slate-300 font-medium mt-1 block">{caseStudies.cards[2].metric3Label}</span>
                       </div>
                     </div>
                   </div>
@@ -3042,26 +2912,26 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <div className="p-6 flex flex-col gap-4">
                     <div>
                       <span className="text-[11px] font-mono font-bold uppercase text-teal-700 tracking-wider">
-                        Case Study #03 • Kochi &amp; Coimbatore
+                        {caseStudies.cards[2].location}
                       </span>
                       <h3 className="text-lg font-black text-slate-900 mt-1 leading-snug group-hover:text-teal-700 transition-colors">
-                        How St. Jude Automated 4-Part Fee Installments and Eliminated Paper Ledger Disputes
+                        {caseStudies.cards[2].title}
                       </h3>
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      2,100 nursing students on multi-installment payment plans created massive paper ledger tracking chaos and manual receipt bottlenecks.
+                      {caseStudies.cards[2].body}
                     </p>
 
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
                         <span className="text-rose-500 font-bold shrink-0">✕</span>
-                        <span className="text-slate-500"><strong>Before:</strong> Handwritten paper receipts; 2 weeks spent every semester on offline bank matching.</span>
+                        <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[2].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
                         <span className="text-teal-600 font-bold shrink-0">✓</span>
-                        <span className="text-slate-800"><strong>With Uptrix:</strong> 3-step WhatsApp installment cadence, direct bank UPI settlement, instant GST PDFs.</span>
+                        <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[2].after}</span>
                       </div>
                     </div>
 
@@ -3072,10 +2942,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       </div>
                       <div>
                         <p className="text-[11px] text-slate-600 italic line-clamp-2">
-                          &quot;Uptrix automated our entire fee collection. Bank reconciliation is 100% effortless.&quot;
+                          &quot;{caseStudies.cards[2].quote}&quot;
                         </p>
                         <span className="text-[10px] font-bold text-slate-900 block mt-0.5">
-                          Dr. Rameshwar Pillai — Managing Trustee
+                          {caseStudies.cards[2].author}
                         </span>
                       </div>
                     </div>
@@ -3092,7 +2962,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     }}
                     className="w-full py-3 rounded-xl bg-slate-900 hover:bg-teal-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
                   >
-                    <span>Read Full Case Study</span>
+                    <span>{caseStudies.readButton}</span>
                     <span className="text-teal-400 group-hover:text-white transition-colors">→</span>
                   </button>
                 </div>
@@ -3142,53 +3012,19 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex flex-col gap-3 text-center max-w-[800px] mx-auto">
               <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-purple-700 font-mono">
                 <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse" />
-                <span>🎬 FOUNDER &amp; DIRECTOR INTERVIEWS</span>
+                <span>{videos.eyebrow}</span>
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
-                Hear Directly from Educational Institute Leaders
+                {videos.heading}
               </h2>
               <p className="text-sm sm:text-base leading-relaxed text-slate-600">
-                Watch Deans, Admissions Directors, and Academic Registrars explain how Uptrix unified their admissions desks and fee collections.
+                {videos.body}
               </p>
             </div>
 
             {/* 3 Video Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  id: "video-1",
-                  speaker: "Dr. Arvind Singhal",
-                  role: "Director of Admissions",
-                  institute: "Apex Group of Institutions",
-                  tag: "Autonomous Engineering",
-                  duration: "3:45 mins",
-                  metric: "+184% Enrollment Velocity",
-                  quote:
-                    "Before Uptrix, our counselors spent 3 hours daily updating Excel files. Now leads from Meta, Google, and college portals are instantly routed with zero delay.",
-                },
-                {
-                  id: "video-2",
-                  speaker: "Prof. Meenakshi Sundaram",
-                  role: "Dean of Executive Education",
-                  institute: "Vanguard Business School",
-                  tag: "MBA & Post-Graduate",
-                  duration: "4:12 mins",
-                  metric: "₹1.4 Cr Upfront Tuition",
-                  quote:
-                    "Parents love the 1-click WhatsApp fee payment links. Our installment default rate dropped from 32% down to less than 4% in just two semesters.",
-                },
-                {
-                  id: "video-3",
-                  speaker: "Dr. Rameshwar Pillai",
-                  role: "Managing Trustee",
-                  institute: "St. Jude Educational Trust",
-                  tag: "Health Sciences & Allied",
-                  duration: "5:08 mins",
-                  metric: "98.2% Fee Realization",
-                  quote:
-                    "Managing 4 campuses on different softwares was a nightmare. Uptrix gave our management board a single live dashboard across all campuses.",
-                },
-              ].map((card) => (
+              {videos.cards.map((card) => (
                 <div
                   key={card.id}
                   onClick={() => {
@@ -3235,7 +3071,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                         {card.metric}
                       </span>
                       <span className="text-[11px] text-emerald-600 font-bold group-hover:translate-x-0.5 transition-transform">
-                        Watch Story →
+                        {videos.watchButton} →
                       </span>
                     </div>
 
@@ -3270,23 +3106,24 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex flex-col gap-3 text-center max-w-[820px] mx-auto">
               <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-amber-800 font-mono mx-auto">
                 <span className="text-amber-500">★★★★★</span>
-                <span>4.9/5 RATING • 140+ VERIFIED INSTITUTIONS</span>
+                <span>{reviews.eyebrow}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
-                Loved by Principals, Deans &amp; Admission Heads
+                {reviews.heading}
               </h2>
               <p className="text-sm sm:text-base leading-relaxed text-slate-600">
-                Join education leaders across India who rely on Uptrix to streamline multi-campus admissions, fee installment collection, and student operations.
+                {reviews.body}
               </p>
             </div>
 
             {/* Category Filter Pills */}
             <div className="flex flex-wrap items-center justify-center gap-2">
               {[
-                { id: "all", label: "All Reviews (6)" },
-                { id: "engineering", label: "Engineering & Tech (2)" },
-                { id: "management", label: "Management Institutes (2)" },
-                { id: "health", label: "Health & Allied (2)" },
+                { id: "all", label: `All Reviews (${reviews.cards.length})` },
+                ...reviewCategories.map((category) => ({
+                  id: category,
+                  label: `${category} (${reviews.cards.filter((review) => review.category === category).length})`,
+                })),
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -3305,74 +3142,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
             {/* 6 Review Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
-              {[
-                {
-                  category: "engineering",
-                  name: "Dr. K. S. Ramanujam",
-                  role: "Principal",
-                  institute: "Chennai Institute of Technology",
-                  badge: "NAAC 'A+' Autonomous",
-                  metric: "+44% Intake Yield",
-                  stars: 5,
-                  review:
-                    "Uptrix completely transformed our engineering admissions desk. The counselor leaderboard and automated WhatsApp brochure pipeline increased our conversion rate by 44% in a single season. The real-time seat lock via UPI token payments eliminated double bookings.",
-                },
-                {
-                  category: "management",
-                  name: "Pooja Deshmukh",
-                  role: "Head of Admissions",
-                  institute: "Horizon Global B-School, Pune",
-                  badge: "AICTE Approved PGDM",
-                  metric: "₹38L Recovered in 45 Days",
-                  stars: 5,
-                  review:
-                    "The automated 3-step WhatsApp installment reminders are magical. We recovered ₹38 Lakhs of overdue fees in the first 45 days without awkward collection calls. Parents simply tap the dynamic UPI link and pay in 10 seconds. Reconciliation is 100% automatic.",
-                },
-                {
-                  category: "health",
-                  name: "Fr. Thomas Varghese",
-                  role: "Director of Administration",
-                  institute: "Sacred Heart College of Nursing",
-                  badge: "INC Recognized",
-                  metric: "Zero Ledger Errors",
-                  stars: 5,
-                  review:
-                    "Student 360 profile is a monumental upgrade. Attendance, exam marks, and installment fee ledgers are visible to faculty, accountants, and parents in real time. We eliminated handwritten paper receipts entirely with instant GST-compliant digital PDFs.",
-                },
-                {
-                  category: "engineering",
-                  name: "Sunil Aggarwal",
-                  role: "Admissions Registrar",
-                  institute: "Delhi Technical Campus",
-                  badge: "GGSIPU Affiliated",
-                  metric: "48h Migration",
-                  stars: 5,
-                  review:
-                    "Migrating from our 10-year-old Tally and spreadsheet setup took less than 48 hours. The Uptrix customer success team imported our 3,200 student records flawlessly and trained all 28 counselors in one afternoon. Adoption has been 100%.",
-                },
-                {
-                  category: "health",
-                  name: "Dr. Nalini Swaminathan",
-                  role: "Dean of Academic Affairs",
-                  institute: "Apex Medical & Allied College",
-                  badge: "4 Healthcare Campuses",
-                  metric: "98.8% Fee Realization",
-                  stars: 5,
-                  review:
-                    "Zero fee leakage. Every single UPI deposit generates an instant digital GST receipt and immediately updates our financial ledger. Our external auditors commended our multi-campus books for the first time in 6 years.",
-                },
-                {
-                  category: "management",
-                  name: "Rohan Malhotra",
-                  role: "Executive Director",
-                  institute: "Nexus School of Business, Gurgaon",
-                  badge: "Top 50 Private B-School",
-                  metric: "14-Sec Response Speed",
-                  stars: 5,
-                  review:
-                    "Lead response time plummeted from 4 hours to 14 seconds. The instant WhatsApp brochure delivery gave us an enormous competitive edge over competing B-schools. Our counselors now spend time closing high-intent candidates rather than manual data entry.",
-                },
-              ]
+              {reviews.cards
                 .filter((r) => reviewFilter === "all" || r.category === reviewFilter)
                 .map((r, i) => (
                   <div
@@ -3433,52 +3203,19 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex flex-col gap-3 text-center">
               <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 font-mono">
                 <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                <span>💡 FREQUENTLY ASKED QUESTIONS</span>
+                <span>{faq.eyebrow}</span>
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
-                Everything You Need to Know About Uptrix
+                {faq.heading}
               </h2>
               <p className="text-sm sm:text-base leading-relaxed text-slate-600 max-w-xl mx-auto">
-                Clear, upfront answers about migration, WhatsApp compliance, role-based access, and fee reconciliation for college administrators.
+                {faq.body}
               </p>
             </div>
 
             {/* Accordion List */}
             <div className="flex flex-col gap-3">
-              {[
-                {
-                  q: "How long does it take to migrate our existing student data from Excel or legacy ERPs?",
-                  a: "Migration typically takes only 24 to 48 hours. Our dedicated onboarding team provides pre-formatted migration templates for student biodata, previous fee balances, counselor lead histories, and active batch registers. We handle data cleansing, duplicate checking, and validation with zero downtime for your active admissions desk.",
-                },
-                {
-                  q: "Can Uptrix manage multiple campuses and departments under one management login?",
-                  a: "Yes! Uptrix is built with an enterprise multi-campus architecture. Trustees and central management can inspect consolidated financial cash flow, counselor velocity, and branch filling rates in one live cockpit. Simultaneously, individual campus directors, deans, and department heads only see their authorized departmental data with strict role-based access control.",
-                },
-                {
-                  q: "Does Uptrix provide official WhatsApp Business API with green tick verification?",
-                  a: "Yes. Uptrix is an official Meta Business Solution Partner. We assist your college in obtaining verified WhatsApp Business API numbers, green tick badges, and custom sender IDs. All automated templates (brochures, installment fee reminders, payment receipts, attendance alerts) are pre-approved by Meta for 100% deliverability.",
-                },
-                {
-                  q: "How do parents pay fees, and how does automated bank reconciliation work?",
-                  a: "Parents receive official WhatsApp messages containing a secure 1-click dynamic UPI payment link and QR code. When paid via Google Pay, PhonePe, Paytm, credit/debit card, or net banking, funds settle directly into your college's designated bank account via Razorpay or Cashfree. The student ledger updates instantly, receipts are auto-generated, and zero manual accountant matching is required.",
-                },
-                {
-                  q: "Can counselors and faculty access the platform on their mobile phones?",
-                  a: "Absolutely. Uptrix is 100% responsive and accessible on any mobile phone, tablet, or desktop browser with zero app installation needed. Counselors can click-to-call, update stage notes, send brochures, and view their daily follow-up queues right from their smartphones.",
-                },
-                {
-                  q: "Is student personal data, entrance marks, and financial data secure and compliant?",
-                  a: "Enterprise-grade data security is standard. Uptrix employs 256-bit AES encryption at rest and TLS 1.3 in transit. All database clusters are hosted in ISO 27001-certified Indian data centers (AWS Mumbai) adhering to Indian data residency regulations. Automated hourly backups and tamper-evident audit logs protect all financial records.",
-                },
-                {
-                  q: "Can we customize fee installment schedules, merit scholarships, and token booking amounts?",
-                  a: "Yes, you have complete flexibility. You can configure course-specific fee structures, semester-wise installment dates, quota discounts, merit scholarship waivers, and seat-locking token fee thresholds with automated payment deadlines.",
-                },
-                {
-                  q: "What training and ongoing technical support do you provide to our staff?",
-                  a: "Every college is assigned a Dedicated Customer Success Manager. We deliver hands-on live training sessions for your counselors, academic staff, and accounts department. In addition, your team receives 24/7 priority WhatsApp and telephone support with a guaranteed 15-minute response SLA.",
-                },
-              ].map((faq, index) => {
+              {faq.items.map((faqItem, index) => {
                 const isExpanded = expandedFaq === index;
                 return (
                   <div
@@ -3495,7 +3232,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       className="w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-left cursor-pointer"
                     >
                       <span className="text-sm sm:text-base font-black text-slate-900 leading-snug">
-                        {faq.q}
+                        {faqItem.q}
                       </span>
                       <span
                         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-transform duration-200 ${
@@ -3510,7 +3247,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
                     {isExpanded && (
                       <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 animate-in fade-in duration-150">
-                        {faq.a}
+                        {faqItem.a}
                       </div>
                     )}
                   </div>
@@ -3521,17 +3258,17 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             {/* Bottom Support Banner */}
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
               <div>
-                <h4 className="text-sm font-black text-slate-900">Have a custom question about your campus setup?</h4>
+                <h4 className="text-sm font-black text-slate-900">{finalCta.heading}</h4>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Our Education Solutions Architects are ready to evaluate your workflows and provide a tailored blueprint.
+                  {finalCta.body}
                 </p>
               </div>
               <div className="flex items-center gap-2.5 shrink-0">
                 <Link
-                  href="/crm/contact"
+                  href={finalCta.buttonLink}
                   className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition"
                 >
-                  Schedule Architect Call →
+                  {finalCta.buttonLabel} →
                 </Link>
                 <Link
                   href="https://wa.me/919999999999"
@@ -3551,23 +3288,23 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
         <section className="py-20 bg-gradient-to-b from-white to-[#f0f9f6]/60 text-center">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Ready to Run Your Entire Education Business from One Place?
+              {finalCta.bannerHeading}
             </h2>
             <p className="mt-3 text-slate-600 text-base sm:text-lg max-w-xl mx-auto">
-              Join leading coaching academies, colleges and education institutes that rely on Uptrix.
+              {finalCta.bannerBody}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/crm#demo"
+                href={finalCta.primaryButtonLink}
                 className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-600/30 transition transform hover:-translate-y-0.5"
               >
-                Book a Live Demo →
+                {finalCta.primaryButtonLabel} →
               </Link>
               <Link
-                href="/crm/contact"
+                href={finalCta.secondaryButtonLink}
                 className="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-base border border-slate-300 shadow-xs transition"
               >
-                Contact Sales
+                {finalCta.secondaryButtonLabel}
               </Link>
             </div>
           </div>
@@ -3593,10 +3330,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               🎓
             </div>
             <h3 className="text-2xl font-black text-slate-900">
-              Book College ERP &amp; CRM Demo
+              {demoModal.heading}
             </h3>
             <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-              Experience automated student admissions, fee collections, counselor pipelines, and parent WhatsApp updates.
+              {demoModal.body}
             </p>
 
             {demoSubmitted ? (
@@ -3604,9 +3341,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <span className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 text-2xl flex items-center justify-center mx-auto">
                   ✓
                 </span>
-                <h4 className="text-lg font-bold text-slate-900">Demo Scheduled Successfully!</h4>
+                <h4 className="text-lg font-bold text-slate-900">{demoModal.successHeading}</h4>
                 <p className="text-xs text-slate-600 max-w-sm mx-auto">
-                  Our higher education solution consultant will connect with you via WhatsApp and phone within 15 minutes.
+                  {demoModal.successBody}
                 </p>
                 <button
                   type="button"
@@ -3616,7 +3353,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   }}
                   className="mt-4 px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
                 >
-                  Done
+                  {demoModal.doneButton}
                 </button>
               </div>
             ) : (
@@ -3646,22 +3383,22 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Contact Name *</label>
+                    <label className="font-bold text-slate-700 block mb-1">{demoModal.nameLabel}</label>
                     <input
                       required
                       name="name"
                       type="text"
-                      placeholder="e.g. Dr. Rajesh Sharma"
+                      placeholder={demoModal.namePlaceholder}
                       className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">College / Institution Name *</label>
+                    <label className="font-bold text-slate-700 block mb-1">{demoModal.institutionLabel}</label>
                     <input
                       required
                       name="company"
                       type="text"
-                      placeholder="e.g. Apex Institute of Tech"
+                      placeholder={demoModal.institutionPlaceholder}
                       className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
@@ -3669,50 +3406,45 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Gmail / Official Email *</label>
+                    <label className="font-bold text-slate-700 block mb-1">{demoModal.emailLabel}</label>
                     <input
                       required
                       name="email"
                       type="email"
-                      placeholder="principal@apex.edu.in"
+                      placeholder={demoModal.emailPlaceholder}
                       className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Mobile / WhatsApp Number *</label>
+                    <label className="font-bold text-slate-700 block mb-1">{demoModal.phoneLabel}</label>
                     <input
                       required
                       name="phone"
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder={demoModal.phonePlaceholder}
                       className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Business / Institution Type *</label>
+                  <label className="font-bold text-slate-700 block mb-1">{demoModal.businessTypeLabel}</label>
                   <select
                     name="businessType"
                     className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden bg-white text-slate-700 font-medium"
                   >
-                    <option value="College / University">University / Deemed University</option>
-                    <option value="Degree / Engineering College">Engineering &amp; Technology College</option>
-                    <option value="Management & Business School">Management &amp; Business School</option>
-                    <option value="Medical & Health Sciences">Medical &amp; Allied Health Sciences</option>
-                    <option value="Coaching & Test Prep Network">Coaching &amp; Test Prep Multi-Branch</option>
-                    <option value="Other Higher Ed">Other Higher Ed Institution</option>
+                    {demoModal.businessTypes.map((businessType) => (
+                      <option key={businessType.value} value={businessType.value}>{businessType.label}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    What would you like to solve? <span className="font-normal text-slate-400">(Optional)</span>
-                  </label>
+                  <label className="font-bold text-slate-700 block mb-1">{demoModal.challengeLabel}</label>
                   <textarea
                     name="solveProblem"
                     rows={2}
-                    placeholder="e.g. Incomplete student seat lock-in, counselor drop-offs, automatic fee reminders..."
+                    placeholder={demoModal.challengePlaceholder}
                     className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:outline-hidden resize-none"
                   />
                 </div>
@@ -3724,16 +3456,16 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
                   >
                     {demoSubmitting ? (
-                      <span>Reserving Personal Demo…</span>
+                      <span>{demoModal.submittingButton}</span>
                     ) : (
                       <>
-                        <span>Confirm Demo Booking</span>
+                        <span>{demoModal.submitButton}</span>
                         <span>→</span>
                       </>
                     )}
                   </button>
                   <p className="text-[10px] text-center text-slate-400 mt-2">
-                    🔒 100% confidential. No spam. Direct demo room link sent on WhatsApp.
+                    🔒 {demoModal.privacyNote}
                   </p>
                 </div>
               </form>
@@ -3758,12 +3490,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
               <div className="flex flex-col gap-1">
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 font-mono">
-                  🎬 INSTITUTIONAL LEADER VIDEO INTERVIEW
+                  🎬 {videos.eyebrow}
                 </span>
                 <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900">
-                  {activeVideoId === "video-1" && "Dr. Arvind Singhal • Apex Group of Institutions"}
-                  {activeVideoId === "video-2" && "Prof. Meenakshi Sundaram • Vanguard Business School"}
-                  {activeVideoId === "video-3" && "Dr. Rameshwar Pillai • St. Jude Educational Trust"}
+                  {activeVideo?.interviewTitle}
                 </h3>
               </div>
 
@@ -3794,12 +3524,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </div>
                 <div>
                   <h4 className="text-white text-base sm:text-lg font-black">
-                    {activeVideoId === "video-1" && "Transforming Engineering Admissions Across 4 Campuses"}
-                    {activeVideoId === "video-2" && "Scaling MBA Inquiries & 1-Click WhatsApp Tuition Clear"}
-                    {activeVideoId === "video-3" && "Multi-Campus Financial Operations & Zero Fee Defaulters"}
+                    {activeVideo?.episodeTitle}
                   </h4>
                   <p className="text-slate-400 text-xs mt-0.5">
-                    Full Uncut Institutional Case Study Interview
+                    {activeVideo?.role} • {activeVideo?.institute}
                   </p>
                 </div>
               </div>
@@ -3822,27 +3550,18 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             {/* Quote Transcript Box */}
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5 flex flex-col gap-2">
               <span className="text-[10px] font-mono font-bold uppercase text-slate-500">
-                Key Transcript Excerpt:
+                {videos.transcriptLabel}
               </span>
               <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic">
-                {activeVideoId === "video-1" &&
-                  '"Our admissions desk used to drown in spreadsheets. With Uptrix, lead routing is automated in seconds, and our counselors closed 42% more admissions in our very first academic intake season. The ROI was clear within 30 days."'}
-                {activeVideoId === "video-2" &&
-                  '"Parents don\'t want to download complex apps or wait in bank queues. Sending them a WhatsApp message with the exact installment amount and a 1-click UPI link reduced our overdue fees by 88%."'}
-                {activeVideoId === "video-3" &&
-                  '"As a trustee, my biggest concern was financial visibility. Uptrix consolidated all 4 campus ledgers into one executive cockpit. We have zero fee leakage and our audits are completely effortless."'}
+                {activeVideo?.transcript}
               </p>
             </div>
 
             {/* Switch to Other Interviews */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <span className="text-xs font-bold text-slate-600">Watch Other Case Studies:</span>
+              <span className="text-xs font-bold text-slate-600">{videos.switchButtonLabel}</span>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { id: "video-1", label: "Apex Group" },
-                  { id: "video-2", label: "Vanguard B-School" },
-                  { id: "video-3", label: "St. Jude Trust" },
-                ].map((v) => (
+                {videos.cards.map((v) => (
                   <button
                     key={v.id}
                     type="button"
@@ -3853,7 +3572,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                         : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                     }`}
                   >
-                    {v.label}
+                    {v.institute}
                   </button>
                 ))}
               </div>
@@ -3877,12 +3596,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
               <div>
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 font-mono">
-                  📋 INSTITUTIONAL IMPLEMENTATION BLUEPRINT
+                  📋 {caseStudies.modal.eyebrow}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
-                  {selectedCaseStudy === "apex" && "Apex Institute of Technology • 30-Day Deployment"}
-                  {selectedCaseStudy === "vanguard" && "Vanguard Global B-School • Admissions Scaling"}
-                  {selectedCaseStudy === "stjude" && "St. Jude Health Sciences • Fee Automation"}
+                  {selectedCaseStudyCard?.title}
                 </h3>
               </div>
 
@@ -3896,44 +3613,30 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             </div>
 
             <div className="space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <h4 className="font-black text-slate-900 text-sm mb-1">Phase 1: 48-Hour Data Migration &amp; Cleansing</h4>
-                <p className="text-slate-600">
-                  Imported 4,200 past student ledgers and active counselor queues. Mapped course fee installment rules, scholarship slabs, and created WhatsApp templates.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <h4 className="font-black text-slate-900 text-sm mb-1">Phase 2: Live WhatsApp Business API &amp; Auto-Routing</h4>
-                <p className="text-slate-600">
-                  Integrated official Meta green tick WhatsApp channel. Connected Facebook/Meta lead ads, college website forms, and walk-in desks with 14-second instant brochure dispatch.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <h4 className="font-black text-slate-900 text-sm mb-1">Phase 3: Automated Fee Installments &amp; Reconciliation</h4>
-                <p className="text-slate-600">
-                  Deployed 3-step automated WhatsApp payment cadence. Enabled 1-click Razorpay UPI links with instant digital GST PDF receipts and automated Tally ledger synchronisation.
-                </p>
-              </div>
+              {caseStudies.modal.phases.map((phase, index) => (
+                <div key={index} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-black text-slate-900 text-sm mb-1">{phase.heading}</h4>
+                  <p className="text-slate-600">{phase.body}</p>
+                </div>
+              ))}
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
-              <span className="text-xs text-slate-500 font-mono">Status: Production Live across 4 Campuses</span>
+              <span className="text-xs text-slate-500 font-mono">{caseStudies.modal.status}</span>
               <div className="flex gap-2">
                 <Link
-                  href="/crm#demo"
+                  href={finalCta.primaryButtonLink}
                   onClick={() => setShowCaseStudyModal(false)}
                   className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition"
                 >
-                  Book Similar Implementation Demo
+                  {caseStudies.modal.demoButton}
                 </Link>
                 <button
                   type="button"
                   onClick={() => setShowCaseStudyModal(false)}
                   className="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition cursor-pointer"
                 >
-                  Close
+                  {caseStudies.modal.closeButton}
                 </button>
               </div>
             </div>

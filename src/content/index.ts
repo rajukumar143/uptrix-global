@@ -40,7 +40,7 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   crm: { title: "CRM landing page", description: "The Uptrix Pulse CRM page: hero, features, workflow, FAQ and demo form.", paths: ["/crm"] },
   college: {
     title: "College page",
-    description: "The education CRM / ERP landing page for colleges, universities and admission-led institutions.",
+    description: "Edit SEO, section headings, copy, cards, case studies, testimonials and FAQs on the College / Education landing page.",
     paths: ["/college", "/crm/college"],
   },
   crmRealEstate: { title: "Real Estate CRM page", description: "The CRM page for builders, brokers and property teams.", paths: ["/crm/real-estate"] },

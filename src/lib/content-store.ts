@@ -11,10 +11,20 @@ const BACKUP_DIR = path.join(CONTENT_DIR, "backups");
 const MAX_BACKUPS = 30;
 
 function readSaved(): Record<string, unknown> {
+  let raw: string;
   try {
-    return JSON.parse(readFileSync(CONTENT_FILE, "utf8"));
-  } catch {
-    return {}; // no saved edits yet: use the defaults
+    raw = readFileSync(CONTENT_FILE, "utf8");
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return {};
+    console.error("Could not read saved site content", error);
+    throw new Error("Could not read saved site content.", { cause: error });
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    console.error("Saved site content is not valid JSON", error);
+    throw new Error("Saved site content is invalid JSON. Restore a backup or repair content/site.json.", { cause: error });
   }
 }
 
@@ -30,14 +40,20 @@ export function getPageContent<K extends PageKey>(key: K): SiteContent[K] {
 async function writeAll(data: Record<string, unknown>) {
   await fs.mkdir(BACKUP_DIR, { recursive: true });
   // Keep the previous version so a save can be undone from the dashboard
+  let previous: string | undefined;
   try {
-    const prev = await fs.readFile(CONTENT_FILE, "utf8");
+    previous = await fs.readFile(CONTENT_FILE, "utf8");
+  } catch (error) {
+    if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) {
+      console.error("Could not read previous site content for backup", error);
+      throw error;
+    }
+  }
+  if (previous !== undefined) {
     const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-    await fs.writeFile(path.join(BACKUP_DIR, `site-${stamp}.json`), prev);
+    await fs.writeFile(path.join(BACKUP_DIR, `site-${stamp}.json`), previous);
     const old = (await fs.readdir(BACKUP_DIR)).filter((f) => f.endsWith(".json")).sort().reverse().slice(MAX_BACKUPS);
     await Promise.all(old.map((f) => fs.unlink(path.join(BACKUP_DIR, f))));
-  } catch {
-    // first save: nothing to back up
   }
   // Write to a temp file then rename, so a crash mid-save can't leave a half-written file
   const tmp = `${CONTENT_FILE}.${process.pid}.tmp`;
@@ -60,16 +76,19 @@ export async function resetPageContent(key: PageKey) {
 export type Backup = { id: string; savedAt: string };
 
 export async function listBackups(): Promise<Backup[]> {
+  let files: string[];
   try {
-    const files = (await fs.readdir(BACKUP_DIR)).filter((f) => /^site-.*\.json$/.test(f)).sort().reverse();
-    return files.map((f) => {
-      const raw = f.slice(5, -5); // 2026-10-04T10-41-00-000Z
-      const iso = raw.replace(/T(\d\d)-(\d\d)-(\d\d)-(\d+)Z$/, "T$1:$2:$3.$4Z");
-      return { id: f, savedAt: iso };
-    });
-  } catch {
-    return [];
+    files = (await fs.readdir(BACKUP_DIR)).filter((f) => /^site-.*\.json$/.test(f)).sort().reverse();
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return [];
+    console.error("Could not list content backups", error);
+    throw new Error("Could not list content backups.", { cause: error });
   }
+  return files.map((f) => {
+    const raw = f.slice(5, -5); // 2026-10-04T10-41-00-000Z
+    const iso = raw.replace(/T(\d\d)-(\d\d)-(\d\d)-(\d+)Z$/, "T$1:$2:$3.$4Z");
+    return { id: f, savedAt: iso };
+  });
 }
 
 export async function restoreBackup(id: string) {

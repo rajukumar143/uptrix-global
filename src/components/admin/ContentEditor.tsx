@@ -173,7 +173,24 @@ function Field({ name, path, value, defaults, onChange, hideLabel }: FieldProps)
     );
   }
 
-  if (Array.isArray(value)) return <ListField name={name} path={path} value={value} defaults={defaults} onChange={onChange} />;
+  if (Array.isArray(value)) {
+    let fixedSize: number | undefined;
+    if (path.length === 2 && path[0] === "caseStudies" && path[1] === "cards") fixedSize = 3;
+    else if (path.length === 1 && path[0] === "erpFeatures") fixedSize = 3;
+    else if (path.length === 2 && path[0] === "journey" && path[1] === "steps") fixedSize = 10;
+    else if (path.length === 2 && path[0] === "journey" && path[1] === "stepDetails") fixedSize = 10;
+    return (
+      <ListField
+        name={name}
+        path={path}
+        value={value}
+        defaults={defaults}
+        onChange={onChange}
+        minItems={fixedSize}
+        maxItems={fixedSize}
+      />
+    );
+  }
 
   // object
   const entries = Object.entries(value as Obj);
@@ -187,7 +204,15 @@ function Field({ name, path, value, defaults, onChange, hideLabel }: FieldProps)
   );
 }
 
-function ListField({ name, path, value, defaults, onChange }: Omit<FieldProps, "value"> & { value: Json[] }) {
+function ListField({
+  name,
+  path,
+  value,
+  defaults,
+  onChange,
+  minItems = 0,
+  maxItems = Number.POSITIVE_INFINITY,
+}: Omit<FieldProps, "value"> & { value: Json[]; minItems?: number; maxItems?: number }) {
   const tplDefault = defaultAt(defaults, [...path, 0]);
   const template = tplDefault === undefined ? "" : tplDefault;
   const simple = typeof template === "string" || typeof template === "number";
@@ -198,6 +223,7 @@ function ListField({ name, path, value, defaults, onChange }: Omit<FieldProps, "
     onChange(path, copy);
   };
   const remove = (i: number) => {
+    if (value.length <= minItems) return;
     if (!simple && !window.confirm(`Remove “${itemTitle(value[i], i)}”?`)) return;
     onChange(
       path,
@@ -214,7 +240,7 @@ function ListField({ name, path, value, defaults, onChange }: Omit<FieldProps, "
       <button type="button" className={iconBtn} onClick={() => move(i, i + 1)} disabled={i === value.length - 1} aria-label="Move down" title="Move down">
         ↓
       </button>
-      <button type="button" className={`${iconBtn} hover:border-red-200 hover:text-red-600`} onClick={() => remove(i)} aria-label="Remove" title="Remove">
+      <button type="button" className={`${iconBtn} hover:border-red-200 hover:text-red-600`} onClick={() => remove(i)} disabled={value.length <= minItems} aria-label="Remove" title="Remove">
         ✕
       </button>
     </div>
@@ -262,13 +288,13 @@ function ListField({ name, path, value, defaults, onChange }: Omit<FieldProps, "
           ))}
         </ul>
       )}
-      <button
+      {value.length < maxItems && <button
         type="button"
         onClick={add}
         className="self-start cursor-pointer rounded-lg border border-dashed border-indigo-300 px-3 py-1.5 text-sm font-semibold text-indigo-700 hover:bg-indigo-50"
       >
         + Add {singular(name)}
-      </button>
+      </button>}
     </div>
   );
 }

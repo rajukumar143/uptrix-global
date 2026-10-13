@@ -1,11 +1,15 @@
 # Admin dashboard
 
-Edit the text on every page at **/admin**. Changes go live as soon as you press **Save changes**.
+Edit the text on every page at **/admin**. After pressing **Save changes**, the site refreshes the
+affected pages; a CDN may take up to a minute to show the update.
 
 ## Menu, case studies and videos
 
 - **Top menu:** one menu is shared by every page. Edit it in **Page text → Top menu**: the Products drop-down
   (Uptrix CRM with EduTech and Real Estate underneath, and Uptrix HRMS), the other links and the demo button.
+- **College page:** open **Page text → College page** to edit the SEO fields, hero, trust strip, section headings
+  and copy, feature lists, management metrics, case studies (including the implementation dialog), testimonials,
+  reviews, FAQs, demo form text and final calls to action.
 - **Case studies:** each story gets its own page at `/case-studies/<slug>`. The starter stories are marked
   *Example* and hidden from Google. Replace them with real customers and turn off **Is example**.
 - **Video testimonials:** upload the video to YouTube and paste its link. Videos without a link stay hidden;
@@ -46,9 +50,12 @@ npm run build
 npm start          # serves on port 3000 by default
 ```
 
-- **Keep the `content/` folder.** Saved text lives in `content/site.json` (last 30 versions in
-  `content/backups/`), blog posts in `content/blog/`, and uploaded images in `content/uploads/`. Don't delete or overwrite it when you upload a new version of the code. The server
-  needs permission to write to it. To store it elsewhere, set `CONTENT_DIR=/path/to/folder`.
+- **Keep content on persistent storage.** Saved text lives in `content/site.json` (last 30 versions in
+  `content/backups/`), blog posts in `content/blog/`, and uploaded images in `content/uploads/`. Don't delete or
+  overwrite it when deploying new code. The server needs permission to write to it. Set `CONTENT_DIR` to a
+  persistent folder on production, and make sure both the admin save process and public page process use that
+  same folder. If the College fields do not appear on the live page after saving, deploy the latest site code as
+  well; saving content does not deploy code changes.
 - **Use HTTPS.** The login cookie is only sent over HTTPS in production. If the site runs on plain http
   (not recommended), set `ADMIN_ALLOW_HTTP=true`.
 - **Run one copy of the site.** Login lockouts and page caches are kept per process. If you use PM2,
