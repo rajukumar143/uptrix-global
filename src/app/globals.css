@@ -12,8 +12,8 @@
   --color-navy: #0b1433;
   --color-navy-deep: #070d24;
 
-  --font-sans: 'Inter', var(--font-inter, ui-sans-serif), system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', var(--font-jakarta, ui-sans-serif), system-ui, sans-serif;
+  --font-sans: var(--font-inter, ui-sans-serif), system-ui, sans-serif;
+  --font-display: var(--font-jakarta, ui-sans-serif), system-ui, sans-serif;
 
   /* Uptrix Pulse (CRM landing page) */
   --color-pulse: #3b3fd4;
@@ -26,8 +26,8 @@
   --color-pulse-muted: #4a5072;
   --color-pulse-subtle: #5a6080;
   --color-pulse-faint: #7a7f99;
-  --font-pulse: 'Manrope', var(--font-manrope, ui-sans-serif), system-ui, sans-serif;
-  --font-code: 'JetBrains Mono', var(--font-jetbrains, ui-monospace), monospace;
+  --font-pulse: var(--font-manrope, ui-sans-serif), system-ui, sans-serif;
+  --font-code: var(--font-jetbrains, ui-monospace), monospace;
 }
 
 html {

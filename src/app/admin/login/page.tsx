@@ -38,7 +38,6 @@ export default async function LoginPage() {
                 alt="Uptrix"
                 width={756}
                 height={235}
-                priority
                 className="h-9 w-auto brightness-0 invert"
               />
             </div>
@@ -61,10 +60,10 @@ export default async function LoginPage() {
                 <span>Admin Environment Required</span>
               </div>
               <p className="leading-relaxed">
-                Configure your environment variables in <code className="bg-amber-950/60 px-1.5 py-0.5 rounded font-mono text-amber-200">.env.local</code>:
+                Configure the hashed password and session secret in your server environment:
               </p>
               <pre className="mt-2 rounded-xl bg-slate-950/90 p-3 font-mono text-[11px] text-slate-300 overflow-x-auto border border-slate-800">
-ADMIN_USERNAME=admin&#10;ADMIN_PASSWORD=your-secure-password&#10;ADMIN_SESSION_SECRET=32-plus-character-secret-key-string
+ADMIN_USERNAME=admin&#10;ADMIN_PASSWORD_HASH=&lt;generated-scrypt-hash&gt;&#10;ADMIN_SESSION_SECRET=&lt;random-32+-character-secret&gt;
               </pre>
             </div>
           )}

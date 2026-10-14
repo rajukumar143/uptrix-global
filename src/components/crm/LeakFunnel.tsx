@@ -8,8 +8,6 @@ const H = 135;
 const Y = 26;
 const BW = 110;
 const DROP_Y = 186;
-const SVG_H = 230;
-
 function build(stages: Stage[]) {
   const step = stages.length > 1 ? (1000 - BW) / (stages.length - 1) : 0;
   const funnel = stages.map((st, i) => {

@@ -193,7 +193,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: seo.pageTitle,
     description: seo.metaDescription,
-    openGraph: { title: seo.pageTitle, description: seo.metaDescription, images: ["/logo-dark.png"] },
+    alternates: { canonical: "/" },
+    openGraph: {
+      title: seo.pageTitle,
+      description: seo.metaDescription,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Uptrix HRMS and CRM" }],
+    },
   };
 }
 
@@ -271,11 +276,22 @@ function ProductCard({
 export default function Home() {
   const c = getPageContent("home");
   const year = new Date().getFullYear();
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: c.faq.questions.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
 
   return (
-    <div className="overflow-x-clip">
-      <Header content={getPageContent("header")} overlay />
-      <main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }} />
+      <div className="overflow-x-clip">
+        <Header content={getPageContent("header")} overlay />
+        <main>
         <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
 
         <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} />
@@ -538,6 +554,7 @@ export default function Home() {
               {c.finalCta.primaryButtonLabel && (
                 <a
                   href={c.finalCta.primaryButtonLink || "#"}
+                  data-analytics-cta
                   className="inline-flex h-14 shrink-0 items-center rounded-[14px] bg-white px-7 text-base font-semibold whitespace-nowrap text-slate-900 transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,.6)]"
                 >
                   {c.finalCta.primaryButtonLabel}
@@ -546,6 +563,7 @@ export default function Home() {
               {c.finalCta.secondaryButtonLabel && (
                 <a
                   href={c.finalCta.secondaryButtonLink || "#"}
+                  data-analytics-cta
                   className="inline-flex h-14 shrink-0 items-center rounded-[14px] border-[1.5px] border-white/50 px-7 text-base font-semibold whitespace-nowrap text-white transition hover:border-white hover:bg-white/10"
                 >
                   {c.finalCta.secondaryButtonLabel}
@@ -554,7 +572,7 @@ export default function Home() {
             </div>
           </Reveal>
         </section>
-      </main>
+        </main>
 
       {/* Footer */}
       <footer id="contact" className="scroll-mt-18 border-t border-white/5 bg-navy-deep pt-20 text-slate-300">
@@ -642,6 +660,7 @@ export default function Home() {
           </span>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

@@ -418,8 +418,8 @@ export const crmLayoutDefaults = {
     ],
     copyrightText: "Uptrix Global. All rights reserved.",
     legalLinks: [
-      { label: "Privacy", link: "https://uptrixglobal.com/" },
-      { label: "Terms", link: "https://uptrixglobal.com/" },
+      { label: "Privacy", link: "/privacy" },
+      { label: "Terms", link: "/terms" },
       { label: "uptrixglobal.com", link: "/" },
     ],
   },

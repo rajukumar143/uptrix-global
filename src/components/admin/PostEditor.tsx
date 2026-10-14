@@ -26,7 +26,7 @@ const fromLocalInput = (v: string) => (v ? new Date(v).toISOString() : new Date(
 async function uploadImage(file: File): Promise<{ url: string; width: number; height: number }> {
   const fd = new FormData();
   fd.append("file", file);
-  const res = await fetch("/admin/api/upload", { method: "POST", body: fd });
+  const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
   const data = await res.json().catch(() => ({ error: "Upload failed." }));
   if (!res.ok) throw new Error(data.error || "Upload failed.");
   return data;

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
+import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
@@ -44,7 +44,6 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
   const [showCaseStudyModal, setShowCaseStudyModal] = useState<boolean>(false);
 
   // Interactive state for Video Testimonials
-  const [activeVideoId, setActiveVideoId] = useState<string>("video-1");
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
 
   // Interactive state for Reviews
@@ -435,17 +434,17 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
 
                 <div className="flex items-center gap-2">
                   <div className="flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold">
-                    {[
+                    {([
                       { key: "all", label: "Overview" },
                       { key: "sales", label: "Pre-Sales" },
                       { key: "inventory", label: "Inventory" },
                       { key: "collections", label: "Collections" },
-                    ].map((f) => (
+                    ] as const).map((f) => (
                       <button
                         key={f.key}
                         type="button"
                         onClick={() => {
-                          setInsightFilter(f.key as any);
+                          setInsightFilter(f.key);
                           setBulkReminderSent(false);
                         }}
                         className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
@@ -1208,7 +1207,7 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                 </h2>
 
                 <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Real estate buyers research properties after office hours. If your team doesn't reply immediately, they book site visits elsewhere. Uptrix captures inquiries from 99acres, MagicBricks, Housing, and Meta within 2 seconds, delivering brochures instantly on WhatsApp.
+                  Real estate buyers research properties after office hours. If your team doesn&apos;t reply immediately, they book site visits elsewhere. Uptrix captures inquiries from 99acres, MagicBricks, Housing, and Meta within 2 seconds, delivering brochures instantly on WhatsApp.
                 </p>
 
                 <div className="mt-6 space-y-3">
@@ -1246,8 +1245,8 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                       src="/images/real-estate/site-experience.jpg"
                       alt="Modern real estate sales gallery and experience center"
                       fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
                       className="object-cover"
-                      priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
                       <div className="text-white">
@@ -1300,7 +1299,7 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                 </h2>
 
                 <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed">
-                  Say goodbye to scattered notes on WhatsApp chats, paper files in site offices, and separate accounts Excel sheets. Inspect every buyer's complete timeline from first inquiry through legal agreements and final payment ledger in one unified cockpit.
+                  Say goodbye to scattered notes on WhatsApp chats, paper files in site offices, and separate accounts Excel sheets. Inspect every buyer&apos;s complete timeline from first inquiry through legal agreements and final payment ledger in one unified cockpit.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -1335,7 +1334,6 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                           fill
                           sizes="48px"
                           className="object-cover"
-                          priority
                         />
                       </div>
                       <div>
@@ -2035,10 +2033,7 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                 <div
                   key={v.id}
                   className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs hover:shadow-md transition group cursor-pointer"
-                  onClick={() => {
-                    setActiveVideoId(v.id);
-                    setShowVideoPopup(true);
-                  }}
+                  onClick={() => setShowVideoPopup(true)}
                 >
                   <div className="h-44 bg-slate-800 relative flex items-center justify-center">
                     <span className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-lg font-bold group-hover:scale-110 shadow-lg transition">
@@ -2083,16 +2078,16 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
 
             {/* Filter Tabs */}
             <div className="flex flex-wrap justify-center gap-2 mt-6">
-              {[
+                {([
                 { key: "all", label: "All Reviews (34)" },
                 { key: "residential", label: "Residential Developers" },
                 { key: "commercial", label: "Commercial Assets" },
                 { key: "brokers", label: "Channel Partners" },
-              ].map((rf) => (
+              ] as const).map((rf) => (
                 <button
                   key={rf.key}
                   type="button"
-                  onClick={() => setReviewFilter(rf.key as any)}
+                  onClick={() => setReviewFilter(rf.key)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                     reviewFilter === rf.key
                       ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
@@ -2407,6 +2402,7 @@ export default function RealEstateLandingPage({ header, footer }: RealEstateLand
                 </div>
 
                 <div className="pt-1">
+                  <TurnstileField />
                   <button
                     type="submit"
                     disabled={demoSubmitting}

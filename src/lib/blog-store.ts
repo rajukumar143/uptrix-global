@@ -1,13 +1,12 @@
 // Server-only: blog posts, stored as one JSON file per post in CONTENT_DIR/blog/posts.
 // Do not import this file from client components.
-import { promises as fs, readdirSync, readFileSync } from "node:fs";
-import path from "node:path";
-import { randomBytes } from "node:crypto";
-import { safeLink } from "@/content/merge";
-import { slugify } from "./markdown";
+import "server-only";
 
-const CONTENT_DIR = process.env.CONTENT_DIR || path.join(process.cwd(), "content");
-const POSTS_DIR = path.join(CONTENT_DIR, "blog", "posts");
+import { randomBytes } from "node:crypto";
+import { z } from "zod";
+import { safeLink } from "@/content/merge";
+import { listFiles, listFilesSync, readText, readTextSync, removeFile, withFileLock, writeAtomic } from "@/lib/content-files";
+import { slugify } from "./markdown";
 
 export type Post = {
   id: string;
@@ -29,6 +28,39 @@ export type Post = {
   noindex: boolean;
   canonicalUrl: string;
 };
+
+const coverSchema = z.object({
+  src: z.string().max(300),
+  alt: z.string().max(200),
+  width: z.number().int().nonnegative(),
+  height: z.number().int().nonnegative(),
+}).strict();
+
+const postSchema = z.object({
+  id: z.string().regex(/^[a-f0-9]+$/),
+  slug: z.string().max(120),
+  title: z.string().max(200),
+  seoTitle: z.string().max(120),
+  metaDescription: z.string().max(320),
+  focusKeyword: z.string().max(100),
+  excerpt: z.string().max(500),
+  content: z.string().max(200000),
+  coverImage: coverSchema,
+  category: z.string().max(60),
+  tags: z.array(z.string().max(40)).max(20),
+  author: z.string().max(80),
+  status: z.enum(["draft", "published"]),
+  publishedAt: z.string().datetime(),
+  updatedAt: z.string().datetime(),
+  createdAt: z.string().datetime(),
+  noindex: z.boolean(),
+  canonicalUrl: z.string().max(300),
+}).strict();
+
+const postInputSchema = postSchema.partial().extend({
+  coverImage: coverSchema.partial().optional(),
+}).strict();
+const MAX_POST_BACKUPS = 20;
 
 export const emptyPost = (): Omit<Post, "id" | "createdAt" | "updatedAt"> => ({
   slug: "",
@@ -56,7 +88,8 @@ const date = (v: unknown, fallback: string) => {
 };
 
 /** Clean up whatever the editor sends so only valid values are stored. */
-function clean(input: Partial<Post>, existing?: Post): Post {
+function clean(raw: unknown, existing?: Post): Post {
+  const input = postInputSchema.parse(raw);
   const now = new Date().toISOString();
   const base = existing ?? { ...emptyPost(), id: randomBytes(6).toString("hex"), createdAt: now, updatedAt: now };
   const title = str(input.title, 200).trim();
@@ -93,19 +126,45 @@ function clean(input: Partial<Post>, existing?: Post): Post {
 
 function readPostFile(file: string): Post | null {
   try {
-    return JSON.parse(readFileSync(path.join(POSTS_DIR, file), "utf8")) as Post;
-  } catch {
+    return postSchema.parse(JSON.parse(readTextSync(["blog", "posts", file])));
+  } catch (error) {
+    if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) {
+      console.error(`Could not read blog post ${file}`, error);
+    }
     return null;
   }
 }
 
+async function backupPost(id: string) {
+  let previous: string;
+  try {
+    previous = await readText(["blog", "posts", `${id}.json`]);
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return;
+    throw error;
+  }
+  const validPrevious = postSchema.parse(JSON.parse(previous));
+  if (validPrevious.id !== id) throw new Error("Stored blog post id does not match its file name.");
+
+  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+  await writeAtomic(["backups", "blog", `${id}-${stamp}-${randomBytes(3).toString("hex")}.json`], previous);
+  const versions = (await listFiles(["backups", "blog"]))
+    .filter((file) => file.startsWith(`${id}-`) && file.endsWith(".json"))
+    .sort()
+    .reverse()
+    .slice(MAX_POST_BACKUPS);
+  await Promise.all(versions.map((file) => removeFile(["backups", "blog", file])));
+}
+
 /** Every post (drafts included), newest first. */
 export function getAllPosts(): Post[] {
-  let files: string[] = [];
+  let files: string[];
   try {
-    files = readdirSync(POSTS_DIR).filter((f) => /^[a-f0-9]+\.json$/.test(f));
-  } catch {
-    return [];
+    files = listFilesSync(["blog", "posts"]).filter((f) => /^[a-f0-9]+\.json$/.test(f));
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return [];
+    console.error("Could not list blog post files", error);
+    throw error;
   }
   return files
     .map(readPostFile)
@@ -163,6 +222,7 @@ export function getRelatedPosts(post: Post, limit = 3) {
 }
 
 export async function savePost(input: Partial<Post>, id?: string) {
+  return withFileLock(["blog", "posts", "slug-index.lock"], async () => {
   const existing = id ? getPostById(id) : null;
   if (id && !existing) throw new Error("Post not found");
   const post = clean(input, existing ?? undefined);
@@ -173,15 +233,27 @@ export async function savePost(input: Partial<Post>, id?: string) {
   for (let n = 2; taken.has(slug); n++) slug = `${post.slug}-${n}`;
   post.slug = slug;
 
-  await fs.mkdir(POSTS_DIR, { recursive: true });
-  const file = path.join(POSTS_DIR, `${post.id}.json`);
-  const tmp = `${file}.${process.pid}.tmp`;
-  await fs.writeFile(tmp, JSON.stringify(post, null, 2));
-  await fs.rename(tmp, file);
+  postSchema.parse(post);
+  await backupPost(post.id);
+  await writeAtomic(["blog", "posts", `${post.id}.json`], JSON.stringify(post, null, 2));
   return post;
+  });
 }
 
 export async function deletePost(id: string) {
-  if (!/^[a-f0-9]+$/.test(id)) return;
-  await fs.rm(path.join(POSTS_DIR, `${id}.json`), { force: true });
+  if (!/^[a-f0-9]+$/.test(id)) throw new Error("Invalid blog post id.");
+  return withFileLock(["blog", "posts", "slug-index.lock"], async () => {
+    await backupPost(id);
+    await removeFile(["blog", "posts", `${id}.json`]);
+  });
 }
+
+export async function restorePostBackup(id: string, backupFile: string) {
+  if (!/^[a-f0-9]+$/.test(id) || !backupFile.startsWith(`${id}-`) || !backupFile.endsWith(".json")) {
+    throw new Error("Invalid blog post backup.");
+  }
+  const post = postSchema.parse(JSON.parse(await readText(["backups", "blog", backupFile])));
+  if (post.id !== id) throw new Error("Blog backup does not match the requested post.");
+  return savePost(post, id);
+}
+import "server-only";

@@ -25,12 +25,6 @@ export default function TourVideoPlayer({
 
   const activeVideo = customUrl || videoUrl;
 
-  // Reset playback on tab switch
-  useEffect(() => {
-    setIsPlaying(false);
-    setProgress(18);
-  }, [tabLabel]);
-
   // Simulated progress when playing in mockup mode
   useEffect(() => {
     if (!isPlaying || activeVideo || youtubeId) return;

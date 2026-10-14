@@ -1,4 +1,3 @@
-import Link from "next/link";
 import StoryCard from "@/components/site/StoryCard";
 import CardsCarousel from "@/components/site/CardsCarousel";
 import { liveStudies } from "@/content/stories";

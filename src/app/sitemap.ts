@@ -23,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl("/crm/pricing"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: siteUrl("/crm/about"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: siteUrl("/crm/contact"), lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: siteUrl("/privacy"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: siteUrl("/terms"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },
     { url: siteUrl("/blog"), lastModified: latest, changeFrequency: "daily", priority: 0.8 },
   ];
 

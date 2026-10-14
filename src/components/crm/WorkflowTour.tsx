@@ -141,6 +141,7 @@ export default function WorkflowTour({ content }: { content: CrmContent["workflo
             {/* Right Column: Full-Screen Interactive Video Player */}
             <div className="w-full min-w-0">
               <TourVideoPlayer
+                key={cur.tabLabel}
                 tabLabel={cur.tabLabel}
                 title={cur.title}
                 videoUrl={cur.videoUrl}

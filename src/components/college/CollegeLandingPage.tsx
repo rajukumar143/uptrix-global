@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
+import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
 import type { CollegeContent } from "@/content/college";
 import type { HeaderContent } from "@/content/header";
@@ -1906,7 +1907,6 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                           fill
                           sizes="48px"
                           className="object-cover"
-                          priority
                         />
                       </div>
                       <div>
@@ -3470,6 +3470,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </div>
 
                 <div className="pt-1">
+                  <TurnstileField />
                   <button
                     type="submit"
                     disabled={demoSubmitting}

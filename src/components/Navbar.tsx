@@ -27,7 +27,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a href="#top" aria-label="Uptrix Global home">
-          <Image src="/logo.png" alt="Uptrix Global" width={756} height={235} priority className="h-9 w-auto" />
+          <Image src="/logo.png" alt="Uptrix Global" width={756} height={235} className="h-9 w-auto" />
         </a>
         <ul className="hidden items-center gap-10 md:flex">
           {links.map((l) => (
@@ -40,6 +40,7 @@ export default function Navbar() {
         </ul>
         <a
           href="#contact"
+          data-analytics-cta
           className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-white/85"
         >
           Book a demo

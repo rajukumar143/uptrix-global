@@ -97,7 +97,7 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
       >
         <nav aria-label="Main" className="mx-auto flex h-18 max-w-[1240px] items-center justify-between gap-6 px-[clamp(16px,4vw,40px)]">
           <Link href={content.homeLink || "/"} aria-label="Uptrix home" className="flex shrink-0 items-center">
-            <Image src={clear ? "/logo-light.png" : "/logo-dark.png"} alt="Uptrix" width={756} height={235} priority className="h-9 w-auto" />
+            <Image src={clear ? "/logo-light.png" : "/logo-dark.png"} alt="Uptrix" width={756} height={235} className="h-9 w-auto" />
           </Link>
 
           <ul className="hidden items-center gap-[clamp(18px,2vw,30px)] text-[15px] font-semibold min-[1080px]:flex">
@@ -190,6 +190,7 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
             {content.buttonLabel && (
               <Link
                 href={content.buttonLink || "#"}
+                data-analytics-cta
                 className="flex min-h-11 items-center rounded-xl bg-pulse px-5 text-[15px] font-bold whitespace-nowrap text-white shadow-[0_10px_24px_-12px_rgba(59,63,212,0.7)] transition hover:-translate-y-0.5 hover:bg-pulse-hover"
               >
                 {content.buttonLabel}
@@ -295,7 +296,7 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
 
         <div className="mt-auto flex flex-col gap-2.5 pt-8">
           {content.buttonLabel && (
-            <Link href={content.buttonLink || "#"} onClick={closeAll} className="rounded-xl bg-pulse p-[15px] text-center font-bold text-white">
+            <Link href={content.buttonLink || "#"} onClick={closeAll} data-analytics-cta className="rounded-xl bg-pulse p-[15px] text-center font-bold text-white">
               {content.buttonLabel}
             </Link>
           )}

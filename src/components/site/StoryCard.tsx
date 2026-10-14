@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { submitLead } from "@/app/actions/lead";
+import TurnstileField from "@/components/site/TurnstileField";
 import type { CaseStudiesContent, CaseStudy } from "@/content/stories";
 
 const accents = ["#3b3fd4", "#22b07d", "#f08a24", "#8b4fd8", "#e0457b"];
@@ -181,6 +182,7 @@ export default function StoryCard({
                 {error}
               </p>
             )}
+            <TurnstileField />
             <button
               type="submit"
               disabled={sending}

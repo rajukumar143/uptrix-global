@@ -3,17 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "node scripts/next-mode.js all dev",
     "build": "next build --webpack",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "node scripts/next-mode.js public start",
+    "build:public": "node scripts/next-mode.js public build",
+    "build:admin": "node scripts/next-mode.js admin build",
+    "start:public": "node scripts/next-mode.js public start",
+    "start:admin": "node scripts/next-mode.js admin start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "marked": "^18.0.14",
     "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

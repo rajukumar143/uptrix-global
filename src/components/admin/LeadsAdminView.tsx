@@ -96,7 +96,7 @@ export default function LeadsAdminView({ initialLeads }: LeadsAdminViewProps) {
 
         {initialLeads.length > 0 && (
           <a
-            href="/admin/api/leads"
+            href="/api/admin/leads"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm shadow-indigo-600/30 hover:bg-indigo-700 transition cursor-pointer self-start sm:self-auto"
           >
             <span>📥</span>

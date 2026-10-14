@@ -24,7 +24,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: seo.pageTitle,
     description: seo.metaDescription,
-    openGraph: { title: seo.pageTitle, description: seo.metaDescription, type: "website", images: ["/logo-dark.png"] },
+    alternates: { canonical: "/crm" },
+    openGraph: {
+      title: seo.pageTitle,
+      description: seo.metaDescription,
+      type: "website",
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Uptrix HRMS and CRM" }],
+    },
   };
 }
 
@@ -44,7 +50,7 @@ const n2 = (i: number) => String(i + 1).padStart(2, "0");
 function Btn({ label, link, className }: { label: string; link: string; className: string }) {
   if (!label) return null;
   return (
-    <Link href={link || "#"} className={className}>
+    <Link href={link || "#"} className={className} data-analytics-cta>
       {label}
     </Link>
   );

@@ -1,6 +1,37 @@
 import type { NextConfig } from "next";
 
+const developmentScriptSource = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Content-Security-Policy",
+    value:
+      "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; " +
+      `script-src 'self' 'unsafe-inline'${developmentScriptSource} https://www.youtube.com https://www.youtube-nocookie.com https://challenges.cloudflare.com https://www.googletagmanager.com; ` +
+      "style-src 'self' 'unsafe-inline'; font-src 'self' data:; " +
+      "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.google-analytics.com; " +
+      "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://challenges.cloudflare.com; " +
+      "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;",
+  },
+];
+
+if (process.env.NODE_ENV === "production") {
+  securityHeaders.push({ key: "Strict-Transport-Security", value: "max-age=31536000" });
+}
+
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
+    ];
+  },
   // Upper limit for how long a CDN may show an older copy while it fetches the new one
   expireTime: 3600,
   // Shared hosting (e.g. Hostinger Business) limits how many processes a build may start.

@@ -1,6 +1,7 @@
 // The live web address, from SITE_URL in .env.local (e.g. https://uptrixglobal.com)
 export function siteUrl(path = "") {
-  const base = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+  const fallback = process.env.NODE_ENV === "production" ? "https://uptrixglobal.com" : "http://localhost:3000";
+  const base = (process.env.SITE_URL || fallback).replace(/\/+$/, "");
   if (!path) return base;
   if (/^https?:\/\//i.test(path)) return path;
   return `${base}${path.startsWith("/") ? "" : "/"}${path}`;

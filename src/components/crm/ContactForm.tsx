@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { ContactContent } from "@/content/contact";
 import { submitLead } from "@/app/actions/lead";
+import TurnstileField from "@/components/site/TurnstileField";
 
 type Text = ContactContent["form"];
 type Form = { name: string; email: string; phone: string; company: string; topic: string; message: string };
@@ -158,6 +159,7 @@ export default function ContactForm({ text }: { text: Text }) {
           {errors.message}
         </span>
       </label>
+      <TurnstileField />
       <button
         type="submit"
         disabled={loading}

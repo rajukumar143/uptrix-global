@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { CrmContent } from "@/content/crm";
 import { submitLead } from "@/app/actions/lead";
+import TurnstileField from "@/components/site/TurnstileField";
 
 type Text = CrmContent["demo"]["form"];
 type Form = { name: string; company: string; email: string; phone: string; type: string; req: string };
@@ -154,6 +155,7 @@ export default function PulseDemoForm({ text }: { text: Text }) {
           className="resize-y rounded-[10px] border-[1.5px] border-[#d9dbe6] bg-white px-3.5 py-3 text-base text-pulse-ink"
         />
       </label>
+      <TurnstileField />
       <button
         type="submit"
         disabled={loading}

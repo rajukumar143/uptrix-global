@@ -1,9 +1,8 @@
 // Server-only: enquiries sent from the website's forms, one JSON line each in content/leads.jsonl
-import { promises as fs, readFileSync } from "node:fs";
-import path from "node:path";
+import "server-only";
 
-const CONTENT_DIR = process.env.CONTENT_DIR || path.join(process.cwd(), "content");
-const LEADS_FILE = path.join(CONTENT_DIR, "leads.jsonl");
+import { z } from "zod";
+import { appendText, readTextSync } from "@/lib/content-files";
 
 export type Lead = {
   createdAt: string; // ISO date-time string
@@ -17,30 +16,52 @@ export type Lead = {
   pageUrl?: string; // Page URL where the form was submitted
 };
 
+const leadSchema = z.object({
+  createdAt: z.string().datetime(),
+  source: z.string().max(150),
+  name: z.string().min(1).max(120),
+  company: z.string().max(150),
+  email: z.string().max(150),
+  phone: z.string().min(1).max(40),
+  businessType: z.string().max(120).optional(),
+  solveProblem: z.string().max(600).optional(),
+  pageUrl: z.string().max(400).optional(),
+}).strict();
+
+const leadInputSchema = leadSchema.omit({ createdAt: true });
+
+export function parseLeadInput(value: unknown) {
+  return leadInputSchema.parse(value);
+}
+
 export async function addLead(lead: Omit<Lead, "createdAt">) {
-  await fs.mkdir(CONTENT_DIR, { recursive: true });
+  if (process.env.APP_MODE === "public") throw new Error("The public app cannot write directly to CONTENT_DIR.");
+  const clean = leadInputSchema.parse(lead);
   const entry: Lead = {
     createdAt: new Date().toISOString(),
-    ...lead,
+    ...clean,
   };
-  await fs.appendFile(LEADS_FILE, JSON.stringify(entry) + "\n", "utf8");
+  await appendText(["leads.jsonl"], `${JSON.stringify(entry)}\n`);
 }
 
 /** Every lead, newest first. */
 export function getLeads(): Lead[] {
   let text = "";
   try {
-    text = readFileSync(LEADS_FILE, "utf8");
-  } catch {
-    return [];
+    text = readTextSync(["leads.jsonl"]);
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return [];
+    console.error("Could not read lead records", error);
+    throw error;
   }
   return text
     .split("\n")
     .filter(Boolean)
     .flatMap((line) => {
       try {
-        return [JSON.parse(line) as Lead];
-      } catch {
+        return [leadSchema.parse(JSON.parse(line))];
+      } catch (error) {
+        console.error("Ignoring an invalid lead record", error);
         return [];
       }
     })

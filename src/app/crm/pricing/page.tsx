@@ -8,7 +8,7 @@ import { getContent } from "@/lib/content-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = getContent().pricing;
-  return { title: seo.pageTitle, description: seo.metaDescription };
+  return { title: seo.pageTitle, description: seo.metaDescription, alternates: { canonical: "/crm/pricing" } };
 }
 
 type CellValue = { included: boolean; note: string };

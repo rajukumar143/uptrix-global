@@ -3,15 +3,17 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/admin-auth";
+import { logAdminWrite } from "@/lib/admin-audit";
+import { revalidatePublic } from "@/lib/public-revalidation";
 import { deletePost as removePost, savePost as storePost, type Post } from "@/lib/blog-store";
 
 export type SavePostResult = { ok: true; id: string; slug: string; savedAt: string } | { ok: false; error: string };
 
-function refreshBlog() {
+async function refreshBlog() {
   // Rebuild the blog pages, the sitemap and the RSS feed with the new post
-  revalidatePath("/blog", "layout");
-  revalidatePath("/sitemap.xml");
-  revalidatePath("/blog/rss.xml");
+  const paths = ["/blog", "/sitemap.xml", "/blog/rss.xml"];
+  for (const path of paths) revalidatePath(path, path === "/blog" ? "layout" : undefined);
+  await revalidatePublic(paths);
 }
 
 export async function savePost(input: Partial<Post>, id?: string): Promise<SavePostResult> {
@@ -19,7 +21,18 @@ export async function savePost(input: Partial<Post>, id?: string): Promise<SaveP
   if (!input.title || !String(input.title).trim()) return { ok: false, error: "Please give the post a title." };
   try {
     const post = await storePost(input, id);
-    refreshBlog();
+    try {
+      await logAdminWrite("save-blog-post", post.id);
+    } catch (e) {
+      console.error("Blog post was saved but the admin audit record failed", e);
+      return { ok: false, error: "The post was saved, but audit logging failed. Contact the site administrator before retrying." };
+    }
+    try {
+      await refreshBlog();
+    } catch (e) {
+      console.error("Blog post was saved but the public cache could not be refreshed", e);
+      return { ok: false, error: "The post was saved, but the public site could not be refreshed. It will appear after its cache expires." };
+    }
     return { ok: true, id: post.id, slug: post.slug, savedAt: post.updatedAt };
   } catch (e) {
     console.error("Blog save failed", e);
@@ -30,6 +43,7 @@ export async function savePost(input: Partial<Post>, id?: string): Promise<SaveP
 export async function deletePost(id: string) {
   await requireAdmin();
   await removePost(id);
-  refreshBlog();
+  await logAdminWrite("delete-blog-post", id);
+  await refreshBlog();
   redirect("/admin/blog?deleted=1");
 }

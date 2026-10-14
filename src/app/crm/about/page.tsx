@@ -7,7 +7,7 @@ import { getContent } from "@/lib/content-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = getContent().about;
-  return { title: seo.pageTitle, description: seo.metaDescription };
+  return { title: seo.pageTitle, description: seo.metaDescription, alternates: { canonical: "/crm/about" } };
 }
 
 const audienceColors = ["#3b3fd4", "#22b07d", "#f08a24", "#8b4fd8"];

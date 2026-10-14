@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Uptrix Admin Console | Multi-Product CMS & CRM Management",
   description: "Enterprise administration console for Uptrix Global platform.",
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: false, noarchive: true },
 };
 
 export default function AdminRootLayout({ children }: LayoutProps<"/admin">) {

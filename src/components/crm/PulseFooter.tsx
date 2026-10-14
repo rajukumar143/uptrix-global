@@ -28,11 +28,23 @@ export default function PulseFooter({ content }: { content: CrmLayoutContent["fo
             © {new Date().getFullYear()} {content.copyrightText}
           </span>
           <div className="flex flex-wrap gap-6">
-            {content.legalLinks.map((l, i) => (
-              <Link key={i} href={l.link || "#"} className="hover:text-pulse">
+            {content.legalLinks.map((l, i) => {
+              const oldHomepageLink = ["https://uptrixglobal.com", "https://uptrixglobal.com/"].includes(l.link);
+              const label = l.label.trim().toLowerCase();
+              const href =
+                oldHomepageLink || l.link === "/"
+                  ? label === "privacy"
+                    ? "/privacy"
+                    : label === "terms"
+                      ? "/terms"
+                      : l.link
+                  : l.link;
+              return (
+              <Link key={i} href={href || "#"} className="hover:text-pulse">
                 {l.label}
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
