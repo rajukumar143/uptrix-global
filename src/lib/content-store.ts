@@ -40,7 +40,25 @@ async function withSiteWriteLock<T>(write: () => Promise<T>): Promise<T> {
 
 function parseSaved(raw: string): Record<string, unknown> {
   const parsed: unknown = JSON.parse(raw);
-  return savedSchema.parse(parsed);
+  try {
+    return savedSchema.parse(parsed);
+  } catch (error) {
+    if (!(error instanceof z.ZodError) || !parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw error;
+    }
+
+    const migrated = { ...(parsed as Record<string, unknown>) };
+    const home = migrated.home;
+    if (home && typeof home === "object" && !Array.isArray(home) && "header" in home) {
+      const legacyHome = { ...(home as Record<string, unknown>) };
+      if (migrated.header === undefined) migrated.header = legacyHome.header;
+      delete legacyHome.header;
+      migrated.home = legacyHome;
+    }
+
+    console.warn("Migrating saved site content to the current schema using defaults for missing fields.");
+    return savedSchema.parse(mergeWithDefaults(defaultContent, migrated));
+  }
 }
 
 function readSaved(): Record<string, unknown> {

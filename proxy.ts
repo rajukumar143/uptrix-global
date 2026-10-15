@@ -40,6 +40,9 @@ export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isAdminPath = ADMIN_PATHS.some((root) => isPathOrChild(path, root));
   if (mode === "public") {
+    if (isPathOrChild(path, "/admin")) {
+      return NextResponse.redirect(new URL("/", request.url), 307);
+    }
     if (isAdminPath || (isPathOrChild(path, "/api") && path !== "/api/health" && path !== "/api/revalidate")) {
       return new NextResponse("Not Found", { status: 404 });
     }
