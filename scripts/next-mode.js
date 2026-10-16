@@ -15,7 +15,11 @@ const nextBin = require.resolve("next/dist/bin/next");
 const args = [nextBin, command, ...(command === "dev" || command === "build" ? ["--webpack"] : [])];
 const child = spawn(process.execPath, args, {
   stdio: "inherit",
-  env: { ...process.env, APP_MODE: mode },
+  env: {
+    ...process.env,
+    APP_MODE: mode,
+    UV_THREADPOOL_SIZE: process.env.UV_THREADPOOL_SIZE || "2",
+  },
 });
 
 child.on("error", (error) => {

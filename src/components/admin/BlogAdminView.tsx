@@ -1,58 +1,72 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
-import type { getAllPosts } from "@/lib/blog-store";
-import { analyzeSeo } from "@/lib/seo-check";
 import { formatDate } from "@/lib/site";
 
+export interface BlogPostItem {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  status: "draft" | "published";
+  publishedAt: string;
+  seoScore: number;
+}
+
 interface BlogAdminViewProps {
-  posts: ReturnType<typeof getAllPosts>;
+  posts: BlogPostItem[];
   deleted?: boolean;
 }
 
 export default function BlogAdminView({ posts, deleted }: BlogAdminViewProps) {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [, startTransition] = useTransition();
 
-  const publishedCount = posts.filter((p) => p.status === "published").length;
-  const draftCount = posts.filter((p) => p.status === "draft").length;
+  // Compute metrics in a single pass without re-analyzing SEO or markdown
+  const { publishedCount, draftCount, avgSeo } = useMemo(() => {
+    let published = 0;
+    let draft = 0;
+    let totalScore = 0;
 
-  const analyzedPosts = posts.map((p) => {
-    const { score } = analyzeSeo({
-      title: p.title,
-      seoTitle: p.seoTitle,
-      metaDescription: p.metaDescription,
-      focusKeyword: p.focusKeyword,
-      slug: p.slug,
-      content: p.content,
-      excerpt: p.excerpt,
-      coverSrc: p.coverImage.src,
-      coverAlt: p.coverImage.alt,
+    for (const p of posts) {
+      if (p.status === "published") published++;
+      else if (p.status === "draft") draft++;
+      totalScore += p.seoScore;
+    }
+
+    return {
+      publishedCount: published,
+      draftCount: draft,
+      avgSeo: posts.length > 0 ? Math.round(totalScore / posts.length) : 0,
+    };
+  }, [posts]);
+
+  // Fast memoized search and filter
+  const filtered = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    return posts.filter((p) => {
+      const matchesSearch =
+        !term ||
+        p.title.toLowerCase().includes(term) ||
+        p.slug.toLowerCase().includes(term) ||
+        (p.category || "").toLowerCase().includes(term);
+
+      const matchesStatus =
+        statusFilter === "all" ||
+        (statusFilter === "published" && p.status === "published") ||
+        (statusFilter === "draft" && p.status === "draft");
+
+      return matchesSearch && matchesStatus;
     });
-    return { ...p, seoScore: score };
-  });
+  }, [posts, search, statusFilter]);
 
-  const avgSeo =
-    analyzedPosts.length > 0
-      ? Math.round(analyzedPosts.reduce((acc, p) => acc + p.seoScore, 0) / analyzedPosts.length)
-      : 0;
-
-  const filtered = analyzedPosts.filter((p) => {
-    const term = search.toLowerCase();
-    const matchesSearch =
-      !term ||
-      p.title.toLowerCase().includes(term) ||
-      p.slug.toLowerCase().includes(term) ||
-      (p.category || "").toLowerCase().includes(term);
-
-    const matchesStatus =
-      statusFilter === "all" ||
-      (statusFilter === "published" && p.status === "published") ||
-      (statusFilter === "draft" && p.status === "draft");
-
-    return matchesSearch && matchesStatus;
-  });
+  const handleSearchChange = (val: string) => {
+    startTransition(() => {
+      setSearch(val);
+    });
+  };
 
   return (
     <div className="mx-auto max-w-[1360px] space-y-6">
@@ -166,7 +180,7 @@ export default function BlogAdminView({ posts, deleted }: BlogAdminViewProps) {
             type="text"
             placeholder="Search posts by title, slug, or category…"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2 pl-9 pr-3 text-xs text-slate-800 placeholder-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
           />
           <span className="absolute left-3 top-2.5 text-xs text-slate-400">🔍</span>
