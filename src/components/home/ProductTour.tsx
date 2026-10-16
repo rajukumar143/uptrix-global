@@ -1,13 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import type { HomeContent } from "@/content/home";
 import { ArrowRight, Check } from "./icons";
 
 // Look of each tab, by position. The text comes from the admin dashboard.
 const looks = [
-  { color: "#4F46E5", frame: "linear-gradient(160deg,#E0E7FF 0%,#EEF2FF 100%)" },
-  { color: "#0F766E", frame: "linear-gradient(160deg,#CCFBF1 0%,#F0FDFA 100%)" },
+  { color: "#4F46E5", frame: "linear-gradient(160deg,#E0E7FF 0%,#EEF2FF 100%)", image: "/images/products/hrms-dashboard.jpg" },
+  { color: "#0F766E", frame: "linear-gradient(160deg,#CCFBF1 0%,#F0FDFA 100%)", image: "/images/products/crm-pipeline.jpg" },
 ];
 
 export default function ProductTour({ content }: { content: HomeContent["productTour"] }) {
@@ -49,7 +50,7 @@ export default function ProductTour({ content }: { content: HomeContent["product
 
       {t && (
         <div id={`tour-panel-${i}`} role="tabpanel" aria-labelledby={`tour-tab-${i}`} className="flex flex-col gap-8">
-          {/* PLACEHOLDER: replace with a real product screenshot */}
+          {/* Real product screenshot */}
           <div className="overflow-hidden rounded-3xl px-[clamp(16px,3vw,40px)] pt-[clamp(16px,3vw,40px)]" style={{ background: look.frame }}>
             <div className="overflow-hidden rounded-t-[14px] border border-b-0 border-slate-200 bg-white shadow-[0_30px_60px_-30px_rgba(15,23,42,.3)]">
               <div className="flex h-9 items-center gap-1.5 border-b border-slate-100 px-3.5">
@@ -57,8 +58,14 @@ export default function ProductTour({ content }: { content: HomeContent["product
                   <span key={d} className="h-[9px] w-[9px] rounded-full bg-slate-200" />
                 ))}
               </div>
-              <div role="img" aria-label={`Placeholder: ${t.screenshotLabel}`} className="placeholder-stripes-grey grid aspect-[16/7] place-items-center">
-                <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs text-slate-600">{t.screenshotLabel}</span>
+              <div className="relative aspect-[16/8] w-full overflow-hidden bg-slate-100">
+                <Image
+                  src={look.image}
+                  alt={t.screenshotLabel || t.tabLabel}
+                  fill
+                  className="object-cover object-top transition-transform duration-700 hover:scale-[1.02]"
+                  sizes="(max-width: 1200px) 100vw, 1120px"
+                />
               </div>
             </div>
           </div>

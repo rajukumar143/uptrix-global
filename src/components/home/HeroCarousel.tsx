@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { HomeContent } from "@/content/home";
 import { ArrowRight, ChevronLeft, ChevronRight } from "./icons";
@@ -64,15 +65,20 @@ export default function HeroCarousel({ slides, stats: statText }: { slides: Slid
               className="relative flex min-h-[clamp(600px,88vh,760px)] min-w-0 flex-[0_0_100%] items-center"
               style={{ visibility: on ? "visible" : "hidden", transition: "visibility .8s" }}
             >
-              {/* PLACEHOLDER: replace with a real photo (next/image) */}
-              <div
-                role="img"
-                aria-label={`Placeholder photo: ${s.photoDescription}`}
-                className="absolute inset-y-0 right-0 grid w-full place-items-center bg-[#16224A] lg:w-[62%]"
-              >
-                <span className="hidden max-w-xs rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-center font-mono text-xs text-slate-300 lg:block">
-                  Photo: {s.photoDescription}
-                </span>
+              {/* Real slide photo */}
+              <div className="absolute inset-y-0 right-0 w-full overflow-hidden bg-[#16224A] lg:w-[62%]">
+                <Image
+                  src={
+                    ("image" in s && typeof s.image === "string" && s.image)
+                      ? s.image
+                      : ["/images/hero/hero-team.jpg", "/images/hero/hero-hrms.jpg", "/images/hero/hero-crm.jpg"][i % 3]
+                  }
+                  alt={s.photoDescription || "Uptrix business platform"}
+                  fill
+                  priority={i === 0}
+                  className="object-cover object-center transition-transform duration-1000 ease-out hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 62vw"
+                />
               </div>
               <div
                 aria-hidden

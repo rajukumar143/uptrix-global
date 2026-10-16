@@ -8,6 +8,7 @@ import StoriesSection from "@/components/site/StoriesSection";
 import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
+import CustomToolsSection from "@/components/home/CustomToolsSection";
 import Testimonials from "@/components/home/Testimonials";
 import Faq from "@/components/home/Faq";
 import { ArrowRight, Icon } from "@/components/home/icons";
@@ -228,6 +229,7 @@ function ProductCard({
   href,
   bg,
   shot,
+  imageSrc,
   stripes,
 }: {
   id: string;
@@ -238,6 +240,7 @@ function ProductCard({
   href: string;
   bg: string;
   shot: string;
+  imageSrc?: string;
   stripes: string;
 }) {
   return (
@@ -258,16 +261,28 @@ function ProductCard({
         {cta} <ArrowRight />
       </a>
       )}
-      {/* PLACEHOLDER: replace with a real product screenshot */}
+      {/* Product screenshot */}
       <div className="mt-5 overflow-hidden rounded-t-[14px] bg-white shadow-[0_-10px_40px_-10px_rgba(0,0,0,.4)]">
         <div className="flex h-[34px] items-center gap-1.5 border-b border-slate-100 px-3.5">
           {[0, 1, 2].map((d) => (
             <span key={d} className="h-[9px] w-[9px] rounded-full bg-slate-200" />
           ))}
         </div>
-        <div role="img" aria-label={`Placeholder: ${shot}`} className={`${stripes} grid aspect-[16/8] place-items-center`}>
-          <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs text-slate-600">{shot}</span>
-        </div>
+        {imageSrc ? (
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
+            <Image
+              src={imageSrc}
+              alt={shot || title}
+              fill
+              className="object-cover object-top transition-transform duration-500 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 560px"
+            />
+          </div>
+        ) : (
+          <div role="img" aria-label={`Placeholder: ${shot}`} className={`${stripes} grid aspect-[16/8] place-items-center`}>
+            <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 font-mono text-xs text-slate-600">{shot}</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -309,6 +324,7 @@ export default function Home() {
                 href={c.hrmsSection.buttonLink}
                 bg="radial-gradient(600px 300px at 100% 0%, rgba(129,140,248,.35), transparent 60%), linear-gradient(160deg,#1E1B4B 0%,#0B1433 100%)"
                 shot={c.hrmsSection.screenshotLabel}
+                imageSrc="/images/products/hrms-dashboard.jpg"
                 stripes="placeholder-stripes"
               />
             </Reveal>
@@ -342,6 +358,7 @@ export default function Home() {
                 href={c.crmSection.buttonLink}
                 bg="radial-gradient(600px 300px at 100% 0%, rgba(45,212,191,.28), transparent 60%), linear-gradient(160deg,#083B3A 0%,#0B1433 100%)"
                 shot={c.crmSection.screenshotLabel}
+                imageSrc="/images/products/crm-pipeline.jpg"
                 stripes="placeholder-stripes-teal"
               />
             </Reveal>
@@ -381,6 +398,9 @@ export default function Home() {
             <ProductTour content={c.productTour} />
           </Reveal>
         </section>
+
+        {/* Custom Tools for Business Growth */}
+        <CustomToolsSection content={c.customToolsSection} />
 
         {/* Why Uptrix */}
         <section id="about" aria-labelledby="why-heading" className={`scroll-mt-18 bg-white ${sectionPad}`}>

@@ -126,6 +126,77 @@ export const homeDefaults = {
       },
     ],
   },
+  customToolsSection: {
+    eyebrow: "Custom Engineering",
+    tag: "Bespoke Solutions",
+    heading: "We Develop Custom Tools for Your Business Growth",
+    subheading: "Tailor-made software, automations, and portals engineered around your unique workflows.",
+    body: "When off-the-shelf software can't solve your exact challenges, Uptrix engineers dedicated custom tools, intelligent automations, and enterprise-grade internal systems built specifically to eliminate manual bottlenecks and scale your business.",
+    buttonLabel: "Request Custom Tool Consultation",
+    buttonLink: "#contact",
+    secondaryButtonLabel: "Talk to an Architect",
+    secondaryButtonLink: "#contact",
+    tools: [
+      {
+        tag: "Workflow Automation",
+        title: "Custom Approval & Process Engines",
+        body: "Automate complex, multi-tiered business operations, purchase order approvals, document generation, and alert triggers across departments.",
+      },
+      {
+        tag: "Business Intelligence",
+        title: "Bespoke Executive Portals & Dashboards",
+        body: "Consolidated operational cockpits, multi-branch performance scorecards, vendor portals, and customized KPI visualizers for real-time clarity.",
+      },
+      {
+        tag: "Ecosystem Sync",
+        title: "Tally, ERP & Legacy API Integrations",
+        body: "Bi-directional real-time data sync connecting your CRM, HRMS, Tally, accounting software, and existing legacy databases with zero data duplication.",
+      },
+      {
+        tag: "AI & Smart Bots",
+        title: "AI-Powered Assistants & WhatsApp Bots",
+        body: "Deploy intelligent WhatsApp bots for customer engagement, automated invoice/receipt OCR parsing, and predictive lead prioritisation.",
+      },
+      {
+        tag: "Field Operations",
+        title: "Field Force & Mobile Micro-Apps",
+        body: "Fast, mobile-optimized tools for on-ground sales teams, site supervisors, inspection visits, and field service logging with GPS geofencing.",
+      },
+      {
+        tag: "Industry Niche",
+        title: "Specialized Industry Operating Modules",
+        body: "Custom modules engineered for manufacturing job-work management, logistics tracking, real estate broker networks, and educational institutions.",
+      },
+    ],
+    processSteps: [
+      {
+        step: "01",
+        title: "Discovery & Workflow Audit",
+        body: "We map your current business processes, identify friction points, and blueprint the exact technical solution.",
+      },
+      {
+        step: "02",
+        title: "Clickable UI Prototype",
+        body: "You review and test clickable UI/UX mockups before a single line of backend production code is written.",
+      },
+      {
+        step: "03",
+        title: "Agile Development & Testing",
+        body: "We build scalable, secure code with continuous feedback, bi-weekly demos, and strict quality checks.",
+      },
+      {
+        step: "04",
+        title: "Launch & 24/7 SLA Support",
+        body: "Smooth migration, hands-on team onboarding, and dedicated maintenance ensure your tools grow alongside your business.",
+      },
+    ],
+    stats: [
+      { value: "4-6 Wks", label: "Average Delivery Time" },
+      { value: "100%", label: "Tailored to Your Workflow" },
+      { value: "3x", label: "Operational Speed Gain" },
+      { value: "99.9%", label: "Uptime & Secure Hosting" },
+    ],
+  },
   whyUptrix: {
     eyebrow: "Why Uptrix",
     heading: "Why Growing Businesses Choose Uptrix",
@@ -222,6 +293,7 @@ export const homeDefaults = {
       { label: "CRM", link: "/crm" },
       { label: "College ERP & CRM", link: "/college" },
       { label: "Real Estate CRM", link: "/crm/real-estate" },
+      { label: "Custom Business Tools", link: "/#custom-tools" },
     ],
     companyHeading: "Company",
     companyLinks: [

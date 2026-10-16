@@ -17,6 +17,8 @@ const LABELS: Record<string, string> = {
   faq: "FAQ",
   hrmsSection: "HRMS section",
   crmSection: "CRM section",
+  customToolsSection: "Custom tools development section",
+  processSteps: "Development process steps",
   usersNote: "Users note (shown under the price)",
   highlight: "Highlight this plan (dark card)",
   included: "Included",
