@@ -24,19 +24,18 @@ export async function savePost(input: Partial<Post>, id?: string): Promise<SaveP
     try {
       await logAdminWrite("save-blog-post", post.id);
     } catch (e) {
-      console.error("Blog post was saved but the admin audit record failed", e);
-      return { ok: false, error: "The post was saved, but audit logging failed. Contact the site administrator before retrying." };
+      console.warn("Blog post was saved but the admin audit record failed:", e);
     }
     try {
       await refreshBlog();
     } catch (e) {
-      console.error("Blog post was saved but the public cache could not be refreshed", e);
-      return { ok: false, error: "The post was saved, but the public site could not be refreshed. It will appear after its cache expires." };
+      console.warn("Blog post was saved but the public cache could not be refreshed:", e);
     }
     return { ok: true, id: post.id, slug: post.slug, savedAt: post.updatedAt };
-  } catch (e) {
-    console.error("Blog save failed", e);
-    return { ok: false, error: "Could not save. Check that the server can write to the content folder." };
+  } catch (e: unknown) {
+    console.error("Blog save failed:", e);
+    const msg = e instanceof Error ? e.message : "Could not save post.";
+    return { ok: false, error: msg };
   }
 }
 

@@ -163,9 +163,8 @@ export function getAllPosts(): Post[] {
   try {
     files = listFilesSync(["blog", "posts"]).filter((f) => /^[a-f0-9]+\.json$/.test(f));
   } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") return [];
-    console.error("Could not list blog post files", error);
-    throw error;
+    console.warn("Could not list local blog post files:", error);
+    return [];
   }
   return files
     .map(readPostFile)
@@ -223,24 +222,27 @@ export function getRelatedPosts(post: Post, limit = 3) {
 }
 
 export async function savePost(input: Partial<Post>, id?: string) {
-  return withFileLock(["blog", "posts", "slug-index.lock"], async () => {
   const existing = id ? getPostById(id) : null;
   if (id && !existing) throw new Error("Post not found");
   const post = clean(input, existing ?? undefined);
 
   // Every post needs its own web address
-  const taken = new Set(getAllPosts().filter((p) => p.id !== post.id).map((p) => p.slug));
+  let taken = new Set<string>();
+  try {
+    taken = new Set(getAllPosts().filter((p) => p.id !== post.id).map((p) => p.slug));
+  } catch {
+    taken = new Set();
+  }
   let slug = post.slug;
   for (let n = 2; taken.has(slug); n++) slug = `${post.slug}-${n}`;
   post.slug = slug;
 
   postSchema.parse(post);
-  await backupPost(post.id);
-  await writeAtomic(["blog", "posts", `${post.id}.json`], JSON.stringify(post, null, 2));
 
-  // Sync to Supabase database
+  // 1. Primary storage: Supabase database
+  let supabaseSaved = false;
   try {
-    await supabaseAdmin.from("posts").upsert(
+    const { error: sbError } = await supabaseAdmin.from("posts").upsert(
       {
         title: post.title,
         slug: post.slug,
@@ -255,12 +257,34 @@ export async function savePost(input: Partial<Post>, id?: string) {
       },
       { onConflict: "slug" }
     );
+    if (sbError) {
+      console.error("[blog-store] Supabase upsert error:", sbError);
+    } else {
+      supabaseSaved = true;
+    }
   } catch (err) {
-    console.warn("[blog-store] Failed to sync post to Supabase:", err);
+    console.error("[blog-store] Failed to sync post to Supabase:", err);
+  }
+
+  // 2. Secondary storage: Local file backup (if filesystem is writable)
+  try {
+    await withFileLock(["blog", "posts", "slug-index.lock"], async () => {
+      try {
+        await backupPost(post.id);
+      } catch (backupErr) {
+        console.warn("[blog-store] Local backup skipped:", backupErr);
+      }
+      await writeAtomic(["blog", "posts", `${post.id}.json`], JSON.stringify(post, null, 2));
+    });
+  } catch (fsErr) {
+    console.warn("[blog-store] Local filesystem write failed (proceeding since Supabase is active):", fsErr);
+    // If Supabase also failed, throw so user is notified
+    if (!supabaseSaved) {
+      throw new Error(`Failed to save post: ${fsErr instanceof Error ? fsErr.message : "Filesystem not writable"}`);
+    }
   }
 
   return post;
-  });
 }
 
 export async function deletePost(id: string) {
