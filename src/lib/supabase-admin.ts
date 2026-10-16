@@ -1,18 +1,45 @@
 // Server-only Supabase client and storage helper for Uptrix Global
 import "server-only";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.SUPABASE_URL || "https://uzyhjpginrwcztsisihx.supabase.co";
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
-if (!supabaseServiceKey) {
-  console.warn("[supabase-admin] SUPABASE_SERVICE_ROLE_KEY is missing in environment variables.");
+let _cachedClient: SupabaseClient | null = null;
+
+/**
+ * Lazy initialization of the Supabase Admin Client.
+ * If the environment key is missing during build time (e.g. Next.js page data collection),
+ * it returns a safe mock/stub to prevent build aborts.
+ */
+export function getSupabaseAdmin(): SupabaseClient {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!key) {
+    // In build phase or when key is absent, avoid throwing at compile time
+    return createClient(supabaseUrl, "sb_temp_build_key_placeholder", {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  }
+
+  if (!_cachedClient) {
+    _cachedClient = createClient(supabaseUrl, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  }
+
+  return _cachedClient;
 }
 
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
+/**
+ * Proxy object for supabaseAdmin.
+ * Allows existing code like `supabaseAdmin.from(...)` and `supabaseAdmin.storage...`
+ * to work without executing createClient() at module import time.
+ */
+export const supabaseAdmin = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    const client = getSupabaseAdmin();
+    const value = (client as any)[prop];
+    return typeof value === "function" ? value.bind(client) : value;
   },
 });
 
@@ -25,7 +52,8 @@ export async function uploadImageToSupabase(
   buffer: Buffer,
   contentType = "image/webp"
 ): Promise<string> {
-  const { data, error } = await supabaseAdmin.storage
+  const client = getSupabaseAdmin();
+  const { data, error } = await client.storage
     .from("blog-images")
     .upload(fileName, buffer, {
       contentType,
@@ -37,7 +65,7 @@ export async function uploadImageToSupabase(
     throw new Error(`Failed to upload image to Supabase: ${error.message}`);
   }
 
-  const { data: publicUrlData } = supabaseAdmin.storage
+  const { data: publicUrlData } = client.storage
     .from("blog-images")
     .getPublicUrl(data.path);
 

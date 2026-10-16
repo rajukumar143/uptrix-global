@@ -2,6 +2,8 @@ import { isAdmin } from "@/lib/admin-auth";
 import { logAdminWrite } from "@/lib/admin-audit";
 import { ImageUploadError, MAX_UPLOAD_BYTES, saveImage } from "@/lib/media-store";
 
+export const dynamic = "force-dynamic";
+
 // Image upload from the blog editor (admins only).
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
