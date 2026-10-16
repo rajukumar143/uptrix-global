@@ -29,8 +29,8 @@ export async function POST(request) {
     const body = await request.json();
     const { username, password } = body || {};
 
-    const configuredUsername = process.env.ADMIN_USERNAME;
-    const configuredHash = process.env.ADMIN_PASSWORD_HASH;
+    const configuredUsername = process.env.ADMIN_USERNAME?.trim();
+    const configuredHash = process.env.ADMIN_PASSWORD_HASH?.trim().replace(/^['"]|['"]$/g, '');
 
     if (!configuredUsername || !configuredHash) {
       console.error("[api/auth/login] ADMIN_USERNAME or ADMIN_PASSWORD_HASH is not configured.");

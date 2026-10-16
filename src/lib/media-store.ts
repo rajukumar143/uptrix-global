@@ -5,6 +5,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import sharp from "sharp";
 import { readBytes, writeAtomic } from "@/lib/content-files";
+import { uploadImageToSupabase } from "@/lib/supabase-admin";
 
 export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const MAX_WIDTH = 1600;
@@ -39,8 +40,23 @@ export async function saveImage(data: Buffer) {
 
   const month = new Date().toISOString().slice(0, 7);
   const name = `${month}-${randomBytes(6).toString("hex")}.webp`;
-  await writeAtomic(["uploads", name], out);
-  return { url: `/media/${name}`, width: info.width, height: info.height, bytes: info.size };
+  
+  // Write to local disk as safety backup
+  try {
+    await writeAtomic(["uploads", name], out);
+  } catch (e) {
+    console.warn("[media-store] Could not write local upload backup:", e);
+  }
+
+  // Upload to Supabase Storage bucket 'blog-images'
+  let publicUrl = `/media/${name}`;
+  try {
+    publicUrl = await uploadImageToSupabase(name, out, "image/webp");
+  } catch (err) {
+    console.warn("[media-store] Falling back to local URL due to Supabase upload error:", err);
+  }
+
+  return { url: publicUrl, width: info.width, height: info.height, bytes: info.size };
 }
 
 export async function readImage(name: string) {

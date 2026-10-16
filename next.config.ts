@@ -12,9 +12,9 @@ const securityHeaders = [
       "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; " +
       `script-src 'self' 'unsafe-inline'${developmentScriptSource} https://www.youtube.com https://www.youtube-nocookie.com https://challenges.cloudflare.com https://www.googletagmanager.com; ` +
       "style-src 'self' 'unsafe-inline'; font-src 'self' data:; " +
-      "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.google-analytics.com; " +
+      "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.google-analytics.com https://*.supabase.co; " +
       "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://challenges.cloudflare.com; " +
-      "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com;",
+      "connect-src 'self' https://challenges.cloudflare.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.supabase.co;",
   },
 ];
 
@@ -24,6 +24,14 @@ if (process.env.NODE_ENV === "production") {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+      },
+    ],
+  },
   async headers() {
     return [
       {

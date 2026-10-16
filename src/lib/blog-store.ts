@@ -7,6 +7,7 @@ import { z } from "zod";
 import { safeLink } from "@/content/merge";
 import { listFiles, listFilesSync, readText, readTextSync, removeFile, withFileLock, writeAtomic } from "@/lib/content-files";
 import { slugify } from "./markdown";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export type Post = {
   id: string;
@@ -236,6 +237,28 @@ export async function savePost(input: Partial<Post>, id?: string) {
   postSchema.parse(post);
   await backupPost(post.id);
   await writeAtomic(["blog", "posts", `${post.id}.json`], JSON.stringify(post, null, 2));
+
+  // Sync to Supabase database
+  try {
+    await supabaseAdmin.from("posts").upsert(
+      {
+        title: post.title,
+        slug: post.slug,
+        content: post.content,
+        cover_image_url: post.coverImage?.src || null,
+        meta_title: post.seoTitle || post.title,
+        meta_description: post.metaDescription || post.excerpt,
+        meta_keywords: post.tags?.join(", ") || post.focusKeyword || null,
+        og_image_url: post.coverImage?.src || null,
+        published: post.status === "published",
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "slug" }
+    );
+  } catch (err) {
+    console.warn("[blog-store] Failed to sync post to Supabase:", err);
+  }
+
   return post;
   });
 }
@@ -243,8 +266,18 @@ export async function savePost(input: Partial<Post>, id?: string) {
 export async function deletePost(id: string) {
   if (!/^[a-f0-9]+$/.test(id)) throw new Error("Invalid blog post id.");
   return withFileLock(["blog", "posts", "slug-index.lock"], async () => {
+    const existing = getPostById(id);
     await backupPost(id);
     await removeFile(["blog", "posts", `${id}.json`]);
+
+    // Delete from Supabase database
+    try {
+      if (existing?.slug) {
+        await supabaseAdmin.from("posts").delete().eq("slug", existing.slug);
+      }
+    } catch (err) {
+      console.warn("[blog-store] Failed to delete post from Supabase:", err);
+    }
   });
 }
 
