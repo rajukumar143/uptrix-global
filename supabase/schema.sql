@@ -69,6 +69,3 @@ on conflict (id) do update set public = true;
 create policy "Public can view blog images"
   on storage.objects for select
   using (bucket_id = 'blog-images');
-
--- Note: Storage uploads, updates, and deletes are performed by the server
--- using the Supabase Service Role key which bypasses storage RLS.
