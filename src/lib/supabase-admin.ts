@@ -24,6 +24,14 @@ export function getSupabaseAdmin(): SupabaseClient {
   if (!_cachedClient) {
     _cachedClient = createClient(supabaseUrl, key, {
       auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        fetch: (url, options = {}) => {
+          return fetch(url, {
+            ...options,
+            signal: options?.signal || AbortSignal.timeout(10000),
+          });
+        },
+      },
     });
   }
 

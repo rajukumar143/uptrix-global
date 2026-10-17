@@ -142,9 +142,17 @@ async function ensureParent(segments: string[]) {
   return { target, actualRoot };
 }
 
-function withLock<T>(key: string, action: () => Promise<T>): Promise<T> {
+function withLock<T>(key: string, action: () => Promise<T>, timeoutMs = 8000): Promise<T> {
   const previous = queues.get(key) ?? Promise.resolve();
-  const current = previous.catch(() => undefined).then(action);
+  const timer = new Promise<never>((_, reject) => {
+    const t = setTimeout(() => reject(new Error(`File lock timed out for ${key}`)), timeoutMs);
+    t.unref?.();
+  });
+
+  const current = previous
+    .catch(() => undefined)
+    .then(() => Promise.race([action(), timer]));
+
   const tail = current.then(
     () => undefined,
     () => undefined

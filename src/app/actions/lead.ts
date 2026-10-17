@@ -118,6 +118,7 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
         },
         body: JSON.stringify(lead),
         cache: "no-store",
+        signal: AbortSignal.timeout(8000),
       });
       if (!response.ok) throw new Error(`Admin lead API returned ${response.status}.`);
     } else {

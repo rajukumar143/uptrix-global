@@ -24,15 +24,22 @@ const pageSchemas = Object.fromEntries(Object.entries(defaultContent).map(([key,
 const savedSchema = z.object(pageSchemas).partial().strict();
 
 let writeQueue: Promise<void> = Promise.resolve();
-async function withSiteWriteLock<T>(write: () => Promise<T>): Promise<T> {
+async function withSiteWriteLock<T>(write: () => Promise<T>, timeoutMs = 8000): Promise<T> {
   const previous = writeQueue;
   let release!: () => void;
   writeQueue = new Promise<void>((resolve) => {
     release = resolve;
   });
-  await previous;
+
+  const timer = new Promise<never>((_, reject) => {
+    const t = setTimeout(() => reject(new Error("Site write lock timed out")), timeoutMs);
+    t.unref?.();
+  });
+
+  // Ensure previous failure never permanently deadlocks subsequent operations
+  await Promise.race([previous.catch(() => undefined), timer]);
   try {
-    return await write();
+    return await Promise.race([write(), timer]);
   } finally {
     release();
   }
@@ -88,17 +95,23 @@ export function getPageContent<K extends PageKey>(key: K): SiteContent[K] {
   return mergeWithDefaults(defaultContent[key], readSaved()[key]);
 }
 
+let hasSeeded = false;
 export async function seedSiteContent() {
+  if (hasSeeded) return false;
   return withSiteWriteLock(async () => {
+    if (hasSeeded) return false;
     try {
       parseSaved(await readText(["site.json"]));
+      hasSeeded = true;
       return false;
     } catch (error) {
       if (error instanceof Error && "code" in error && error.code === "ENOENT") {
         await writeAtomic(["site.json"], JSON.stringify(savedSchema.parse(defaultContent), null, 2));
+        hasSeeded = true;
         return true;
       }
       console.error("Existing site content could not be validated; preserving it without reseeding", error);
+      hasSeeded = true;
       return false;
     }
   });
