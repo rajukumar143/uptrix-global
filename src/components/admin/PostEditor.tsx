@@ -105,13 +105,20 @@ export default function PostEditor({
 
   const save = (nextStatus?: Draft["status"]) =>
     startTransition(async () => {
-      const toSave = { ...post, status: nextStatus ?? post.status };
+      const { id, createdAt, updatedAt, ...rest } = post;
+      const toSave = {
+        ...rest,
+        ...(id ? { id } : {}),
+        ...(createdAt ? { createdAt } : {}),
+        ...(updatedAt ? { updatedAt } : {}),
+        status: nextStatus ?? post.status,
+      };
       const res = await savePost(toSave, post.id || undefined);
       if (!res.ok) {
         setStatus({ kind: "error", text: res.error });
         return;
       }
-      const updated = { ...toSave, id: res.id, slug: res.slug, updatedAt: res.savedAt };
+      const updated: Draft = { ...post, ...toSave, id: res.id, slug: res.slug, updatedAt: res.savedAt };
       setPost(updated);
       setSavedJson(JSON.stringify(updated));
       setSlugTouched(true);

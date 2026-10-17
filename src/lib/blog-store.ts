@@ -59,6 +59,10 @@ const postSchema = z.object({
 }).strict();
 
 const postInputSchema = postSchema.partial().extend({
+  id: z.string().regex(/^[a-f0-9]+$/).optional().or(z.literal("")),
+  createdAt: z.string().datetime().optional().or(z.literal("")),
+  updatedAt: z.string().datetime().optional().or(z.literal("")),
+  publishedAt: z.string().datetime().optional().or(z.literal("")),
   coverImage: coverSchema.partial().optional(),
 }).strict();
 const MAX_POST_BACKUPS = 20;
@@ -90,7 +94,13 @@ const date = (v: unknown, fallback: string) => {
 
 /** Clean up whatever the editor sends so only valid values are stored. */
 function clean(raw: unknown, existing?: Post): Post {
-  const input = postInputSchema.parse(raw);
+  const sanitized = typeof raw === "object" && raw !== null ? { ...raw } : {};
+  if ("id" in sanitized && !sanitized.id) delete (sanitized as any).id;
+  if ("createdAt" in sanitized && !sanitized.createdAt) delete (sanitized as any).createdAt;
+  if ("updatedAt" in sanitized && !sanitized.updatedAt) delete (sanitized as any).updatedAt;
+  if ("publishedAt" in sanitized && !sanitized.publishedAt) delete (sanitized as any).publishedAt;
+
+  const input = postInputSchema.parse(sanitized);
   const now = new Date().toISOString();
   const base = existing ?? { ...emptyPost(), id: randomBytes(6).toString("hex"), createdAt: now, updatedAt: now };
   const title = str(input.title, 200).trim();

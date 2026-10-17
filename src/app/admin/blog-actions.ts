@@ -34,6 +34,12 @@ export async function savePost(input: Partial<Post>, id?: string): Promise<SaveP
     return { ok: true, id: post.id, slug: post.slug, savedAt: post.updatedAt };
   } catch (e: unknown) {
     console.error("Blog save failed:", e);
+    if (e && typeof e === "object" && "issues" in e && Array.isArray((e as any).issues)) {
+      const msg = (e as any).issues
+        .map((issue: any) => `${issue.path.join(".") || "field"}: ${issue.message}`)
+        .join("; ");
+      return { ok: false, error: msg };
+    }
     const msg = e instanceof Error ? e.message : "Could not save post.";
     return { ok: false, error: msg };
   }
