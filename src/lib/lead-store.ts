@@ -34,6 +34,12 @@ export function parseLeadInput(value: unknown) {
   return leadInputSchema.parse(value);
 }
 
+let _cachedLeads: { data: Lead[]; expires: number } | null = null;
+
+export function invalidateLeadsCache() {
+  _cachedLeads = null;
+}
+
 export async function addLead(lead: Omit<Lead, "createdAt">) {
   if (process.env.APP_MODE === "public") throw new Error("The public app cannot write directly to CONTENT_DIR.");
   const clean = leadInputSchema.parse(lead);
@@ -42,10 +48,16 @@ export async function addLead(lead: Omit<Lead, "createdAt">) {
     ...clean,
   };
   await appendText(["leads.jsonl"], `${JSON.stringify(entry)}\n`);
+  invalidateLeadsCache();
 }
 
 /** Every lead, newest first. */
 export function getLeads(): Lead[] {
+  const now = Date.now();
+  if (_cachedLeads && _cachedLeads.expires > now) {
+    return _cachedLeads.data;
+  }
+
   let text = "";
   try {
     text = readTextSync(["leads.jsonl"]);
@@ -54,7 +66,7 @@ export function getLeads(): Lead[] {
     console.error("Could not read lead records", error);
     throw error;
   }
-  return text
+  const leads = text
     .split("\n")
     .filter(Boolean)
     .flatMap((line) => {
@@ -66,4 +78,7 @@ export function getLeads(): Lead[] {
       }
     })
     .reverse();
+
+  _cachedLeads = { data: leads, expires: now + 5000 };
+  return leads;
 }

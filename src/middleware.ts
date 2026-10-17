@@ -15,6 +15,25 @@ export function middleware(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
+  // Immediately terminate WordPress cron, PHP probes, and scanner bots in 0ms with Connection: close
+  if (
+    path.endsWith(".php") ||
+    path.startsWith("/wp-") ||
+    path.startsWith("/xmlrpc") ||
+    path.startsWith("/phpmyadmin") ||
+    path.includes(".env") ||
+    path.includes("/.")
+  ) {
+    return new NextResponse("Not Found", {
+      status: 404,
+      headers: {
+        "Connection": "close",
+        "Content-Type": "text/plain",
+        "Cache-Control": "public, max-age=86400",
+      },
+    });
+  }
+
   // Let Next.js internals, static bundles, images, and public assets pass immediately
   if (
     isPathOrChild(path, "/_next") ||

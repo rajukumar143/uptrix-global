@@ -167,8 +167,19 @@ async function backupPost(id: string) {
   await Promise.all(versions.map((file) => removeFile(["backups", "blog", file])));
 }
 
+let _cachedPosts: { data: Post[]; expires: number } | null = null;
+
+export function invalidatePostsCache() {
+  _cachedPosts = null;
+}
+
 /** Every post (drafts included), newest first. */
 export function getAllPosts(): Post[] {
+  const now = Date.now();
+  if (_cachedPosts && _cachedPosts.expires > now) {
+    return _cachedPosts.data;
+  }
+
   let files: string[];
   try {
     files = listFilesSync(["blog", "posts"]).filter((f) => /^[a-f0-9]+\.json$/.test(f));
@@ -176,10 +187,13 @@ export function getAllPosts(): Post[] {
     console.warn("Could not list local blog post files:", error);
     return [];
   }
-  return files
+  const posts = files
     .map(readPostFile)
     .filter((p): p is Post => p !== null)
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
+  _cachedPosts = { data: posts, expires: now + 5000 };
+  return posts;
 }
 
 export function isLive(p: Post, now = Date.now()) {
@@ -294,6 +308,7 @@ export async function savePost(input: Partial<Post>, id?: string) {
     }
   }
 
+  invalidatePostsCache();
   return post;
 }
 
@@ -303,6 +318,7 @@ export async function deletePost(id: string) {
     const existing = getPostById(id);
     await backupPost(id);
     await removeFile(["blog", "posts", `${id}.json`]);
+    invalidatePostsCache();
 
     // Delete from Supabase database
     try {

@@ -26,11 +26,8 @@ export async function savePost(input: Partial<Post>, id?: string): Promise<SaveP
     } catch (e) {
       console.warn("Blog post was saved but the admin audit record failed:", e);
     }
-    try {
-      await refreshBlog();
-    } catch (e) {
-      console.warn("Blog post was saved but the public cache could not be refreshed:", e);
-    }
+    // Refresh public cache in background so save returns immediately without blocking
+    refreshBlog().catch((e) => console.warn("Blog post public cache refresh skipped:", e));
     return { ok: true, id: post.id, slug: post.slug, savedAt: post.updatedAt };
   } catch (e: unknown) {
     console.error("Blog save failed:", e);

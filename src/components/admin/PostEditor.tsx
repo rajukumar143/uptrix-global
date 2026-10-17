@@ -140,7 +140,7 @@ export default function PostEditor({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  });
+  }, [pending, post]);
 
   // ---- Markdown toolbar ----
   const wrap = (before: string, after = "", placeholder = "") => {
