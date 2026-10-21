@@ -5,7 +5,8 @@ import BlogAdminView, { type BlogPostItem } from "@/components/admin/BlogAdminVi
 
 export default async function BlogAdmin({ searchParams }: PageProps<"/admin/blog">) {
   await requireAdmin();
-  const { deleted } = await searchParams;
+  const sp = searchParams ? await searchParams : undefined;
+  const deleted = sp?.deleted;
   const rawPosts = getAllPosts();
 
   // Pre-calculate SEO scores on the server and pass only lightweight summary fields

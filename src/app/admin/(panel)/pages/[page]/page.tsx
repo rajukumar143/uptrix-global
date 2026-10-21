@@ -9,7 +9,8 @@ import { getPageContent } from "@/lib/content-store";
 export default async function EditPage({ params, searchParams }: PageProps<"/admin/pages/[page]">) {
   await requireAdmin();
   const { page } = await params;
-  const { reset } = await searchParams;
+  const sp = searchParams ? await searchParams : undefined;
+  const reset = sp?.reset;
   if (!isPageKey(page)) notFound();
 
   const info = pageInfo[page];

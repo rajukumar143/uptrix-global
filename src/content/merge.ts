@@ -22,7 +22,22 @@ export function safeLink(v: string) {
 
 /** The default item for an array, looked up through the first default item at each level. */
 export function arrayTemplate(defaultArray: unknown[]): Json {
-  return defaultArray.length ? (defaultArray[0] as Json) : "";
+  if (!defaultArray.length) return "";
+  const first = defaultArray[0];
+  if (first && typeof first === "object" && !Array.isArray(first)) {
+    const merged: Record<string, Json> = {};
+    for (const item of defaultArray) {
+      if (item && typeof item === "object" && !Array.isArray(item)) {
+        for (const [k, v] of Object.entries(item as Record<string, Json>)) {
+          if (!(k in merged)) {
+            merged[k] = v;
+          }
+        }
+      }
+    }
+    return merged;
+  }
+  return first as Json;
 }
 
 /** A blank copy of a default value, used when the admin adds a new item to a list. */

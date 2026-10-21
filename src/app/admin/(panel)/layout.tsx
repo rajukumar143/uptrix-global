@@ -7,10 +7,25 @@ import AdminPanelShell from "@/components/admin/AdminPanelShell";
 
 export default async function PanelLayout({ children }: LayoutProps<"/admin">) {
   await requireAdmin();
-  await seedSiteContent();
+  try {
+    await seedSiteContent();
+  } catch (err) {
+    console.warn("PanelLayout seedSiteContent failed:", err);
+  }
 
-  const leads = getLeads();
-  const posts = getAllPosts();
+  let leads: ReturnType<typeof getLeads> = [];
+  try {
+    leads = getLeads();
+  } catch (err) {
+    console.warn("PanelLayout getLeads failed:", err);
+  }
+
+  let posts: ReturnType<typeof getAllPosts> = [];
+  try {
+    posts = getAllPosts();
+  } catch (err) {
+    console.warn("PanelLayout getAllPosts failed:", err);
+  }
 
   return (
     <AdminPanelShell
