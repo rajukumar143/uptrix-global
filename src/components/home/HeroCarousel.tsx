@@ -8,11 +8,11 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "./icons";
 type Slide = HomeContent["heroSlides"][number];
 type Stat = HomeContent["heroStats"][number];
 
-// Look of the three stat cards (position and colour). Text comes from the admin dashboard.
+// Look of the three stat cards (position and colour). Placed in open background/table areas to avoid covering people.
 const statStyles = [
-  { color: "#4F46E5", pos: { top: "20%", left: "52%" }, dur: "6s", delay: "0s" },
-  { color: "#14B8A6", pos: { top: "44%", right: "4%" }, dur: "7s", delay: "-2s" },
-  { color: "#F59E0B", pos: { bottom: "18%", left: "58%" }, dur: "6.5s", delay: "-4s" },
+  { color: "#4F46E5", pos: { top: "18%", left: "50%" }, dur: "6s", delay: "0s" },
+  { color: "#14B8A6", pos: { top: "14%", right: "5%" }, dur: "7s", delay: "-2s" },
+  { color: "#F59E0B", pos: { bottom: "14%", left: "56%" }, dur: "6.5s", delay: "-4s" },
 ];
 
 export default function HeroCarousel({ slides, stats: statText }: { slides: Slide[]; stats: Stat[] }) {

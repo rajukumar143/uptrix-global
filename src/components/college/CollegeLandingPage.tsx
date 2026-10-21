@@ -8,9 +8,93 @@ import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
+import { youtubeId } from "@/content/stories";
 import type { CollegeContent } from "@/content/college";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
+import {
+  CheckIcon,
+  CrossIcon,
+  StarIcon,
+  SearchIcon,
+  BellIcon,
+  SettingsIcon,
+  ChartBarIcon,
+  TrendingUpIcon,
+  GraduationCapIcon,
+  UsersIcon,
+  BookOpenIcon,
+  CreditCardIcon,
+  MessageSquareIcon,
+  BriefcaseIcon,
+  TargetIcon,
+  AlertTriangleIcon,
+  CrownIcon,
+  PhoneCallIcon,
+  ZapIcon,
+  ShieldAlertIcon,
+  FlameIcon,
+  ScaleIcon,
+  DiamondIcon,
+  SmartphoneIcon,
+  FileTextIcon,
+  UserCheckIcon,
+  LockIcon,
+  PlayIcon,
+  VideoIcon,
+  BotIcon,
+  MailIcon,
+  FileCheckIcon,
+  SparklesIcon,
+} from "./CollegeIcons";
+
+function renderInsightIcon(iconName: string, className = "w-4 h-4") {
+  switch (iconName) {
+    case "trending-up":
+      return <TrendingUpIcon className={className} />;
+    case "briefcase":
+      return <BriefcaseIcon className={className} />;
+    case "target":
+      return <TargetIcon className={className} />;
+    case "alert":
+      return <AlertTriangleIcon className={className} />;
+    case "crown":
+      return <CrownIcon className={className} />;
+    case "zap":
+      return <ZapIcon className={className} />;
+    case "phone":
+      return <PhoneCallIcon className={className} />;
+    case "graduation":
+      return <GraduationCapIcon className={className} />;
+    case "shield-alert":
+      return <ShieldAlertIcon className={className} />;
+    case "flame":
+      return <FlameIcon className={className} />;
+    case "scale":
+      return <ScaleIcon className={className} />;
+    case "diamond":
+      return <DiamondIcon className={className} />;
+    case "smartphone":
+      return <SmartphoneIcon className={className} />;
+    default:
+      return <TrendingUpIcon className={className} />;
+  }
+}
+
+
+
+function renderEngineIcon(index: number, className = "w-5 h-5") {
+  const icons = [
+    MessageSquareIcon, // Meta Conversation API
+    UserCheckIcon,     // Smart Lead Assignment
+    ChartBarIcon,      // Lead Cost Calculator
+    TargetIcon,        // Conversion Analytics
+    CreditCardIcon,    // Payment Analytics
+    ZapIcon,           // AI Action Center
+  ];
+  const IconComponent = icons[index % icons.length] || TargetIcon;
+  return <IconComponent className={className} />;
+}
 
 interface CollegeLandingPageProps {
   header: HeaderContent;
@@ -19,9 +103,6 @@ interface CollegeLandingPageProps {
 }
 
 export default function CollegeLandingPage({ header, footer, content }: CollegeLandingPageProps) {
-  // Interactive state for admissions table filter
-  const [selectedPipelineStage, setSelectedPipelineStage] = useState<string>("all");
-  
   // Interactive state for Student 360 tab
   const [activeStudentTab, setActiveStudentTab] = useState<string>("Profile");
 
@@ -33,9 +114,6 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   const [demoSubmitted, setDemoSubmitted] = useState<boolean>(false);
   const [demoSubmitting, setDemoSubmitting] = useState<boolean>(false);
   const [demoError, setDemoError] = useState<string>("");
-
-  // Interactive state for The Complete Journey stepper
-  const [activeJourneyStep, setActiveJourneyStep] = useState<string>(content.journey.steps[0] ?? "Lead");
 
   // Interactive state for Business Insights
   const [insightFilter, setInsightFilter] = useState("all");
@@ -56,68 +134,17 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
   // Interactive state for FAQ accordion
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
 
-  const leadsTableData = [
-    {
-      name: "Rahul Kumar",
-      source: "Website",
-      course: "Data Analytics",
-      stage: "Counseling",
-      stageColor: "bg-amber-50 text-amber-700 border-amber-200",
-      counselor: "Priya",
-      avatarBg: "bg-blue-500",
-    },
-    {
-      name: "Sneha Reddy",
-      source: "Meta Ads",
-      course: "Web Dev",
-      stage: "Applied",
-      stageColor: "bg-blue-50 text-blue-700 border-blue-200",
-      counselor: "Rahul",
-      avatarBg: "bg-purple-500",
-    },
-    {
-      name: "Arjun Mehta",
-      source: "Phone Call",
-      course: "Full Stack",
-      stage: "Hot Lead",
-      stageColor: "bg-rose-50 text-rose-700 border-rose-200",
-      counselor: "Anjali",
-      avatarBg: "bg-emerald-500",
-    },
-    {
-      name: "Divya S",
-      source: "Google Ads",
-      course: "Digital Marketing",
-      stage: "Enrolled",
-      stageColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-      counselor: "Priya",
-      avatarBg: "bg-indigo-500",
-    },
-    {
-      name: "Karan Patel",
-      source: "Walk-in",
-      course: "Cloud & DevOps",
-      stage: "Contacted",
-      stageColor: "bg-cyan-50 text-cyan-700 border-cyan-200",
-      counselor: "Amit",
-      avatarBg: "bg-teal-500",
-    },
-  ];
+  // Interactive state for 6 Core CRM Engines
+  const [activeCrmEngineId, setActiveCrmEngineId] = useState<string>("meta-api");
 
-  const filteredLeads =
-    selectedPipelineStage === "all"
-      ? leadsTableData
-      : leadsTableData.filter(
-          (lead) => lead.stage.toLowerCase() === selectedPipelineStage.toLowerCase()
-        );
+  // Interactive state for Role Dashboards
+  const [activeRoleDashboardId, setActiveRoleDashboardId] = useState<string>("principal");
 
   const {
     hero,
     challenge,
     insights,
-    journey,
     platform,
-    admissions,
     studentProfile,
     erpFeatures,
     management,
@@ -127,6 +154,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
     faq,
     finalCta,
     demoModal,
+    aiDashboard,
+    crmEngineFeatures,
+    roleDashboards,
   } = content;
   const reviewCategories = Array.from(new Set(reviews.cards.map((review) => review.category)));
   const activeVideo = videos.cards.find((video) => video.id === activeVideoId) ?? videos.cards[0];
@@ -166,6 +196,17 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span>{hero.eyebrow}</span>
                 </div>
+
+                {hero.tagline && (
+                  <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 text-emerald-400 text-xs font-mono font-medium border border-slate-800 shadow-xs">
+                    <span className="font-bold text-white">{hero.tagline}</span>
+                    {hero.subtagline && (
+                      <span className="text-emerald-300 font-sans border-l border-slate-700 pl-2">
+                        {hero.subtagline}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Main Heading */}
                 <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.14] font-black tracking-tight text-slate-900">
@@ -208,24 +249,16 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
                 {/* Checklist Badges */}
                 <div className="flex flex-wrap items-center gap-y-2 gap-x-6 pt-3 text-sm font-semibold text-slate-700">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs">
-                      ✓
-                    </span>
-                    <span>All-in-one platform</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs">
-                      ✓
-                    </span>
-                    <span>Easy to use</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs">
-                      ✓
-                    </span>
-                    <span>Built for education businesses</span>
-                  </div>
+                  {(hero.highlights || ["WhatsApp Meta API built in", "Intelligent lead assignment", "Full tuition & cashflow analytics"]).map(
+                    (highlight, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs">
+                          ✓
+                        </span>
+                        <span>{highlight}</span>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -247,12 +280,12 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
                     <div className="flex items-center gap-3 text-xs">
                       <div className="hidden sm:flex items-center gap-1.5 bg-[#14362a] px-2.5 py-1 rounded-md text-[11px] text-slate-300">
-                        <span>🔍</span>
+                        <SearchIcon className="w-3.5 h-3.5 text-slate-400" />
                         <span>Search students, leads, courses...</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="relative text-slate-300 text-xs">
-                          🔔
+                          <BellIcon className="w-3.5 h-3.5 text-slate-300" />
                           <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-500" />
                         </span>
                         <div className="flex items-center gap-1.5 pl-2 border-l border-emerald-800">
@@ -274,36 +307,36 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div className="col-span-3 bg-[#0d2a20] text-emerald-100 p-3 flex flex-col justify-between text-xs">
                       <div className="space-y-1">
                         <div className="px-2 py-1.5 rounded-lg bg-emerald-700/60 text-white font-semibold flex items-center gap-2 text-[11px]">
-                          <span>📊</span>
+                          <ChartBarIcon className="w-3.5 h-3.5 text-white" />
                           <span>Leads</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>🎓</span>
+                          <GraduationCapIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Admissions</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>👥</span>
+                          <UsersIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Students</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>📚</span>
+                          <BookOpenIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Academic</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>💳</span>
+                          <CreditCardIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Fee &amp; Finance</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>💬</span>
+                          <MessageSquareIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Communication</span>
                         </div>
                         <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
-                          <span>📈</span>
+                          <TrendingUpIcon className="w-3.5 h-3.5 text-emerald-300" />
                           <span>Reports</span>
                         </div>
                       </div>
                       <div className="pt-2 border-t border-emerald-900/60 text-[10px] text-emerald-300/70 px-2 flex items-center gap-1.5">
-                        <span>⚙️</span>
+                        <SettingsIcon className="w-3 h-3 text-emerald-400" />
                         <span>Settings</span>
                       </div>
                     </div>
@@ -509,45 +542,251 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
         />
 
         {/* =========================================================================
-            SECTION 2: THE CHALLENGE
+            SECTION 2: THE CORE PROBLEM (Disconnected Systems)
         ========================================================================== */}
-        <section className="py-20 bg-white border-b border-slate-200/80">
+        <section className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/80">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
             
             {/* Section Tag */}
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold tracking-wider uppercase mb-3">
-              {challenge.eyebrow}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-mono font-bold tracking-wider uppercase mb-4">
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+              <span>{challenge.eyebrow}</span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
               {challenge.heading}
             </h2>
             
-            <p className="mt-3 text-slate-500 text-base sm:text-lg max-w-2xl mx-auto">
+            <p className="mt-4 text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               {challenge.body}
             </p>
 
-            {/* Problem cards */}
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 text-left">
-              {challenge.cards.map((card, index) => (
-                <div
-                  key={index}
-                  className={`rounded-2xl p-5 border shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between ${
-                    ["bg-[#fffbfb] border-rose-200/70", "bg-[#fffdfa] border-amber-200/70", "bg-[#fbfdff] border-blue-200/70", "bg-[#f9fefd] border-teal-200/70", "bg-[#fcfaff] border-purple-200/70", "bg-[#fff9f9] border-rose-200/70"][index % 6]
-                  }`}
-                >
-                  <div>
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 ${
-                      ["bg-rose-100 text-rose-600", "bg-amber-100 text-amber-600", "bg-blue-100 text-blue-600", "bg-teal-100 text-teal-600", "bg-purple-100 text-purple-600", "bg-rose-100 text-rose-600"][index % 6]
-                    }`}>
-                      {["📢", "⏰", "📁", "⚙️", "👁️", "🛑"][index % 6]}
+            {/* Side-by-Side Architectural Comparison: Disconnected Stack vs The Pulse OS (100% Light & Boxless) */}
+            <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 text-left max-w-5xl mx-auto">
+              
+              {/* Left Column: The Fragmented Stack Today (Light & Open) */}
+              <div className="flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-200">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-700 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-500" />
+                      <span>7 Disconnected Tools Today</span>
+                    </span>
+                    <span className="text-xs font-mono text-slate-400">High Friction</span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
+                    Where Inquiries Leak &amp; Teams Lose Context
+                  </h3>
+                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                    Counselors, academics, and accounts operate in isolated software silos with zero automatic data flow.
+                  </p>
+
+                  {/* 7 Tools Stack (Open Tags, No Enclosing Box) */}
+                  <div className="mt-6">
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
+                      The Disconnected Stack:
+                    </span>
+                    <div className="flex flex-wrap gap-2 text-xs">
+                      {[
+                        { name: "Meta & Google", desc: "Leads" },
+                        { name: "WhatsApp", desc: "Personal Chats" },
+                        { name: "Excel Sheets", desc: "Trackers" },
+                        { name: "Sales CRM", desc: "Sales Only" },
+                        { name: "Campus ERP", desc: "Student Ledgers" },
+                        { name: "Tally / Accounts", desc: "Receipts" },
+                        { name: "Email Server", desc: "Circulars" },
+                      ].map((t, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2.5 py-1 text-slate-700 text-xs font-mono bg-slate-100 rounded-md inline-flex items-center gap-1.5"
+                        >
+                          <span className="text-rose-500 font-bold">✕</span>
+                          <span className="font-bold text-slate-900">{t.name}</span>
+                          <span className="text-slate-500">({t.desc})</span>
+                        </span>
+                      ))}
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 mb-1.5">{card.title}</h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">{card.body}</p>
+                  </div>
+
+                  {/* 4 Consequences Breakdown (Open List, No Sub-Boxes) */}
+                  <div className="mt-6 space-y-3.5 pt-2">
+                    {[
+                      { title: "Data Disconnection", desc: "Contradictory student numbers in Excel vs ERP vs Tally." },
+                      { title: "Lead Decay", desc: "Average 4+ hours before counselor first touches inquiry." },
+                      { title: "Lost Context", desc: "Mentors receive zero intake counseling history." },
+                      { title: "Lagging Reports", desc: "Management waits for manual weekend spreadsheet rollups." },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0 mt-2" />
+                        <div className="text-sm">
+                          <span className="font-bold text-slate-900">{item.title}: </span>
+                          <span className="text-slate-600 leading-relaxed">{item.desc}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
+
+                <div className="mt-8 pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-mono text-rose-600 font-semibold">
+                  <span>● Result: 38% Student Churn</span>
+                  <span>Zero Agility</span>
+                </div>
+              </div>
+
+              {/* Right Column: The Pulse Unified OS (Light, Clean, Boxless) */}
+              <div className="flex flex-col justify-between lg:pl-10 lg:border-l lg:border-slate-200">
+                <div>
+                  <div className="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-200">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>One Connected Platform</span>
+                    </span>
+                    <span className="text-xs font-mono text-emerald-600 font-semibold">Zero Friction</span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
+                    One Unified Operating System for Education
+                  </h3>
+                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                    From first WhatsApp ad click to tuition payment, attendance, and alumni placement in one platform.
+                  </p>
+
+                  {/* Connected Journey Pipeline (Open Flow, No Box) */}
+                  <div className="mt-6">
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700 block mb-2.5">
+                      The Continuous Pulse Pipeline:
+                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono">
+                      {[
+                        "Meta API",
+                        "WhatsApp CRM",
+                        "Student 360",
+                        "UPI Token Lock",
+                        "Campus ERP",
+                        "Auto Tally Sync",
+                        "Live Board Analytics",
+                      ].map((step, idx, arr) => (
+                        <div key={idx} className="flex items-center gap-1.5">
+                          <span className="px-2.5 py-1 text-emerald-800 text-xs font-bold bg-emerald-50 border border-emerald-200/80 rounded-md">
+                            ✓ {step}
+                          </span>
+                          {idx < arr.length - 1 && <span className="text-slate-300 font-bold">→</span>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 4 Pulse Superpowers (Open List, No Sub-Boxes) */}
+                  <div className="mt-6 space-y-3.5 pt-2">
+                    {[
+                      { title: "Single Source of Truth", desc: "One master student biodata across counseling, faculty & accounts." },
+                      { title: "Sub-14s Response SLA", desc: "Automated routing and WhatsApp brochure delivery in seconds." },
+                      { title: "Complete Lifecycle History", desc: "All chat logs, payment receipts & marks on a single profile." },
+                      { title: "Live Management Cockpit", desc: "Real-time revenue, CPL, CPA, and cohort fill rates 24/7." },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-2" />
+                        <div className="text-sm">
+                          <span className="font-bold text-slate-900">{item.title}: </span>
+                          <span className="text-slate-600 leading-relaxed">{item.desc}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-mono text-emerald-700 font-semibold">
+                  <span>● 100% Data Continuity</span>
+                  <span>Zero Revenue Leakage</span>
+                </div>
+              </div>
+
             </div>
+
+            {/* The 6 Critical Breakdown Diagnostic Cards */}
+            <div className="mt-16 max-w-5xl mx-auto text-left">
+              <div className="text-center mb-8">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+                  WHERE DISCONNECTED SOFTWARES FAIL
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1">
+                  The 6 Operational Gaps Pulse Replaces
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {challenge.cards.map((card, index) => {
+                  const icons = [TargetIcon, MessageSquareIcon, FileTextIcon, UsersIcon, CreditCardIcon, ChartBarIcon];
+                  const IconComp = icons[index % icons.length];
+                  const fixes = [
+                    "Sub-14s instant Meta API auto-capture",
+                    "Official team WhatsApp inbox inside CRM",
+                    "One master cloud profile — zero duplicates",
+                    "Unified handoff from lead to enrolled student",
+                    "Direct UPI installment links & auto Tally sync",
+                    "Complete marketing-to-placement tuition ROI",
+                  ];
+
+                  return (
+                    <div
+                      key={index}
+                      className="rounded-2xl p-5 bg-white border border-slate-200 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between gap-4"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
+                            <IconComp className="w-4 h-4" />
+                          </span>
+                          <span className="text-[10px] font-mono font-bold uppercase text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+                            Gap #{index + 1}
+                          </span>
+                        </div>
+
+                        <h4 className="text-sm sm:text-base font-bold text-slate-900 leading-snug mb-1.5">
+                          {card.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {card.body}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-emerald-800 font-medium">
+                        <CheckIcon className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span className="text-[11px] leading-tight font-semibold">Pulse: {fixes[index]}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Solution Banner */}
+            {challenge.solutionSummary && (
+              <div className="mt-12 p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 max-w-5xl mx-auto shadow-xl border border-slate-800">
+                <div className="flex items-center gap-3 text-left">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/40 shrink-0">
+                    <CheckIcon className="w-5 h-5 text-emerald-400" />
+                  </span>
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-white">
+                      {challenge.solutionSummary}
+                    </h4>
+                    <p className="text-xs text-slate-400 mt-0.5 font-mono">
+                      Single database • Live WhatsApp CRM • Real-time fee ledger • Full student lifecycle
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowDemoModal(true)}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition shrink-0 cursor-pointer shadow-sm"
+                >
+                  Experience Pulse Live →
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
@@ -562,14 +801,19 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               <div>
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[10px] font-bold uppercase tracking-wider font-mono mb-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
-                  <span>{insights.eyebrow}</span>
+                  <span>{aiDashboard.eyebrow}</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-tight">
-                  {insights.heading}
+                  {aiDashboard.heading}
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5 max-w-xl">
-                  {insights.body}
-                </p>
+                <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    {aiDashboard.subheading}
+                  </span>
+                  <p className="text-xs text-slate-500 max-w-xl">
+                    {aiDashboard.body}
+                  </p>
+                </div>
               </div>
 
               <button
@@ -580,6 +824,80 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 <span>{insights.reportButton}</span>
                 <span className="text-emerald-600 font-bold">→</span>
               </button>
+            </div>
+
+            {/* AI Dashboard - Management View Metrics (Section 2 from Sheet) */}
+            <div className="bg-slate-900 rounded-2xl p-4 sm:p-5 text-white border border-slate-800 shadow-md">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-xs font-mono font-bold tracking-wider uppercase text-slate-300">
+                    {aiDashboard.managementViewTitle || "Your Management View Could Show:"}
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-emerald-400">Live AI Telemetry Active</span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                {aiDashboard.metrics.map((m, idx) => {
+                  const borderColors = [
+                    "border-emerald-500/40 bg-emerald-950/30 text-emerald-400",
+                    "border-blue-500/40 bg-blue-950/30 text-blue-400",
+                    "border-teal-500/40 bg-teal-950/30 text-teal-400",
+                    "border-indigo-500/40 bg-indigo-950/30 text-indigo-400",
+                    "border-amber-500/40 bg-amber-950/30 text-amber-400",
+                    "border-rose-500/40 bg-rose-950/30 text-rose-400",
+                  ];
+                  const currentStyle = borderColors[idx % borderColors.length];
+                  return (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-xl border ${currentStyle} flex flex-col justify-between transition-all hover:scale-[1.02]`}
+                    >
+                      <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block">
+                        {m.label}
+                      </span>
+                      <div className="my-1">
+                        <span className="text-xl sm:text-2xl font-black font-mono tracking-tight text-white block">
+                          {m.value}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-300 block">{m.sub}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* And AI Tells You What Matters - 3 Callouts */}
+              <div className="mt-4 pt-4 border-t border-slate-800/80">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
+                  {aiDashboard.aiCalloutsTitle || "And AI Tells You What Matters:"}
+                </span>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                  {aiDashboard.aiCallouts.map((callout, i) => (
+                    <div
+                      key={i}
+                      className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/70 flex items-start gap-2.5"
+                    >
+                      <span className="text-base shrink-0">
+                        {i === 0 ? "💡" : i === 1 ? "⚠️" : "🎯"}
+                      </span>
+                      <div>
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 block">
+                          {callout.tag}
+                        </span>
+                        <p className="text-xs text-slate-200 mt-0.5 leading-snug">
+                          {callout.quote}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                  <span>{aiDashboard.quote || "Don't just look at your numbers. Know what they mean."}</span>
+                  <span className="text-emerald-400 hidden sm:inline">Automatic Insights Engine ✓</span>
+                </div>
+              </div>
             </div>
 
             {/* Category Filter Pills Directly Above Cards */}
@@ -1072,7 +1390,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                         {card.eyebrow}
                       </span>
                       <span className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold ${style.icon}`}>
-                        {card.icon}
+                        {renderInsightIcon(card.icon, "w-4 h-4")}
                       </span>
                     </div>
                     <div>
@@ -1100,8 +1418,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             {/* Compact Action Banner for 7 Overdue Reminders */}
             <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-2.5 shadow-2xs flex flex-wrap items-center justify-between gap-2.5">
               <div className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold shrink-0">
-                  ⚡
+                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                  <ZapIcon className="w-3.5 h-3.5 text-amber-700" />
                 </span>
                 <span className="text-xs font-bold text-slate-800">{insights.reminderBanner}</span>
               </div>
@@ -1109,21 +1427,26 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               <button
                 type="button"
                 onClick={() => setBulkReminderSent(!bulkReminderSent)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition cursor-pointer font-mono ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition cursor-pointer font-mono inline-flex items-center gap-1.5 ${
                   bulkReminderSent
                     ? "bg-emerald-600 text-white shadow-xs"
                     : "bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
                 }`}
               >
-                {bulkReminderSent
-                  ? `✓ ${insights.sentRemindersButton}`
-                  : insights.sendRemindersButton}
+                {bulkReminderSent ? (
+                  <>
+                    <CheckIcon className="w-3.5 h-3.5 text-white" />
+                    <span>{insights.sentRemindersButton}</span>
+                  </>
+                ) : (
+                  <span>{insights.sendRemindersButton}</span>
+                )}
               </button>
             </div>
 
             {bulkReminderSent && (
               <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2 text-xs text-emerald-800 font-semibold flex items-center gap-2 animate-in fade-in duration-150">
-                <span>✓</span>
+                <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>{insights.reminderSuccess}</span>
               </div>
             )}
@@ -1138,12 +1461,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               <button
                 type="button"
                 onClick={() => setShowReportsModal(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold p-1 cursor-pointer"
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                aria-label="Close reports modal"
               >
-                ✕
+                <CrossIcon className="w-5 h-5" />
               </button>
-              <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl mb-4">
-                📊
+              <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center mb-4">
+                <ChartBarIcon className="w-6 h-6 text-blue-700" />
               </div>
               <h3 className="text-2xl font-black text-slate-900">
                 {insights.reportModal.heading}
@@ -1202,63 +1526,59 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
           </div>
         )}
 
+
+
         {/* =========================================================================
-            SECTION 4: THE COMPLETE JOURNEY
+            SECTION: 6 CORE CRM ENGINES (Section 3 from CRM Sheet)
         ========================================================================== */}
-        <section className="py-20 bg-white border-b border-slate-200/80">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 text-center">
-            
-            {/* Pill */}
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
-              {journey.eyebrow}
+        <section className="py-20 bg-slate-50 border-b border-slate-200/80">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
+                {crmEngineFeatures.eyebrow}
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+                {crmEngineFeatures.heading}
+              </h2>
+              <p className="mt-3 text-slate-600 text-base sm:text-lg">
+                {crmEngineFeatures.body}
+              </p>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-              {journey.heading}
-            </h2>
-
-            <p className="mt-2 text-slate-500 text-base sm:text-lg max-w-2xl mx-auto">
-              {journey.body}
-            </p>
-
-            {/* Stepper with 10 Circular Nodes */}
-            <div className="mt-10 overflow-x-auto py-6">
-              <div className="min-w-[920px] flex items-center justify-between relative px-6 pt-4 pb-2">
-                
+            {/* 6 Engine Stepper with Circular Nodes connected by a line (Matching Complete Journey design) */}
+            <div className="mt-8 mb-10 overflow-x-auto py-6">
+              <div className="min-w-[840px] flex items-center justify-between relative px-8 pt-4 pb-2">
                 {/* Connecting Track Line */}
-                <div className="absolute top-[40px] -translate-y-1/2 left-12 right-12 h-0.5 bg-slate-200 z-0" />
+                <div className="absolute top-[40px] -translate-y-1/2 left-14 right-14 h-0.5 bg-slate-200 z-0" />
 
-                {/* 10 Nodes */}
-                {journey.steps.map((step, index) => {
-                  const styles = [
-                  { step: "Lead", icon: "🌱", color: "bg-emerald-50 text-emerald-700 border-emerald-400" },
-                  { step: "Counseling", icon: "💬", color: "bg-blue-50 text-blue-700 border-blue-400" },
-                  { step: "Application", icon: "📝", color: "bg-amber-50 text-amber-700 border-amber-400" },
-                  { step: "Admission", icon: "🎓", color: "bg-purple-50 text-purple-700 border-purple-400" },
-                  { step: "Fee Payment", icon: "💳", color: "bg-teal-50 text-teal-700 border-teal-400" },
-                  { step: "Creation", icon: "👤", color: "bg-emerald-50 text-emerald-700 border-emerald-400" },
-                  { step: "Academics", icon: "📖", color: "bg-blue-50 text-blue-700 border-blue-400" },
-                  { step: "Attendance", icon: "📅", color: "bg-amber-50 text-amber-700 border-amber-400" },
-                  { step: "Communication", icon: "📲", color: "bg-cyan-50 text-cyan-700 border-cyan-400" },
-                  { step: "Graduation", icon: "🎖️", color: "bg-purple-50 text-purple-700 border-purple-400" },
+                {/* 6 Circular Nodes */}
+                {crmEngineFeatures.features.map((feat, index) => {
+                  const nodeStyles = [
+                    { color: "bg-emerald-50 text-emerald-700 border-emerald-400", label: "Meta API" },
+                    { color: "bg-blue-50 text-blue-700 border-blue-400", label: "Lead Assignment" },
+                    { color: "bg-amber-50 text-amber-700 border-amber-400", label: "Cost Calculator" },
+                    { color: "bg-purple-50 text-purple-700 border-purple-400", label: "Conversion" },
+                    { color: "bg-teal-50 text-teal-700 border-teal-400", label: "Payment Analytics" },
+                    { color: "bg-rose-50 text-rose-700 border-rose-400", label: "AI Action Center" },
                   ];
-                  const item = { ...styles[index % styles.length], step };
-                  const isActive = activeJourneyStep === item.step;
+                  const style = nodeStyles[index % nodeStyles.length];
+                  const isActive = activeCrmEngineId === feat.id;
+
                   return (
                     <button
-                      key={item.step}
+                      key={feat.id}
                       type="button"
-                      onClick={() => setActiveJourneyStep(item.step)}
+                      onClick={() => setActiveCrmEngineId(feat.id)}
                       className="flex flex-col items-center gap-2 relative z-10 cursor-pointer group focus:outline-hidden"
                     >
                       <div
-                        className={`w-12 h-12 rounded-full border-2 ${item.color} bg-white flex items-center justify-center text-lg shadow-xs transition-all duration-200 ${
+                        className={`w-12 h-12 rounded-full border-2 ${style.color} bg-white flex items-center justify-center shadow-xs transition-all duration-200 ${
                           isActive
                             ? "ring-4 ring-emerald-400/80 ring-offset-2 scale-115 shadow-md bg-emerald-50/40"
                             : "group-hover:scale-105 group-hover:shadow-sm"
                         }`}
                       >
-                        {item.icon}
+                        {renderEngineIcon(index, "w-5 h-5")}
                       </div>
                       <span
                         className={`text-xs whitespace-nowrap transition-colors ${
@@ -1267,7 +1587,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                             : "font-semibold text-slate-600 group-hover:text-slate-900"
                         }`}
                       >
-                        {item.step}
+                        {style.label}
                       </span>
                     </button>
                   );
@@ -1275,330 +1595,380 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               </div>
             </div>
 
-            {/* Dynamic Interactive Stage Card */}
+            {/* Active Engine Detail Card */}
             {(() => {
-              const journeyDetails: Record<
-                string,
-                {
-                  num: number;
-                  title: string;
-                  tagline: string;
-                  metrics: { label: string; value: string }[];
-                  actions: string[];
-                  preview: string;
-                  previewIcon: string;
-                  badgeColor: string;
-                }
-              > = {
-                Lead: {
-                  num: 1,
-                  title: "Lead Capture & Multi-Channel Attribution",
-                  tagline: "Instantly capture and attribute every student inquiry across Meta, Google, Website, and walk-ins.",
-                  metrics: [
-                    { label: "Response Velocity", value: "< 30s Auto-Dispatch" },
-                    { label: "Source Tracking", value: "100% UTM & Campaign" },
-                    { label: "Webhook Latency", value: "0s Real-Time Sync" },
-                  ],
-                  actions: [
-                    "Ingests inquiries from Meta Lead Ads, Google Search, Website forms, WhatsApp & Campus Walk-ins",
-                    "Automated WhatsApp brochure and welcome introduction message sent within seconds",
-                    "Round-robin intelligent distribution assigns leads to available academic counselors",
-                  ],
-                  preview: "New inquiry from Meta Ads for B.Tech Data Science → Dispatched WhatsApp brochure & assigned to Counselor Priya",
-                  previewIcon: "🌱",
-                  badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
-                },
-                Counseling: {
-                  num: 2,
-                  title: "1-on-1 Academic Counseling & Guidance",
-                  tagline: "Track calls, schedule campus walkthroughs, and nurture student interest with structured workflows.",
-                  metrics: [
-                    { label: "Demo Show-Up Rate", value: "92% Attendance" },
-                    { label: "Telephony Cloud", value: "Audio Recording Active" },
-                    { label: "Follow-Up Alerts", value: "Zero Missed Callbacks" },
-                  ],
-                  actions: [
-                    "Integrated click-to-call telephony with automated call recording and outcome disposition tags",
-                    "One-click calendar scheduling for campus walkthroughs and online video consultations",
-                    "Automated WhatsApp reminder dispatches 24h & 2h prior to the scheduled counseling session",
-                  ],
-                  preview: "Counseling call completed with Rahul Kumar (Talk time: 7m 42s) → Campus visit booked for Sat 11 AM",
-                  previewIcon: "💬",
-                  badgeColor: "bg-blue-50 text-blue-800 border-blue-200",
-                },
-                Application: {
-                  num: 3,
-                  title: "Application Form & Digital Document Submission",
-                  tagline: "Frictionless online application portal with automated document checklists and reminders.",
-                  metrics: [
-                    { label: "Completion Rate", value: "94.6% Conversion" },
-                    { label: "Required Docs", value: "4 Core Verifications" },
-                    { label: "Avg Submission Time", value: "6.5 Minutes" },
-                  ],
-                  actions: [
-                    "Mobile-friendly application links sent via WhatsApp for self-service completion",
-                    "Automated document collection for Aadhaar, Class 10/12 marksheets, and transfer certificates",
-                    "Automated WhatsApp alerts remind students if any mandatory documents are pending",
-                  ],
-                  preview: "Application #APP-2026-081 completed online → Class 12 marksheet & Aadhaar card uploaded to vault",
-                  previewIcon: "📝",
-                  badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
-                },
-                Admission: {
-                  num: 4,
-                  title: "Merit Evaluation & Provisional Admission Offer",
-                  tagline: "Verify cut-offs, issue digital admission offer letters, and lock provisional quota seats.",
-                  metrics: [
-                    { label: "Review Duration", value: "< 2 Hours" },
-                    { label: "Seat Locking Timer", value: "48-Hour Seat Hold" },
-                    { label: "Offer Acceptance", value: "89% Intake Ratio" },
-                  ],
-                  actions: [
-                    "Automated eligibility calculation against minimum aggregate academic cutoffs",
-                    "Instantly generates branded Provisional Admission Offer Letter with verification QR code",
-                    "Enforces quota seat reservations with dynamic expiry countdowns to prevent empty desks",
-                  ],
-                  preview: "Eligibility criteria met (88.4% Aggregate) → Provisional Admission Offer Letter generated for ED-2026-A",
-                  previewIcon: "🎓",
-                  badgeColor: "bg-purple-50 text-purple-800 border-purple-200",
-                },
-                "Fee Payment": {
-                  num: 5,
-                  title: "Token Fee Locking & Installment Recovery",
-                  tagline: "Collect initial seat confirmation tokens, manage flexible installment milestones, and auto-sync receipts.",
-                  metrics: [
-                    { label: "Collection Efficiency", value: "98.4% Realized" },
-                    { label: "Payment Channels", value: "UPI, NetBanking, Cards" },
-                    { label: "Accounting Sync", value: "₹0 Unreconciled" },
-                  ],
-                  actions: [
-                    "Branded direct UPI payment links sent via WhatsApp with instant trust account confirmation",
-                    "Automatic GST invoice generation and seamless synchronization with Tally ERP Prime / Zoho Books",
-                    "Intelligent reminder cadence auto-sent 5 days before, on due date, and on overdue installments",
-                  ],
-                  preview: "Seat token payment of ₹25,000 cleared via UPI → Official GST Receipt #REC-801 dispatched on WhatsApp",
-                  previewIcon: "💳",
-                  badgeColor: "bg-teal-50 text-teal-800 border-teal-200",
-                },
-                Creation: {
-                  num: 6,
-                  title: "Student Master Profile & Identity Creation",
-                  tagline: "Promote accepted applicant to enrolled student with unique Roll Number, LMS login, and ID card.",
-                  metrics: [
-                    { label: "Provisioning Speed", value: "Instant Onboarding" },
-                    { label: "Campus Credentials", value: "Automated Setup" },
-                    { label: "Biometric Enrolment", value: "100% Synced" },
-                  ],
-                  actions: [
-                    "Generates permanent university enrollment ID and student master profile in the central database",
-                    "Provisions official student portal access, campus email address, and LMS course library",
-                    "Activates RFID smart card and biometric punch terminal authentication for campus access",
-                  ],
-                  preview: "Roll Number UP-2026-081 assigned → Portal access & orientation timetable sent to student email",
-                  previewIcon: "👤",
-                  badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
-                },
-                Academics: {
-                  num: 7,
-                  title: "Curriculum, Batches & Academic Operations",
-                  tagline: "Manage courses, batch scheduling, faculty allocation, syllabus progression, and lab timetables.",
-                  metrics: [
-                    { label: "Semester Modules", value: "Full Syllabus Tracking" },
-                    { label: "Faculty Allocated", value: "8 Dedicated Professors" },
-                    { label: "Lab Availability", value: "Real-Time Room Alloc." },
-                  ],
-                  actions: [
-                    "Organizes students into cohorts, morning/evening shifts, and specialized seminar sections",
-                    "Automated timetable schedule synchronization delivered directly to student & parent mobile apps",
-                    "Faculty portal for posting assignments, syllabus status, and supplementary reading materials",
-                  ],
-                  preview: "Enrolled in B.Tech Data Science (Morning Batch ED-2026-A) → Next class: Python & Data Structures, Room 204",
-                  previewIcon: "📖",
-                  badgeColor: "bg-blue-50 text-blue-800 border-blue-200",
-                },
-                Attendance: {
-                  num: 8,
-                  title: "Smart Attendance & Compliance Monitoring",
-                  tagline: "Ensure classroom presence with biometric hardware integration, RFID taps, and automated absence alerts.",
-                  metrics: [
-                    { label: "Current Attendance", value: "88.3% (Compliant)" },
-                    { label: "Hardware Support", value: "Biometric & 50m Geo-Fence" },
-                    { label: "Parent Notification", value: "Real-Time WhatsApp" },
-                  ],
-                  actions: [
-                    "Biometric gate turnstiles and professor classroom mobile roll calls log presence in milliseconds",
-                    "Real-time WhatsApp notifications dispatched to parents if student is marked absent without prior leave",
-                    "Dynamic exam hall ticket eligibility calculator enforces the statutory 75% attendance criteria",
-                  ],
-                  preview: "Biometric punch logged at Gate 2 Hub (09:12 AM) → Total attendance: 106/120 classes (Eligible for exams)",
-                  previewIcon: "📅",
-                  badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
-                },
-                Communication: {
-                  num: 9,
-                  title: "Omnichannel Communication & 24/7 AI Bot",
-                  tagline: "Keep students and parents informed via WhatsApp broadcasts, SMS circulars, and AI assistance.",
-                  metrics: [
-                    { label: "Bot Resolution", value: "< 5s Instant Reply" },
-                    { label: "Read Rate", value: "98% on WhatsApp" },
-                    { label: "Broadcast Reach", value: "Full Batch Targeting" },
-                  ],
-                  actions: [
-                    "AI conversational assistant answers timetable questions, holiday queries, and fees balances 24/7",
-                    "Automated broadcast campaigns for exam schedules, fee alerts, campus events, and guest lectures",
-                    "Two-way private counseling and parent consultation channels with complete historical message logs",
-                  ],
-                  preview: "WhatsApp announcement sent to Batch ED-2026-A: Mid-Term syllabus revision notes now downloadable in portal",
-                  previewIcon: "📲",
-                  badgeColor: "bg-cyan-50 text-cyan-800 border-cyan-200",
-                },
-                Graduation: {
-                  num: 10,
-                  title: "Graduation, Placement Drives & Alumni Network",
-                  tagline: "Compile transcripts, verify certificates via QR code, facilitate placement drives, and track alumni.",
-                  metrics: [
-                    { label: "Placement Drive", value: "Tier-1 Recruiter Ready" },
-                    { label: "Final CGPA", value: "8.85 / 10.0 (Grade A+)" },
-                    { label: "Certificate Security", value: "QR Verified Digital Dip." },
-                  ],
-                  actions: [
-                    "Automated transcript consolidation and CGPA computation across all semesters without manual errors",
-                    "Placement cell module tracks student resumes, recruiter interview shortlists, and offer letters",
-                    "Lifelong alumni network profile migration for career mentoring, reunions, and higher degree tracking",
-                  ],
-                  preview: "Final Academic Transcript verified (Grade A+) → Placement shortlist confirmed for Campus Placement Drive 2026",
-                  previewIcon: "🎖️",
-                  badgeColor: "bg-purple-50 text-purple-800 border-purple-200",
-                },
-              };
-
-              const stepDetailKeys = [
-                "Lead",
-                "Counseling",
-                "Application",
-                "Admission",
-                "Fee Payment",
-                "Creation",
-                "Academics",
-                "Attendance",
-                "Communication",
-                "Graduation",
-              ];
-              const stepNames = journey.steps;
-              const currentIndex = stepNames.indexOf(activeJourneyStep);
-              const info = {
-                ...(journeyDetails[stepDetailKeys[currentIndex]] || journeyDetails["Lead"]),
-                ...(journey.stepDetails[currentIndex] ?? {}),
-              };
-
-              const handlePrev = () => {
-                if (currentIndex > 0) setActiveJourneyStep(stepNames[currentIndex - 1]);
-              };
-              const handleNext = () => {
-                if (currentIndex < stepNames.length - 1) setActiveJourneyStep(stepNames[currentIndex + 1]);
-              };
+              const activeIndex = crmEngineFeatures.features.findIndex((f) => f.id === activeCrmEngineId);
+              const safeIndex = activeIndex >= 0 ? activeIndex : 0;
+              const activeEngine = crmEngineFeatures.features[safeIndex];
 
               return (
-                <div className="mt-8 mx-auto max-w-4xl text-left rounded-3xl border border-slate-200/90 bg-gradient-to-br from-white via-slate-50/50 to-white p-6 sm:p-8 shadow-md transition-all">
-                  {/* Top Bar with Stage Badge & Stepper Nav */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200/80">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 h-10 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center justify-center text-xl shrink-0">
-                        {info.previewIcon}
-                      </span>
+                <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-md">
+                  {/* Top Header matching Image 1: Icon + STAGE X OF 6 pill + Title + Prev/Next controls */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-100">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-800 shadow-2xs shrink-0">
+                        {renderEngineIcon(safeIndex, "w-6 h-6")}
+                      </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase border ${info.badgeColor}`}>
-                            Stage {info.num} of 10
+                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-mono font-bold uppercase tracking-wider">
+                            STAGE {safeIndex + 1} OF {crmEngineFeatures.features.length}
                           </span>
-                          <span className="text-xs text-slate-400 font-mono">• Lifecycle Step</span>
+                          <span className="text-[11px] font-medium text-slate-400">
+                            • Lifecycle Engine
+                          </span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-black text-slate-900 mt-0.5">
-                          {info.title}
+                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">
+                          {activeEngine.title}
                         </h3>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    {/* Prev / Next Navigation Buttons */}
+                    <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
                       <button
                         type="button"
-                        onClick={handlePrev}
-                        disabled={currentIndex === 0}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
-                          currentIndex === 0
-                            ? "opacity-40 cursor-not-allowed bg-slate-50 border-slate-200 text-slate-400"
-                            : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50 cursor-pointer"
+                        onClick={() => {
+                          if (safeIndex > 0) {
+                            setActiveCrmEngineId(crmEngineFeatures.features[safeIndex - 1].id);
+                          }
+                        }}
+                        disabled={safeIndex === 0}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer flex items-center gap-1.5 ${
+                          safeIndex === 0
+                            ? "border-slate-200 text-slate-300 cursor-not-allowed bg-slate-50"
+                            : "border-slate-200 text-slate-700 hover:bg-slate-100 bg-white shadow-xs"
                         }`}
                       >
-                        ← Prev
+                        <span>← Prev</span>
                       </button>
                       <button
                         type="button"
-                        onClick={handleNext}
-                        disabled={currentIndex === stepNames.length - 1}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
-                          currentIndex === stepNames.length - 1
-                            ? "opacity-40 cursor-not-allowed bg-slate-50 border-slate-200 text-slate-400"
-                            : "bg-emerald-600 border-emerald-600 text-white hover:bg-emerald-700 cursor-pointer"
+                        onClick={() => {
+                          if (safeIndex < crmEngineFeatures.features.length - 1) {
+                            setActiveCrmEngineId(crmEngineFeatures.features[safeIndex + 1].id);
+                          }
+                        }}
+                        disabled={safeIndex === crmEngineFeatures.features.length - 1}
+                        className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                          safeIndex === crmEngineFeatures.features.length - 1
+                            ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                            : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
                         }`}
                       >
-                        Next →
+                        <span>Next →</span>
                       </button>
                     </div>
                   </div>
 
-                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    {info.tagline}
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 text-left">
+                    {activeEngine.body}
                   </p>
 
-                  {/* 3 Metric Pills */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 my-5">
-                    {info.metrics.map((m) => (
-                      <div key={m.label} className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                          {m.label}
-                        </span>
-                        <span className="text-xs sm:text-sm font-black text-slate-900 mt-0.5 block">
-                          {m.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left Column: Copy & Insights */}
+                    <div className="lg:col-span-6 flex flex-col gap-4 text-left">
 
-                  {/* Key Workflows */}
-                  <div className="space-y-2 pt-2">
-                    <span className="text-[11px] font-bold text-slate-700 uppercase tracking-wider block">
-                      Automated Platform Actions in This Stage:
-                    </span>
-                    <ul className="space-y-2 text-xs text-slate-700 font-medium">
-                      {info.actions.map((act) => (
-                        <li key={act} className="flex items-start gap-2">
-                          <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
-                            ✓
+                      {/* Highlight callout if present */}
+                      {activeEngine.highlight && (
+                        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+                          💡 <strong className="text-slate-900">Key Context:</strong> {activeEngine.highlight}
+                        </div>
+                      )}
+
+                      {/* Assign By Pills (for Smart Assignment) */}
+                      {activeEngine.assignBy && (
+                        <div className="pt-2">
+                          <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                            Assign Leads Intelligently By:
                           </span>
-                          <span>{act}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                          <div className="flex flex-wrap gap-2">
+                            {activeEngine.assignBy.map((item, i) => (
+                              <span
+                                key={i}
+                                className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium"
+                              >
+                                ✓ {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
-                  {/* Real-time simulation bar */}
-                  <div className="mt-5 p-3 rounded-xl bg-slate-100/80 border border-slate-200/80 flex items-center gap-2.5 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-                    <span className="font-mono text-[10px] uppercase font-bold text-slate-500 shrink-0">Live Simulation:</span>
-                    <span className="text-slate-800 font-semibold truncate">{info.preview}</span>
+                      {/* Formulas (for Lead Cost Calculator) */}
+                      {activeEngine.formulas && (
+                        <div className="space-y-2 pt-2">
+                          <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
+                            Pulse Automatically Computes:
+                          </span>
+                          {activeEngine.formulas.map((form, i) => (
+                            <div
+                              key={i}
+                              className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs"
+                            >
+                              <span className="font-mono text-slate-600 font-semibold">{form.formula}</span>
+                              <span className="font-bold text-emerald-700 font-mono bg-emerald-100/60 px-2 py-0.5 rounded">
+                                = {form.result}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Questions Answered (for Conversion & Payment Analytics) */}
+                      {activeEngine.questionsAnswered && (
+                        <div className="pt-2">
+                          <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                            Questions Answered Instantly:
+                          </span>
+                          <ul className="space-y-1.5 text-xs text-slate-700 font-medium">
+                            {activeEngine.questionsAnswered.map((q, i) => (
+                              <li key={i} className="flex items-center gap-2">
+                                <span className="text-emerald-500 font-bold">●</span>
+                                <span>{q}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Takeaway footer */}
+                      {activeEngine.takeaway && (
+                        <div className="pt-3 border-t border-slate-100 text-xs font-bold text-emerald-800">
+                          🎯 {activeEngine.takeaway}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Column: Dynamic Interactive Mockup */}
+                    <div className="lg:col-span-6">
+                      {/* Flow steps pill bar if present */}
+                      {activeEngine.flow && (
+                        <div className="mb-4 p-3 rounded-2xl bg-slate-900 text-white font-mono text-xs flex flex-wrap items-center justify-center gap-2">
+                          {activeEngine.flow.map((step, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
+                                {step}
+                              </span>
+                              {idx < activeEngine.flow.length - 1 && (
+                                <span className="text-slate-500">→</span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Visual Funnel (for Conversion Analytics) */}
+                      {activeEngine.funnelSteps && (
+                        <div className="p-5 rounded-2xl bg-slate-900 text-white space-y-2.5 font-mono text-xs shadow-inner">
+                          <div className="flex justify-between text-[11px] text-slate-400 border-b border-slate-800 pb-2">
+                            <span>Stage</span>
+                            <span>Applicants · Conversion %</span>
+                          </div>
+                          {activeEngine.funnelSteps.map((f, i) => {
+                            const widths = ["w-full", "w-[68%]", "w-[32%]", "w-[14%]", "w-[6.2%]"];
+                            return (
+                              <div key={i} className="space-y-1">
+                                <div className="flex justify-between font-bold">
+                                  <span>{f.stage}</span>
+                                  <span className="text-emerald-400">{f.count} ({f.pct})</span>
+                                </div>
+                                <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                                  <div className={`bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full ${widths[i]}`} />
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* Revenue Dashboard Matrix (for Payment Analytics) */}
+                      {activeEngine.revenueDashboard && (
+                        <div className="p-5 rounded-2xl bg-slate-900 text-white font-mono text-xs space-y-3 shadow-inner">
+                          <div className="flex justify-between items-center border-b border-slate-800 pb-2">
+                            <span className="text-slate-400 font-bold uppercase text-[10px]">Revenue Pipeline Ledger</span>
+                            <span className="text-emerald-400 text-[10px]">Instant Bank Settlement</span>
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center">
+                            {activeEngine.revenueDashboard.map((rev, i) => (
+                              <div key={i} className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60">
+                                <span className="text-[10px] text-slate-400 block">{rev.label}</span>
+                                <span className="text-sm font-bold text-white mt-1 block">{rev.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* WhatsApp green tick mockup preview (for Meta API / Default) */}
+                      {!activeEngine.funnelSteps && !activeEngine.revenueDashboard && (
+                        <div className="rounded-2xl bg-[#0c1c14] text-white p-4 border border-emerald-900/60 shadow-inner">
+                          <div className="flex items-center justify-between pb-3 border-b border-emerald-900/50">
+                            <div className="flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">
+                                W
+                              </span>
+                              <div>
+                                <span className="text-xs font-bold text-white block">Official WhatsApp Business</span>
+                                <span className="text-[10px] text-emerald-400">Green Tick Verified API</span>
+                              </div>
+                            </div>
+                            <span className="text-[10px] font-mono text-slate-400">Meta Partner Connected</span>
+                          </div>
+                          <div className="mt-3 space-y-2 text-xs">
+                            <div className="p-3 rounded-xl bg-[#142e22] border border-emerald-800/40 text-emerald-100">
+                              &quot;Hello! Thank you for inquiring about B.Tech Computer Science at Apex Institute. Here is your digital curriculum brochure & fee schedule.&quot;
+                            </div>
+                            <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-300 text-[11px] text-center border border-emerald-500/30">
+                              ⚡ Lead automatically created in CRM & assigned to Counselor desk
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
                   </div>
                 </div>
               );
             })()}
-
-            {/* Handwritten style quote */}
-            <div className="mt-10 font-serif italic text-lg sm:text-xl text-emerald-800 tracking-wide">
-              &ldquo;{journey.quote}&rdquo;
-            </div>
-
           </div>
         </section>
+
+        {/* =========================================================================
+            SECTION: AI CUSTOM DASHBOARDS (Role-Based Intelligence from CRM+SMP Sheet)
+        ========================================================================== */}
+        <section className="py-20 bg-white border-b border-slate-200/80">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase mb-3">
+                {roleDashboards.eyebrow}
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+                {roleDashboards.heading}
+              </h2>
+              <p className="mt-3 text-slate-600 text-base sm:text-lg">
+                {roleDashboards.body}
+              </p>
+            </div>
+
+            {/* Role Switcher Tabs (Clean Underline, No Pill Boxes) */}
+            <div className="flex items-center justify-center border-b border-slate-200 overflow-x-auto gap-3 sm:gap-8 mb-12">
+              {roleDashboards.roles.map((r) => {
+                const isActive = activeRoleDashboardId === r.id;
+                return (
+                  <button
+                    key={r.id}
+                    type="button"
+                    onClick={() => setActiveRoleDashboardId(r.id)}
+                    className={`relative pb-4 pt-2 text-sm sm:text-base font-semibold transition-colors cursor-pointer whitespace-nowrap focus:outline-hidden ${
+                      isActive
+                        ? "text-slate-950 font-bold"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                  >
+                    <span>{r.title}</span>
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-950 rounded-full" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Role Intelligence Display (100% Boxless Editorial Layout) */}
+            {(() => {
+              const activeRole =
+                roleDashboards.roles.find((r) => r.id === activeRoleDashboardId) ||
+                roleDashboards.roles[0];
+
+              return (
+                <div className="space-y-12">
+                  {/* Top: Role Mission & Massive Typographic Stat */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left Column: Role Focus */}
+                    <div className="lg:col-span-7">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-mono font-bold tracking-wider uppercase text-emerald-600">
+                          {activeRole.subtitle}
+                        </span>
+                        <span className="text-slate-300">•</span>
+                        <span className="text-xs font-mono text-slate-400">
+                          Role-Based Access Control
+                        </span>
+                      </div>
+
+                      <h3 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
+                        {activeRole.title} Cockpit
+                      </h3>
+
+                      <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        {activeRole.focus}
+                      </p>
+
+                      <div className="mt-6 flex items-center gap-2.5 text-xs font-mono text-slate-500">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                        <span>
+                          Telemetry stream tailored for{" "}
+                          <strong className="text-slate-800 font-semibold">{activeRole.roleName}</strong> access level
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right Column: Hero Metric Highlight (No Container Box) */}
+                    <div className="lg:col-span-5 lg:pl-10 lg:border-l lg:border-slate-200/80">
+                      <span className="text-xs uppercase font-mono font-bold text-slate-400 tracking-wider block mb-1">
+                        {activeRole.statLabel}
+                      </span>
+                      <div className="text-5xl sm:text-6xl font-black font-mono tracking-tight text-slate-950">
+                        {activeRole.statValue}
+                      </div>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full inline-flex items-center gap-1 border border-emerald-200/60">
+                          ↑ {activeRole.statTrend}
+                        </span>
+                        <span className="text-xs text-slate-400 font-mono">live telemetry</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Clean Hairline Rule */}
+                  <div className="border-t border-slate-200/80" />
+
+                  {/* Bottom: Open Signal Columns (Zero Boxes) */}
+                  <div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                      <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+                        Key Telemetry Signals Monitored by {activeRole.roleName}
+                      </span>
+                      <span className="text-xs font-mono text-emerald-600 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        {activeRole.metrics.length} Active Feeds
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6 gap-x-8">
+                      {activeRole.metrics.map((metric, i) => (
+                        <div key={i} className="group">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:scale-150 transition-transform" />
+                            <span className="text-[11px] font-mono text-slate-400 uppercase">Signal 0{i + 1}</span>
+                          </div>
+                          <div className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                            {metric}
+                          </div>
+                          <div className="text-xs text-slate-500 mt-0.5">
+                            Real-time automated sync
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </section>
+
 
         {/* =========================================================================
             SECTION 5: TWO SIDES. ONE PLATFORM. (Dark Slate/Navy Container)
@@ -1700,176 +2070,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
           </div>
         </section>
 
-        {/* =========================================================================
-            SECTION 6: ADMISSIONS MANAGEMENT (Feature Spotlight 1)
-        ========================================================================== */}
-        <section className="py-20 bg-white border-b border-slate-200/80">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              
-              {/* Left Column */}
-              <div className="lg:col-span-5 flex flex-col gap-5">
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase w-fit">
-                  {admissions.eyebrow}
-                </div>
 
-                <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-black tracking-tight text-slate-900 leading-tight">
-                  {admissions.heading}
-                </h2>
-
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  {admissions.body}
-                </p>
-
-                <ul className="space-y-2.5 pt-2 text-xs sm:text-sm font-semibold text-slate-700">
-                  {admissions.features.map((item) => (
-                    <li key={item} className="flex items-center gap-2.5">
-                      <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
-                        ✓
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Right Column: Console Mockup with Table */}
-              <div className="lg:col-span-7">
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-lg">
-                  
-                  {/* Top Bar inside console */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
-                    <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-1.5 text-xs text-slate-500 w-full sm:w-64">
-                      <span>🔍</span>
-                      <span>Search student, course...</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center gap-1.5 hover:bg-emerald-700 transition"
-                    >
-                      <span>+</span>
-                      <span>Add Lead</span>
-                    </button>
-                  </div>
-
-                  {/* Funnel Tabs */}
-                  <div className="grid grid-cols-5 gap-1.5 py-3 border-b border-slate-100 text-center font-mono">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPipelineStage("all")}
-                      className={`p-2 rounded-lg border text-left cursor-pointer transition ${
-                        selectedPipelineStage === "all"
-                          ? "bg-slate-100 border-slate-300"
-                          : "bg-slate-50/50 border-slate-100 hover:bg-slate-50"
-                      }`}
-                    >
-                      <span className="text-[10px] text-slate-500 block">New Leads</span>
-                      <span className="text-sm font-black text-slate-900">234</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPipelineStage("contacted")}
-                      className={`p-2 rounded-lg border text-left cursor-pointer transition ${
-                        selectedPipelineStage === "contacted"
-                          ? "bg-blue-100 border-blue-300"
-                          : "bg-blue-50/50 border-blue-100 hover:bg-blue-50"
-                      }`}
-                    >
-                      <span className="text-[10px] text-blue-600 block">Contacted</span>
-                      <span className="text-sm font-black text-blue-900">162</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPipelineStage("counseling")}
-                      className={`p-2 rounded-lg border text-left cursor-pointer transition ${
-                        selectedPipelineStage === "counseling"
-                          ? "bg-amber-100 border-amber-300"
-                          : "bg-amber-50/50 border-amber-100 hover:bg-amber-50"
-                      }`}
-                    >
-                      <span className="text-[10px] text-amber-600 block">Counseling</span>
-                      <span className="text-sm font-black text-amber-900">86</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPipelineStage("applied")}
-                      className={`p-2 rounded-lg border text-left cursor-pointer transition ${
-                        selectedPipelineStage === "applied"
-                          ? "bg-purple-100 border-purple-300"
-                          : "bg-purple-50/50 border-purple-100 hover:bg-purple-50"
-                      }`}
-                    >
-                      <span className="text-[10px] text-purple-600 block">Applied</span>
-                      <span className="text-sm font-black text-purple-900">42</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPipelineStage("enrolled")}
-                      className={`p-2 rounded-lg border text-left cursor-pointer transition ${
-                        selectedPipelineStage === "enrolled"
-                          ? "bg-emerald-100 border-emerald-300"
-                          : "bg-emerald-50/50 border-emerald-100 hover:bg-emerald-50"
-                      }`}
-                    >
-                      <span className="text-[10px] text-emerald-600 block">Enrolled</span>
-                      <span className="text-sm font-black text-emerald-900">28</span>
-                    </button>
-                  </div>
-
-                  {/* Leads Data Table */}
-                  <div className="overflow-x-auto pt-2">
-                    <table className="w-full text-left text-xs border-collapse">
-                      <thead>
-                        <tr className="border-b border-slate-100 text-slate-400 font-bold uppercase text-[10px]">
-                          <th className="py-2.5 px-3">Name</th>
-                          <th className="py-2.5 px-3">Source</th>
-                          <th className="py-2.5 px-3">Course</th>
-                          <th className="py-2.5 px-3">Stage</th>
-                          <th className="py-2.5 px-3">Counselor</th>
-                          <th className="py-2.5 px-3 text-right">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {filteredLeads.map((lead) => (
-                          <tr key={lead.name} className="hover:bg-slate-50/70 transition-colors">
-                            <td className="py-2.5 px-3 font-bold text-slate-800 flex items-center gap-2">
-                              <span
-                                className={`w-6 h-6 rounded-full text-white text-[10px] font-bold flex items-center justify-center ${lead.avatarBg}`}
-                              >
-                                {lead.name[0]}
-                              </span>
-                              <span>{lead.name}</span>
-                            </td>
-                            <td className="py-2.5 px-3 text-slate-500">{lead.source}</td>
-                            <td className="py-2.5 px-3 text-slate-700 font-medium">{lead.course}</td>
-                            <td className="py-2.5 px-3">
-                              <span
-                                className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${lead.stageColor}`}
-                              >
-                                {lead.stage}
-                              </span>
-                            </td>
-                            <td className="py-2.5 px-3 text-slate-600">{lead.counselor}</td>
-                            <td className="py-2.5 px-3 text-right text-slate-400 font-mono font-bold hover:text-slate-600 cursor-pointer">
-                              •••
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
 
         {/* =========================================================================
             SECTION 7: STUDENT 360° PROFILE (Feature Spotlight 2)
@@ -1987,28 +2188,36 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                           </span>
                           <div className="space-y-2 text-xs">
                             <div className="flex items-start gap-2">
-                              <span className="text-emerald-600">💰</span>
+                              <span className="text-emerald-600 mt-0.5">
+                                <CreditCardIcon className="w-3.5 h-3.5 text-emerald-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Fee payment received ₹30,000</p>
                                 <span className="text-[9px] text-slate-400 font-mono">2 hours ago</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-blue-600">🎓</span>
+                              <span className="text-blue-600 mt-0.5">
+                                <GraduationCapIcon className="w-3.5 h-3.5 text-blue-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Attended class - Python</p>
                                 <span className="text-[9px] text-slate-400 font-mono">1 day ago</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-purple-600">📝</span>
+                              <span className="text-purple-600 mt-0.5">
+                                <FileTextIcon className="w-3.5 h-3.5 text-purple-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Assignment submitted - ML Models</p>
                                 <span className="text-[9px] text-slate-400 font-mono">2 days ago</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-amber-600">📄</span>
+                              <span className="text-amber-600 mt-0.5">
+                                <FileCheckIcon className="w-3.5 h-3.5 text-amber-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Document uploaded - Aadhaar</p>
                                 <span className="text-[9px] text-slate-400 font-mono">3 days ago</span>
@@ -2278,38 +2487,42 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                           <div className="space-y-2 text-xs">
                             <div className="flex items-center justify-between pb-1 border-b border-slate-200/60">
                               <div className="flex items-center gap-1.5 truncate">
-                                <span>📄</span>
+                                <FileTextIcon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                                 <span className="font-medium text-slate-800 text-[11px] truncate">Aadhaar Card (UIDAI)</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                Verified ✓
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                <span>Verified</span>
+                                <CheckIcon className="w-3 h-3 text-emerald-600" />
                               </span>
                             </div>
                             <div className="flex items-center justify-between pb-1 border-b border-slate-200/60">
                               <div className="flex items-center gap-1.5 truncate">
-                                <span>📄</span>
+                                <FileTextIcon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                                 <span className="font-medium text-slate-800 text-[11px] truncate">Class 12 Marksheet (CBSE)</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                Verified ✓
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                <span>Verified</span>
+                                <CheckIcon className="w-3 h-3 text-emerald-600" />
                               </span>
                             </div>
                             <div className="flex items-center justify-between pb-1 border-b border-slate-200/60">
                               <div className="flex items-center gap-1.5 truncate">
-                                <span>📄</span>
+                                <FileTextIcon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                                 <span className="font-medium text-slate-800 text-[11px] truncate">Transfer Certificate (TC)</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                Verified ✓
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                <span>Verified</span>
+                                <CheckIcon className="w-3 h-3 text-emerald-600" />
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-1.5 truncate">
-                                <span>📄</span>
+                                <FileTextIcon className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                                 <span className="font-medium text-slate-800 text-[11px] truncate">Entrance Exam Rank Card</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                Verified ✓
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                <span>Verified</span>
+                                <CheckIcon className="w-3 h-3 text-emerald-600" />
                               </span>
                             </div>
                           </div>
@@ -2353,28 +2566,36 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                           </span>
                           <div className="space-y-2 text-xs">
                             <div className="flex items-start gap-2">
-                              <span className="text-emerald-600">💬</span>
+                              <span className="text-emerald-600 mt-0.5">
+                                <MessageSquareIcon className="w-3.5 h-3.5 text-emerald-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">WhatsApp: Tomorrow timetable sent</p>
                                 <span className="text-[9px] text-slate-400 font-mono">Today, 08:30 AM • Delivered</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-emerald-600">💬</span>
+                              <span className="text-emerald-600 mt-0.5">
+                                <MessageSquareIcon className="w-3.5 h-3.5 text-emerald-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">WhatsApp: Installment receipt #942 dispatched</p>
                                 <span className="text-[9px] text-slate-400 font-mono">15 Aug • Read by Parent</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-blue-600">✉️</span>
+                              <span className="text-blue-600 mt-0.5">
+                                <MailIcon className="w-3.5 h-3.5 text-blue-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Email: Mid-term exam syllabus PDF</p>
                                 <span className="text-[9px] text-slate-400 font-mono">3 days ago • Opened</span>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
-                              <span className="text-purple-600">📞</span>
+                              <span className="text-purple-600 mt-0.5">
+                                <PhoneCallIcon className="w-3.5 h-3.5 text-purple-600" />
+                              </span>
                               <div>
                                 <p className="font-semibold text-slate-800 text-[11px]">Telephony: Counselor review call (4m 18s)</p>
                                 <span className="text-[9px] text-slate-400 font-mono">5 days ago • Call Recorded</span>
@@ -2404,8 +2625,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               {/* Column 1: Academic Management */}
               <div className="bg-slate-50/60 rounded-3xl p-6 sm:p-7 border border-slate-200/80 flex flex-col justify-between shadow-2xs hover:shadow-md transition-shadow">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
-                    🎓
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
+                    <GraduationCapIcon className="w-6 h-6 text-emerald-700" />
                   </div>
                   <h3 className="text-xl font-black text-slate-900">{erpFeatures[0].title}</h3>
                   <p className="text-xs text-slate-500 mt-1">{erpFeatures[0].body}</p>
@@ -2414,7 +2635,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {erpFeatures[0].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
-                          ✓
+                          <CheckIcon className="w-2.5 h-2.5 text-emerald-700" />
                         </span>
                         <span>{f}</span>
                       </li>
@@ -2446,8 +2667,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               {/* Column 2: Fees & Finance */}
               <div className="bg-slate-50/60 rounded-3xl p-6 sm:p-7 border border-slate-200/80 flex flex-col justify-between shadow-2xs hover:shadow-md transition-shadow">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl mb-4">
-                    💳
+                  <div className="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mb-4">
+                    <CreditCardIcon className="w-6 h-6 text-purple-700" />
                   </div>
                   <h3 className="text-xl font-black text-slate-900">{erpFeatures[1].title}</h3>
                   <p className="text-xs text-slate-500 mt-1">{erpFeatures[1].body}</p>
@@ -2456,7 +2677,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {erpFeatures[1].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
-                          ✓
+                          <CheckIcon className="w-2.5 h-2.5 text-emerald-700" />
                         </span>
                         <span>{f}</span>
                       </li>
@@ -2490,8 +2711,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
               {/* Column 3: WhatsApp & Communication */}
               <div className="bg-slate-50/60 rounded-3xl p-6 sm:p-7 border border-slate-200/80 flex flex-col justify-between shadow-2xs hover:shadow-md transition-shadow">
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
-                    💬
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
+                    <MessageSquareIcon className="w-6 h-6 text-emerald-700" />
                   </div>
                   <h3 className="text-xl font-black text-slate-900">{erpFeatures[2].title}</h3>
                   <p className="text-xs text-slate-500 mt-1">{erpFeatures[2].body}</p>
@@ -2500,7 +2721,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {erpFeatures[2].features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">
-                          ✓
+                          <CheckIcon className="w-2.5 h-2.5 text-emerald-700" />
                         </span>
                         <span>{f}</span>
                       </li>
@@ -2511,8 +2732,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 {/* Smartphone WhatsApp Mockup */}
                 <div className="mt-6 bg-[#0c1815] text-white p-3 rounded-2xl border border-emerald-900/40 shadow-2xs">
                   <div className="flex items-center gap-2 pb-2 border-b border-emerald-900/60">
-                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center">
-                      🤖
+                    <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center">
+                      <BotIcon className="w-3 h-3 text-white" />
                     </span>
                     <span className="text-[11px] font-bold text-slate-200">EduPro Bot</span>
                     <span className="text-[9px] text-emerald-400 font-mono ml-auto">● Online</span>
@@ -2554,13 +2775,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
         </section>
 
         {/* =========================================================================
-            SECTION 9: MANAGEMENT DASHBOARD & BEFORE VS AFTER
+            SECTION 9: MANAGEMENT ANALYTICS & TRADITIONAL CRM VS PULSE
         ========================================================================== */}
         <section className="py-20 bg-[#f8fafc] border-b border-slate-200/80">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Card 1: Management Dashboard */}
+              {/* Card 1: Management Analytics */}
               <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase mb-2">
@@ -2570,9 +2791,12 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <h3 className="text-2xl font-black text-slate-900">
                     {management.dashboardHeading}
                   </h3>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {management.dashboardBody}
+                  </p>
 
                   {/* 6 Grid Metrics */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-5">
                     {management.metrics.map((metric, index) => (
                       <div key={index} className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
                         <span className="text-[10px] text-slate-500 font-bold uppercase block">{metric.label}</span>
@@ -2580,14 +2804,32 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       </div>
                     ))}
                   </div>
+
+                  {/* 5 Management Analytics Pillars from Sheet */}
+                  {management.analyticsPillars && (
+                    <div className="space-y-1.5 pt-2">
+                      <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                        Central Institutional Pillars:
+                      </span>
+                      {management.analyticsPillars.map((p, idx) => (
+                        <div
+                          key={idx}
+                          className="px-3 py-1.5 rounded-lg bg-slate-50/70 border border-slate-200/70 flex items-center justify-between text-xs"
+                        >
+                          <span className="font-bold text-slate-800 font-mono">{p.name}</span>
+                          <span className="text-slate-500 font-medium text-[11px] truncate ml-2">{p.points}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Bottom Charts preview: Bar chart & Donut */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 mt-4 border-t border-slate-100">
                   {/* Revenue Trend bars */}
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <span className="text-[10px] font-bold text-slate-600 block mb-2">Revenue Trend</span>
-                    <div className="flex items-end gap-1.5 h-16 pt-2">
+                    <div className="flex items-end gap-1.5 h-14 pt-2">
                       <div className="w-1/6 bg-emerald-300 rounded-t h-[40%]" />
                       <div className="w-1/6 bg-emerald-400 rounded-t h-[55%]" />
                       <div className="w-1/6 bg-emerald-400 rounded-t h-[65%]" />
@@ -2625,7 +2867,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 </div>
               </div>
 
-              {/* Card 2: Before vs After */}
+              {/* Card 2: Traditional CRM vs Pulse */}
               <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold tracking-wider uppercase mb-2">
@@ -2635,9 +2877,14 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   <h3 className="text-2xl font-black text-slate-900">
                     {management.comparisonHeading}
                   </h3>
+                  {management.comparisonSubtitle && (
+                    <p className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 w-fit mt-1.5">
+                      {management.comparisonSubtitle}
+                    </p>
+                  )}
 
                   {/* Comparison Table */}
-                  <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200/90 text-xs">
+                  <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200/90 text-xs">
                     <div className="grid grid-cols-2 bg-slate-50 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
                       <div className="p-3 text-rose-700 bg-rose-50/50">{management.comparisonBeforeLabel}</div>
                       <div className="p-3 text-emerald-800 bg-emerald-50/50">{management.comparisonAfterLabel}</div>
@@ -2646,12 +2893,12 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div className="divide-y divide-slate-100 font-medium">
                       {management.comparisons.map((row, i) => (
                         <div key={i} className="grid grid-cols-2 hover:bg-slate-50/50 transition">
-                          <div className="p-2.5 text-slate-500 flex items-center gap-1.5">
-                            <span className="text-rose-400">✕</span>
+                          <div className="p-2 text-slate-500 flex items-center gap-1.5">
+                            <span className="text-rose-400 font-bold">✕</span>
                             <span>{row.before}</span>
                           </div>
-                          <div className="p-2.5 font-bold text-slate-800 bg-emerald-50/20 flex items-center gap-1.5">
-                            <span className="text-emerald-600">✓</span>
+                          <div className="p-2 font-bold text-slate-800 bg-emerald-50/20 flex items-center gap-1.5">
+                            <span className="text-emerald-600 font-bold">✓</span>
                             <span>{row.after}</span>
                           </div>
                         </div>
@@ -2756,11 +3003,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
-                        <span className="text-rose-500 font-bold shrink-0">✕</span>
+                        <CrossIcon className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                         <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[0].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                        <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                         <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[0].after}</span>
                       </div>
                     </div>
@@ -2851,11 +3098,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
-                        <span className="text-rose-500 font-bold shrink-0">✕</span>
+                        <CrossIcon className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                         <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[1].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="text-blue-600 font-bold shrink-0">✓</span>
+                        <CheckIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                         <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[1].after}</span>
                       </div>
                     </div>
@@ -2946,11 +3193,11 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     {/* Before vs After Highlights */}
                     <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
                       <div className="flex items-start gap-2">
-                        <span className="text-rose-500 font-bold shrink-0">✕</span>
+                        <CrossIcon className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                         <span className="text-slate-500"><strong>Before:</strong> {caseStudies.cards[2].before}</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="text-teal-600 font-bold shrink-0">✓</span>
+                        <CheckIcon className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
                         <span className="text-slate-800"><strong>With Uptrix:</strong> {caseStudies.cards[2].after}</span>
                       </div>
                     </div>
@@ -3044,7 +3291,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
             {/* 3 Video Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {videos.cards.map((card) => (
+              {videos.cards.map((card) => {
+                const ytId = "youtubeUrl" in card && typeof card.youtubeUrl === "string" ? youtubeId(card.youtubeUrl) : "";
+                return (
                 <div
                   key={card.id}
                   onClick={() => {
@@ -3053,11 +3302,19 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   }}
                   className="group cursor-pointer rounded-3xl border border-slate-200/90 p-4 bg-white shadow-2xs hover:shadow-xl hover:border-emerald-400 transition-all duration-300 flex flex-col justify-between"
                 >
-                  {/* Dark Video Thumbnail Box */}
-                  <div className="relative aspect-video rounded-2xl bg-gradient-to-tr from-[#0a0e27] via-[#0f1738] to-[#1e295d] overflow-hidden flex items-center justify-center border border-slate-900 shadow-inner">
-                    {/* Ambient Glow */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(16,185,129,0.35),transparent_65%)]" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+                  {/* Executive Video Thumbnail Box */}
+                  <div className="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden flex items-center justify-center border border-slate-900 shadow-inner group-hover:border-emerald-500/60 transition-colors">
+                    {/* Real high-res executive poster image */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={"posterImage" in card && typeof card.posterImage === "string" ? card.posterImage : (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : "/college/video-thumb-arvind.jpg")}
+                      alt={card.speaker}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                    />
+
+                    {/* Gradient Overlay for high-contrast typography */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10 group-hover:from-black/75 transition-colors" />
 
                     {/* Central Play Button */}
                     <button
@@ -3067,20 +3324,23 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                         setActiveVideoId(card.id);
                         setShowVideoPopup(true);
                       }}
-                      className="relative z-10 h-14 w-14 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-lg group-hover:scale-115 group-hover:bg-emerald-600 group-hover:border-emerald-500 transition-all duration-300 cursor-pointer"
+                      className="relative z-10 h-14 w-14 rounded-full bg-emerald-600/90 text-white backdrop-blur-md border border-white/40 flex items-center justify-center shadow-xl group-hover:scale-115 group-hover:bg-emerald-500 transition-all duration-300 cursor-pointer"
                       aria-label={`Play ${card.speaker} interview video`}
                     >
-                      <span className="text-white text-base ml-1">▶</span>
+                      <PlayIcon className="w-5 h-5 ml-0.5 fill-white text-white" />
                     </button>
 
                     {/* Bottom-left pill badge */}
-                    <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold text-white font-mono">
+                    <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold text-white font-mono flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       {card.tag}
                     </div>
 
                     {/* Bottom-right duration */}
-                    <div className="absolute bottom-3 right-3 z-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 px-2 py-0.5 text-[10px] font-mono text-slate-300">
-                      {card.duration}
+                    <div className="absolute bottom-3 right-3 z-10 rounded-full bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[10px] font-mono text-slate-200 flex items-center gap-1">
+                      <span className="text-[9px] font-bold text-emerald-300 font-sans">4K</span>
+                      <span>•</span>
+                      <span>{card.duration}</span>
                     </div>
                   </div>
 
@@ -3109,8 +3369,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     </p>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
+          </div>
           </div>
         </section>
 
@@ -3172,8 +3433,10 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                     <div>
                       {/* Top Row: Stars + Metric */}
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex text-amber-400 text-sm tracking-tighter">
-                          {"★".repeat(r.stars)}
+                        <div className="flex items-center gap-0.5 text-amber-400">
+                          {Array.from({ length: r.stars }).map((_, si) => (
+                            <StarIcon key={si} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          ))}
                         </div>
                         <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold font-mono text-emerald-800 border border-emerald-200">
                           {r.metric}
@@ -3200,8 +3463,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                         <p className="text-[11px] text-slate-500 font-medium leading-tight">
                           {r.role} • <span className="text-slate-700 font-semibold">{r.institute}</span>
                         </p>
-                        <span className="text-[10px] font-mono text-emerald-700 font-bold block mt-0.5">
-                          ✓ {r.badge}
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-700 font-bold mt-0.5">
+                          <CheckIcon className="w-3 h-3 text-emerald-600" />
+                          <span>{r.badge}</span>
                         </span>
                       </div>
                     </div>
@@ -3303,26 +3567,36 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
         </section>
 
         {/* =========================================================================
-            FINAL CTA BANNER
+            FINAL CTA BANNER (CRM + SMP SHEET CLOSING)
         ========================================================================== */}
-        <section className="py-20 bg-gradient-to-b from-white to-[#f0f9f6]/60 text-center">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              {finalCta.bannerHeading}
+        <section className="py-24 bg-gradient-to-b from-white via-slate-900 to-slate-950 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12)_0,transparent_70%)] pointer-events-none" />
+          <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            {finalCta.badge && (
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-6">
+                <SparklesIcon className="w-4 h-4 text-emerald-400" />
+                <span>{finalCta.badge}</span>
+              </span>
+            )}
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              {finalCta.tagline || finalCta.bannerHeading}
             </h2>
-            <p className="mt-3 text-slate-600 text-base sm:text-lg max-w-xl mx-auto">
-              {finalCta.bannerBody}
+            <p className="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              {finalCta.subbody || finalCta.bannerBody}
+            </p>
+            <p className="mt-2 text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+              {finalCta.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href={finalCta.primaryButtonLink}
-                className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-600/30 transition transform hover:-translate-y-0.5"
+                className="px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-base shadow-lg shadow-emerald-500/30 transition transform hover:-translate-y-0.5 cursor-pointer"
               >
                 {finalCta.primaryButtonLabel} →
               </Link>
               <Link
                 href={finalCta.secondaryButtonLink}
-                className="px-8 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-base border border-slate-300 shadow-xs transition"
+                className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/20 backdrop-blur-md shadow-xs transition"
               >
                 {finalCta.secondaryButtonLabel}
               </Link>
@@ -3342,12 +3616,13 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 setDemoSubmitted(false);
                 setDemoError("");
               }}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold p-1 cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+              aria-label="Close demo modal"
             >
-              ✕
+              <CrossIcon className="w-5 h-5" />
             </button>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-3">
-              🎓
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3">
+              <GraduationCapIcon className="w-6 h-6 text-emerald-700" />
             </div>
             <h3 className="text-2xl font-black text-slate-900">
               {demoModal.heading}
@@ -3358,8 +3633,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
 
             {demoSubmitted ? (
               <div className="py-8 text-center space-y-3">
-                <span className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 text-2xl flex items-center justify-center mx-auto">
-                  ✓
+                <span className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+                  <CheckIcon className="w-7 h-7 text-emerald-700" />
                 </span>
                 <h4 className="text-lg font-bold text-slate-900">{demoModal.successHeading}</h4>
                 <p className="text-xs text-slate-600 max-w-sm mx-auto">
@@ -3396,8 +3671,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 className="space-y-3 pt-3 text-xs"
               >
                 {demoError && (
-                  <div role="alert" className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-semibold text-xs">
-                    ⚠️ {demoError}
+                  <div role="alert" className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-semibold text-xs flex items-center gap-2">
+                    <AlertTriangleIcon className="w-4 h-4 text-rose-600 shrink-0" />
+                    <span>{demoError}</span>
                   </div>
                 )}
 
@@ -3485,8 +3761,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                       </>
                     )}
                   </button>
-                  <p className="text-[10px] text-center text-slate-400 mt-2">
-                    🔒 {demoModal.privacyNote}
+                  <p className="text-[10px] text-center text-slate-400 mt-2 inline-flex items-center justify-center gap-1.5 w-full">
+                    <LockIcon className="w-3.5 h-3.5 text-slate-400" />
+                    <span>{demoModal.privacyNote}</span>
                   </p>
                 </div>
               </form>
@@ -3511,62 +3788,100 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
               <div className="flex flex-col gap-1">
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 font-mono">
-                  🎬 {videos.eyebrow}
+                  <VideoIcon className="w-3.5 h-3.5 text-purple-700" />
+                  <span>{videos.eyebrow}</span>
                 </span>
                 <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900">
                   {activeVideo?.interviewTitle}
                 </h3>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setShowVideoPopup(false)}
-                className="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-base transition cursor-pointer"
-                aria-label="Close video player"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-2">
+                {activeVideo && "youtubeUrl" in activeVideo && typeof activeVideo.youtubeUrl === "string" && youtubeId(activeVideo.youtubeUrl) ? (
+                  <a
+                    href={`https://www.youtube.com/watch?v=${youtubeId(activeVideo.youtubeUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-red-50 hover:bg-red-100 border border-red-200 px-3 py-1.5 text-xs font-bold text-red-600 transition"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    <span>Watch on YouTube</span>
+                    <span>↗</span>
+                  </a>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={() => setShowVideoPopup(false)}
+                  className="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-base transition cursor-pointer"
+                  aria-label="Close video player"
+                >
+                  <CrossIcon className="w-4 h-4 text-slate-700" />
+                </button>
+              </div>
             </div>
 
-            {/* Video Player Mockup Container */}
-            <div className="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden flex flex-col justify-between p-4 sm:p-6 border border-slate-800 shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-tr from-black via-slate-900/90 to-slate-950" />
-              
-              {/* Top Watermark */}
-              <div className="relative z-10 flex items-center justify-between text-xs text-white/80">
-                <span className="font-mono font-bold text-emerald-400">● LIVE RECORDING ARCHIVE</span>
-                <span className="bg-white/10 px-2 py-0.5 rounded font-mono text-[10px]">1080p HD</span>
+            {/* Video Player: YouTube embed, HTML5 video, or fallback interactive preview */}
+            {activeVideo && "youtubeUrl" in activeVideo && typeof activeVideo.youtubeUrl === "string" && youtubeId(activeVideo.youtubeUrl) ? (
+              <div className="relative aspect-video rounded-2xl bg-black overflow-hidden border border-slate-800 shadow-xl">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${youtubeId(activeVideo.youtubeUrl)}?autoplay=1&rel=0`}
+                  title={activeVideo?.episodeTitle || "Video Interview"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full border-0"
+                />
               </div>
-
-              {/* Center Interview Visualization */}
-              <div className="relative z-10 my-auto text-center flex flex-col items-center gap-3">
-                <div className="h-16 w-16 rounded-full bg-emerald-600/90 text-white flex items-center justify-center text-2xl shadow-lg ring-4 ring-emerald-500/30 animate-pulse">
-                  ▶
-                </div>
-                <div>
-                  <h4 className="text-white text-base sm:text-lg font-black">
-                    {activeVideo?.episodeTitle}
-                  </h4>
-                  <p className="text-slate-400 text-xs mt-0.5">
-                    {activeVideo?.role} • {activeVideo?.institute}
-                  </p>
-                </div>
+            ) : activeVideo && "videoUrl" in activeVideo && typeof activeVideo.videoUrl === "string" && activeVideo.videoUrl ? (
+              <div className="relative aspect-video rounded-2xl bg-black overflow-hidden border border-slate-800 shadow-xl">
+                <video
+                  src={activeVideo.videoUrl}
+                  controls
+                  autoPlay
+                  className="h-full w-full object-cover"
+                />
               </div>
-
-              {/* Bottom Video Timeline & Controls */}
-              <div className="relative z-10 flex flex-col gap-2 pt-2 border-t border-white/10">
-                <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-emerald-500 h-full w-[44%]" />
+            ) : (
+              <div className="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden flex flex-col justify-between p-4 sm:p-6 border border-slate-800 shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black via-slate-900/90 to-slate-950" />
+                
+                {/* Top Watermark */}
+                <div className="relative z-10 flex items-center justify-between text-xs text-white/80">
+                  <span className="font-mono font-bold text-emerald-400">● LIVE RECORDING ARCHIVE</span>
+                  <span className="bg-white/10 px-2 py-0.5 rounded font-mono text-[10px]">1080p HD</span>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-white/70 font-mono">
-                  <span>1:38 / 3:45</span>
-                  <div className="flex items-center gap-3">
-                    <span>1.0x Speed</span>
-                    <span>🔊 80%</span>
+
+                {/* Center Interview Visualization */}
+                <div className="relative z-10 my-auto text-center flex flex-col items-center gap-3">
+                  <div className="h-16 w-16 rounded-full bg-emerald-600/90 text-white flex items-center justify-center shadow-lg ring-4 ring-emerald-500/30 animate-pulse">
+                    <PlayIcon className="w-7 h-7 ml-1 fill-white text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-base sm:text-lg font-black">
+                      {activeVideo?.episodeTitle}
+                    </h4>
+                    <p className="text-slate-400 text-xs mt-0.5">
+                      {activeVideo?.role} • {activeVideo?.institute}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Video Timeline & Controls */}
+                <div className="relative z-10 flex flex-col gap-2 pt-2 border-t border-white/10">
+                  <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-emerald-500 h-full w-[44%]" />
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] text-white/70 font-mono">
+                    <span>1:38 / 3:45</span>
+                    <div className="flex items-center gap-3">
+                      <span>1.0x Speed</span>
+                      <span>🔊 80%</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Quote Transcript Box */}
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5 flex flex-col gap-2">
@@ -3617,7 +3932,8 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
             <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
               <div>
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 font-mono">
-                  📋 {caseStudies.modal.eyebrow}
+                  <FileTextIcon className="w-3.5 h-3.5 text-blue-700" />
+                  <span>{caseStudies.modal.eyebrow}</span>
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
                   {selectedCaseStudyCard?.title}
@@ -3628,8 +3944,9 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                 type="button"
                 onClick={() => setShowCaseStudyModal(false)}
                 className="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-base transition cursor-pointer"
+                aria-label="Close case study modal"
               >
-                ✕
+                <CrossIcon className="w-4 h-4 text-slate-700" />
               </button>
             </div>
 
