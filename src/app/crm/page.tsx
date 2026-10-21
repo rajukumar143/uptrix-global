@@ -102,7 +102,7 @@ export default function CrmPage() {
           <HeroShots tabs={c.hero.screenshotTabs} address={c.hero.browserAddress} labelPrefix={c.hero.screenshotLabelPrefix} />
         </section>
 
-        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} />
+        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} clients={c.trustBar.clientLogos} />
 
         {/* Problem / how Pulse fixes it */}
         <section aria-label={`${c.problem.tabLabel} / ${c.solution.tabLabel}`} className="border-t border-pulse-line bg-white">

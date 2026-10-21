@@ -18,10 +18,21 @@ export const crmDefaults = {
     screenshotTabs: ["Dashboard", "Leads", "Follow-ups", "Analytics"],
     screenshotLabelPrefix: "Uptrix CRM screenshot —",
   },
-  // Client names scrolling under the hero (same as the home page)
   trustBar: {
     heading: "Trusted by institutes across India",
     clientNames: ["Nexora", "Vistara", "BrightPath", "Kaveri Foods", "Sarthi", "Indus Fintech", "Tarang", "Meridian", "Orbit", "Saffron Labs"],
+    clientLogos: [
+      { name: "Nexora", logoUrl: "" },
+      { name: "Vistara", logoUrl: "" },
+      { name: "BrightPath", logoUrl: "" },
+      { name: "Kaveri Foods", logoUrl: "" },
+      { name: "Sarthi", logoUrl: "" },
+      { name: "Indus Fintech", logoUrl: "" },
+      { name: "Tarang", logoUrl: "" },
+      { name: "Meridian", logoUrl: "" },
+      { name: "Orbit", logoUrl: "" },
+      { name: "Saffron Labs", logoUrl: "" },
+    ],
   },
   problem: {
     tabLabel: "Without Pulse",

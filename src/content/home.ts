@@ -51,6 +51,18 @@ export const homeDefaults = {
   trustBar: {
     heading: "Trusted by Businesses Across India",
     clientNames: ["Nexora", "Vistara", "BrightPath", "Kaveri Foods", "Sarthi", "Indus Fintech", "Tarang", "Meridian", "Orbit", "Saffron Labs"],
+    clientLogos: [
+      { name: "Nexora", logoUrl: "" },
+      { name: "Vistara", logoUrl: "" },
+      { name: "BrightPath", logoUrl: "" },
+      { name: "Kaveri Foods", logoUrl: "" },
+      { name: "Sarthi", logoUrl: "" },
+      { name: "Indus Fintech", logoUrl: "" },
+      { name: "Tarang", logoUrl: "" },
+      { name: "Meridian", logoUrl: "" },
+      { name: "Orbit", logoUrl: "" },
+      { name: "Saffron Labs", logoUrl: "" },
+    ],
   },
   hrmsSection: {
     tag: "HRMS",

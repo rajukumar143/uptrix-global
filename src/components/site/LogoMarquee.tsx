@@ -2,9 +2,31 @@ import Image from "next/image";
 
 const logoColors = ["#4F46E5", "#0284C7", "#D97706", "#16A34A", "#DC2626", "#7C3AED", "#DB2777", "#0D9488", "#EA580C", "#CA8A04"];
 
-/** "Trusted by" bar with client names scrolling sideways. Used on the home page and the CRM page. */
-export default function LogoMarquee({ heading, names, id = "trust-heading" }: { heading: string; names: string[]; id?: string }) {
-  const logos = names.filter(Boolean);
+export interface ClientLogoItem {
+  name: string;
+  logoUrl?: string;
+}
+
+/** "Trusted by" bar with client logos / names scrolling sideways. Used on Home, College, CRM and Real Estate. */
+export default function LogoMarquee({
+  heading,
+  names = [],
+  clients,
+  id = "trust-heading",
+}: {
+  heading: string;
+  names?: string[];
+  clients?: ClientLogoItem[];
+  id?: string;
+}) {
+  // Use client items with logoUrl if provided, otherwise fallback to names list
+  const logos: ClientLogoItem[] =
+    clients && clients.length > 0
+      ? clients.filter((c) => c && Boolean(c.name || c.logoUrl))
+      : (names || [])
+          .filter(Boolean)
+          .map((n) => (typeof n === "string" ? { name: n } : n));
+
   if (!logos.length) return null;
 
   return (
@@ -17,7 +39,7 @@ export default function LogoMarquee({ heading, names, id = "trust-heading" }: { 
           </h2>
         </div>
         <div className="pause-on-hover min-w-0 flex-[1_1_400px] overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-          <ul aria-label="Client logos" className="animate-marquee flex w-max gap-14 px-7 py-2.5">
+          <ul aria-label="Client logos" className="animate-marquee flex w-max gap-14 px-7 py-2.5 items-center">
             {[...logos, ...logos].map((l, i) => (
               <li
                 key={i}
@@ -25,10 +47,27 @@ export default function LogoMarquee({ heading, names, id = "trust-heading" }: { 
                 className="logo-item flex flex-none cursor-default items-center gap-2.5 text-slate-400 transition-colors duration-300"
                 style={{ ["--hover" as string]: logoColors[(i % logos.length) % logoColors.length] }}
               >
-                <span className="grid h-6.5 w-6.5 flex-none place-items-center rounded-lg bg-current">
-                  <span className="font-display text-[13px] leading-none font-extrabold text-white">{l[0]}</span>
-                </span>
-                <span className="font-display text-[17px] leading-none font-bold whitespace-nowrap">{l}</span>
+                {l.logoUrl ? (
+                  <div className="relative h-8 max-w-[150px] flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={l.logoUrl}
+                      alt={l.name || "Client logo"}
+                      className="h-7 w-auto max-w-[150px] object-contain grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition-all duration-300"
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <span className="grid h-6.5 w-6.5 flex-none place-items-center rounded-lg bg-current">
+                      <span className="font-display text-[13px] leading-none font-extrabold text-white">
+                        {(l.name || "C")[0]}
+                      </span>
+                    </span>
+                    <span className="font-display text-[17px] leading-none font-bold whitespace-nowrap">
+                      {l.name}
+                    </span>
+                  </>
+                )}
               </li>
             ))}
           </ul>

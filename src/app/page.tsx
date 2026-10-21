@@ -309,7 +309,7 @@ export default function Home() {
         <main>
         <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
 
-        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} />
+        <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} clients={c.trustBar.clientLogos} />
 
         {/* HRMS overview */}
         <section id="hrms" aria-labelledby="hrms-heading" className="scroll-mt-18 bg-slate-50 pt-[clamp(64px,12vw,112px)] pb-4">

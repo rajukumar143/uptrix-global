@@ -538,6 +538,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
         <LogoMarquee
           heading={content.trustBar.heading}
           names={content.trustBar.clientNames}
+          clients={content.trustBar.clientLogos}
           id="college-trust-heading"
         />
 

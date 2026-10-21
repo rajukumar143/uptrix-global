@@ -35,6 +35,10 @@ const LABELS: Record<string, string> = {
   headingEnd: "Heading — end",
   photoDescription: "Photo description (placeholder)",
   screenshotLabel: "Screenshot placeholder text",
+  trustBar: "Trusted by logos bar",
+  clientLogos: "Client logos",
+  clientNames: "Client names",
+  logoUrl: "Logo image URL",
 };
 
 const UPPER = new Set(["hrms", "crm", "faq", "seo", "cta", "url", "ai", "sso"]);
@@ -129,11 +133,116 @@ type FieldProps = {
   hideLabel?: boolean;
 };
 
+function isImageKey(name: string, value: string) {
+  if (/^(logoUrl|logo|image|posterImage|photoUrl|iconUrl|coverImage)$/i.test(name)) return true;
+  if (/logo/i.test(name)) return true;
+  if (typeof value === "string" && /\.(png|jpe?g|webp|svg|gif)(\?.*)?$/i.test(value)) return true;
+  return false;
+}
+
+function ImageUploadField({
+  id,
+  label,
+  value,
+  onChange,
+  hideLabel,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  hideLabel?: boolean;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setError(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json().catch(() => ({ error: "Upload failed." }));
+      if (!res.ok) throw new Error(data.error || "Upload failed.");
+      onChange(data.url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      {!hideLabel && (
+        <label htmlFor={id} className="text-sm font-semibold text-slate-700">
+          {label}
+        </label>
+      )}
+      <div className="flex items-center gap-2">
+        <input
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Image path, URL or upload"
+          className={`${inputCls} flex-1`}
+        />
+        <label className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold cursor-pointer transition shrink-0 select-none shadow-xs">
+          <span>{uploading ? "Uploading…" : "Upload"}</span>
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif"
+            onChange={handleUpload}
+            disabled={uploading}
+            className="hidden"
+          />
+        </label>
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="px-2.5 py-2 text-xs font-semibold text-slate-500 hover:text-rose-600 border border-slate-200 rounded-lg bg-white shrink-0 cursor-pointer"
+          >
+            Clear
+          </button>
+        )}
+      </div>
+      {error && <p className="text-xs text-rose-600 font-medium">{error}</p>}
+      {value && (
+        <div className="flex items-center gap-3 p-2 bg-slate-50 border border-slate-200 rounded-lg w-fit mt-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={value}
+            alt="Preview"
+            className="h-7 max-w-[120px] object-contain rounded"
+          />
+          <span className="text-xs text-slate-500 font-mono truncate max-w-[200px]">{value}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Field({ name, path, value, defaults, onChange, hideLabel }: FieldProps) {
   const label = humanize(name);
   const id = `f-${path.join("-")}`;
 
   if (typeof value === "string") {
+    if (isImageKey(name, value)) {
+      return (
+        <ImageUploadField
+          id={id}
+          label={label}
+          value={value}
+          onChange={(v) => onChange(path, v)}
+          hideLabel={hideLabel}
+        />
+      );
+    }
     const long = LONG_KEYS.test(name) || value.length > 90;
     const link = isLinkKey(name);
     const hasToken = /\{(name|email)\}/.test(value);
