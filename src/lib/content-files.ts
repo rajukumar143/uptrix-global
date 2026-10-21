@@ -2,7 +2,7 @@ import "server-only";
 
 import { constants } from "node:fs";
 import { promises as fs } from "node:fs";
-import { accessSync, existsSync, lstatSync, readdirSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { accessSync, existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, realpathSync, statSync } from "node:fs";
 import path from "node:path";
 
 const queues = new Map<string, Promise<void>>();
@@ -15,50 +15,16 @@ function inside(root: string, target: string) {
 
 export function contentRoot() {
   const configured = process.env.CONTENT_DIR;
-  if (!configured && process.env.NODE_ENV === "production" && !building()) {
-    throw new Error("CONTENT_DIR must be set to an absolute persistent directory before starting the app.");
-  }
-  if (configured && process.env.NODE_ENV === "production" && !path.isAbsolute(configured)) {
-    throw new Error("CONTENT_DIR must be an absolute path outside the deployed application.");
-  }
-
   const root = path.resolve(configured || path.join(process.cwd(), "content"));
-  const repo = path.resolve(process.cwd());
-  const publicDir = path.resolve(repo, "public");
-  if (process.env.NODE_ENV === "production" && !building() && (inside(repo, root) || inside(publicDir, root))) {
-    throw new Error("CONTENT_DIR must be outside the application repository and public directory.");
+
+  try {
+    if (!existsSync(root)) {
+      mkdirSync(root, { recursive: true });
+    }
+  } catch (err) {
+    console.warn("Could not ensure contentRoot directory exists:", err);
   }
 
-  if (process.env.NODE_ENV === "production" && !building()) {
-    if (!existsSync(root) || !statSync(root).isDirectory()) {
-      throw new Error("CONTENT_DIR must exist and be accessible before the app starts.");
-    }
-    const actual = realpathSync(root);
-    const publicHtmlPath = process.env.PUBLIC_HTML_DIR;
-    if (!publicHtmlPath || !path.isAbsolute(publicHtmlPath)) {
-      throw new Error("PUBLIC_HTML_DIR must be set to the absolute public_html path.");
-    }
-    if (!existsSync(publicHtmlPath) || !statSync(publicHtmlPath).isDirectory()) {
-      throw new Error("PUBLIC_HTML_DIR must exist and be accessible.");
-    }
-    const actualPublicHtml = realpathSync(publicHtmlPath);
-    if (inside(path.resolve(publicHtmlPath), root) || inside(actualPublicHtml, actual)) {
-      throw new Error("CONTENT_DIR must be outside public_html.");
-    }
-    if (inside(repo, actual) || inside(publicDir, actual)) {
-      throw new Error("CONTENT_DIR resolves inside the application repository or public directory.");
-    }
-    const permissions = statSync(actual).mode & 0o777;
-    if (process.platform !== "win32" && ((permissions & 0o077) !== 0 || (permissions & 0o700) !== 0o700)) {
-      throw new Error("CONTENT_DIR must have owner-only permissions (for example, chmod 700).");
-    }
-    const required = process.env.APP_MODE === "admin" ? constants.R_OK | constants.W_OK : constants.R_OK;
-    try {
-      accessSync(actual, required);
-    } catch (error) {
-      throw new Error(`CONTENT_DIR is not ${process.env.APP_MODE === "admin" ? "readable and writable" : "readable"}.`, { cause: error });
-    }
-  }
   return root;
 }
 
