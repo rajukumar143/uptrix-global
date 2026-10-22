@@ -400,7 +400,7 @@ export default function Home() {
         </section>
 
         {/* Custom Tools for Business Growth */}
-        <CustomToolsSection content={c.customToolsSection} />
+        <CustomToolsSection content={c.customToolsSection} theme="light" />
 
         {/* Why Uptrix */}
         <section id="about" aria-labelledby="why-heading" className={`scroll-mt-18 bg-white ${sectionPad}`}>
@@ -440,34 +440,34 @@ export default function Home() {
         {/* Industries */}
         <section
           aria-labelledby="ind-heading"
-          className={sectionPad}
+          className={`border-y border-slate-200/80 bg-slate-50 ${sectionPad}`}
           style={{
             background:
-              "radial-gradient(700px 380px at 100% 0%, rgba(20,184,166,.14), transparent 60%), radial-gradient(700px 380px at 0% 100%, rgba(79,70,229,.24), transparent 60%), #0B1433",
+              "radial-gradient(700px 380px at 100% 0%, rgba(20,184,166,.07), transparent 60%), radial-gradient(700px 380px at 0% 100%, rgba(79,70,229,.07), transparent 60%), #F8FAFC",
           }}
         >
           <div className={`${container} flex flex-col gap-14`}>
             <Reveal className="flex flex-wrap items-end justify-between gap-5">
               <div className="flex flex-col gap-3">
-                <span className="text-[13px] font-bold tracking-[.12em] text-indigo-300 uppercase">{c.industries.eyebrow}</span>
-                <h2 id="ind-heading" className="font-display text-[clamp(26px,3.4vw,40px)] leading-[1.15] font-extrabold tracking-[-0.02em] text-balance text-white">
+                <span className="text-[13px] font-bold tracking-[.12em] text-indigo-700 uppercase">{c.industries.eyebrow}</span>
+                <h2 id="ind-heading" className="font-display text-[clamp(26px,3.4vw,40px)] leading-[1.15] font-extrabold tracking-[-0.02em] text-balance text-slate-900">
                   {c.industries.heading}
                 </h2>
               </div>
-              <p className="max-w-[400px] text-pretty text-slate-300">{c.industries.body}</p>
+              <p className="max-w-[400px] text-pretty text-slate-600">{c.industries.body}</p>
             </Reveal>
             <Reveal>
               <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-4">
                 {c.industries.items.map((ind, i) => (
                   <li
                     key={i}
-                    className="flex flex-col gap-3.5 rounded-[18px] border border-white/10 bg-white/[.04] px-6 py-7 transition duration-250 hover:-translate-y-1 hover:border-indigo-300/45 hover:bg-white/[.08]"
+                    className="flex flex-col gap-3.5 rounded-[18px] border border-slate-200/90 bg-white px-6 py-7 shadow-xs transition duration-250 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-[0_16px_32px_-16px_rgba(79,70,229,.16)]"
                   >
-                    <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-teal-400/12 text-teal-300">
+                    <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-teal-50 text-teal-700 border border-teal-100">
                       <Icon size={22}>{pick(industryIcons, i)}</Icon>
                     </span>
-                    <h3 className="mt-1.5 font-display text-lg font-bold text-white">{ind.title}</h3>
-                    <p className="text-[15px] text-pretty text-slate-300">{ind.body}</p>
+                    <h3 className="mt-1.5 font-display text-lg font-bold text-slate-900">{ind.title}</h3>
+                    <p className="text-[15px] text-pretty text-slate-600">{ind.body}</p>
                   </li>
                 ))}
               </ul>
@@ -523,7 +523,7 @@ export default function Home() {
         <StoriesSection section={c.stories} />
 
         {/* Case Studies: Highlighted Standalone Section */}
-        <CaseStudiesSection productFilter={c.stories.productFilter} />
+        <CaseStudiesSection productFilter={c.stories.productFilter} theme="light" />
 
         {/* FAQ */}
         <section aria-labelledby="faq-heading" className={`bg-white ${sectionPad}`}>
@@ -554,28 +554,28 @@ export default function Home() {
         {/* Final CTA */}
         <section
           aria-labelledby="cta-heading"
-          className="relative overflow-hidden py-[clamp(80px,10vw,128px)]"
+          className="relative overflow-hidden border-t border-slate-200 py-[clamp(80px,10vw,128px)]"
           style={{
             background:
-              "radial-gradient(800px 420px at 85% 0%, rgba(20,184,166,.28), transparent 60%), radial-gradient(800px 460px at 10% 100%, rgba(79,70,229,.45), transparent 60%), #0B1433",
+              "radial-gradient(800px 420px at 85% 0%, rgba(20,184,166,.12), transparent 60%), radial-gradient(800px 460px at 10% 100%, rgba(79,70,229,.14), transparent 60%), #F8FAFC",
           }}
         >
           <Reveal className={`${container} flex flex-wrap items-center justify-between gap-10`}>
             <div className="flex flex-[1_1_520px] flex-col gap-4.5">
               <h2
                 id="cta-heading"
-                className="max-w-[640px] font-display text-[clamp(30px,4.2vw,52px)] leading-[1.08] font-extrabold tracking-[-0.025em] text-balance text-white"
+                className="max-w-[640px] font-display text-[clamp(30px,4.2vw,52px)] leading-[1.08] font-extrabold tracking-[-0.025em] text-balance text-slate-900"
               >
                 {c.finalCta.heading}
               </h2>
-              <p className="max-w-[520px] text-[clamp(16px,1.4vw,18px)] text-pretty text-slate-300">{c.finalCta.body}</p>
+              <p className="max-w-[520px] text-[clamp(16px,1.4vw,18px)] text-pretty text-slate-600">{c.finalCta.body}</p>
             </div>
             <div className="flex flex-wrap gap-3">
               {c.finalCta.primaryButtonLabel && (
                 <a
                   href={c.finalCta.primaryButtonLink || "#"}
                   data-analytics-cta
-                  className="inline-flex h-14 shrink-0 items-center rounded-[14px] bg-white px-7 text-base font-semibold whitespace-nowrap text-slate-900 transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,.6)]"
+                  className="inline-flex h-14 shrink-0 items-center rounded-[14px] bg-indigo-brand px-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_12px_28px_-10px_rgba(79,70,229,.5)] transition hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-[0_16px_32px_-10px_rgba(79,70,229,.6)]"
                 >
                   {c.finalCta.primaryButtonLabel}
                 </a>
@@ -584,7 +584,7 @@ export default function Home() {
                 <a
                   href={c.finalCta.secondaryButtonLink || "#"}
                   data-analytics-cta
-                  className="inline-flex h-14 shrink-0 items-center rounded-[14px] border-[1.5px] border-white/50 px-7 text-base font-semibold whitespace-nowrap text-white transition hover:border-white hover:bg-white/10"
+                  className="inline-flex h-14 shrink-0 items-center rounded-[14px] border-[1.5px] border-slate-300 bg-white px-7 text-base font-semibold whitespace-nowrap text-slate-800 transition hover:border-slate-400 hover:bg-slate-50"
                 >
                   {c.finalCta.secondaryButtonLabel}
                 </a>

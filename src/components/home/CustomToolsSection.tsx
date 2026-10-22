@@ -152,7 +152,14 @@ const showcaseDemos = [
 
 const categories = ["All Custom Tools", "Workflow & Portals", "Integrations & AI", "Mobile & Niche Ops"];
 
-export default function CustomToolsSection({ content }: { content: HomeContent["customToolsSection"] }) {
+export default function CustomToolsSection({
+  content,
+  theme = "light",
+}: {
+  content: HomeContent["customToolsSection"];
+  theme?: "dark" | "light";
+}) {
+  const isLight = theme === "light";
   const [activeCategory, setActiveCategory] = useState("All Custom Tools");
   const [showcaseTab, setShowcaseTab] = useState(0);
 
@@ -200,18 +207,21 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
     <section
       id="custom-tools"
       aria-labelledby="custom-tools-heading"
-      className="scroll-mt-18 relative overflow-hidden py-[clamp(80px,11vw,128px)]"
+      className={`scroll-mt-18 relative overflow-hidden py-[clamp(80px,11vw,128px)] ${
+        isLight ? "border-y border-slate-200/80 bg-slate-50" : ""
+      }`}
       style={{
-        background:
-          "radial-gradient(1000px 580px at 15% 10%, rgba(79, 70, 229, 0.28), transparent 75%), radial-gradient(900px 520px at 85% 90%, rgba(20, 184, 166, 0.22), transparent 75%), radial-gradient(700px 350px at 50% 50%, rgba(30, 27, 75, 0.45), transparent 80%), #070D24",
+        background: isLight
+          ? "radial-gradient(1000px 580px at 15% 10%, rgba(79, 70, 229, 0.07), transparent 75%), radial-gradient(900px 520px at 85% 90%, rgba(20, 184, 166, 0.07), transparent 75%), #F8FAFC"
+          : "radial-gradient(1000px 580px at 15% 10%, rgba(79, 70, 229, 0.28), transparent 75%), radial-gradient(900px 520px at 85% 90%, rgba(20, 184, 166, 0.22), transparent 75%), radial-gradient(700px 350px at 50% 50%, rgba(30, 27, 75, 0.45), transparent 80%), #070D24",
       }}
     >
       {/* Background ambient grid pattern */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.045]"
+        className={`pointer-events-none absolute inset-0 ${isLight ? "opacity-[0.03]" : "opacity-[0.045]"}`}
         style={{
-          backgroundImage: "linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)",
+          backgroundImage: `linear-gradient(to right, ${isLight ? "#0f172a" : "#ffffff"} 1px, transparent 1px), linear-gradient(to bottom, ${isLight ? "#0f172a" : "#ffffff"} 1px, transparent 1px)`,
           backgroundSize: "48px 48px",
         }}
       />
@@ -220,7 +230,13 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
         {/* Header Section with Official Uptrix Branding */}
         <div className="flex flex-col items-center gap-5 text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-3 rounded-full border border-indigo-400/35 bg-gradient-to-r from-indigo-500/15 via-purple-500/10 to-teal-500/15 px-4.5 py-1.5 shadow-[0_0_28px_-4px_rgba(99,102,241,0.5)] backdrop-blur-md">
+            <div
+              className={`inline-flex items-center gap-3 rounded-full border px-4.5 py-1.5 backdrop-blur-md ${
+                isLight
+                  ? "border-indigo-200 bg-indigo-50/90 text-indigo-700 shadow-xs"
+                  : "border-indigo-400/35 bg-gradient-to-r from-indigo-500/15 via-purple-500/10 to-teal-500/15 text-indigo-200 shadow-[0_0_28px_-4px_rgba(99,102,241,0.5)]"
+              }`}
+            >
               <Image
                 src="/logo-mark.png"
                 alt="Uptrix Logo Mark"
@@ -228,8 +244,8 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
                 height={20}
                 className="h-5 w-5 rounded-md object-contain shadow-sm"
               />
-              <span className="h-3.5 w-px bg-white/20" />
-              <span className="text-xs font-bold tracking-[.14em] text-indigo-200 uppercase">
+              <span className={`h-3.5 w-px ${isLight ? "bg-indigo-300" : "bg-white/20"}`} />
+              <span className={`text-xs font-bold tracking-[.14em] uppercase ${isLight ? "text-indigo-700" : "text-indigo-200"}`}>
                 {content.eyebrow} • {content.tag}
               </span>
               <span className="relative flex h-2 w-2">
@@ -242,30 +258,51 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
           <Reveal delay={80}>
             <h2
               id="custom-tools-heading"
-              className="font-display text-[clamp(28px,3.8vw,48px)] leading-[1.12] font-extrabold tracking-[-0.025em] text-balance text-white"
+              className={`font-display text-[clamp(28px,3.8vw,48px)] leading-[1.12] font-extrabold tracking-[-0.025em] text-balance ${
+                isLight ? "text-slate-900" : "text-white"
+              }`}
             >
               We Develop{" "}
-              <span className="bg-gradient-to-r from-indigo-300 via-sky-300 to-teal-300 bg-clip-text text-transparent">
+              <span
+                className={`bg-gradient-to-r ${
+                  isLight ? "from-indigo-600 via-sky-600 to-teal-600" : "from-indigo-300 via-sky-300 to-teal-300"
+                } bg-clip-text text-transparent`}
+              >
                 Custom Tools for Your Business Growth
               </span>
             </h2>
           </Reveal>
 
           <Reveal delay={140}>
-            <p className="max-w-[760px] text-pretty text-[clamp(16px,1.25vw,18px)] text-slate-300">
+            <p className={`max-w-[760px] text-pretty text-[clamp(16px,1.25vw,18px)] ${isLight ? "text-slate-600" : "text-slate-300"}`}>
               {content.body}
             </p>
           </Reveal>
 
           {/* Value Stats Strip */}
           <Reveal delay={200} className="w-full mt-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 rounded-2xl border border-white/10 bg-white/[0.035] p-3 backdrop-blur-md">
+            <div
+              className={`grid grid-cols-2 md:grid-cols-4 gap-3.5 rounded-2xl border p-3 backdrop-blur-md ${
+                isLight ? "border-slate-200 bg-white shadow-xs" : "border-white/10 bg-white/[0.035]"
+              }`}
+            >
               {content.stats.map((stat, i) => (
-                <div key={i} className="flex flex-col items-center justify-center py-3.5 px-4 rounded-xl bg-white/[0.02] border border-white/5 transition hover:bg-white/[0.05]">
-                  <span className="font-display text-[clamp(24px,2.6vw,32px)] font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">
+                <div
+                  key={i}
+                  className={`flex flex-col items-center justify-center py-3.5 px-4 rounded-xl border transition ${
+                    isLight ? "border-slate-100 bg-slate-50/80 hover:bg-slate-100/70" : "border-white/5 bg-white/[0.02] hover:bg-white/[0.05]"
+                  }`}
+                >
+                  <span
+                    className={`font-display text-[clamp(24px,2.6vw,32px)] font-extrabold tracking-tight bg-gradient-to-r ${
+                      isLight ? "from-indigo-600 via-sky-600 to-teal-600" : "from-white via-slate-100 to-indigo-200"
+                    } bg-clip-text text-transparent`}
+                  >
                     {stat.value}
                   </span>
-                  <span className="text-xs text-slate-400 text-center font-medium mt-0.5">{stat.label}</span>
+                  <span className={`text-xs text-center font-medium mt-0.5 ${isLight ? "text-slate-600" : "text-slate-400"}`}>
+                    {stat.label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -274,9 +311,15 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
 
         {/* Featured Interactive Custom Tool Image Showcase with Uptrix Logo & Live Frame */}
         <Reveal delay={260} className="mt-14">
-          <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-4 md:p-8 backdrop-blur-xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]">
+          <div
+            className={`relative overflow-hidden rounded-3xl border p-4 md:p-8 backdrop-blur-xl ${
+              isLight
+                ? "border-slate-200/90 bg-white shadow-xl shadow-slate-200/50"
+                : "border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+            }`}
+          >
             {/* Showcase Tab Switcher */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pb-6 border-b border-white/10">
+            <div className={`flex flex-wrap items-center justify-center gap-2 pb-6 border-b ${isLight ? "border-slate-200" : "border-white/10"}`}>
               {showcaseDemos.map((demo, idx) => (
                 <button
                   key={demo.id}
@@ -285,6 +328,8 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
                   className={`h-11 cursor-pointer rounded-full px-5 text-sm font-semibold transition duration-200 flex items-center gap-2 ${
                     showcaseTab === idx
                       ? "bg-gradient-to-r from-indigo-600 to-teal-600 text-white shadow-[0_4px_18px_-4px_rgba(79,70,229,0.7)]"
+                      : isLight
+                      ? "border border-slate-200 bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200/60"
                       : "bg-white/[0.04] text-slate-300 hover:text-white hover:bg-white/[0.08] border border-white/10"
                   }`}
                 >
@@ -299,25 +344,39 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
               {/* Left Info Column */}
               <div className="lg:col-span-4 flex flex-col gap-4 text-left">
                 <div className="flex items-center gap-2">
-                  <span className="rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs font-bold tracking-wider text-teal-300 uppercase">
+                  <span
+                    className={`rounded-full border px-3 py-1 text-xs font-bold tracking-wider uppercase ${
+                      isLight
+                        ? "border-teal-200 bg-teal-50 text-teal-800"
+                        : "border-teal-400/30 bg-teal-500/10 text-teal-300"
+                    }`}
+                  >
                     {activeShowcase.tag}
                   </span>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-slate-400">
+                  <span
+                    className={`rounded-full border px-2.5 py-1 text-[11px] font-mono ${
+                      isLight ? "border-slate-200 bg-slate-100 text-slate-600" : "border-white/10 bg-white/5 text-slate-400"
+                    }`}
+                  >
                     Custom Build
                   </span>
                 </div>
 
-                <h3 className="font-display text-2xl font-bold text-white leading-tight">
+                <h3 className={`font-display text-2xl font-bold leading-tight ${isLight ? "text-slate-900" : "text-white"}`}>
                   {activeShowcase.title}
                 </h3>
-                <p className="text-sm md:text-[15px] leading-relaxed text-slate-300">
+                <p className={`text-sm md:text-[15px] leading-relaxed ${isLight ? "text-slate-600" : "text-slate-300"}`}>
                   {activeShowcase.description}
                 </p>
 
                 <ul className="mt-2 flex flex-col gap-2.5">
                   {activeShowcase.bullets.map((bullet, idx) => (
-                    <li key={idx} className="flex items-center gap-2.5 text-xs md:text-sm text-slate-200">
-                      <span className="grid h-5 w-5 place-items-center rounded-full bg-teal-500/20 text-teal-300 text-xs">
+                    <li key={idx} className={`flex items-center gap-2.5 text-xs md:text-sm ${isLight ? "text-slate-700" : "text-slate-200"}`}>
+                      <span
+                        className={`grid h-5 w-5 place-items-center rounded-full text-xs ${
+                          isLight ? "bg-teal-100 text-teal-700" : "bg-teal-500/20 text-teal-300"
+                        }`}
+                      >
                         ✓
                       </span>
                       <span>{bullet}</span>
@@ -327,7 +386,11 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
 
                 <a
                   href="#consultation-form"
-                  className="mt-3 inline-flex h-11 items-center gap-2 self-start rounded-xl bg-white px-5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-6px_rgba(255,255,255,0.4)]"
+                  className={`mt-3 inline-flex h-11 items-center gap-2 self-start rounded-xl px-5 text-sm font-semibold transition hover:-translate-y-0.5 ${
+                    isLight
+                      ? "bg-slate-900 text-white hover:bg-indigo-600 hover:shadow-md"
+                      : "bg-white text-slate-900 hover:shadow-[0_8px_20px_-6px_rgba(255,255,255,0.4)]"
+                  }`}
                 >
                   <span>Request This Custom Tool</span>
                   <ArrowRight size={14} />
@@ -335,7 +398,11 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
               </div>
 
               {/* Right Screenshot Window Frame With Uptrix Logo */}
-              <div className="lg:col-span-8 overflow-hidden rounded-2xl border border-white/15 bg-slate-950 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)]">
+              <div
+                className={`lg:col-span-8 overflow-hidden rounded-2xl border shadow-xl ${
+                  isLight ? "border-slate-200 bg-slate-950" : "border-white/15 bg-slate-950 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8)]"
+                }`}
+              >
                 {/* Browser Titlebar with Uptrix Logo */}
                 <div className="flex h-10 items-center justify-between border-b border-white/10 bg-slate-900/90 px-4">
                   <div className="flex items-center gap-2.5">
@@ -392,7 +459,9 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
           <div
             role="tablist"
             aria-label="Filter custom tool capabilities"
-            className="flex flex-wrap justify-center gap-1.5 rounded-full border border-white/15 bg-navy/60 p-1.5 backdrop-blur-md"
+            className={`flex flex-wrap justify-center gap-1.5 rounded-full border p-1.5 backdrop-blur-md ${
+              isLight ? "border-slate-200 bg-white/90 shadow-xs" : "border-white/15 bg-navy/60"
+            }`}
           >
             {categories.map((cat) => (
               <button
@@ -404,6 +473,8 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
                 className={`h-10 cursor-pointer rounded-full px-5 text-sm font-semibold transition duration-200 ${
                   activeCategory === cat
                     ? "bg-gradient-to-r from-indigo-600 to-teal-600 text-white shadow-[0_4px_16px_-4px_rgba(79,70,229,0.6)]"
+                    : isLight
+                    ? "bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                     : "bg-transparent text-slate-300 hover:text-white hover:bg-white/[0.06]"
                 }`}
               >
@@ -424,7 +495,11 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
             return (
               <Reveal key={tool.originalIndex} delay={tool.originalIndex * 60}>
                 <div
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-400/40 hover:bg-white/[0.065] hover:shadow-[0_20px_40px_-20px_rgba(79,70,229,0.3)]"
+                  className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1.5 ${
+                    isLight
+                      ? "border-slate-200/90 bg-white shadow-xs hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/10"
+                      : "border-white/10 bg-white/[0.035] backdrop-blur-sm hover:border-indigo-400/40 hover:bg-white/[0.065] hover:shadow-[0_20px_40px_-20px_rgba(79,70,229,0.3)]"
+                  }`}
                 >
                   {/* Top Thumbnail Image with Uptrix Logo Watermark */}
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900 border-b border-white/10">
@@ -435,7 +510,7 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
                       className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B1433] via-transparent to-transparent opacity-85" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-85" />
                     
                     {/* Left category tag */}
                     <span className="absolute top-3 left-3 rounded-full border border-white/20 bg-slate-950/80 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-teal-300 uppercase backdrop-blur-md">
@@ -464,39 +539,51 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
                       >
                         <IconComponent />
                       </div>
-                      <h3 className="font-display text-lg font-bold text-white transition group-hover:text-indigo-200">
+                      <h3
+                        className={`font-display text-lg font-bold transition ${
+                          isLight ? "text-slate-900 group-hover:text-indigo-600" : "text-white group-hover:text-indigo-200"
+                        }`}
+                      >
                         {tool.title}
                       </h3>
                     </div>
 
                     {/* Description */}
-                    <p className="text-[14px] leading-relaxed text-slate-300">
+                    <p className={`text-[14px] leading-relaxed ${isLight ? "text-slate-600" : "text-slate-300"}`}>
                       {tool.body}
                     </p>
 
                     {/* Feature highlight tags */}
-                    <div className="mt-auto flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                    <div className={`mt-auto flex flex-wrap gap-1.5 pt-3 border-t ${isLight ? "border-slate-100" : "border-white/10"}`}>
                       {tags.map((tg, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center gap-1 rounded-md bg-white/[0.05] px-2 py-0.5 text-[11px] text-slate-300 transition group-hover:bg-white/[0.08]"
+                          className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] transition ${
+                            isLight
+                              ? "bg-slate-100 text-slate-600 group-hover:bg-slate-200/60"
+                              : "bg-white/[0.05] text-slate-300 group-hover:bg-white/[0.08]"
+                          }`}
                         >
-                          <span className="text-teal-400">✓</span> {tg}
+                          <span className={isLight ? "text-teal-600 font-bold" : "text-teal-400"}>✓</span> {tg}
                         </span>
                       ))}
                     </div>
                   </div>
 
                   {/* Card Action Link */}
-                  <div className="px-6 pb-5 pt-3 border-t border-white/5 flex items-center justify-between">
+                  <div className={`px-6 pb-5 pt-3 border-t flex items-center justify-between ${isLight ? "border-slate-100" : "border-white/5"}`}>
                     <a
                       href="#consultation-form"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-300 transition group-hover:text-teal-300 group-hover:gap-2"
+                      className={`inline-flex items-center gap-1.5 text-xs font-semibold transition group-hover:gap-2 ${
+                        isLight ? "text-indigo-600 group-hover:text-teal-600" : "text-indigo-300 group-hover:text-teal-300"
+                      }`}
                     >
                       <span>Customise this tool</span>
                       <ArrowRight size={13} />
                     </a>
-                    <span className="text-xs text-slate-500 font-mono">0{tool.originalIndex + 1}</span>
+                    <span className={`text-xs font-mono ${isLight ? "text-slate-400" : "text-slate-500"}`}>
+                      0{tool.originalIndex + 1}
+                    </span>
                   </div>
                 </div>
               </Reveal>
@@ -505,15 +592,15 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
         </div>
 
         {/* 4-Step Build Lifecycle Timeline */}
-        <div className="mt-20 pt-16 border-t border-white/10">
+        <div className={`mt-20 pt-16 border-t ${isLight ? "border-slate-200" : "border-white/10"}`}>
           <Reveal className="flex flex-col items-center gap-3 text-center mb-12">
-            <span className="text-xs font-bold tracking-[.14em] text-teal-400 uppercase">
+            <span className={`text-xs font-bold tracking-[.14em] uppercase ${isLight ? "text-teal-700" : "text-teal-400"}`}>
               How We Build For You
             </span>
-            <h3 className="font-display text-[clamp(24px,3vw,36px)] font-extrabold tracking-tight text-white">
+            <h3 className={`font-display text-[clamp(24px,3vw,36px)] font-extrabold tracking-tight ${isLight ? "text-slate-900" : "text-white"}`}>
               From Problem Statement to Deployed Tool in 4 Sprints
             </h3>
-            <p className="max-w-[600px] text-sm md:text-base text-slate-300">
+            <p className={`max-w-[600px] text-sm md:text-base ${isLight ? "text-slate-600" : "text-slate-300"}`}>
               Clear delivery milestones with no ambiguity. You get full visibility from wireframe to production launch.
             </p>
           </Reveal>
@@ -521,15 +608,27 @@ export default function CustomToolsSection({ content }: { content: HomeContent["
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             {content.processSteps.map((step, idx) => (
               <Reveal key={idx} delay={idx * 80}>
-                <div className="relative flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition duration-300 hover:border-indigo-400/40 hover:bg-white/[0.06]">
+                <div
+                  className={`relative flex flex-col gap-3 rounded-2xl border p-6 transition duration-300 ${
+                    isLight
+                      ? "border-slate-200 bg-white shadow-xs hover:border-indigo-300 hover:shadow-md"
+                      : "border-white/10 bg-white/[0.03] backdrop-blur-sm hover:border-indigo-400/40 hover:bg-white/[0.06]"
+                  }`}
+                >
                   <div className="flex items-center justify-between">
                     <span className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-extrabold text-white bg-gradient-to-br from-indigo-500 to-teal-500 shadow-[0_4px_12px_-3px_rgba(79,70,229,0.5)]">
                       {step.step}
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Sprint 0{idx + 1}</span>
+                    <span className={`text-[11px] font-mono uppercase tracking-wider ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                      Sprint 0{idx + 1}
+                    </span>
                   </div>
-                  <h4 className="mt-2 font-display text-lg font-bold text-white">{step.title}</h4>
-                  <p className="text-sm leading-relaxed text-slate-300">{step.body}</p>
+                  <h4 className={`mt-2 font-display text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
+                    {step.title}
+                  </h4>
+                  <p className={`text-sm leading-relaxed ${isLight ? "text-slate-600" : "text-slate-300"}`}>
+                    {step.body}
+                  </p>
                 </div>
               </Reveal>
             ))}

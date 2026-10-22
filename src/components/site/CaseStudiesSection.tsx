@@ -13,9 +13,11 @@ const matches = (product: string, filter: string) =>
 export default function CaseStudiesSection({
   productFilter = "",
   className = "",
+  theme = "dark",
 }: {
   productFilter?: string;
   className?: string;
+  theme?: "dark" | "light";
 }) {
   const { caseStudies } = getContent();
   const studies = liveStudies(caseStudies.studies).filter((s) =>
@@ -25,26 +27,45 @@ export default function CaseStudiesSection({
   if (studies.length === 0) return null;
 
   const cs = caseStudies.page;
+  const isLight = theme === "light";
 
   return (
     <section
       aria-labelledby="case-studies-h"
-      className={`relative overflow-hidden border-y border-white/10 bg-pulse-night py-[clamp(64px,9vw,120px)] text-white ${className}`}
+      className={`relative overflow-hidden border-y ${
+        isLight
+          ? "border-slate-200/80 bg-slate-50/70 text-slate-900"
+          : "border-white/10 bg-pulse-night text-white"
+      } py-[clamp(64px,9vw,120px)] ${className}`}
     >
       {/* Ambient background glows */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(91,95,240,0.22),transparent_70%)] blur-3xl"
+        className={`pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full blur-3xl ${
+          isLight
+            ? "bg-[radial-gradient(circle,rgba(91,95,240,0.08),transparent_70%)]"
+            : "bg-[radial-gradient(circle,rgba(91,95,240,0.22),transparent_70%)]"
+        }`}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-40 right-1/4 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(34,176,125,0.18),transparent_70%)] blur-3xl"
+        className={`pointer-events-none absolute -bottom-40 right-1/4 h-96 w-96 rounded-full blur-3xl ${
+          isLight
+            ? "bg-[radial-gradient(circle,rgba(34,176,125,0.08),transparent_70%)]"
+            : "bg-[radial-gradient(circle,rgba(34,176,125,0.18),transparent_70%)]"
+        }`}
       />
 
       <div className={`${container} relative flex flex-col gap-10`}>
         {/* Section Heading & Eyebrow */}
         <div className="flex flex-col gap-4">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
+          <div
+            className={`inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-bold uppercase tracking-wider ${
+              isLight
+                ? "border-emerald-500/25 bg-emerald-50 text-emerald-800"
+                : "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
+            }`}
+          >
             <span className="h-1.5 w-1.5 rounded-full bg-[#22b07d] animate-pulse" />
             Proven Customer Results
           </div>
@@ -52,11 +73,17 @@ export default function CaseStudiesSection({
             <div className="flex max-w-[680px] flex-col gap-3">
               <h2
                 id="case-studies-h"
-                className="text-[clamp(32px,4.2vw,50px)] leading-[1.08] font-extrabold tracking-[-0.035em] text-balance text-white"
+                className={`text-[clamp(32px,4.2vw,50px)] leading-[1.08] font-extrabold tracking-[-0.035em] text-balance ${
+                  isLight ? "text-slate-900" : "text-white"
+                }`}
               >
                 {cs.heading}
               </h2>
-              <p className="text-[17px] leading-relaxed text-[#c9cbf0]">
+              <p
+                className={`text-[17px] leading-relaxed ${
+                  isLight ? "text-slate-600" : "text-[#c9cbf0]"
+                }`}
+              >
                 {cs.intro}
               </p>
             </div>
@@ -66,20 +93,24 @@ export default function CaseStudiesSection({
         {/* Highlighted Case Studies Carousel */}
         <CardsCarousel
           title={
-            <span className="font-code text-xs font-bold uppercase tracking-[0.08em] text-[#a9abff]">
+            <span
+              className={`font-code text-xs font-bold uppercase tracking-[0.08em] ${
+                isLight ? "text-indigo-600" : "text-[#a9abff]"
+              }`}
+            >
               Featured Customer Stories
             </span>
           }
           viewAllLabel={cs.viewAllLabel}
           viewAllLink="/case-studies"
-          theme="dark"
+          theme={isLight ? "light" : "dark"}
         >
           {studies.map((s, i) => (
             <div
               key={s.slug}
               className="w-[min(100%,380px)] min-w-[320px] shrink-0 snap-start sm:w-[420px]"
             >
-              <StoryCard study={s} index={i} text={cs} dark />
+              <StoryCard study={s} index={i} text={cs} dark={!isLight} />
             </div>
           ))}
         </CardsCarousel>
