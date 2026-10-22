@@ -9,7 +9,6 @@ import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ProductTour from "@/components/home/ProductTour";
 import CustomToolsSection from "@/components/home/CustomToolsSection";
-import Testimonials from "@/components/home/Testimonials";
 import Faq from "@/components/home/Faq";
 import { ArrowRight, Icon } from "@/components/home/icons";
 import { getPageContent } from "@/lib/content-store";
@@ -511,13 +510,6 @@ export default function Home() {
               </ol>
             </Reveal>
           </div>
-        </section>
-
-        {/* Testimonials */}
-        <section aria-labelledby="testi-heading" className={`bg-slate-50 ${sectionPad}`}>
-          <Reveal className={container}>
-            <Testimonials content={c.testimonials} />
-          </Reveal>
         </section>
 
         <StoriesSection section={c.stories} />
