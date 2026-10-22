@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import StoryCard from "@/components/site/StoryCard";
 import CardsCarousel from "@/components/site/CardsCarousel";
-import { liveStudies, youtubeId } from "@/content/stories";
-import { getContent } from "@/lib/content-store";
+import { liveStudies, youtubeId, caseStudiesDefaults, videoTestimonialsDefaults, reviewsDefaults } from "@/content/stories";
 
 type Section = { eyebrow: string; heading: string; intro: string; productFilter: string };
 
@@ -16,12 +15,17 @@ export default function StoriesSection({
   section,
   className = "",
   showCaseStudies = false,
+  caseStudies = caseStudiesDefaults,
+  videoTestimonials = videoTestimonialsDefaults,
+  reviews = reviewsDefaults,
 }: {
   section: Section;
   className?: string;
   showCaseStudies?: boolean;
+  caseStudies?: any;
+  videoTestimonials?: any;
+  reviews?: any;
 }) {
-  const { caseStudies, videoTestimonials, reviews } = getContent();
   const [activeVideo, setActiveVideo] = useState<any>(null);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
 

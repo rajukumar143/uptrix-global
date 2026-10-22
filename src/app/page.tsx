@@ -11,7 +11,7 @@ import ProductTour from "@/components/home/ProductTour";
 import CustomToolsSection from "@/components/home/CustomToolsSection";
 import Faq from "@/components/home/Faq";
 import { ArrowRight, Icon } from "@/components/home/icons";
-import { getPageContent } from "@/lib/content-store";
+import { getPageContent, getContent } from "@/lib/content-store";
 
 // Client logo colours, by position. Names come from the admin dashboard.
 
@@ -288,6 +288,7 @@ function ProductCard({
 }
 
 export default function Home() {
+  const siteContent = getContent();
   const c = getPageContent("home");
   const year = new Date().getFullYear();
   const faqSchema = {
@@ -512,7 +513,7 @@ export default function Home() {
           </div>
         </section>
 
-        <StoriesSection section={c.stories} />
+        <StoriesSection section={c.stories} caseStudies={siteContent.caseStudies} videoTestimonials={siteContent.videoTestimonials} reviews={siteContent.reviews} />
 
         {/* Case Studies: Highlighted Standalone Section */}
         <CaseStudiesSection productFilter={c.stories.productFilter} theme="light" />
