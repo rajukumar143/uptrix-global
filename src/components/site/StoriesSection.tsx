@@ -30,7 +30,7 @@ export default function StoriesSection({
   const [showVideoPopup, setShowVideoPopup] = useState(false);
 
   const studies = liveStudies(caseStudies.studies)
-    .filter((s) => matches(s.product, section.productFilter))
+    .filter((s: any) => matches(s.product, section.productFilter))
     .slice(0, 4);
 
   const allVideos = videoTestimonials.videos
@@ -50,7 +50,7 @@ export default function StoriesSection({
     }))
     .filter((v: any) => matches(v.product, section.productFilter));
 
-  const reviewList = reviews.items.filter((r) => r.quote && matches(r.product, section.productFilter)).slice(0, 12);
+  const reviewList = reviews.items.filter((r: any) => r.quote && matches(r.product, section.productFilter)).slice(0, 12);
 
   if (!studies.length && !allVideos.length && !reviewList.length) return null;
 
@@ -178,14 +178,14 @@ export default function StoriesSection({
         {/* 2. Customer reviews carousel */}
         {reviewList.length > 0 && (
           <CardsCarousel title={reviews.heading}>
-            {reviewList.map((r, i) => {
+            {reviewList.map((r: any, i: number) => {
               const stars = Math.max(0, Math.min(5, Math.round(r.rating)));
               return (
                 <div key={i} className="w-[min(100%,360px)] min-w-[300px] shrink-0 snap-start">
                   <figure className="flex h-full flex-col gap-4 rounded-3xl border border-pulse-line bg-white p-6 shadow-[0_18px_40px_-30px_rgba(14,19,48,0.3)] transition-transform duration-200 hover:-translate-y-1">
                     <div className="flex items-center justify-between gap-3">
                       <span role="img" aria-label={`${stars} out of 5 stars`} className="flex gap-0.5 text-lg leading-none">
-                        {[0, 1, 2, 3, 4].map((n) => (
+                        {[0, 1, 2, 3, 4].map((n: number) => (
                           <span key={n} aria-hidden className={n < stars ? "text-[#f5a524]" : "text-[#dfe1ea]"}>
                             ★
                           </span>
@@ -216,7 +216,7 @@ export default function StoriesSection({
         {/* 3. Optional Case studies carousel */}
         {showCaseStudies && studies.length > 0 && (
           <CardsCarousel title={cs.eyebrow} viewAllLabel={cs.viewAllLabel} viewAllLink="/case-studies">
-            {studies.map((s, i) => (
+            {studies.map((s: any, i: number) => (
               <div key={s.slug} className="w-[min(100%,380px)] min-w-[320px] shrink-0 snap-start">
                 <StoryCard study={s} index={i} text={cs} />
               </div>
