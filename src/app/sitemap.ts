@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: siteUrl("/crm"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: siteUrl("/college"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: siteUrl("/crm/college"), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: siteUrl("/real-estate"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: siteUrl("/crm/real-estate"), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: siteUrl("/case-studies"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },

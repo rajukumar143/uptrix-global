@@ -62,6 +62,8 @@ const nextConfig: NextConfig = {
       { source: "/education", destination: "/college", permanent: true },
       { source: "/crm/edutech", destination: "/college", permanent: true },
       { source: "/collage", destination: "/college", permanent: true },
+      { source: "/robot.txt", destination: "/robots.txt", permanent: true },
+      { source: "/sitemap", destination: "/sitemap.xml", permanent: true },
     ];
   },
 };
