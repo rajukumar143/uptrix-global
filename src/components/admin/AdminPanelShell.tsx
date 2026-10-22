@@ -189,6 +189,30 @@ export default function AdminPanelShell({
                   {postsCount}
                 </span>
               </Link>
+
+              <Link
+                href="/admin/seo"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`group flex items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold transition-all ${
+                  isActive("/admin/seo")
+                    ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/30"
+                    : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm">🌐</span>
+                  <span>Robots & Sitemap</span>
+                </div>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                    isActive("/admin/seo")
+                      ? "bg-white/20 text-white"
+                      : "bg-teal-500/20 text-teal-400"
+                  }`}
+                >
+                  LIVE
+                </span>
+              </Link>
             </nav>
           </div>
 
