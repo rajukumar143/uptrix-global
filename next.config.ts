@@ -24,7 +24,12 @@ if (process.env.NODE_ENV === "production") {
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  compress: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
+  },
   images: {
+    formats: ["image/avif", "image/webp"],
     unoptimized: true,
     remotePatterns: [
       {
@@ -49,6 +54,7 @@ const nextConfig: NextConfig = {
   experimental: {
     cpus: 1,
     workerThreads: false,
+    optimizePackageImports: ["@supabase/supabase-js", "marked", "zod"],
   },
   async redirects() {
     return [
