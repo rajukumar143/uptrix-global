@@ -20,7 +20,7 @@ export async function logAdminWrite(action: z.infer<typeof actionSchema>, target
     target: z.string().min(1).max(200),
   }).strict().parse({
     at: new Date().toISOString(),
-    actor: process.env.ADMIN_USERNAME,
+    actor: process.env.ADMIN_USERNAME || "admin",
     action,
     target,
   });
