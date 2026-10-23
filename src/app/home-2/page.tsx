@@ -4,6 +4,7 @@ import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
 import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import Home2CustomTools from "@/components/home/Home2CustomTools";
+import Home2About from "@/components/home/Home2About";
 import Faq from "@/components/home/Faq";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import { getPageContent, getContent } from "@/lib/content-store";
@@ -96,6 +97,9 @@ export default function Home2() {
         {c.customToolsSection && (
           <Home2CustomTools content={c.customToolsSection} />
         )}
+
+        {/* About Section on top of Case Studies */}
+        <Home2About />
 
         {/* Case Studies Section */}
         {c.stories && (
