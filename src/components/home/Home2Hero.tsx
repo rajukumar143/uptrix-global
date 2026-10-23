@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -91,55 +90,6 @@ function SproutIcon({ className = "h-5 w-5" }: { className?: string }) {
 }
 
 export default function Home2Hero() {
-  const [lang, setLang] = useState<"fr" | "en">("fr");
-
-  const t = {
-    fr: {
-      badge: "Votre mission, notre technologie",
-      titleStart: "Générateurs de sites",
-      titleEnd: "pour associations",
-      subtitle: "Créez un site professionnel en quelques minutes, sans compétences techniques. Mobilisez, inspirez et faites grandir votre impact.",
-      cta: "Commencer gratuitement",
-      overview: "Vue d'ensemble",
-      chartDonations: "Dons",
-      chartVolunteers: "Bénévoles",
-      chartCampaigns: "Campagnes",
-      newSupporters: "Nouveaux soutiens",
-      fundraising: "Collecte en cours",
-      engagement: "Engagement",
-      monthlyVisits: "Visites ce mois-ci",
-      activeCommunity: "Communauté active",
-      effectiveCampaigns: "Campagnes efficaces",
-      lastingImpact: "Impact durable",
-      pill1: "Sécurisé et fiable",
-      pill2: "Conçu pour le secteur associatif",
-      pill3: "Rapide et sans code",
-      pill4: "Évolutif avec votre mission",
-    },
-    en: {
-      badge: "Your mission, our technology",
-      titleStart: "Next-Gen Web Platforms",
-      titleEnd: "for Organizations & Institutes",
-      subtitle: "Build an executive, high-converting digital platform in minutes with zero technical skills. Mobilize teams, engage communities, and scale your impact.",
-      cta: "Get Started Free",
-      overview: "Overview & Analytics",
-      chartDonations: "Admissions",
-      chartVolunteers: "Enrolled",
-      chartCampaigns: "Outreach",
-      newSupporters: "New Supporters",
-      fundraising: "Active Campaign",
-      engagement: "Engagement Metrics",
-      monthlyVisits: "Visits This Month",
-      activeCommunity: "Active Community",
-      effectiveCampaigns: "Smart Campaigns",
-      lastingImpact: "Proven Impact",
-      pill1: "Enterprise Secure & Reliable",
-      pill2: "Custom Built for Institutions",
-      pill3: "Fast & Zero-Code Ready",
-      pill4: "Scalable with Your Mission",
-    }
-  }[lang];
-
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#f7f8ff] via-[#fafbff] to-white pt-10 pb-16 lg:pt-14 lg:pb-24">
       {/* Decorative Dot Grids */}
@@ -163,49 +113,39 @@ export default function Home2Hero() {
       <div className="pointer-events-none absolute -left-20 top-40 h-80 w-80 rounded-full bg-indigo-200/20 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Language switch pill (discreet) */}
-        <div className="mb-4 flex justify-center">
-          <div className="inline-flex items-center gap-1 rounded-full border border-purple-200/70 bg-purple-50/80 p-1 text-[11px] font-semibold text-purple-900 shadow-2xs backdrop-blur-sm">
-            <button
-              onClick={() => setLang("fr")}
-              className={`cursor-pointer rounded-full px-2.5 py-0.5 transition-all ${lang === "fr" ? "bg-white text-purple-700 shadow-xs" : "text-purple-600 hover:text-purple-900"}`}
-            >
-              Français (Original)
-            </button>
-            <button
-              onClick={() => setLang("en")}
-              className={`cursor-pointer rounded-full px-2.5 py-0.5 transition-all ${lang === "en" ? "bg-white text-purple-700 shadow-xs" : "text-purple-600 hover:text-purple-900"}`}
-            >
-              English
-            </button>
-          </div>
-        </div>
-
-        {/* Top Badge */}
+        {/* Top Badge: Votre mission, notre technologie (Single clean pill) */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-purple-200/80 bg-purple-100/60 px-4 py-1.5 text-xs font-semibold text-purple-900 shadow-2xs backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-purple-200/80 bg-purple-100/60 px-5 py-2 text-xs font-semibold text-purple-900 shadow-2xs backdrop-blur-sm">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-500/20 text-purple-700">
               <UsersIcon className="h-3 w-3" />
             </span>
-            <span>{t.badge}</span>
+            <span>Votre mission, notre technologie</span>
           </div>
         </div>
 
-        {/* Main Headline */}
-        <div className="mx-auto mt-6 max-w-4xl text-center">
+        {/* Main Headline with 3D Purple Heart */}
+        <div className="mx-auto mt-7 max-w-4xl text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            <span>{t.titleStart} </span>
-            <span className="inline-block">
-              {t.titleEnd}{" "}
-              <span className="inline-block text-purple-500 drop-shadow-sm">💜</span>
+            <span className="block">Générateurs de sites</span>
+            <span className="mt-2 inline-flex flex-wrap items-center justify-center gap-3">
+              <span>pour associations</span>
+              <Image
+                src="/images/purple-heart-3d.png"
+                alt="Purple Heart"
+                width={56}
+                height={46}
+                className="inline-block h-10 w-auto sm:h-12 lg:h-14 -translate-y-1 object-contain drop-shadow-md"
+                priority
+              />
             </span>
           </h1>
 
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
-            {t.subtitle}
+          <p className="mx-auto mt-5 max-w-2xl text-base text-slate-600 sm:text-lg">
+            Créez un site professionnel en quelques minutes, sans compétences techniques.
+            <br className="hidden sm:inline" /> Mobilisez, inspirez et faites grandir votre impact.
           </p>
 
-          {/* CTA Area with Sketched Hand-Drawn Arrow */}
+          {/* CTA Area with Sketched Hand-Drawn Arrow and Exact Amber Button */}
           <div className="relative mt-8 flex flex-col items-center justify-center">
             {/* Sketched Curving Arrow */}
             <div className="pointer-events-none absolute -right-2 top-0 hidden -translate-y-6 translate-x-12 sm:block">
@@ -229,11 +169,11 @@ export default function Home2Hero() {
 
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-3 rounded-full bg-amber-400 px-7 py-3.5 text-sm font-bold text-slate-900 shadow-lg shadow-amber-400/25 transition-all duration-200 hover:bg-amber-300 hover:shadow-xl hover:shadow-amber-400/35 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-3.5 rounded-full bg-[#FFB000] hover:bg-[#FFA500] px-8 py-3.5 text-sm sm:text-base font-bold text-[#0A1128] shadow-lg shadow-amber-400/30 transition-all duration-200 hover:shadow-xl hover:shadow-amber-400/40 hover:-translate-y-0.5"
             >
-              <span>{t.cta}</span>
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-slate-900 shadow-xs transition-transform duration-200 group-hover:translate-x-0.5">
-                <ArrowRightIcon className="h-3.5 w-3.5" />
+              <span>Commencer gratuitement</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0A1128] shadow-2xs transition-transform duration-200 group-hover:translate-x-0.5">
+                <ArrowRightIcon className="h-4 w-4 stroke-[2.8]" />
               </span>
             </Link>
           </div>
@@ -250,7 +190,7 @@ export default function Home2Hero() {
               <div className="overflow-hidden rounded-3xl bg-transparent">
                 <Image
                   src="/images/hero-home-2.jpg"
-                  alt="Professional woman working on laptop at desk"
+                  alt="Young woman in purple shirt happily working on laptop at desk"
                   width={640}
                   height={640}
                   priority
@@ -259,7 +199,7 @@ export default function Home2Hero() {
               </div>
             </div>
 
-            {/* FLOATING CARD 1: Overview (Top Left) */}
+            {/* FLOATING CARD 1: Vue d'ensemble (Top Left) */}
             <div className="absolute -left-2 top-8 z-20 w-64 sm:-left-6 sm:w-72 lg:-left-12">
               <div className="rounded-2xl border border-slate-100/80 bg-white/95 p-4 shadow-xl shadow-purple-950/5 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 {/* Header */}
@@ -267,7 +207,7 @@ export default function Home2Hero() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-md bg-purple-100 text-purple-600">
                     <UsersIcon className="h-3.5 w-3.5" />
                   </span>
-                  <span className="text-xs font-bold text-slate-800">{t.overview}</span>
+                  <span className="text-xs font-bold text-slate-800">Vue d'ensemble</span>
                 </div>
 
                 {/* Donut Chart and Legend */}
@@ -323,30 +263,30 @@ export default function Home2Hero() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-purple-500" />
-                        <span className="font-medium text-slate-600">{t.chartDonations}</span>
+                        <span className="font-medium text-slate-600">Dons</span>
                       </div>
                       <span className="font-semibold text-slate-900">42%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-[#d4a373]" />
-                        <span className="font-medium text-slate-600">{t.chartVolunteers}</span>
+                        <span className="font-medium text-slate-600">Bénévoles</span>
                       </div>
                       <span className="font-semibold text-slate-900">35%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-amber-500" />
-                        <span className="font-medium text-slate-600">{t.chartCampaigns}</span>
+                        <span className="font-medium text-slate-600">Campagnes</span>
                       </div>
                       <span className="font-semibold text-slate-900">23%</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Sub-card: New Supporters */}
+                {/* Sub-card: Nouveaux soutiens */}
                 <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50/70 p-2.5">
-                  <div className="text-[10px] font-medium text-slate-500">{t.newSupporters}</div>
+                  <div className="text-[10px] font-medium text-slate-500">Nouveaux soutiens</div>
                   <div className="mt-1 flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
                       <span className="text-base font-extrabold text-slate-900">1 248</span>
@@ -389,14 +329,14 @@ export default function Home2Hero() {
               </svg>
             </div>
 
-            {/* FLOATING CARD 2: Active Fundraising / Applications (Bottom Left) */}
+            {/* FLOATING CARD 2: Collecte en cours (Bottom Left) */}
             <div className="absolute -left-1 bottom-6 z-20 w-56 sm:-left-4 sm:w-64 lg:-left-8">
               <div className="rounded-2xl border border-slate-100/80 bg-white/95 p-3.5 shadow-xl shadow-purple-950/5 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-100 text-purple-600">
                     <HeartIcon className="h-3 w-3" filled />
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-600">{t.fundraising}</span>
+                  <span className="text-[11px] font-semibold text-slate-600">Collecte en cours</span>
                 </div>
                 <div className="mt-1.5 flex items-baseline justify-between">
                   <span className="text-lg font-extrabold text-slate-900">5 670 €</span>
@@ -416,7 +356,7 @@ export default function Home2Hero() {
               <div className="rounded-2xl border border-slate-100/80 bg-white/95 p-4 shadow-xl shadow-purple-950/5 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-800">{t.engagement}</span>
+                  <span className="text-xs font-bold text-slate-800">Engagement</span>
                   <button className="cursor-pointer text-slate-400 hover:text-slate-600">
                     <MoreIcon className="h-4 w-4" />
                   </button>
@@ -451,7 +391,7 @@ export default function Home2Hero() {
                   {/* Monthly Visits */}
                   <div className="mt-2.5 flex items-baseline justify-between">
                     <div>
-                      <div className="text-[10px] font-medium text-slate-500">{t.monthlyVisits}</div>
+                      <div className="text-[10px] font-medium text-slate-500">Visites ce mois-ci</div>
                       <div className="text-xl font-black text-slate-900">8 934</div>
                     </div>
                     <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600">
@@ -466,7 +406,7 @@ export default function Home2Hero() {
                         <UsersIcon className="h-3.5 w-3.5" />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        {t.activeCommunity}
+                        Communauté active
                       </span>
                     </div>
 
@@ -475,7 +415,7 @@ export default function Home2Hero() {
                         <MegaphoneIcon className="h-3.5 w-3.5" />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        {t.effectiveCampaigns}
+                        Campagnes efficaces
                       </span>
                     </div>
 
@@ -484,7 +424,7 @@ export default function Home2Hero() {
                         <HeartIcon className="h-3.5 w-3.5" filled />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        {t.lastingImpact}
+                        Impact durable
                       </span>
                     </div>
                   </div>
@@ -504,7 +444,7 @@ export default function Home2Hero() {
                   <ShieldCheckIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  {t.pill1}
+                  Sécurisé et fiable
                 </div>
               </div>
 
@@ -514,7 +454,7 @@ export default function Home2Hero() {
                   <SmartphoneIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  {t.pill2}
+                  Conçu pour le secteur associatif
                 </div>
               </div>
 
@@ -524,7 +464,7 @@ export default function Home2Hero() {
                   <GaugeIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  {t.pill3}
+                  Rapide et sans code
                 </div>
               </div>
 
@@ -534,7 +474,7 @@ export default function Home2Hero() {
                   <SproutIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  {t.pill4}
+                  Évolutif avec votre mission
                 </div>
               </div>
             </div>
