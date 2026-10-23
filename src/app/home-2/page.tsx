@@ -97,46 +97,46 @@ export default function Home2() {
         )}
       </main>
 
-      {/* Footer */}
+      {/* Footer (Light Mode) */}
       {c.footer && (
-        <footer className="bg-slate-950 pt-16 pb-8 text-white">
+        <footer className="border-t border-slate-200 bg-slate-50/80 pt-16 pb-8 text-slate-800">
           <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <span className="font-display text-xl font-black tracking-tight text-white">Uptrix</span>
-              <p className="mt-3 text-xs leading-relaxed text-slate-400">{c.footer.tagline}</p>
+              <span className="font-display text-xl font-black tracking-tight text-slate-900">Uptrix</span>
+              <p className="mt-3 text-xs leading-relaxed text-slate-500">{c.footer.tagline}</p>
             </div>
 
             <nav className="flex flex-col gap-2.5 text-xs">
-              <h3 className="font-bold uppercase tracking-wider text-slate-200">{c.footer.productsHeading}</h3>
+              <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.productsHeading}</h3>
               {(c.footer.productLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="text-slate-400 hover:text-white transition">
+                <a key={i} href={l.link} className="text-slate-600 hover:text-purple-700 transition">
                   {l.label}
                 </a>
               ))}
             </nav>
 
             <nav className="flex flex-col gap-2.5 text-xs">
-              <h3 className="font-bold uppercase tracking-wider text-slate-200">{c.footer.companyHeading}</h3>
+              <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.companyHeading}</h3>
               {(c.footer.companyLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="text-slate-400 hover:text-white transition">
+                <a key={i} href={l.link} className="text-slate-600 hover:text-purple-700 transition">
                   {l.label}
                 </a>
               ))}
             </nav>
 
-            <address className="flex flex-col gap-2.5 text-xs not-italic text-slate-400">
-              <h3 className="font-bold uppercase tracking-wider text-slate-200">{c.footer.contactHeading}</h3>
-              {c.footer.email && <a href={`mailto:${c.footer.email}`} className="hover:text-white">{c.footer.email}</a>}
-              {c.footer.phone && <a href={telHref(c.footer.phone)} className="hover:text-white">{c.footer.phone}</a>}
+            <address className="flex flex-col gap-2.5 text-xs not-italic text-slate-600">
+              <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.contactHeading}</h3>
+              {c.footer.email && <a href={`mailto:${c.footer.email}`} className="hover:text-purple-700">{c.footer.email}</a>}
+              {c.footer.phone && <a href={telHref(c.footer.phone)} className="hover:text-purple-700">{c.footer.phone}</a>}
               {c.footer.address && <p>{c.footer.address}</p>}
             </address>
           </div>
 
-          <div className="mx-auto mt-12 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-slate-900 px-6 pt-6 text-xs text-slate-500 sm:flex-row">
+          <div className="mx-auto mt-12 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-slate-200 px-6 pt-6 text-xs text-slate-500 sm:flex-row">
             <span>&copy; {year} {c.footer.copyrightText}</span>
             <div className="flex gap-4">
               {(c.footer.legalLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="hover:text-slate-400 transition">
+                <a key={i} href={l.link} className="hover:text-purple-700 transition">
                   {l.label}
                 </a>
               ))}

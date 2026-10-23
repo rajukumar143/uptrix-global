@@ -80,19 +80,19 @@ export default function StoryCard({
             : "border-pulse-line bg-white shadow-[0_18px_40px_-30px_rgba(14,19,48,0.35)]"
         }`}
       >
-        <div className={`relative flex flex-col gap-5 p-7 ${dark ? "bg-[#0a0d24] border-b border-white/10" : "bg-pulse-night text-white"}`}>
+        <div className={`relative flex flex-col gap-5 p-7 ${dark ? "bg-[#0a0d24] border-b border-white/10 text-white" : "bg-gradient-to-br from-slate-50 via-purple-50/40 to-indigo-50/30 text-slate-900 border-b border-slate-100"}`}>
           <div aria-hidden className="absolute inset-x-0 top-0 h-1" style={{ background: accent }} />
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
-            <span className={`rounded-full px-3 py-1 ${dark ? "bg-white/15 text-white" : "bg-white/10 text-white"}`}>{s.product}</span>
-            {s.isExample && <span className="rounded-full border border-white/25 px-3 py-1 text-[#cfd0f0]">{text.exampleLabel}</span>}
+            <span className={`rounded-full px-3 py-1 ${dark ? "bg-white/15 text-white" : "border border-purple-200 bg-purple-50 text-purple-700"}`}>{s.product}</span>
+            {s.isExample && <span className={`rounded-full px-3 py-1 ${dark ? "border border-white/25 text-[#cfd0f0]" : "border border-slate-200 text-slate-500 bg-white"}`}>{text.exampleLabel}</span>}
           </div>
           <div className="grid grid-cols-3 gap-3">
             {s.metrics.slice(0, 3).map((m, j) => (
               <div key={j} className="flex flex-col gap-1">
-                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: j === 0 ? (dark ? "#7ff0c2" : "#fff") : "#cfd0f0" }}>
+                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: dark ? (j === 0 ? "#7ff0c2" : "#cfd0f0") : (j === 0 ? "#7c3aed" : "#0f172a") }}>
                   {m.value}
                 </span>
-                <span className="text-xs leading-snug text-[#a9abd6]">{m.label}</span>
+                <span className={`text-xs leading-snug ${dark ? "text-[#a9abd6]" : "text-slate-500"}`}>{m.label}</span>
               </div>
             ))}
           </div>
