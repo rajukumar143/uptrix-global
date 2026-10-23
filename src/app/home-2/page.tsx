@@ -14,6 +14,55 @@ export const metadata: Metadata = {
   description: "Next-generation enterprise CRM, HRMS, and bespoke internal tools engineered for scaling businesses.",
 };
 
+
+const home2HeroSlides = [
+  {
+    eyebrow: "Bespoke Engineering & Custom Software",
+    headingStart: "We Build ",
+    headingHighlight: "Custom Tools",
+    headingEnd: " for Your Business",
+    body: "Tailor-made software, intelligent automations, and enterprise-grade internal systems built specifically to eliminate manual bottlenecks and scale operations.",
+    primaryButtonLabel: "Request Custom Tool",
+    primaryButtonLink: "#custom-tools",
+    secondaryButtonLabel: "Talk to an Architect",
+    secondaryButtonLink: "#consultation-form",
+    photoDescription: "Custom business software and engineering team",
+    image: "/images/hero/hero-team.jpg",
+  },
+  {
+    eyebrow: "Executive BI & Telemetry",
+    headingStart: "Real-Time Telemetry & ",
+    headingHighlight: "Command",
+    headingEnd: " Centers",
+    body: "Consolidate multi-branch revenues, MRR trajectories, and live financial health into a single unified executive screen.",
+    primaryButtonLabel: "View Live Dashboards",
+    primaryButtonLink: "#custom-tools",
+    secondaryButtonLabel: "Request Architecture",
+    secondaryButtonLink: "#consultation-form",
+    photoDescription: "Executive BI command center",
+    image: "/images/hero/hero-crm.jpg",
+  },
+  {
+    eyebrow: "Field Mobility & Offline Sync",
+    headingStart: "GPS Geofenced ",
+    headingHighlight: "Mobile",
+    headingEnd: " Operational Suites",
+    body: "Progressive mobile app tailored for ground executives, featuring GPS-verified visits, offline catalog order booking, and route tracking.",
+    primaryButtonLabel: "Discover Mobile Suite",
+    primaryButtonLink: "#custom-tools",
+    secondaryButtonLabel: "Request Custom Tool",
+    secondaryButtonLink: "#consultation-form",
+    photoDescription: "Field force and mobile operations app",
+    image: "/images/hero/hero-hrms.jpg",
+  },
+];
+
+const home2HeroStats = [
+  { stat: "100%", label: "IP Ownership" },
+  { stat: "4 Sprints", label: "Idea to Launch" },
+  { stat: "0 Code", label: "Bottlenecks" },
+];
+
 function telHref(tel: string) {
   return `tel:${tel.replace(/[^0-9+]/g, "")}`;
 }
@@ -31,7 +80,7 @@ export default function Home2() {
       <main>
         {/* Home Page Hero Section */}
         {c.heroSlides && c.heroStats && (
-          <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
+          <HeroCarousel slides={home2HeroSlides} stats={home2HeroStats} />
         )}
 
         {/* Client Trust Marquee */}

@@ -125,30 +125,21 @@ export default function Home2Hero() {
             <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[#7c5ce9] text-white">
               <UsersIcon className="h-3 w-3" />
             </span>
-            <span>Votre mission, notre technologie</span>
+            <span>Bespoke Architecture • Custom Engineering</span>
           </div>
         </div>
 
         {/* Main Headline with 3D Purple Heart */}
         <div className="mx-auto mt-7 max-w-4xl text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-[56px] leading-[1.14]">
-            <span className="block">Générateurs de sites</span>
+            <span className="block">We Build Custom Tools</span>
             <span className="mt-2 inline-flex flex-wrap items-center justify-center gap-3">
-              <span>pour associations</span>
-              <Image
-                src="/images/purple-heart-3d.png"
-                alt="Purple Heart"
-                width={56}
-                height={46}
-                className="inline-block h-10 w-auto sm:h-12 lg:h-14 -translate-y-1 object-contain drop-shadow-sm"
-                priority
-              />
+              <span className="text-[#1f5fd6]">for Your Business</span>
             </span>
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-[15px] sm:text-lg text-slate-600 leading-relaxed">
-            Créez un site professionnel en quelques minutes, sans compétences techniques.
-            <br className="hidden sm:inline" /> Mobilisez, inspirez et faites grandir votre impact.
+            Tailor-made software, intelligent automations, and enterprise-grade internal systems built specifically to eliminate manual bottlenecks and scale operations.
           </p>
 
           {/* CTA Button with Sketched Hand-Drawn Arrow */}
@@ -177,7 +168,7 @@ export default function Home2Hero() {
               href="#contact"
               className="group inline-flex items-center gap-3.5 rounded-full bg-[#FFB000] hover:bg-[#FFA500] px-8 py-3.5 text-sm sm:text-base font-bold text-[#0A1128] shadow-lg shadow-amber-400/25 transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
             >
-              <span>Commencer gratuitement</span>
+              <span>Request Custom Tool</span>
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0A1128] shadow-2xs transition-transform duration-200 group-hover:translate-x-0.5">
                 <ArrowRightIcon className="h-4 w-4 stroke-[2.8]" />
               </span>
@@ -216,7 +207,7 @@ export default function Home2Hero() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#7c5ce9] text-white">
                     <UsersIcon className="h-3.5 w-3.5" />
                   </span>
-                  <span className="text-xs font-bold text-slate-800">Vue d'ensemble</span>
+                  <span className="text-xs font-bold text-slate-800">Executive Overview</span>
                 </div>
 
                 {/* Donut Chart and Legend */}
@@ -267,21 +258,21 @@ export default function Home2Hero() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-[#6355d8]" />
-                        <span className="font-medium text-slate-600">Dons</span>
+                        <span className="font-medium text-slate-600">Revenues</span>
                       </div>
                       <span className="font-semibold text-slate-900">42%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-[#f97316]" />
-                        <span className="font-medium text-slate-600">Bénévoles</span>
+                        <span className="font-medium text-slate-600">Operations</span>
                       </div>
                       <span className="font-semibold text-slate-900">35%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2 w-2 rounded-full bg-[#fbbf24]" />
-                        <span className="font-medium text-slate-600">Campagnes</span>
+                        <span className="font-medium text-slate-600">Automations</span>
                       </div>
                       <span className="font-semibold text-slate-900">23%</span>
                     </div>
@@ -290,7 +281,7 @@ export default function Home2Hero() {
 
                 {/* Sub-card: Nouveaux soutiens */}
                 <div className="mt-3 rounded-xl border border-slate-100 bg-slate-50/70 p-2.5">
-                  <div className="text-[10px] font-medium text-slate-500">Nouveaux soutiens</div>
+                  <div className="text-[10px] font-medium text-slate-500">New Accounts</div>
                   <div className="mt-1 flex items-center justify-between">
                     <div className="flex items-baseline gap-2">
                       <span className="text-base font-extrabold text-slate-900">1 248</span>
@@ -340,7 +331,7 @@ export default function Home2Hero() {
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#f1edfe] text-[#7c5ce9]">
                     <HeartIcon className="h-3 w-3" filled />
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-600">Collecte en cours</span>
+                  <span className="text-[11px] font-semibold text-slate-600">Active Pipeline</span>
                 </div>
                 <div className="mt-1.5 flex items-baseline justify-between">
                   <span className="text-lg font-extrabold text-slate-900">5 670 €</span>
@@ -389,7 +380,7 @@ export default function Home2Hero() {
                   {/* Monthly Visits */}
                   <div className="mt-2.5 flex items-baseline justify-between">
                     <div>
-                      <div className="text-[10px] font-medium text-slate-500">Visites ce mois-ci</div>
+                      <div className="text-[10px] font-medium text-slate-500">Active Operations</div>
                       <div className="text-xl font-black text-slate-900">8 934</div>
                     </div>
                     <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-600">
@@ -404,7 +395,7 @@ export default function Home2Hero() {
                         <UsersIcon className="h-3.5 w-3.5" />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        Communauté active
+                        Active Users
                       </span>
                     </div>
 
@@ -413,7 +404,7 @@ export default function Home2Hero() {
                         <MegaphoneIcon className="h-3.5 w-3.5" />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        Campagnes efficaces
+                        Automations
                       </span>
                     </div>
 
@@ -422,7 +413,7 @@ export default function Home2Hero() {
                         <HeartIcon className="h-3.5 w-3.5" filled />
                       </div>
                       <span className="mt-1.5 text-[9px] font-semibold text-slate-700 leading-tight">
-                        Impact durable
+                        Enterprise SLA
                       </span>
                     </div>
                   </div>
@@ -442,7 +433,7 @@ export default function Home2Hero() {
                   <ShieldCheckIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  Sécurisé et fiable
+                  Enterprise Security
                 </div>
               </div>
 
@@ -452,7 +443,7 @@ export default function Home2Hero() {
                   <SmartphoneIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  Conçu pour le secteur associatif
+                  Bespoke Architecture
                 </div>
               </div>
 
@@ -462,7 +453,7 @@ export default function Home2Hero() {
                   <GaugeIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  Rapide et sans code
+                  Rapid 4-Sprint Build
                 </div>
               </div>
 
@@ -472,7 +463,7 @@ export default function Home2Hero() {
                   <SproutIcon className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-bold text-slate-800 leading-snug">
-                  Évolutif avec votre mission
+                  Dedicated 24/7 SLA
                 </div>
               </div>
             </div>
