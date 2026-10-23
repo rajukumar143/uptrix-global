@@ -254,7 +254,6 @@ export default function Home2CustomTools({
   content: HomeContent["customToolsSection"];
 }) {
   const [activeCategory, setActiveCategory] = useState("All Custom Tools");
-  const [showcaseTab, setShowcaseTab] = useState(0);
 
   // Consultation Form State
   const [formSent, setFormSent] = useState(false);
@@ -272,7 +271,6 @@ export default function Home2CustomTools({
       return true;
     });
 
-  const activeShowcase = showcaseDemos[showcaseTab];
   const ActiveTabIcon = activeShowcase.icon;
 
   async function handleConsultationSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -345,265 +343,173 @@ export default function Home2CustomTools({
           </Reveal>
         </div>
 
-        {/* Interactive Showcase Experience (Vertical Interactive Sidebar + Cinematic App Canvas) */}
-        <Reveal delay={200} className="mt-12 sm:mt-16">
-          <div className="relative rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 lg:p-10 shadow-xl">
-            {/* 2-Column Responsive Layout: Left Sidebar + Right Cinematic Canvas */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+        {/* Minimal & Clean 3-Card Grid: Bespoke Software Showcase (Zero Gradients, Logo Colors Only) */}
+        <div className="mt-12 sm:mt-16">
+          {/* 3-Column Minimalist Clean Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            {showcaseDemos.map((demo, idx) => {
+              const Icon = demo.icon;
               
-              {/* Left Column (5 Cols): Vertical Interactive Deck of 3 Custom Tools */}
-              <div className="lg:col-span-5 flex flex-col justify-between space-y-5 text-left">
-                {/* Header Sub-Badge */}
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1f5fd6]">
-                      <SparklesIcon className="h-3 w-3 text-[#1f5fd6]" />
-                      Interactive Product Deck
-                    </span>
-                    <span className="text-xs font-medium text-slate-500">
-                      Select tool to inspect
-                    </span>
-                  </div>
-                  <h3 className="mt-2.5 font-display text-2xl sm:text-[26px] font-extrabold tracking-tight text-slate-900 leading-snug">
-                    Bespoke Systems Engineered for Speed & Control
-                  </h3>
-                </div>
+              // Solid Logo Palette per Card: Blue (#1f5fd6), Teal (#0f8b8d), Indigo (#4f46e5)
+              const cardThemes = [
+                {
+                  accent: "#1f5fd6",
+                  hoverBorder: "hover:border-[#1f5fd6]",
+                  badgeBg: "bg-blue-50 border-blue-200 text-[#1f5fd6]",
+                  dotBg: "bg-[#1f5fd6]",
+                  btnBg: "bg-[#1f5fd6] hover:bg-[#184cb0] text-white",
+                  linkText: "text-[#1f5fd6] hover:text-[#184cb0]",
+                },
+                {
+                  accent: "#0f8b8d",
+                  hoverBorder: "hover:border-[#0f8b8d]",
+                  badgeBg: "bg-teal-50 border-teal-200 text-[#0f8b8d]",
+                  dotBg: "bg-[#0f8b8d]",
+                  btnBg: "bg-[#0f8b8d] hover:bg-[#0c6f71] text-white",
+                  linkText: "text-[#0f8b8d] hover:text-[#0c6f71]",
+                },
+                {
+                  accent: "#4f46e5",
+                  hoverBorder: "hover:border-[#4f46e5]",
+                  badgeBg: "bg-indigo-50 border-indigo-200 text-[#4f46e5]",
+                  dotBg: "bg-[#4f46e5]",
+                  btnBg: "bg-[#4f46e5] hover:bg-[#3f37be] text-white",
+                  linkText: "text-[#4f46e5] hover:text-[#3f37be]",
+                },
+              ];
 
-                {/* Vertical Interactive Feature Cards Stack */}
-                <div className="flex flex-col gap-3">
-                  {showcaseDemos.map((demo, idx) => {
-                    const Icon = demo.icon;
-                    const isActive = showcaseTab === idx;
-                    const brandColors = ["#1f5fd6", "#0f8b8d", "#4f46e5"];
-                    const activeColor = brandColors[idx % brandColors.length];
+              const theme = cardThemes[idx % cardThemes.length];
 
-                    if (isActive) {
-                      return (
-                        <div
-                          key={demo.id}
-                          className="relative overflow-hidden rounded-2xl border-2 border-[#1f5fd6] bg-blue-50/40 p-4.5 sm:p-5 shadow-sm text-left transition-all duration-300"
+              return (
+                <Reveal key={demo.id} delay={180 + idx * 80} className="h-full">
+                  <div
+                    className={`group relative flex flex-col justify-between h-full rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm ${theme.hoverBorder} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left`}
+                  >
+                    {/* Top Meta Row: Category Badge & Status */}
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${theme.badgeBg}`}
                         >
-                          {/* Solid Brand Blue Left Indicator Bar */}
-                          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#1f5fd6]" />
-
-                          {/* Card Top Row: Icon, Title & Live Status */}
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-3">
-                              <span className="grid h-8 w-8 place-items-center rounded-xl bg-[#1f5fd6] text-white shadow-2xs">
-                                <Icon className="h-4 w-4" />
-                              </span>
-                              <div>
-                                <h4 className="font-display text-base font-bold text-slate-900 leading-tight">
-                                  {demo.tabLabel}
-                                </h4>
-                                <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-[#1f5fd6]">
-                                  {demo.tag}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Active Pulsing Indicator */}
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-0.5 text-[10px] font-bold text-slate-800 border border-blue-200 shadow-2xs">
-                              <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5db833] opacity-75" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#5db833]" />
-                              </span>
-                              <span>Active</span>
-                            </span>
-                          </div>
-
-                          {/* Expanded Narrative */}
-                          <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                            {demo.description}
-                          </p>
-
-                          {/* Capability Bullets */}
-                          <ul className="mt-3 space-y-1.5 border-t border-blue-100/70 pt-3">
-                            {demo.bullets.map((bullet, bulletIdx) => (
-                              <li key={bulletIdx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700">
-                                <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-[#1f5fd6] text-white shadow-2xs">
-                                  <CheckIcon className="h-2.5 w-2.5" />
-                                </span>
-                                <span className="leading-snug">{bullet}</span>
-                              </li>
-                            ))}
-                          </ul>
-
-                          {/* Highlight Metric Pill */}
-                          <div className="mt-3.5 inline-flex items-center gap-2 rounded-xl bg-white border border-blue-200 px-3 py-1.5 text-xs shadow-2xs">
-                            <span className="h-2 w-2 rounded-full bg-[#5db833]" />
-                            <strong className="font-bold text-slate-900">{demo.floatingStat}</strong>
-                            <span className="text-slate-300">&bull;</span>
-                            <span className="text-slate-600 font-medium">{demo.statSubtitle}</span>
-                          </div>
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <button
-                        key={demo.id}
-                        type="button"
-                        onClick={() => setShowcaseTab(idx)}
-                        className="group relative flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-4.5 text-left transition-all duration-200 hover:border-slate-300 hover:bg-slate-50/70 cursor-pointer shadow-2xs"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="grid h-8 w-8 place-items-center rounded-xl bg-slate-100 text-slate-600 transition-colors group-hover:bg-blue-50 group-hover:text-[#1f5fd6]">
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          <div>
-                            <h4 className="font-display text-sm sm:text-base font-bold text-slate-800 group-hover:text-slate-900">
-                              {demo.tabLabel}
-                            </h4>
-                            <p className="text-xs text-slate-500 font-medium">
-                              {demo.shortBadge} &bull; <span className="text-slate-700 font-semibold">{demo.floatingStat}</span>
-                            </p>
-                          </div>
-                        </div>
-
-                        <span className="flex items-center gap-1 text-xs font-semibold text-[#1f5fd6] opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-0.5">
-                          Inspect &rarr;
+                          <span className={`h-1.5 w-1.5 rounded-full ${theme.dotBg}`} />
+                          {demo.tag}
                         </span>
-                      </button>
-                    );
-                  })}
-                </div>
 
-                {/* Architecture Perks & CTA Row */}
-                <div className="pt-2 border-t border-slate-100 flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700">
-                      <ShieldCheckIcon className="h-3.5 w-3.5 text-[#1f5fd6]" />
-                      100% IP Ownership
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700">
-                      <BoltIcon className="h-3.5 w-3.5 text-[#0f8b8d]" />
-                      REST & Webhooks
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700">
-                      <ServerIcon className="h-3.5 w-3.5 text-[#4f46e5]" />
-                      Enterprise SLA
-                    </span>
-                  </div>
-
-                  <div className="flex flex-wrap items-center gap-4 pt-1">
-                    <a
-                      href="#consultation-form"
-                      className="inline-flex h-11 items-center gap-2.5 rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] px-5 text-sm font-bold text-white shadow-md shadow-[#1f5fd6]/20 transition-all duration-200 hover:scale-[1.01] hover:gap-3 cursor-pointer"
-                    >
-                      <span>Request This Custom Tool</span>
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </a>
-
-                    <a
-                      href="#how-we-build"
-                      className="text-xs sm:text-sm font-semibold text-[#1f5fd6] hover:text-[#184cb0] transition flex items-center gap-1"
-                    >
-                      See delivery sprints &darr;
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column (7 Cols): Cinematic Interactive App Canvas */}
-              <div className="lg:col-span-7 flex flex-col">
-                <div className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
-                  {/* Clean Modern Application Header Bar */}
-                  <div className="flex h-12 items-center justify-between gap-3 border-b border-slate-200 bg-slate-50 px-4">
-                    {/* Window Controls & Brand Emblem */}
-                    <div className="flex items-center gap-2.5 shrink-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="h-3 w-3 rounded-full bg-rose-400" />
-                        <span className="h-3 w-3 rounded-full bg-amber-400" />
-                        <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-slate-500">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#5db833]" />
+                          {demo.statusBadge}
+                        </span>
                       </div>
-                      <div className="hidden sm:flex items-center gap-2 border-l border-slate-200 pl-2.5">
+
+                      {/* Title & Short Description */}
+                      <h3 className={`font-display text-lg sm:text-xl font-bold text-slate-900 group-hover:${theme.linkText} transition-colors mt-3.5 leading-snug`}>
+                        {demo.tabLabel}
+                      </h3>
+                      <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 line-clamp-2">
+                        {demo.description}
+                      </p>
+                    </div>
+
+                    {/* Screenshot Preview with Clean Browser Window Header */}
+                    <div className="mt-5 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-2xs">
+                      {/* Window Header */}
+                      <div className="flex h-7 items-center justify-between gap-2 border-b border-slate-200 bg-slate-100/80 px-2.5">
+                        <div className="flex items-center gap-1">
+                          <span className="h-2 w-2 rounded-full bg-rose-400" />
+                          <span className="h-2 w-2 rounded-full bg-amber-400" />
+                          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                        </div>
+                        <span className="truncate font-mono text-[10px] text-slate-600">
+                          custom.uptrixglobal.com/{demo.id}
+                        </span>
+                        <div className="w-6" />
+                      </div>
+
+                      {/* Image Stage */}
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-white">
                         <Image
-                          src="/logo-dark.png"
-                          alt="Uptrix"
-                          width={756}
-                          height={235}
-                          className="h-3.5 w-auto"
+                          src={demo.image}
+                          alt={demo.tabLabel}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       </div>
                     </div>
 
-                    {/* Window Address Bar with Clean Endpoint URL */}
-                    <div className="flex min-w-0 flex-1 max-w-[280px] items-center justify-center gap-2 rounded-lg bg-white px-3 py-1 font-mono text-[11px] text-slate-700 border border-slate-200 shadow-2xs">
-                      <LockIcon className="h-3 w-3 text-[#0f8b8d] shrink-0" />
-                      <span className="truncate">custom.uptrixglobal.com/{activeShowcase.id}</span>
-                    </div>
-
-                    {/* Live Telemetry Status Pill */}
-                    <div className="shrink-0 flex items-center">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-2.5 py-1 text-[10px] font-semibold text-[#0f8b8d] border border-teal-200 whitespace-nowrap">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#0f8b8d]" />
-                        <span>{activeShowcase.statusBadge}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Screenshot Canvas with Floating Contextual HUD Badges */}
-                  <div className="relative aspect-[16/10] sm:aspect-[16/10.5] w-full flex-1 overflow-hidden bg-slate-50">
-                    <Image
-                      key={activeShowcase.id}
-                      src={activeShowcase.image}
-                      alt={activeShowcase.title}
-                      fill
-                      priority
-                      className="object-cover object-top transition-transform duration-700 hover:scale-[1.01]"
-                      sizes="(max-width: 1024px) 100vw, 760px"
-                    />
-
-                    {/* Top-Right Floating Telemetry Chip */}
-                    <div className="absolute top-3.5 right-3.5 inline-flex items-center gap-2 rounded-xl bg-white/95 backdrop-blur-sm border border-slate-200 px-3 py-1.5 text-xs font-bold text-slate-800 shadow-md">
-                      <span className="h-2 w-2 rounded-full bg-[#5db833]" />
-                      <span>99.98% Telemetry Uptime</span>
-                    </div>
-
-                    {/* Bottom-Left Floating Metric Card */}
-                    <div className="absolute bottom-3.5 left-3.5 flex items-center gap-3 rounded-xl bg-white/95 backdrop-blur-sm border border-slate-200 p-2.5 sm:p-3 shadow-lg">
-                      <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#1f5fd6] text-white shadow-2xs">
-                        <CheckIcon className="h-4 w-4" />
-                      </span>
-                      <div className="text-left">
-                        <div className="font-display text-sm font-bold text-slate-900 leading-tight">
-                          {activeShowcase.floatingStat}
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-medium">
-                          {activeShowcase.statSubtitle}
-                        </div>
+                    {/* Metric Highlight Strip */}
+                    <div className="mt-4 flex items-center justify-between rounded-xl bg-slate-50 border border-slate-100 px-3.5 py-2 text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-[#5db833]" />
+                        <strong className="font-bold text-slate-900">{demo.floatingStat}</strong>
                       </div>
+                      <span className="text-[11px] font-medium text-slate-500 truncate max-w-[150px]">
+                        {demo.statSubtitle}
+                      </span>
                     </div>
 
-                    {/* Bottom-Right Floating Sync Badge */}
-                    <div className="hidden sm:inline-flex absolute bottom-3.5 right-3.5 items-center gap-2 rounded-xl bg-slate-900 text-white px-3 py-1.5 text-xs font-medium shadow-lg">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#5db833]" />
-                      <span>ERP & Tally Sync Active</span>
-                    </div>
-                  </div>
+                    {/* Key Capability Bullets */}
+                    <ul className="mt-3.5 space-y-2 border-t border-slate-100 pt-3">
+                      {demo.bullets.map((bullet, bulletIdx) => (
+                        <li key={bulletIdx} className="flex items-start gap-2 text-xs text-slate-700">
+                          <span
+                            className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full text-white shadow-2xs"
+                            style={{ backgroundColor: theme.accent }}
+                          >
+                            <CheckIcon className="h-2.5 w-2.5" />
+                          </span>
+                          <span className="leading-snug">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                  {/* Dedicated Bottom Telemetry & Architecture Strip */}
-                  <div className="grid grid-cols-3 divide-x divide-slate-200 border-t border-slate-200 bg-slate-50 text-xs">
-                    <div className="px-3.5 py-2.5 text-left">
-                      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">Accuracy</div>
-                      <div className="font-semibold text-slate-800 truncate">{activeShowcase.floatingStat}</div>
-                    </div>
-                    <div className="px-3.5 py-2.5 text-left">
-                      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">Deployment</div>
-                      <div className="font-semibold text-slate-800 truncate">Dedicated Cloud</div>
-                    </div>
-                    <div className="px-3.5 py-2.5 text-left">
-                      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">Integration</div>
-                      <div className="font-semibold text-[#0f8b8d] truncate">Live REST API</div>
+                    {/* Footer CTA & Action */}
+                    <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                      <a
+                        href="#consultation-form"
+                        className={`inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold ${theme.linkText} transition-all group-hover:gap-2 cursor-pointer`}
+                      >
+                        <span>Request This Tool</span>
+                        <ArrowRightIcon className="h-3.5 w-3.5" />
+                      </a>
+
+                      <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
+                        100% IP Owned
+                      </span>
                     </div>
                   </div>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {/* Clean Horizontal Guarantee Strip */}
+          <Reveal delay={340} className="mt-8">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+              <div className="flex items-center gap-3.5">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white border border-slate-200 text-[#1f5fd6] shadow-2xs">
+                  <ShieldCheckIcon className="h-5 w-5 text-[#1f5fd6]" />
+                </span>
+                <div>
+                  <h4 className="font-display text-sm sm:text-base font-bold text-slate-900">
+                    Need a custom architecture not shown above?
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    We engineer bespoke enterprise systems tailored 100% to your proprietary workflows, ERP, and databases.
+                  </p>
                 </div>
               </div>
 
+              <a
+                href="#consultation-form"
+                className="shrink-0 inline-flex h-11 items-center gap-2 rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] px-5 text-xs sm:text-sm font-bold text-white shadow-md shadow-[#1f5fd6]/20 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
+              >
+                <span>Book Architecture Discovery</span>
+                <ArrowRightIcon className="h-3.5 w-3.5" />
+              </a>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* Category Filter Pills with Solid Brand Blue */}
         <Reveal delay={240} className="mt-16 sm:mt-20 flex flex-col items-center">
