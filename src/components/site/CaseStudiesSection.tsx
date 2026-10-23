@@ -38,23 +38,19 @@ export default function CaseStudiesSection({
           : "border-white/10 bg-pulse-night text-white"
       } py-[clamp(64px,9vw,120px)] ${className}`}
     >
-      {/* Ambient background glows */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full blur-3xl ${
-          isLight
-            ? "bg-[radial-gradient(circle,rgba(91,95,240,0.08),transparent_70%)]"
-            : "bg-[radial-gradient(circle,rgba(91,95,240,0.22),transparent_70%)]"
-        }`}
-      />
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute -bottom-40 right-1/4 h-96 w-96 rounded-full blur-3xl ${
-          isLight
-            ? "bg-[radial-gradient(circle,rgba(34,176,125,0.08),transparent_70%)]"
-            : "bg-[radial-gradient(circle,rgba(34,176,125,0.18),transparent_70%)]"
-        }`}
-      />
+      {/* Ambient background glows (dark mode only) */}
+      {!isLight && (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full blur-3xl bg-[radial-gradient(circle,rgba(91,95,240,0.22),transparent_70%)]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-40 right-1/4 h-96 w-96 rounded-full blur-3xl bg-[radial-gradient(circle,rgba(34,176,125,0.18),transparent_70%)]"
+          />
+        </>
+      )}
 
       <div className={`${container} relative flex flex-col gap-10`}>
         {/* Section Heading & Eyebrow */}
@@ -95,7 +91,7 @@ export default function CaseStudiesSection({
           title={
             <span
               className={`font-code text-xs font-bold uppercase tracking-[0.08em] ${
-                isLight ? "text-indigo-600" : "text-[#a9abff]"
+                isLight ? "text-[#1f5fd6]" : "text-[#a9abff]"
               }`}
             >
               Featured Customer Stories

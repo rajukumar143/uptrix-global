@@ -91,32 +91,14 @@ function SproutIcon({ className = "h-5 w-5" }: { className?: string }) {
 
 export default function Home2Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#f7f8ff] via-[#fafbff] to-white pt-10 pb-16 lg:pt-14 lg:pb-24">
-      {/* Decorative Dot Grids */}
-      <div 
-        className="pointer-events-none absolute left-6 top-16 h-36 w-36 opacity-35"
-        style={{
-          backgroundImage: "radial-gradient(#9333ea 1.5px, transparent 1.5px)",
-          backgroundSize: "14px 14px"
-        }}
-      />
-      <div 
-        className="pointer-events-none absolute right-6 top-24 h-44 w-44 opacity-35"
-        style={{
-          backgroundImage: "radial-gradient(#f59e0b 1.5px, transparent 1.5px)",
-          backgroundSize: "14px 14px"
-        }}
-      />
+    <section className="relative overflow-hidden bg-white pt-10 pb-16 lg:pt-14 lg:pb-24">
 
-      {/* Soft Ambient Radial Blur Glows */}
-      <div className="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-purple-200/30 blur-3xl" />
-      <div className="pointer-events-none absolute -left-20 top-40 h-80 w-80 rounded-full bg-indigo-200/20 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Top Badge: Votre mission, notre technologie (Single clean pill) */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-purple-200/80 bg-purple-100/60 px-5 py-2 text-xs font-semibold text-purple-900 shadow-2xs backdrop-blur-sm">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-500/20 text-purple-700">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-blue-200 bg-blue-50 px-5 py-2 text-xs font-semibold text-[#1f5fd6] shadow-2xs backdrop-blur-sm">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-[#1f5fd6]">
               <UsersIcon className="h-3 w-3" />
             </span>
             <span>Votre mission, notre technologie</span>
@@ -149,7 +131,7 @@ export default function Home2Hero() {
           <div className="relative mt-8 flex flex-col items-center justify-center">
             {/* Sketched Curving Arrow */}
             <div className="pointer-events-none absolute -right-2 top-0 hidden -translate-y-6 translate-x-12 sm:block">
-              <svg width="74" height="60" viewBox="0 0 74 60" fill="none" className="text-purple-400">
+              <svg width="74" height="60" viewBox="0 0 74 60" fill="none" className="text-[#1f5fd6]">
                 <path
                   d="M62 4C55 18 35 24 16 34C11 36 6 39 4 44"
                   stroke="currentColor"
@@ -185,7 +167,7 @@ export default function Home2Hero() {
           <div className="relative mx-auto flex justify-center">
             <div className="relative z-10 w-[90%] max-w-[540px] sm:w-[82%]">
               {/* Soft purple halo behind the portrait */}
-              <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-t from-purple-200/50 via-purple-100/40 to-transparent blur-2xl transform scale-95" />
+              
 
               <div className="overflow-hidden rounded-3xl bg-transparent">
                 <Image
@@ -204,7 +186,7 @@ export default function Home2Hero() {
               <div className="rounded-2xl border border-slate-100/80 bg-white/95 p-4 shadow-xl shadow-purple-950/5 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                 {/* Header */}
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-purple-100 text-purple-600">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-50 text-[#1f5fd6]">
                     <UsersIcon className="h-3.5 w-3.5" />
                   </span>
                   <span className="text-xs font-bold text-slate-800">Vue d'ensemble</span>
@@ -223,7 +205,7 @@ export default function Home2Hero() {
                         cy="18"
                         r="14"
                         fill="transparent"
-                        stroke="#8b5cf6"
+                        stroke="#1f5fd6"
                         strokeWidth="5"
                         strokeDasharray="36.9 88"
                         strokeDashoffset="0"
@@ -262,7 +244,7 @@ export default function Home2Hero() {
                   <div className="flex-1 space-y-1.5 text-[11px]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="h-2 w-2 rounded-full bg-purple-500" />
+                        <span className="h-2 w-2 rounded-full bg-[#1f5fd6]" />
                         <span className="font-medium text-slate-600">Dons</span>
                       </div>
                       <span className="font-semibold text-slate-900">42%</span>
@@ -295,7 +277,7 @@ export default function Home2Hero() {
                       </span>
                     </div>
                     {/* Mini Sparkline */}
-                    <svg width="48" height="18" viewBox="0 0 48 18" fill="none" className="text-purple-500">
+                    <svg width="48" height="18" viewBox="0 0 48 18" fill="none" className="text-[#1f5fd6]">
                       <path
                         d="M2 14L12 11L22 13L32 6L46 2"
                         stroke="currentColor"
@@ -310,7 +292,7 @@ export default function Home2Hero() {
             </div>
 
             {/* Sketched Hand-Drawn Arrow (Left side bottom) */}
-            <div className="pointer-events-none absolute -left-4 bottom-24 z-20 hidden text-purple-400 sm:block">
+            <div className="pointer-events-none absolute -left-4 bottom-24 z-20 hidden text-[#1f5fd6] sm:block">
               <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                 <path
                   d="M10 10C15 28 28 42 48 46"
@@ -346,7 +328,7 @@ export default function Home2Hero() {
                 </div>
                 {/* Progress bar */}
                 <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                  <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 w-3/4" />
+                  <div className="h-full rounded-full bg-[#1f5fd6] w-3/4" />
                 </div>
               </div>
             </div>
@@ -364,24 +346,18 @@ export default function Home2Hero() {
 
                 {/* Smooth Area Wave Chart */}
                 <div className="mt-3">
-                  <div className="relative h-20 w-full overflow-hidden rounded-lg bg-gradient-to-b from-purple-50/50 to-transparent">
+                  <div className="relative h-20 w-full overflow-hidden rounded-lg bg-blue-50/40">
                     <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="h-full w-full">
-                      <defs>
-                        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
                       {/* Area Fill */}
                       <path
                         d="M0,45 C25,48 40,25 60,32 C80,38 95,20 120,28 C145,35 160,18 180,24 C190,28 198,22 200,20 L200,60 L0,60 Z"
-                        fill="url(#purpleGrad)"
+                        fill="rgba(31, 95, 214, 0.08)"
                       />
                       {/* Stroke Line */}
                       <path
                         d="M0,45 C25,48 40,25 60,32 C80,38 95,20 120,28 C145,35 160,18 180,24 C190,28 198,22 200,20"
                         fill="none"
-                        stroke="#8b5cf6"
+                        stroke="#1f5fd6"
                         strokeWidth="2.5"
                         strokeLinecap="round"
                       />

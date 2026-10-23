@@ -67,7 +67,7 @@ export default function Home2() {
             <div className="mx-auto max-w-[1200px] px-6">
               <div className="flex flex-wrap gap-x-16 gap-y-10">
                 <div className="flex flex-[1_1_320px] flex-col gap-4 self-start">
-                  <span className="font-bold text-xs uppercase tracking-wider text-purple-600">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#1f5fd6]">
                     {c.faq.eyebrow || "FAQ"}
                   </span>
                   <h2 id="faq-heading" className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
@@ -76,12 +76,12 @@ export default function Home2() {
                   <p className="max-w-[380px] text-sm text-slate-600 leading-relaxed">
                     {c.faq.body}
                   </p>
-                  <div className="mt-4 flex max-w-[380px] flex-col gap-3 rounded-2xl border border-purple-100 bg-purple-50/50 p-6">
+                  <div className="mt-4 flex max-w-[380px] flex-col gap-3 rounded-2xl border border-blue-100 bg-blue-50/50 p-6">
                     <strong className="text-base font-bold text-slate-900">{c.faq.helpBoxTitle}</strong>
                     <span className="text-xs text-slate-600 leading-relaxed">{c.faq.helpBoxText}</span>
                     <a
                       href={c.faq.helpBoxButtonLink || "#contact"}
-                      className="inline-flex h-10 items-center justify-center self-start rounded-xl bg-purple-600 px-5 text-xs font-semibold text-white transition hover:bg-purple-700 hover:shadow-md"
+                      className="inline-flex h-10 items-center justify-center self-start rounded-xl bg-[#1f5fd6] px-5 text-xs font-semibold text-white transition hover:bg-[#184cb0] hover:shadow-md"
                     >
                       {c.faq.helpBoxButtonLabel || "Contact Sales"}
                     </a>
@@ -109,7 +109,7 @@ export default function Home2() {
             <nav className="flex flex-col gap-2.5 text-xs">
               <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.productsHeading}</h3>
               {(c.footer.productLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="text-slate-600 hover:text-purple-700 transition">
+                <a key={i} href={l.link} className="text-slate-600 hover:text-[#1f5fd6] transition">
                   {l.label}
                 </a>
               ))}
@@ -118,7 +118,7 @@ export default function Home2() {
             <nav className="flex flex-col gap-2.5 text-xs">
               <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.companyHeading}</h3>
               {(c.footer.companyLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="text-slate-600 hover:text-purple-700 transition">
+                <a key={i} href={l.link} className="text-slate-600 hover:text-[#1f5fd6] transition">
                   {l.label}
                 </a>
               ))}
@@ -126,8 +126,8 @@ export default function Home2() {
 
             <address className="flex flex-col gap-2.5 text-xs not-italic text-slate-600">
               <h3 className="font-bold uppercase tracking-wider text-slate-900">{c.footer.contactHeading}</h3>
-              {c.footer.email && <a href={`mailto:${c.footer.email}`} className="hover:text-purple-700">{c.footer.email}</a>}
-              {c.footer.phone && <a href={telHref(c.footer.phone)} className="hover:text-purple-700">{c.footer.phone}</a>}
+              {c.footer.email && <a href={`mailto:${c.footer.email}`} className="hover:text-[#1f5fd6]">{c.footer.email}</a>}
+              {c.footer.phone && <a href={telHref(c.footer.phone)} className="hover:text-[#1f5fd6]">{c.footer.phone}</a>}
               {c.footer.address && <p>{c.footer.address}</p>}
             </address>
           </div>
@@ -136,7 +136,7 @@ export default function Home2() {
             <span>&copy; {year} {c.footer.copyrightText}</span>
             <div className="flex gap-4">
               {(c.footer.legalLinks || []).map((l: any, i: number) => (
-                <a key={i} href={l.link} className="hover:text-purple-700 transition">
+                <a key={i} href={l.link} className="hover:text-[#1f5fd6] transition">
                   {l.label}
                 </a>
               ))}

@@ -80,16 +80,16 @@ export default function StoryCard({
             : "border-pulse-line bg-white shadow-[0_18px_40px_-30px_rgba(14,19,48,0.35)]"
         }`}
       >
-        <div className={`relative flex flex-col gap-5 p-7 ${dark ? "bg-[#0a0d24] border-b border-white/10 text-white" : "bg-gradient-to-br from-slate-50 via-purple-50/40 to-indigo-50/30 text-slate-900 border-b border-slate-100"}`}>
+        <div className={`relative flex flex-col gap-5 p-7 ${dark ? "bg-[#0a0d24] border-b border-white/10 text-white" : "bg-[#f8fafc] text-slate-900 border-b border-slate-200"}`}>
           <div aria-hidden className="absolute inset-x-0 top-0 h-1" style={{ background: accent }} />
           <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
-            <span className={`rounded-full px-3 py-1 ${dark ? "bg-white/15 text-white" : "border border-purple-200 bg-purple-50 text-purple-700"}`}>{s.product}</span>
+            <span className={`rounded-full px-3 py-1 ${dark ? "bg-white/15 text-white" : "border border-blue-200 bg-blue-50 text-[#1f5fd6]"}`}>{s.product}</span>
             {s.isExample && <span className={`rounded-full px-3 py-1 ${dark ? "border border-white/25 text-[#cfd0f0]" : "border border-slate-200 text-slate-500 bg-white"}`}>{text.exampleLabel}</span>}
           </div>
           <div className="grid grid-cols-3 gap-3">
             {s.metrics.slice(0, 3).map((m, j) => (
               <div key={j} className="flex flex-col gap-1">
-                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: dark ? (j === 0 ? "#7ff0c2" : "#cfd0f0") : (j === 0 ? "#7c3aed" : "#0f172a") }}>
+                <span className="text-[clamp(22px,2.4vw,28px)] leading-none font-extrabold tracking-[-0.02em]" style={{ color: dark ? (j === 0 ? "#7ff0c2" : "#cfd0f0") : (j === 0 ? "#1f5fd6" : "#0f172a") }}>
                   {m.value}
                 </span>
                 <span className={`text-xs leading-snug ${dark ? "text-[#a9abd6]" : "text-slate-500"}`}>{m.label}</span>
@@ -104,7 +104,7 @@ export default function StoryCard({
           </p>
           <h3 className={`text-xl leading-snug font-extrabold tracking-[-0.01em] text-balance transition-colors ${dark ? "text-white group-hover:text-[#a5a7ff]" : "text-pulse-ink group-hover:text-pulse"}`}>{s.title}</h3>
           <p className={`text-[15px] leading-[1.6] ${dark ? "text-[#c9cbf0]" : "text-pulse-subtle"}`}>{s.summary}</p>
-          <span className={`mt-auto pt-2 text-[15px] font-bold ${dark ? "text-[#7ff0c2] group-hover:text-[#a5ffd4]" : "text-pulse"}`}>{text.readMoreLabel} →</span>
+          <span className={`mt-auto pt-2 text-[15px] font-bold ${dark ? "text-[#7ff0c2] group-hover:text-[#a5ffd4]" : "text-[#1f5fd6] group-hover:text-[#184cb0]"}`}>{text.readMoreLabel} →</span>
         </div>
       </Link>
 

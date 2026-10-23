@@ -121,13 +121,14 @@ function DashboardPortalIcon({ className = "h-5 w-5" }: { className?: string }) 
   );
 }
 
+// Logo Colors Only (Blue #1f5fd6, Teal #0f8b8d, Green #5db833, Orange #ff8a00, Pink #ec1c64, Indigo #4f46e5)
 const toolIcons = [
-  { icon: WorkflowIcon, color: "#9333ea", bg: "rgba(147, 51, 234, 0.12)", border: "rgba(147, 51, 234, 0.25)" },
-  { icon: DashboardPortalIcon, color: "#14b8a6", bg: "rgba(20, 184, 166, 0.12)", border: "rgba(20, 184, 166, 0.25)" },
-  { icon: IntegrationIcon, color: "#3b82f6", bg: "rgba(59, 130, 246, 0.12)", border: "rgba(59, 130, 246, 0.25)" },
-  { icon: AiBotIcon, color: "#ec4899", bg: "rgba(236, 72, 153, 0.12)", border: "rgba(236, 72, 153, 0.25)" },
-  { icon: SmartphoneIcon, color: "#f59e0b", bg: "rgba(245, 158, 11, 0.12)", border: "rgba(245, 158, 11, 0.25)" },
-  { icon: IndustryModuleIcon, color: "#10b981", bg: "rgba(16, 185, 129, 0.12)", border: "rgba(16, 185, 129, 0.25)" },
+  { icon: WorkflowIcon, color: "#1f5fd6", bg: "rgba(31, 95, 214, 0.08)", border: "rgba(31, 95, 214, 0.2)" },
+  { icon: DashboardPortalIcon, color: "#0f8b8d", bg: "rgba(15, 139, 141, 0.08)", border: "rgba(15, 139, 141, 0.2)" },
+  { icon: IntegrationIcon, color: "#4f46e5", bg: "rgba(79, 70, 229, 0.08)", border: "rgba(79, 70, 229, 0.2)" },
+  { icon: AiBotIcon, color: "#ec1c64", bg: "rgba(236, 28, 100, 0.08)", border: "rgba(236, 28, 100, 0.2)" },
+  { icon: SmartphoneIcon, color: "#ff8a00", bg: "rgba(255, 138, 0, 0.08)", border: "rgba(255, 138, 0, 0.2)" },
+  { icon: IndustryModuleIcon, color: "#5db833", bg: "rgba(93, 184, 51, 0.08)", border: "rgba(93, 184, 51, 0.2)" },
 ];
 
 const toolCardImages = [
@@ -166,7 +167,7 @@ const showcaseDemos = [
     ],
     floatingStat: "+184% Data Accuracy",
     statSubtitle: "Unified Multi-Branch Visibility",
-    statusBadge: "Live Bi-Directional Telemetry",
+    statusBadge: "Live Telemetry",
   },
   {
     id: "workflow",
@@ -185,7 +186,7 @@ const showcaseDemos = [
     ],
     floatingStat: "Zero Bottlenecks",
     statSubtitle: "100% Automated Hand-offs",
-    statusBadge: "Active Visual Pipeline",
+    statusBadge: "Active Workflow",
   },
   {
     id: "mobile",
@@ -204,7 +205,7 @@ const showcaseDemos = [
     ],
     floatingStat: "100% Offline Sync",
     statSubtitle: "GPS Verified In-Field Logging",
-    statusBadge: "Field Executive Active",
+    statusBadge: "Field Ops Active",
   },
 ];
 
@@ -264,47 +265,26 @@ export default function Home2CustomTools({
     <section
       id="custom-tools"
       aria-labelledby="custom-tools-heading"
-      className="relative overflow-hidden py-20 sm:py-28 bg-gradient-to-b from-[#faf5ff]/40 via-[#f8faff] to-white border-y border-purple-100/70"
+      className="relative overflow-hidden py-20 sm:py-28 bg-[#f8fafc] border-y border-slate-200"
     >
-      {/* Ambient background glows */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-gradient-to-r from-purple-400/10 via-indigo-400/10 to-teal-400/10 blur-3xl opacity-75"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-teal-300/10 blur-3xl"
-      />
-
-      {/* Subtle modern dot mesh */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage: "radial-gradient(#9333ea 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
       <div className="relative mx-auto max-w-[1240px] px-6">
-        {/* Section Header */}
+        {/* Section Header with Solid Logo Colors Only */}
         <div className="flex flex-col items-center gap-5 text-center">
           <Reveal>
-            <div className="inline-flex items-center gap-3 rounded-full border border-purple-200/90 bg-white/95 px-4.5 py-1.5 shadow-[0_2px_12px_-2px_rgba(147,51,234,0.14)] backdrop-blur-md">
+            <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4.5 py-1.5 shadow-2xs">
               <Image
                 src="/logo-mark.png"
                 alt="Uptrix Logo"
                 width={20}
                 height={20}
-                className="h-5 w-5 rounded-md object-contain shadow-xs"
+                className="h-5 w-5 rounded-md object-contain"
               />
-              <span className="h-3.5 w-px bg-purple-200" />
-              <span className="text-xs font-bold tracking-[.14em] uppercase text-purple-700">
+              <span className="h-3.5 w-px bg-slate-200" />
+              <span className="text-xs font-bold tracking-[.14em] uppercase text-[#1f5fd6]">
                 {content.eyebrow} • {content.tag}
               </span>
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0f8b8d]" />
               </span>
             </div>
           </Reveal>
@@ -315,7 +295,7 @@ export default function Home2CustomTools({
               className="font-display text-[clamp(30px,4vw,50px)] font-black tracking-[-0.03em] text-slate-900 leading-[1.15] max-w-4xl text-balance"
             >
               We Develop{" "}
-              <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-teal-500 bg-clip-text text-transparent">
+              <span className="text-[#1f5fd6]">
                 Custom Tools for Your Business Growth
               </span>
             </h2>
@@ -328,22 +308,12 @@ export default function Home2CustomTools({
           </Reveal>
         </div>
 
-        {/* Redesigned Interactive Showcase Experience (Pure Light Mode) */}
+        {/* Interactive Showcase Experience (Solid Logo Colors, Zero Gradients) */}
         <Reveal delay={200} className="mt-12 sm:mt-16">
-          <div className="relative rounded-3xl border border-purple-100/90 bg-white shadow-[0_25px_70px_-15px_rgba(124,58,237,0.12),0_10px_30px_-5px_rgba(15,23,42,0.04)] backdrop-blur-xl p-5 sm:p-8 md:p-10">
-            {/* Ambient subtle corner highlights */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-12 -left-12 h-44 w-44 rounded-full bg-purple-500/10 blur-2xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-teal-400/10 blur-2xl"
-            />
-
-            {/* Modern Segmented Interactive Tab Bar */}
+          <div className="relative rounded-3xl border border-slate-200 bg-white shadow-xl p-5 sm:p-8 md:p-10">
+            {/* Segmented Interactive Tab Bar */}
             <div className="flex flex-wrap items-center justify-center gap-2 pb-8 border-b border-slate-100">
-              <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-purple-100 bg-purple-50/50 p-1.5 shadow-inner">
+              <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 shadow-2xs">
                 {showcaseDemos.map((demo, idx) => {
                   const Icon = demo.icon;
                   const isActive = showcaseTab === idx;
@@ -354,15 +324,15 @@ export default function Home2CustomTools({
                       onClick={() => setShowcaseTab(idx)}
                       className={`group relative flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                         isActive
-                          ? "bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_4px_16px_-3px_rgba(124,58,237,0.45)]"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-white/80"
+                          ? "bg-[#1f5fd6] text-white shadow-sm"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-white"
                       }`}
                     >
                       <span
                         className={`grid h-6 w-6 place-items-center rounded-lg transition ${
                           isActive
                             ? "bg-white/20 text-white"
-                            : "bg-white text-purple-600 shadow-xs group-hover:scale-105"
+                            : "bg-white text-[#1f5fd6] shadow-2xs group-hover:scale-105"
                         }`}
                       >
                         <Icon className="h-3.5 w-3.5" />
@@ -370,7 +340,7 @@ export default function Home2CustomTools({
                       <span>{demo.tabLabel}</span>
                       <span
                         className={`hidden sm:inline-block rounded-md px-1.5 py-0.5 text-[10px] font-mono tracking-tight uppercase ${
-                          isActive ? "bg-white/20 text-purple-100" : "bg-purple-100/80 text-purple-700"
+                          isActive ? "bg-white/20 text-white" : "bg-blue-50 text-[#1f5fd6]"
                         }`}
                       >
                         {demo.shortBadge}
@@ -387,12 +357,12 @@ export default function Home2CustomTools({
               <div className="lg:col-span-5 flex flex-col gap-4.5 text-left">
                 {/* Category & Capability Pill Row */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-purple-700">
-                    <SparklesIcon className="h-3 w-3 text-purple-600" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1f5fd6]">
+                    <SparklesIcon className="h-3 w-3 text-[#1f5fd6]" />
                     {activeShowcase.tag}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-2.5 py-1 text-[11px] font-mono font-semibold text-teal-700">
-                    <span className="h-1.5 w-1.5 rounded-full bg-teal-500 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-2.5 py-1 text-[11px] font-mono font-semibold text-[#0f8b8d]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0f8b8d]" />
                     Bespoke Architecture
                   </span>
                 </div>
@@ -407,11 +377,11 @@ export default function Home2CustomTools({
                   {activeShowcase.description}
                 </p>
 
-                {/* Feature Highlights with Glowing Dual-Tone Checkmarks */}
+                {/* Feature Highlights with Solid Brand Checkmarks */}
                 <ul className="mt-1 flex flex-col gap-3">
                   {activeShowcase.bullets.map((bullet, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-slate-700">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 text-white shadow-xs">
+                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#1f5fd6] text-white shadow-2xs">
                         <CheckIcon className="h-3 w-3" />
                       </span>
                       <span className="leading-snug">{bullet}</span>
@@ -432,11 +402,11 @@ export default function Home2CustomTools({
                   </span>
                 </div>
 
-                {/* Action CTA */}
+                {/* Action CTA with Solid Brand Blue */}
                 <div className="mt-3 flex flex-wrap items-center gap-4">
                   <a
                     href="#consultation-form"
-                    className="inline-flex h-12 items-center gap-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 px-6 text-sm font-bold text-white shadow-lg shadow-purple-500/25 transition-all duration-200 hover:scale-[1.02] hover:shadow-purple-500/35 hover:gap-3 cursor-pointer"
+                    className="inline-flex h-12 items-center gap-2.5 rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] px-6 text-sm font-bold text-white shadow-md shadow-[#1f5fd6]/20 transition-all duration-200 hover:scale-[1.01] hover:gap-3 cursor-pointer"
                   >
                     <span>Request This Custom Tool</span>
                     <ArrowRightIcon className="h-4 w-4" />
@@ -444,24 +414,24 @@ export default function Home2CustomTools({
 
                   <a
                     href="#how-we-build"
-                    className="text-xs sm:text-sm font-semibold text-purple-700 hover:text-purple-900 transition flex items-center gap-1"
+                    className="text-xs sm:text-sm font-semibold text-[#1f5fd6] hover:text-[#184cb0] transition flex items-center gap-1"
                   >
                     See delivery sprints &darr;
                   </a>
                 </div>
               </div>
 
-              {/* Right Column: Studio-Grade Light App Canvas & Window Frame (No Dark Colors) */}
+              {/* Right Column: Light Window Frame (Zero Overlaps, Solid Colors Only) */}
               <div className="lg:col-span-7">
-                <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xl ring-1 ring-slate-900/5">
-                  {/* Clean Crisp Light Window Header (Zero Overlap Guaranteed) */}
-                  <div className="flex h-11 items-center justify-between gap-3 border-b border-slate-200/90 bg-slate-50/95 px-3.5 backdrop-blur-md">
+                <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+                  {/* Clean Crisp Light Window Header */}
+                  <div className="flex h-11 items-center justify-between gap-3 border-b border-slate-200 bg-slate-50 px-3.5">
                     {/* Window Controls & Uptrix Mark */}
                     <div className="flex items-center gap-2.5 shrink-0">
                       <div className="flex items-center gap-1.5">
-                        <span className="h-3 w-3 rounded-full bg-rose-400 shadow-xs" />
-                        <span className="h-3 w-3 rounded-full bg-amber-400 shadow-xs" />
-                        <span className="h-3 w-3 rounded-full bg-emerald-400 shadow-xs" />
+                        <span className="h-3 w-3 rounded-full bg-rose-400" />
+                        <span className="h-3 w-3 rounded-full bg-amber-400" />
+                        <span className="h-3 w-3 rounded-full bg-emerald-400" />
                       </div>
                       <div className="hidden sm:flex items-center gap-1.5 border-l border-slate-200 pl-2.5">
                         <Image
@@ -476,14 +446,14 @@ export default function Home2CustomTools({
 
                     {/* Window Address Bar with Clean Truncation */}
                     <div className="flex min-w-0 flex-1 max-w-[260px] items-center justify-center gap-1.5 rounded-lg bg-white px-2.5 py-1 font-mono text-[11px] text-slate-700 border border-slate-200 shadow-2xs">
-                      <span className="text-emerald-600 shrink-0">🔒</span>
+                      <span className="text-[#0f8b8d] shrink-0">🔒</span>
                       <span className="truncate">custom.uptrixglobal.com/{activeShowcase.id}</span>
                     </div>
 
                     {/* Live Telemetry Status Pill */}
                     <div className="shrink-0 flex items-center">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200 whitespace-nowrap">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-2.5 py-0.5 text-[10px] font-semibold text-[#0f8b8d] border border-teal-200 whitespace-nowrap">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#0f8b8d]" />
                         <span>Live Telemetry</span>
                       </span>
                     </div>
@@ -502,10 +472,10 @@ export default function Home2CustomTools({
                     />
                   </div>
 
-                  {/* Dedicated Window Telemetry & Status Footer Bar (Zero Overlap) */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200/90 bg-slate-50/90 px-4 py-2.5 text-xs">
+                  {/* Dedicated Window Telemetry & Status Footer Bar */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-slate-50 px-4 py-2.5 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="h-2 w-2 rounded-full bg-[#5db833]" />
                       <strong className="font-display font-bold text-slate-900 tracking-tight">
                         {activeShowcase.floatingStat}
                       </strong>
@@ -515,8 +485,8 @@ export default function Home2CustomTools({
                       </span>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 rounded-md bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[11px] font-mono text-emerald-700 font-medium">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    <div className="inline-flex items-center gap-1.5 rounded-md bg-teal-50 border border-teal-200 px-2.5 py-0.5 text-[11px] font-mono text-[#0f8b8d] font-medium">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#0f8b8d]" />
                       <span>Bi-Directional ERP & Tally Sync Active</span>
                     </div>
                   </div>
@@ -526,10 +496,10 @@ export default function Home2CustomTools({
           </div>
         </Reveal>
 
-        {/* Category Filter Pills for 6 Capabilities */}
+        {/* Category Filter Pills with Solid Brand Blue */}
         <Reveal delay={240} className="mt-16 sm:mt-20 flex flex-col items-center">
           <div className="text-center mb-5">
-            <span className="text-xs font-bold tracking-[.14em] uppercase text-purple-700">
+            <span className="text-xs font-bold tracking-[.14em] uppercase text-[#1f5fd6]">
               Complete Portfolio
             </span>
             <h3 className="mt-1 font-display text-xl sm:text-2xl font-bold text-slate-900">
@@ -540,7 +510,7 @@ export default function Home2CustomTools({
           <div
             role="tablist"
             aria-label="Filter custom tool capabilities"
-            className="flex flex-wrap justify-center gap-1.5 rounded-full border border-purple-100 bg-white p-1.5 shadow-sm backdrop-blur-md"
+            className="flex flex-wrap justify-center gap-1.5 rounded-full border border-slate-200 bg-white p-1.5 shadow-2xs"
           >
             {categories.map((cat) => {
               const isSelected = activeCategory === cat;
@@ -553,8 +523,8 @@ export default function Home2CustomTools({
                   onClick={() => setActiveCategory(cat)}
                   className={`h-10 cursor-pointer rounded-full px-5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
                     isSelected
-                      ? "bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white shadow-[0_4px_16px_-4px_rgba(124,58,237,0.45)]"
-                      : "bg-transparent text-slate-600 hover:text-slate-900 hover:bg-purple-50"
+                      ? "bg-[#1f5fd6] text-white shadow-sm"
+                      : "bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                   }`}
                 >
                   {cat}
@@ -564,7 +534,7 @@ export default function Home2CustomTools({
           </div>
         </Reveal>
 
-        {/* 6 Capabilities Grid (Light Themed) */}
+        {/* 6 Capabilities Grid (Solid Logo Colors Only) */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map((tool) => {
             const meta = toolIcons[tool.originalIndex % toolIcons.length];
@@ -574,9 +544,9 @@ export default function Home2CustomTools({
 
             return (
               <Reveal key={tool.originalIndex} delay={tool.originalIndex * 60}>
-                <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-purple-100/80 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/10">
-                  {/* Top Thumbnail Image with Light Badge */}
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 border-b border-purple-100/50">
+                <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#1f5fd6]/50 hover:shadow-lg">
+                  {/* Top Thumbnail Image */}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 border-b border-slate-200">
                     <Image
                       src={cardImg}
                       alt={tool.title}
@@ -586,12 +556,12 @@ export default function Home2CustomTools({
                     />
 
                     {/* Category Tag */}
-                    <span className="absolute top-3 left-3 rounded-full border border-purple-200 bg-white/95 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-purple-700 uppercase shadow-xs backdrop-blur-md">
+                    <span className="absolute top-3 left-3 rounded-full border border-slate-200 bg-white/95 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-[#1f5fd6] uppercase shadow-xs">
                       {tool.tag}
                     </span>
 
                     {/* Right: Uptrix Brand Watermark */}
-                    <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/95 px-2.5 py-0.5 shadow-xs backdrop-blur-md">
+                    <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/95 px-2.5 py-0.5 shadow-xs">
                       <Image
                         src="/logo-mark.png"
                         alt="Uptrix"
@@ -612,7 +582,7 @@ export default function Home2CustomTools({
                       >
                         <IconComponent className="h-5 w-5" />
                       </div>
-                      <h3 className="font-display text-lg font-bold text-slate-900 transition group-hover:text-purple-700">
+                      <h3 className="font-display text-lg font-bold text-slate-900 transition group-hover:text-[#1f5fd6]">
                         {tool.title}
                       </h3>
                     </div>
@@ -627,9 +597,9 @@ export default function Home2CustomTools({
                       {tags.map((tg, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center gap-1 rounded-md bg-purple-50 px-2 py-0.5 text-[11px] text-purple-700 transition group-hover:bg-purple-100/70"
+                          className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-0.5 text-[11px] text-[#1f5fd6]"
                         >
-                          <span className="text-teal-600 font-bold">✓</span> {tg}
+                          <span className="text-[#0f8b8d] font-bold">✓</span> {tg}
                         </span>
                       ))}
                     </div>
@@ -639,7 +609,7 @@ export default function Home2CustomTools({
                   <div className="px-6 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                     <a
                       href="#consultation-form"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 transition group-hover:gap-2 group-hover:text-teal-600"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1f5fd6] transition group-hover:gap-2 group-hover:text-[#0f8b8d]"
                     >
                       <span>Customise this tool</span>
                       <ArrowRightIcon className="h-3.5 w-3.5" />
@@ -655,9 +625,9 @@ export default function Home2CustomTools({
         </div>
 
         {/* 4-Step Build Lifecycle Timeline */}
-        <div id="how-we-build" className="mt-20 pt-16 border-t border-purple-100 scroll-mt-24">
+        <div id="how-we-build" className="mt-20 pt-16 border-t border-slate-200 scroll-mt-24">
           <Reveal className="flex flex-col items-center gap-3 text-center mb-12">
-            <span className="text-xs font-bold tracking-[.14em] uppercase text-purple-700">
+            <span className="text-xs font-bold tracking-[.14em] uppercase text-[#1f5fd6]">
               How We Build For You
             </span>
             <h3 className="font-display text-[clamp(24px,3vw,36px)] font-extrabold tracking-tight text-slate-900">
@@ -671,12 +641,12 @@ export default function Home2CustomTools({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             {content.processSteps.map((step, idx) => (
               <Reveal key={idx} delay={idx * 80}>
-                <div className="relative flex flex-col gap-3 rounded-2xl border border-purple-100 bg-white p-6 shadow-xs transition duration-300 hover:border-purple-300 hover:shadow-md">
+                <div className="relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition duration-300 hover:border-slate-300 hover:shadow-md">
                   <div className="flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-extrabold text-white bg-gradient-to-br from-purple-600 to-indigo-600 shadow-[0_4px_12px_-3px_rgba(124,58,237,0.4)]">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-extrabold text-white bg-[#1f5fd6] shadow-sm">
                       {step.step}
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-purple-600 font-semibold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#1f5fd6] font-semibold">
                       Sprint 0{idx + 1}
                     </span>
                   </div>
@@ -692,22 +662,12 @@ export default function Home2CustomTools({
           </div>
         </div>
 
-        {/* Bottom Consultation CTA Banner (Redesigned in Light Mode) */}
+        {/* Bottom Consultation CTA Banner (Solid Colors Only, Zero Gradients) */}
         <Reveal delay={200} className="mt-16">
           <div
             id="consultation-form"
-            className="scroll-mt-24 relative overflow-hidden rounded-3xl border border-purple-200/90 bg-gradient-to-br from-purple-50/70 via-white to-indigo-50/70 p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(124,58,237,0.12)] backdrop-blur-xl"
+            className="scroll-mt-24 relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 md:p-12 shadow-xl"
           >
-            {/* Ambient background glows */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-24 -left-24 h-64 w-64 rounded-full bg-purple-300/25 blur-3xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-teal-300/20 blur-3xl"
-            />
-
             <div className="relative flex flex-col lg:flex-row items-center justify-between gap-10">
               <div className="flex flex-col gap-4 max-w-[580px] text-center lg:text-left">
                 {/* Uptrix Brand Header */}
@@ -719,8 +679,8 @@ export default function Home2CustomTools({
                     height={235}
                     className="h-8 w-auto self-start"
                   />
-                  <span className="h-4 w-px bg-purple-200" />
-                  <span className="rounded-full bg-purple-100 border border-purple-200 px-3 py-1 text-xs font-mono font-semibold text-purple-700 uppercase tracking-wider">
+                  <span className="h-4 w-px bg-slate-200" />
+                  <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-mono font-semibold text-[#1f5fd6] uppercase tracking-wider">
                     Custom Engineering Lab
                   </span>
                 </div>
@@ -734,22 +694,22 @@ export default function Home2CustomTools({
 
                 <div className="flex flex-wrap justify-center lg:justify-start gap-6 pt-2 text-xs text-slate-700">
                   <span className="flex items-center gap-2">
-                    <span className="text-emerald-600 font-bold">✓</span> Free Architectural Blueprint
+                    <span className="text-[#0f8b8d] font-bold">✓</span> Free Architectural Blueprint
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="text-emerald-600 font-bold">✓</span> Fixed-Fee & Fixed-Timeline
+                    <span className="text-[#0f8b8d] font-bold">✓</span> Fixed-Fee & Fixed-Timeline
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="text-emerald-600 font-bold">✓</span> Full Source Code & IP
+                    <span className="text-[#0f8b8d] font-bold">✓</span> Full Source Code & IP
                   </span>
                 </div>
               </div>
 
-              {/* Consultation Form Card (Crisp Light Mode) */}
-              <div className="w-full max-w-[460px] rounded-2xl border border-purple-200/80 bg-white p-6 shadow-xl">
+              {/* Consultation Form Card */}
+              <div className="w-full max-w-[460px] rounded-2xl border border-slate-200 bg-[#f8fafc] p-6 shadow-sm">
                 {formSent ? (
                   <div className="flex flex-col items-center justify-center py-8 text-center gap-3">
-                    <span className="grid h-14 w-14 place-items-center rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+                    <span className="grid h-14 w-14 place-items-center rounded-full bg-teal-50 text-[#0f8b8d] border border-teal-200">
                       <CheckIcon className="h-6 w-6" />
                     </span>
                     <h4 className="font-display text-xl font-bold text-slate-900">
@@ -761,7 +721,7 @@ export default function Home2CustomTools({
                     <button
                       type="button"
                       onClick={() => setFormSent(false)}
-                      className="mt-4 text-xs font-semibold text-purple-700 hover:underline"
+                      className="mt-4 text-xs font-semibold text-[#1f5fd6] hover:underline"
                     >
                       Send another inquiry
                     </button>
@@ -786,7 +746,7 @@ export default function Home2CustomTools({
                           type="text"
                           required
                           placeholder="Your Name *"
-                          className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:bg-white focus:outline-none transition"
+                          className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#1f5fd6] focus:outline-none transition"
                         />
                       </div>
                       <div>
@@ -797,7 +757,7 @@ export default function Home2CustomTools({
                           type="tel"
                           required
                           placeholder="Phone Number *"
-                          className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:bg-white focus:outline-none transition"
+                          className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#1f5fd6] focus:outline-none transition"
                         />
                       </div>
                     </div>
@@ -810,7 +770,7 @@ export default function Home2CustomTools({
                         type="email"
                         required
                         placeholder="Work Email Address *"
-                        className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:bg-white focus:outline-none transition"
+                        className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#1f5fd6] focus:outline-none transition"
                       />
                     </div>
 
@@ -819,7 +779,7 @@ export default function Home2CustomTools({
                       <select
                         id="h2-consult-toolType"
                         name="toolType"
-                        className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 text-xs text-slate-900 focus:border-purple-500 focus:bg-white focus:outline-none transition"
+                        className="h-10 w-full rounded-xl border border-slate-200 bg-white px-3 text-xs text-slate-900 focus:border-[#1f5fd6] focus:outline-none transition"
                         defaultValue="Custom Approval Workflow"
                       >
                         <option value="Custom Approval Workflow">Custom Approval Workflow Engine</option>
@@ -838,7 +798,7 @@ export default function Home2CustomTools({
                         name="message"
                         rows={2}
                         placeholder="Briefly describe what bottlenecks you want solved..."
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/80 p-3 text-xs text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:bg-white focus:outline-none resize-none transition"
+                        className="w-full rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-900 placeholder-slate-400 focus:border-[#1f5fd6] focus:outline-none resize-none transition"
                       />
                     </div>
 
@@ -851,7 +811,7 @@ export default function Home2CustomTools({
                     <button
                       type="submit"
                       disabled={isPending}
-                      className="mt-1 h-11 w-full rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 font-bold text-xs uppercase tracking-wider text-white transition hover:from-purple-500 hover:to-indigo-500 disabled:opacity-60 cursor-pointer shadow-lg shadow-purple-500/25"
+                      className="mt-1 h-11 w-full rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] font-bold text-xs uppercase tracking-wider text-white transition disabled:opacity-60 cursor-pointer shadow-md shadow-[#1f5fd6]/25"
                     >
                       {isPending ? "Submitting Request..." : "Get Free Architecture Blueprint →"}
                     </button>
