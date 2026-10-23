@@ -3,7 +3,7 @@ import Header from "@/components/site/Header";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
 import CaseStudiesSection from "@/components/site/CaseStudiesSection";
-import CustomToolsSection from "@/components/home/CustomToolsSection";
+import Home2CustomTools from "@/components/home/Home2CustomTools";
 import Faq from "@/components/home/Faq";
 import Home2Hero from "@/components/home/Home2Hero";
 import { getPageContent, getContent } from "@/lib/content-store";
@@ -43,7 +43,7 @@ export default function Home2() {
 
         {/* Custom Engineering • Bespoke Solutions */}
         {c.customToolsSection && (
-          <CustomToolsSection content={c.customToolsSection} theme="light" showStats={false} />
+          <Home2CustomTools content={c.customToolsSection} />
         )}
 
         {/* Stories Section */}
