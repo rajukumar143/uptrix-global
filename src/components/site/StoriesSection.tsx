@@ -238,12 +238,12 @@ export default function StoriesSection({
           onClick={() => setShowVideoPopup(false)}
         >
           <div
-            className="relative w-full max-w-4xl rounded-3xl border border-slate-200 bg-white shadow-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto flex flex-col gap-6"
+            className="relative w-full max-w-5xl lg:max-w-6xl rounded-3xl border border-slate-200 bg-white shadow-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto flex flex-col gap-5"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1.5">
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 font-mono">
                   <span>{activeVideo.tag} • {activeVideo.duration}</span>
                 </span>
@@ -252,7 +252,7 @@ export default function StoriesSection({
                 </h3>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 {activeVideo.ytId ? (
                   <a
                     href={`https://www.youtube.com/watch?v=${activeVideo.ytId}`}
@@ -263,7 +263,7 @@ export default function StoriesSection({
                     <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                       <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                     </svg>
-                    <span>Watch on YouTube</span>
+                    <span className="hidden sm:inline">Watch on YouTube</span>
                     <span>→</span>
                   </a>
                 ) : null}
@@ -280,61 +280,69 @@ export default function StoriesSection({
               </div>
             </div>
 
-            {/* Video Player */}
-            {activeVideo.ytId ? (
-              <div className="relative aspect-video rounded-2xl bg-black overflow-hidden border border-slate-800 shadow-xl">
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.ytId}?autoplay=1&rel=0`}
-                  title={activeVideo.episodeTitle || "Video Interview"}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full border-0"
-                />
+            {/* 2-Column Layout: Left Video, Right Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+              {/* Left Column: Video Player */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                {activeVideo.ytId ? (
+                  <div className="relative aspect-video w-full rounded-2xl bg-black overflow-hidden border border-slate-800 shadow-xl">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${activeVideo.ytId}?autoplay=1&rel=0`}
+                      title={activeVideo.episodeTitle || "Video Interview"}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 h-full w-full border-0"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative aspect-video w-full rounded-2xl bg-slate-900 overflow-hidden flex items-center justify-center">
+                    <img src={activeVideo.posterImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                    <div className="relative z-10 text-center text-white p-6">
+                      <h4 className="text-xl font-bold mb-2">{activeVideo.episodeTitle}</h4>
+                      <p className="text-sm text-slate-300 max-w-md mx-auto">{activeVideo.transcript}</p>
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="relative aspect-video rounded-2xl bg-slate-900 overflow-hidden flex items-center justify-center">
-                <img src={activeVideo.posterImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
-                <div className="relative z-10 text-center text-white p-6">
-                  <h4 className="text-xl font-bold mb-2">{activeVideo.episodeTitle}</h4>
-                  <p className="text-sm text-slate-300 max-w-md mx-auto">{activeVideo.transcript}</p>
+
+              {/* Right Column: Content & Actions */}
+              <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+                {/* Video Story Takeaway */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 flex flex-col gap-3 flex-1 justify-center">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 font-mono">
+                    Verified Commercial Impact: {activeVideo.metric}
+                  </span>
+                  <p className="text-[14px] sm:text-[15px] leading-relaxed text-slate-700 italic font-medium">
+                    &quot;{activeVideo.quote}&quot;
+                  </p>
+                  <div className="pt-3 border-t border-slate-200 text-xs text-slate-600 leading-relaxed">
+                    <strong className="text-slate-800">Executive Summary: </strong>
+                    {activeVideo.transcript}
+                  </div>
                 </div>
-              </div>
-            )}
 
-            {/* Video Story Takeaway */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5 flex flex-col gap-2.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 font-mono">
-                Verified Commercial Impact: {activeVideo.metric}
-              </span>
-              <p className="text-sm leading-relaxed text-slate-700 italic">
-                &quot;{activeVideo.quote}&quot;
-              </p>
-              <div className="pt-2 border-t border-slate-200 text-xs text-slate-600">
-                <strong>Executive Summary: </strong>
-                {activeVideo.transcript}
-              </div>
-            </div>
-
-            {/* Modal Footer Call to Action */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <span className="text-xs text-slate-500">
-                Explore how Uptrix transforms operations for organizations like {activeVideo.company}.
-              </span>
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/crm#demo"
-                  onClick={() => setShowVideoPopup(false)}
-                  className="rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 transition shadow-sm"
-                >
-                  Schedule 1-on-1 Demo
-                </Link>
-                <Link
-                  href="/case-studies"
-                  onClick={() => setShowVideoPopup(false)}
-                  className="rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-4 py-2.5 transition"
-                >
-                  Read All Case Studies
-                </Link>
+                {/* Modal Footer Call to Action */}
+                <div className="flex flex-col gap-3 pt-1">
+                  <span className="text-xs text-slate-500">
+                    Explore how Uptrix transforms operations for organizations like <strong className="text-slate-700 font-semibold">{activeVideo.company}</strong>.
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <Link
+                      href="/crm#demo"
+                      onClick={() => setShowVideoPopup(false)}
+                      className="flex-1 text-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-3 transition shadow-sm"
+                    >
+                      Schedule 1-on-1 Demo
+                    </Link>
+                    <Link
+                      href="/case-studies"
+                      onClick={() => setShowVideoPopup(false)}
+                      className="flex-1 text-center rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-4 py-3 transition shadow-xs"
+                    >
+                      Read All Case Studies
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
