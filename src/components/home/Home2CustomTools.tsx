@@ -619,26 +619,116 @@ export default function Home2CustomTools({
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {content.processSteps.map((step, idx) => (
-              <Reveal key={idx} delay={idx * 80}>
-                <div className="relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition duration-300 hover:border-slate-300 hover:shadow-md">
-                  <div className="flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-extrabold text-white bg-[#1f5fd6] shadow-sm">
-                      {step.step}
-                    </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#1f5fd6] font-semibold">
-                      Sprint 0{idx + 1}
-                    </span>
+            {content.processSteps.map((step, idx) => {
+              // Solid Logo Palette per Milestone Card: Blue (#1f5fd6), Teal (#0f8b8d), Indigo (#4f46e5), Green (#5db833)
+              const sprintConfigs = [
+                {
+                  color: "#1f5fd6",
+                  borderHover: "hover:border-[#1f5fd6]",
+                  duration: "Week 01",
+                  phase: "Discovery & Scope",
+                  deliverables: ["Architecture Blueprint", "API & Schema Specs"],
+                },
+                {
+                  color: "#0f8b8d",
+                  borderHover: "hover:border-[#0f8b8d]",
+                  duration: "Week 02",
+                  phase: "UI/UX Prototype",
+                  deliverables: ["Figma Clickable Prototype", "User Flow Validation"],
+                },
+                {
+                  color: "#4f46e5",
+                  borderHover: "hover:border-[#4f46e5]",
+                  duration: "Weeks 03–04",
+                  phase: "Sprint Build & QA",
+                  deliverables: ["Staging Deployment", "ERP & DB Integrations"],
+                },
+                {
+                  color: "#5db833",
+                  borderHover: "hover:border-[#5db833]",
+                  duration: "Week 05+",
+                  phase: "Go-Live & SLA",
+                  deliverables: ["Production Launch", "24/7 SLA & Team Training"],
+                },
+              ];
+
+              const cfg = sprintConfigs[idx % sprintConfigs.length];
+
+              return (
+                <Reveal key={idx} delay={idx * 80} className="h-full">
+                  <div
+                    className={`group relative flex flex-col justify-between h-full rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm ${cfg.borderHover} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left`}
+                  >
+                    <div>
+                      {/* Top Header: Stylized Number Badge & Duration Tag */}
+                      <div className="flex items-center justify-between gap-2">
+                        <span
+                          className="grid h-10 w-10 place-items-center rounded-xl font-display text-sm font-black text-white shadow-xs transition-transform duration-300 group-hover:scale-105"
+                          style={{ backgroundColor: cfg.color }}
+                        >
+                          {step.step}
+                        </span>
+
+                        <span className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700">
+                          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.color }} />
+                          {cfg.duration}
+                        </span>
+                      </div>
+
+                      {/* Milestone Phase Tag */}
+                      <div className="mt-4 font-mono text-[11px] font-bold uppercase tracking-wider" style={{ color: cfg.color }}>
+                        {cfg.phase}
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="mt-1 font-display text-base sm:text-lg font-bold text-slate-900 leading-snug group-hover:text-slate-950 transition-colors">
+                        {step.title}
+                      </h4>
+
+                      {/* Narrative */}
+                      <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600">
+                        {step.body}
+                      </p>
+                    </div>
+
+                    {/* Bottom Area: Deliverables Checklist & Phase Progress Bar */}
+                    <div className="mt-5 pt-3.5 border-t border-slate-100 flex flex-col gap-3">
+                      <div>
+                        <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                          Deliverables
+                        </div>
+                        <ul className="space-y-1">
+                          {cfg.deliverables.map((del, dIdx) => (
+                            <li key={dIdx} className="flex items-center gap-1.5 text-xs text-slate-700">
+                              <span
+                                className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full text-white"
+                                style={{ backgroundColor: cfg.color }}
+                              >
+                                <CheckIcon className="h-2 w-2" />
+                              </span>
+                              <span className="truncate font-medium">{del}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* 4-Segment Milestone Progress Bar */}
+                      <div className="pt-2 border-t border-slate-100/60 flex items-center gap-1">
+                        {[0, 1, 2, 3].map((seg) => (
+                          <div
+                            key={seg}
+                            className="h-1 flex-1 rounded-full transition-all duration-300"
+                            style={{
+                              backgroundColor: seg <= idx ? cfg.color : "#e2e8f0",
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <h4 className="mt-2 font-display text-lg font-bold text-slate-900">
-                    {step.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    {step.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
 
