@@ -619,15 +619,12 @@ export default function Home2CustomTools({
 
         {/* 4-Step Build Lifecycle Timeline */}
         <div id="how-we-build" className="mt-20 pt-16 border-t border-slate-200 scroll-mt-24">
-          <Reveal className="flex flex-col items-center gap-3 text-center mb-12">
-            <span className="text-xs font-bold tracking-[.14em] uppercase text-[#1f5fd6]">
-              How We Build For You
-            </span>
-            <h3 className="font-display text-[clamp(24px,3vw,36px)] font-extrabold tracking-tight text-slate-900">
-              From Problem Statement to Deployed Tool in 4 Sprints
+          <Reveal className="flex flex-col items-center gap-2.5 text-center mb-12">
+            <h3 className="font-display text-[clamp(24px,3vw,34px)] font-extrabold tracking-tight text-slate-900">
+              Built & Deployed in <span className="text-[#1f5fd6]">4 Sprints</span>
             </h3>
-            <p className="max-w-[620px] text-sm md:text-base text-slate-600">
-              Clear delivery milestones with no ambiguity. You get full visibility from wireframe to production launch.
+            <p className="max-w-[520px] text-sm md:text-[15px] text-slate-600">
+              Clear milestones and full visibility from wireframe to launch.
             </p>
           </Reveal>
 
