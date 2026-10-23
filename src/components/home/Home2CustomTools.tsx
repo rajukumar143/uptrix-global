@@ -271,7 +271,6 @@ export default function Home2CustomTools({
       return true;
     });
 
-  const ActiveTabIcon = activeShowcase.icon;
 
   async function handleConsultationSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
