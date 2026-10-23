@@ -5,13 +5,13 @@ import StoriesSection from "@/components/site/StoriesSection";
 import CaseStudiesSection from "@/components/site/CaseStudiesSection";
 import Home2CustomTools from "@/components/home/Home2CustomTools";
 import Faq from "@/components/home/Faq";
-import Home2Hero from "@/components/home/Home2Hero";
+import HeroCarousel from "@/components/home/HeroCarousel";
 import { getPageContent, getContent } from "@/lib/content-store";
 import { homeDefaults } from "@/content/home";
 
 export const metadata: Metadata = {
-  title: "Générateurs de sites pour associations | Uptrix Home 2",
-  description: "Créez un site professionnel en quelques minutes, sans compétences techniques. Mobilisez, inspirez et faites grandir votre impact.",
+  title: "Uptrix Global | Enterprise Business Software, CRM & HRMS",
+  description: "Next-generation enterprise CRM, HRMS, and bespoke internal tools engineered for scaling businesses.",
 };
 
 function telHref(tel: string) {
@@ -26,11 +26,13 @@ export default function Home2() {
 
   return (
     <div className="overflow-x-clip bg-white text-slate-900">
-      <Header content={getPageContent("header")} overlay={false} />
+      <Header content={getPageContent("header")} overlay />
       
       <main>
-        {/* Modern Interactive Hero */}
-        <Home2Hero />
+        {/* Home Page Hero Section */}
+        {c.heroSlides && c.heroStats && (
+          <HeroCarousel slides={c.heroSlides} stats={c.heroStats} />
+        )}
 
         {/* Client Trust Marquee */}
         {c.trustBar && (
