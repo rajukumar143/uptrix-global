@@ -2,11 +2,24 @@
 
 import { useState } from "react";
 import type { HomeContent } from "@/content/home";
+import { homeDefaults } from "@/content/home";
 import { Icon } from "./icons";
 
-export default function Faq({ questions }: { questions: HomeContent["faq"]["questions"] }) {
-  const faqs = questions.map((f) => ({ q: f.question, a: f.answer }));
+export default function Faq({
+  questions,
+  content,
+}: {
+  questions?: HomeContent["faq"]["questions"];
+  content?: HomeContent["faq"] | HomeContent["faq"]["questions"];
+}) {
+  const rawList = questions || (Array.isArray(content) ? content : (content as any)?.questions) || homeDefaults.faq.questions || [];
+  const faqs = (rawList || []).map((f: any) => ({
+    q: f?.question || f?.q || "",
+    a: f?.answer || f?.a || "",
+  }));
   const [open, setOpen] = useState(0);
+
+  if (!faqs.length) return null;
 
   return (
     <div className="flex flex-col border-t border-slate-200">

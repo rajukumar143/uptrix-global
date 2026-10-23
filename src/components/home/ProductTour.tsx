@@ -11,9 +11,10 @@ const looks = [
   { color: "#0F766E", frame: "linear-gradient(160deg,#CCFBF1 0%,#F0FDFA 100%)", image: "/images/products/crm-pipeline.jpg" },
 ];
 
-export default function ProductTour({ content }: { content: HomeContent["productTour"] }) {
+export default function ProductTour({ content }: { content?: HomeContent["productTour"] }) {
   const [tab, setTab] = useState(0);
-  const tabs = content.tabs;
+  const tabs = content?.tabs || [];
+  if (!content || !tabs.length) return null;
   const i = Math.min(tab, Math.max(0, tabs.length - 1));
   const t = tabs[i];
   const look = looks[i % looks.length];

@@ -168,7 +168,8 @@ export default function CustomToolsSection({
   const [formError, setFormError] = useState("");
   const [isPending, startTransition] = useTransition();
 
-  const filteredTools = content.tools
+  const toolsList = content?.tools || [];
+  const filteredTools = toolsList
     .map((t, idx) => ({ ...t, originalIndex: idx }))
     .filter((_, idx) => {
       if (activeCategory === "All Custom Tools") return true;
