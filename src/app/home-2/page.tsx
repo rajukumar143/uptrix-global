@@ -46,6 +46,11 @@ export default function Home2() {
           <Home2CustomTools content={c.customToolsSection} />
         )}
 
+        {/* Case Studies Section */}
+        {c.stories && (
+          <CaseStudiesSection productFilter={c.stories.productFilter || ""} theme="light" />
+        )}
+
         {/* Stories Section */}
         {c.stories && (
           <StoriesSection 
@@ -54,11 +59,6 @@ export default function Home2() {
             videoTestimonials={siteContent?.videoTestimonials} 
             reviews={siteContent?.reviews} 
           />
-        )}
-
-        {/* Case Studies Section */}
-        {c.stories && (
-          <CaseStudiesSection productFilter={c.stories.productFilter || ""} theme="light" />
         )}
 
         {/* FAQ Section */}
