@@ -14,10 +14,16 @@ export default function CaseStudiesSection({
   productFilter = "",
   className = "",
   theme = "dark",
+  hideEyebrow = false,
+  heading,
+  intro,
 }: {
   productFilter?: string;
   className?: string;
   theme?: "dark" | "light";
+  hideEyebrow?: boolean;
+  heading?: string;
+  intro?: string;
 }) {
   const { caseStudies } = getContent();
   const studies = liveStudies(caseStudies.studies).filter((s) =>
