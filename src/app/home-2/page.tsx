@@ -3,7 +3,6 @@ import Header from "@/components/site/Header";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import StoriesSection from "@/components/site/StoriesSection";
 import CaseStudiesSection from "@/components/site/CaseStudiesSection";
-import ProductTour from "@/components/home/ProductTour";
 import CustomToolsSection from "@/components/home/CustomToolsSection";
 import Faq from "@/components/home/Faq";
 import Home2Hero from "@/components/home/Home2Hero";
@@ -60,15 +59,6 @@ export default function Home2() {
         {/* Case Studies Section */}
         {c.stories && (
           <CaseStudiesSection productFilter={c.stories.productFilter || ""} theme="light" />
-        )}
-
-        {/* Product Tour */}
-        {c.productTour && (
-          <section aria-labelledby="tour-heading" className="bg-slate-50 py-16 sm:py-24">
-            <div className="mx-auto max-w-[1200px] px-6">
-              <ProductTour content={c.productTour} />
-            </div>
-          </section>
         )}
 
         {/* FAQ Section */}
