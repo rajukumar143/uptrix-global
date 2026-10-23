@@ -155,9 +155,11 @@ const categories = ["All Custom Tools", "Workflow & Portals", "Integrations & AI
 export default function CustomToolsSection({
   content,
   theme = "light",
+  showStats = true,
 }: {
   content: HomeContent["customToolsSection"];
   theme?: "dark" | "light";
+  showStats?: boolean;
 }) {
   const isLight = theme === "light";
   const [activeCategory, setActiveCategory] = useState("All Custom Tools");
@@ -281,33 +283,35 @@ export default function CustomToolsSection({
           </Reveal>
 
           {/* Value Stats Strip */}
-          <Reveal delay={200} className="w-full mt-4">
-            <div
-              className={`grid grid-cols-2 md:grid-cols-4 gap-3.5 rounded-2xl border p-3 backdrop-blur-md ${
-                isLight ? "border-slate-200 bg-white shadow-xs" : "border-white/10 bg-white/[0.035]"
-              }`}
-            >
-              {content.stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className={`flex flex-col items-center justify-center py-3.5 px-4 rounded-xl border transition ${
-                    isLight ? "border-slate-100 bg-slate-50/80 hover:bg-slate-100/70" : "border-white/5 bg-white/[0.02] hover:bg-white/[0.05]"
-                  }`}
-                >
-                  <span
-                    className={`font-display text-[clamp(24px,2.6vw,32px)] font-extrabold tracking-tight bg-gradient-to-r ${
-                      isLight ? "from-indigo-600 via-sky-600 to-teal-600" : "from-white via-slate-100 to-indigo-200"
-                    } bg-clip-text text-transparent`}
+          {showStats && content.stats && content.stats.length > 0 && (
+            <Reveal delay={200} className="w-full mt-4">
+              <div
+                className={`grid grid-cols-2 md:grid-cols-4 gap-3.5 rounded-2xl border p-3 backdrop-blur-md ${
+                  isLight ? "border-slate-200 bg-white shadow-xs" : "border-white/10 bg-white/[0.035]"
+                }`}
+              >
+                {content.stats.map((stat, i) => (
+                  <div
+                    key={i}
+                    className={`flex flex-col items-center justify-center py-3.5 px-4 rounded-xl border transition ${
+                      isLight ? "border-slate-100 bg-slate-50/80 hover:bg-slate-100/70" : "border-white/5 bg-white/[0.02] hover:bg-white/[0.05]"
+                    }`}
                   >
-                    {stat.value}
-                  </span>
-                  <span className={`text-xs text-center font-medium mt-0.5 ${isLight ? "text-slate-600" : "text-slate-400"}`}>
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+                    <span
+                      className={`font-display text-[clamp(24px,2.6vw,32px)] font-extrabold tracking-tight bg-gradient-to-r ${
+                        isLight ? "from-indigo-600 via-sky-600 to-teal-600" : "from-white via-slate-100 to-indigo-200"
+                      } bg-clip-text text-transparent`}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className={`text-xs text-center font-medium mt-0.5 ${isLight ? "text-slate-600" : "text-slate-400"}`}>
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          )}
         </div>
 
         {/* Featured Interactive Custom Tool Image Showcase with Uptrix Logo & Live Frame */}

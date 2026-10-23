@@ -43,7 +43,7 @@ export default function Home2() {
 
         {/* Custom Engineering • Bespoke Solutions */}
         {c.customToolsSection && (
-          <CustomToolsSection content={c.customToolsSection} theme="light" />
+          <CustomToolsSection content={c.customToolsSection} theme="light" showStats={false} />
         )}
 
         {/* Stories Section */}
