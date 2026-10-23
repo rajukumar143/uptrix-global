@@ -7,21 +7,25 @@ import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
+import { youtubeId } from "@/content/stories";
 import type { CollegeContent } from "@/content/college";
 import type { HeaderContent } from "@/content/header";
 import type { CrmLayoutContent } from "@/content/crm";
 import {
   CheckIcon,
   CrossIcon,
+  StarIcon,
   SearchIcon,
   BellIcon,
   LockIcon,
+  PlayIcon,
+  VideoIcon,
+  FileTextIcon,
   MessageSquareIcon,
   CreditCardIcon,
   TargetIcon,
   UserCheckIcon,
   GraduationCapIcon,
-  ShieldCheckIcon,
 } from "./CollegeIcons";
 
 interface College2LandingPageProps {
@@ -37,7 +41,26 @@ export default function College2LandingPage({ header, footer, content }: College
   const [demoSubmitting, setDemoSubmitting] = useState<boolean>(false);
   const [demoError, setDemoError] = useState<string>("");
 
-  const { hero, trustBar, demoModal } = content;
+  // Interactive state for Case Studies
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<"apex" | "vanguard" | "stjude">("apex");
+  const [showCaseStudyModal, setShowCaseStudyModal] = useState<boolean>(false);
+
+  // Interactive state for Video Testimonials
+  const [activeVideoId, setActiveVideoId] = useState<string>(content.videos.cards[0]?.id ?? "video-1");
+  const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
+
+  // Interactive state for Google / Customer Reviews
+  const [reviewFilter, setReviewFilter] = useState<string>("all");
+
+  // Interactive state for FAQ accordion
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+
+  const { hero, trustBar, caseStudies, videos, reviews, faq, finalCta, demoModal } = content;
+
+  const reviewCategories = Array.from(new Set(reviews.cards.map((review) => review.category)));
+  const activeVideo = videos.cards.find((video) => video.id === activeVideoId) ?? videos.cards[0];
+  const selectedCaseStudyIndex = selectedCaseStudy === "apex" ? 0 : selectedCaseStudy === "vanguard" ? 1 : 2;
+  const selectedCaseStudyCard = caseStudies.cards[selectedCaseStudyIndex] ?? caseStudies.cards[0];
 
   const trustMetrics = [
     { value: "500+", label: "Higher Education Campuses" },
@@ -90,7 +113,6 @@ export default function College2LandingPage({ header, footer, content }: College
             SECTION 1: HERO SECTION (From College Page)
         ========================================================================== */}
         <section className="relative pt-12 pb-20 lg:pt-16 lg:pb-28 bg-gradient-to-b from-[#f0f9f6]/70 via-[#f8fafc] to-white border-b border-slate-200/80">
-          {/* Subtle decorative glow */}
           <div
             aria-hidden
             className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.08),transparent_65%)]"
@@ -308,7 +330,6 @@ export default function College2LandingPage({ header, footer, content }: College
                         </span>
                         
                         <div className="flex items-center gap-2">
-                          {/* Circular CSS Donut */}
                           <div className="relative w-14 h-14 shrink-0 rounded-full flex items-center justify-center bg-[conic-gradient(#3b82f6_0deg_115deg,#8b5cf6_115deg_216deg,#f59e0b_216deg_280deg,#10b981_280deg_330deg,#94a3b8_330deg_360deg)] p-2">
                             <div className="w-10 h-10 rounded-full bg-white flex flex-col items-center justify-center">
                               <span className="text-[9px] font-black text-slate-800 font-mono leading-none">1,284</span>
@@ -316,7 +337,6 @@ export default function College2LandingPage({ header, footer, content }: College
                             </div>
                           </div>
 
-                          {/* Legend */}
                           <div className="text-[9px] space-y-0.5 flex-1">
                             <div className="flex items-center justify-between">
                               <span className="flex items-center gap-1 text-slate-600">
@@ -476,7 +496,440 @@ export default function College2LandingPage({ header, footer, content }: College
         </section>
 
         {/* =========================================================================
-            SECTION 4: FINAL REASSURANCE & CTA
+            SECTION 4: INSTITUTIONAL CASE STUDIES (3-Card Showcase + Dossier)
+        ========================================================================== */}
+        <section
+          id="case-studies"
+          className="py-16 sm:py-24 bg-gradient-to-b from-[#f8fafc] via-white to-[#f4f7fb] border-b border-slate-200/80 relative overflow-hidden"
+        >
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-10">
+            {/* Header */}
+            <div className="flex flex-col gap-3 text-center max-w-[840px] mx-auto">
+              <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 font-mono">
+                <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                <span>{caseStudies.eyebrow}</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
+                {caseStudies.heading}
+              </h2>
+              <p className="text-sm sm:text-base leading-relaxed text-slate-600">
+                {caseStudies.body}
+              </p>
+            </div>
+
+            {/* Case study story cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6.5">
+              {caseStudies.cards.map((card, cIdx) => {
+                const studyKeys: Array<"apex" | "vanguard" | "stjude"> = ["apex", "vanguard", "stjude"];
+                const key = studyKeys[cIdx] || "apex";
+                const borderHover = cIdx === 0 ? "hover:border-emerald-400" : cIdx === 1 ? "hover:border-blue-400" : "hover:border-teal-400";
+                const gradientBar = cIdx === 0 ? "from-emerald-400 via-teal-300 to-blue-500" : cIdx === 1 ? "from-blue-400 via-indigo-300 to-purple-500" : "from-teal-400 via-cyan-300 to-indigo-500";
+                const metricHighlight = cIdx === 0 ? "text-emerald-400" : cIdx === 1 ? "text-blue-400" : "text-teal-400";
+                const authorInitials = card.author.split(" ").map((n) => n[0]).join("").slice(0, 2);
+
+                return (
+                  <div
+                    key={cIdx}
+                    className={`rounded-3xl border border-slate-200/90 bg-white overflow-hidden shadow-xs hover:shadow-xl ${borderHover} transition-all duration-300 flex flex-col justify-between group`}
+                  >
+                    <div>
+                      {/* Dark Accent Header Strip with 3 Key Metrics */}
+                      <div className="relative bg-[#0d132e] text-white p-6 border-b border-slate-900">
+                        <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${gradientBar}`} />
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-mono font-bold text-emerald-300 border border-white/10">
+                            {card.category}
+                          </span>
+                          <span className="text-xs text-slate-400 font-mono">{card.campuses}</span>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
+                          <div>
+                            <div className={`text-2xl sm:text-[26px] font-black ${metricHighlight} font-mono leading-none`}>
+                              {card.metric1}
+                            </div>
+                            <span className="text-[10px] text-slate-300 font-medium mt-1 block">{card.metric1Label}</span>
+                          </div>
+                          <div>
+                            <div className="text-2xl sm:text-[26px] font-black text-white font-mono leading-none">
+                              {card.metric2}
+                            </div>
+                            <span className="text-[10px] text-slate-300 font-medium mt-1 block">{card.metric2Label}</span>
+                          </div>
+                          <div>
+                            <div className="text-2xl sm:text-[26px] font-black text-emerald-300 font-mono leading-none">
+                              {card.metric3}
+                            </div>
+                            <span className="text-[10px] text-slate-300 font-medium mt-1 block">{card.metric3Label}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-6 flex flex-col gap-4">
+                        <div>
+                          <span className="text-[11px] font-mono font-bold uppercase text-emerald-700 tracking-wider">
+                            {card.location}
+                          </span>
+                          <h3 className="text-lg font-black text-slate-900 mt-1 leading-snug group-hover:text-emerald-700 transition-colors">
+                            {card.title}
+                          </h3>
+                        </div>
+
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {card.body}
+                        </p>
+
+                        {/* Before vs After Highlights */}
+                        <div className="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-700">
+                          <div className="flex items-start gap-2">
+                            <CrossIcon className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                            <span className="text-slate-500"><strong>Before:</strong> {card.before}</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <CheckIcon className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <span className="text-slate-800"><strong>With Uptrix:</strong> {card.after}</span>
+                          </div>
+                        </div>
+
+                        {/* Dean Quote */}
+                        <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
+                          <div className="h-10 w-10 rounded-full bg-emerald-100 text-emerald-800 font-black text-xs flex items-center justify-center shrink-0 border border-emerald-300">
+                            {authorInitials}
+                          </div>
+                          <div>
+                            <p className="text-[11px] text-slate-600 italic line-clamp-2">
+                              &quot;{card.quote}&quot;
+                            </p>
+                            <span className="text-[10px] font-bold text-slate-900 block mt-0.5">
+                              {card.author}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card CTA Footer */}
+                    <div className="p-6 pt-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCaseStudy(key);
+                          setShowCaseStudyModal(true);
+                        }}
+                        className="w-full py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
+                      >
+                        <span>{caseStudies.readButton}</span>
+                        <span className="text-emerald-400 group-hover:text-white transition-colors">→</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 5: VIDEO TESTIMONIALS (Interactive 4K Executive Interviews)
+        ========================================================================== */}
+        <section
+          id="video-testimonials"
+          className="py-16 sm:py-20 bg-white border-b border-slate-200/80 relative overflow-hidden"
+        >
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-10">
+            {/* Header */}
+            <div className="flex flex-col gap-3 text-center max-w-[800px] mx-auto">
+              <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-purple-700 font-mono">
+                <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse" />
+                <span>{videos.eyebrow}</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
+                {videos.heading}
+              </h2>
+              <p className="text-sm sm:text-base leading-relaxed text-slate-600">
+                {videos.body}
+              </p>
+            </div>
+
+            {/* 3 Video Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {videos.cards.map((card) => {
+                const ytId = "youtubeUrl" in card && typeof card.youtubeUrl === "string" ? youtubeId(card.youtubeUrl) : "";
+                return (
+                  <div
+                    key={card.id}
+                    onClick={() => {
+                      setActiveVideoId(card.id);
+                      setShowVideoPopup(true);
+                    }}
+                    className="group cursor-pointer rounded-3xl border border-slate-200/90 p-4 bg-white shadow-2xs hover:shadow-xl hover:border-emerald-400 transition-all duration-300 flex flex-col justify-between"
+                  >
+                    {/* Executive Video Thumbnail Box */}
+                    <div className="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden flex items-center justify-center border border-slate-900 shadow-inner group-hover:border-emerald-500/60 transition-colors">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={"posterImage" in card && typeof card.posterImage === "string" ? card.posterImage : (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : "/college/video-thumb-arvind.jpg")}
+                        alt={card.speaker}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10 group-hover:from-black/75 transition-colors" />
+
+                      {/* Central Play Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveVideoId(card.id);
+                          setShowVideoPopup(true);
+                        }}
+                        className="relative z-10 h-14 w-14 rounded-full bg-emerald-600/90 text-white backdrop-blur-md border border-white/40 flex items-center justify-center shadow-xl group-hover:scale-115 group-hover:bg-emerald-500 transition-all duration-300 cursor-pointer"
+                        aria-label={`Play ${card.speaker} interview video`}
+                      >
+                        <PlayIcon className="w-5 h-5 ml-0.5 fill-white text-white" />
+                      </button>
+
+                      {/* Bottom-left pill badge */}
+                      <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold text-white font-mono flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        {card.tag}
+                      </div>
+
+                      {/* Bottom-right duration */}
+                      <div className="absolute bottom-3 right-3 z-10 rounded-full bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[10px] font-mono text-slate-200 flex items-center gap-1">
+                        <span className="text-[9px] font-bold text-emerald-300 font-sans">4K</span>
+                        <span>•</span>
+                        <span>{card.duration}</span>
+                      </div>
+                    </div>
+
+                    {/* Card Info Below Thumbnail */}
+                    <div className="mt-4 flex flex-col gap-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold font-mono text-emerald-800 border border-emerald-200">
+                          {card.metric}
+                        </span>
+                        <span className="text-[11px] text-emerald-600 font-bold group-hover:translate-x-0.5 transition-transform">
+                          {videos.watchButton} →
+                        </span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                          {card.speaker}
+                        </h4>
+                        <p className="text-xs text-slate-500 font-medium">
+                          {card.role} • <span className="text-slate-700 font-semibold">{card.institute}</span>
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed italic border-t border-slate-100 pt-2">
+                        &quot;{card.quote}&quot;
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 6: GOOGLE / CUSTOMER REVIEWS & WALL OF SOCIAL PROOF
+        ========================================================================== */}
+        <section
+          id="reviews"
+          className="py-16 sm:py-20 bg-gradient-to-b from-[#f8fafc] via-white to-[#f4f7fb] border-b border-slate-200/80 relative overflow-hidden"
+        >
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-8">
+            {/* Header with Rating Badge */}
+            <div className="flex flex-col gap-3 text-center max-w-[820px] mx-auto">
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-amber-800 font-mono mx-auto">
+                <span className="text-amber-500">★★★★★</span>
+                <span>{reviews.eyebrow}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
+                {reviews.heading}
+              </h2>
+              <p className="text-sm sm:text-base leading-relaxed text-slate-600">
+                {reviews.body}
+              </p>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {[
+                { id: "all", label: `All Reviews (${reviews.cards.length})` },
+                ...reviewCategories.map((category) => ({
+                  id: category,
+                  label: `${category} (${reviews.cards.filter((review) => review.category === category).length})`,
+                })),
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setReviewFilter(tab.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    reviewFilter === tab.id
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* 6 Review Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
+              {reviews.cards
+                .filter((r) => reviewFilter === "all" || r.category === reviewFilter)
+                .map((r, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between gap-4 animate-in fade-in duration-150"
+                  >
+                    <div>
+                      {/* Top Row: Stars + Metric */}
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-0.5 text-amber-400">
+                          {Array.from({ length: r.stars }).map((_, si) => (
+                            <StarIcon key={si} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
+                        <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold font-mono text-emerald-800 border border-emerald-200">
+                          {r.metric}
+                        </span>
+                      </div>
+
+                      {/* Review Quote */}
+                      <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed mt-3">
+                        &quot;{r.review}&quot;
+                      </p>
+                    </div>
+
+                    {/* Author Footer */}
+                    <div className="flex items-center gap-3 pt-3 border-t border-slate-100">
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-slate-900 to-slate-700 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                        {r.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .slice(0, 2)}
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-black text-slate-900 leading-tight">{r.name}</h4>
+                        <p className="text-[11px] text-slate-500 font-medium leading-tight">
+                          {r.role} • <span className="text-slate-700 font-semibold">{r.institute}</span>
+                        </p>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-700 font-bold mt-0.5">
+                          <CheckIcon className="w-3 h-3 text-emerald-600" />
+                          <span>{r.badge}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 7: FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION)
+        ========================================================================== */}
+        <section
+          id="faq"
+          className="py-16 sm:py-20 bg-white border-b border-slate-200/80 relative overflow-hidden"
+        >
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-10">
+            {/* Header */}
+            <div className="flex flex-col gap-3 text-center">
+              <span className="inline-flex w-fit mx-auto items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 font-mono">
+                <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                <span>{faq.eyebrow}</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
+                {faq.heading}
+              </h2>
+              <p className="text-sm sm:text-base leading-relaxed text-slate-600 max-w-xl mx-auto">
+                {faq.body}
+              </p>
+            </div>
+
+            {/* Accordion List */}
+            <div className="flex flex-col gap-3">
+              {faq.items.map((faqItem, index) => {
+                const isExpanded = expandedFaq === index;
+                return (
+                  <div
+                    key={index}
+                    className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                      isExpanded
+                        ? "border-emerald-300 bg-white shadow-xs"
+                        : "border-slate-200 bg-white/70 hover:bg-white hover:border-slate-300"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setExpandedFaq(isExpanded ? null : index)}
+                      className="w-full flex items-center justify-between gap-4 p-4 sm:p-5 text-left cursor-pointer"
+                    >
+                      <span className="text-sm sm:text-base font-black text-slate-900 leading-snug">
+                        {faqItem.q}
+                      </span>
+                      <span
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-transform duration-200 ${
+                          isExpanded
+                            ? "bg-emerald-600 text-white rotate-180"
+                            : "bg-slate-100 text-slate-600"
+                        }`}
+                      >
+                        ↓
+                      </span>
+                    </button>
+
+                    {isExpanded && (
+                      <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 animate-in fade-in duration-150">
+                        {faqItem.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom Support Banner */}
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+              <div>
+                <h4 className="text-sm font-black text-slate-900">{finalCta.heading}</h4>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {finalCta.body}
+                </p>
+              </div>
+              <div className="flex items-center gap-2.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setShowDemoModal(true)}
+                  className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition cursor-pointer"
+                >
+                  {finalCta.buttonLabel} →
+                </button>
+                <Link
+                  href="https://wa.me/919999999999"
+                  target="_blank"
+                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5"
+                >
+                  <span>Chat on WhatsApp</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 8: FINAL REASSURANCE & CTA
         ========================================================================== */}
         <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
           <div className="mx-auto max-w-[1240px] px-6 text-center relative z-10">
@@ -693,6 +1146,207 @@ export default function College2LandingPage({ header, footer, content }: College
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          INTERACTIVE VIDEO TESTIMONIALS MODAL
+      ========================================================================== */}
+      {showVideoPopup && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+          onClick={() => setShowVideoPopup(false)}
+        >
+          <div
+            className="relative w-full max-w-4xl rounded-3xl border border-slate-200 bg-white shadow-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto flex flex-col gap-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
+              <div className="flex flex-col gap-1">
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-purple-200 bg-purple-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 font-mono">
+                  <VideoIcon className="w-3.5 h-3.5 text-purple-700" />
+                  <span>{videos.eyebrow}</span>
+                </span>
+                <h3 className="text-lg sm:text-xl font-black tracking-tight text-slate-900">
+                  {activeVideo?.interviewTitle}
+                </h3>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 font-mono border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  {activeVideo?.metric}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowVideoPopup(false)}
+                  className="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-base transition cursor-pointer"
+                  aria-label="Close video modal"
+                >
+                  <CrossIcon className="w-4 h-4 text-slate-700" />
+                </button>
+              </div>
+            </div>
+
+            {/* Video Player Box */}
+            {"youtubeUrl" in activeVideo && typeof activeVideo.youtubeUrl === "string" && activeVideo.youtubeUrl ? (
+              <div className="relative aspect-video rounded-2xl bg-black overflow-hidden shadow-2xl border border-slate-900">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${youtubeId(activeVideo.youtubeUrl)}?autoplay=1&rel=0`}
+                  title={activeVideo.interviewTitle}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="h-full w-full"
+                />
+              </div>
+            ) : "videoUrl" in activeVideo && typeof activeVideo.videoUrl === "string" && activeVideo.videoUrl ? (
+              <div className="relative aspect-video rounded-2xl bg-black overflow-hidden shadow-2xl border border-slate-900">
+                <video
+                  src={activeVideo.videoUrl}
+                  controls
+                  autoPlay
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ) : (
+              <div className="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden flex flex-col justify-between p-4 sm:p-6 border border-slate-800 shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black via-slate-900/90 to-slate-950" />
+                <div className="relative z-10 flex items-center justify-between text-xs text-white/80">
+                  <span className="font-mono font-bold text-emerald-400">● LIVE RECORDING ARCHIVE</span>
+                  <span className="bg-white/10 px-2 py-0.5 rounded font-mono text-[10px]">1080p HD</span>
+                </div>
+                <div className="relative z-10 my-auto text-center flex flex-col items-center gap-3">
+                  <div className="h-16 w-16 rounded-full bg-emerald-600/90 text-white flex items-center justify-center shadow-lg ring-4 ring-emerald-500/30 animate-pulse">
+                    <PlayIcon className="w-7 h-7 ml-1 fill-white text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-base sm:text-lg font-black">
+                      {activeVideo?.episodeTitle}
+                    </h4>
+                    <p className="text-slate-400 text-xs mt-0.5">
+                      {activeVideo?.role} • {activeVideo?.institute}
+                    </p>
+                  </div>
+                </div>
+                <div className="relative z-10 flex flex-col gap-2 pt-2 border-t border-white/10">
+                  <div className="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-emerald-500 h-full w-[44%]" />
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] text-white/70 font-mono">
+                    <span>1:38 / 3:45</span>
+                    <div className="flex items-center gap-3">
+                      <span>1.0x Speed</span>
+                      <span>HD 80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Quote Transcript Box */}
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5 flex flex-col gap-2">
+              <span className="text-[10px] font-mono font-bold uppercase text-slate-500">
+                {videos.transcriptLabel}
+              </span>
+              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic">
+                {activeVideo?.transcript}
+              </p>
+            </div>
+
+            {/* Switch to Other Interviews */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <span className="text-xs font-bold text-slate-600">{videos.switchButtonLabel}</span>
+              <div className="flex flex-wrap gap-2">
+                {videos.cards.map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => setActiveVideoId(v.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                      activeVideoId === v.id
+                        ? "bg-slate-900 text-white"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
+                  >
+                    {v.institute}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          INTERACTIVE CASE STUDY DOSSIER MODAL
+      ========================================================================== */}
+      {showCaseStudyModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+          onClick={() => setShowCaseStudyModal(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl rounded-3xl border border-slate-200 bg-white shadow-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto flex flex-col gap-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
+              <div>
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 font-mono">
+                  <FileTextIcon className="w-3.5 h-3.5 text-blue-700" />
+                  <span>{caseStudies.modal.eyebrow}</span>
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                  {selectedCaseStudyCard?.title}
+                </h3>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowCaseStudyModal(false)}
+                className="h-9 w-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-base transition cursor-pointer"
+                aria-label="Close case study modal"
+              >
+                <CrossIcon className="w-4 h-4 text-slate-700" />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              {caseStudies.modal.phases.map((phase, index) => (
+                <div key={index} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-black text-slate-900 text-sm mb-1">{phase.heading}</h4>
+                  <p className="text-slate-600">{phase.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+              <span className="text-xs text-slate-500 font-mono">{caseStudies.modal.status}</span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCaseStudyModal(false);
+                    setShowDemoModal(true);
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition cursor-pointer"
+                >
+                  {caseStudies.modal.demoButton}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowCaseStudyModal(false)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition cursor-pointer"
+                >
+                  {caseStudies.modal.closeButton}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
