@@ -76,6 +76,11 @@ export default function Home2() {
           />
         )}
 
+        {/* Custom Engineering • Bespoke Solutions */}
+        {c.customToolsSection && (
+          <CustomToolsSection content={c.customToolsSection} theme="light" />
+        )}
+
         {/* Feature Overview Section */}
         {c.hrmsSection && (
           <section id="hrms" aria-labelledby="hrms-heading" className="scroll-mt-18 bg-slate-50 pt-[clamp(64px,12vw,112px)] pb-16">
@@ -120,11 +125,6 @@ export default function Home2() {
         {/* Case Studies Section */}
         {c.stories && (
           <CaseStudiesSection productFilter={c.stories.productFilter || ""} theme="light" />
-        )}
-
-        {/* Interactive Custom Tools Section */}
-        {c.customToolsSection && (
-          <CustomToolsSection content={c.customToolsSection} theme="light" />
         )}
 
         {/* Product Tour */}

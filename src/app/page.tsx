@@ -311,6 +311,9 @@ export default function Home() {
 
         <LogoMarquee heading={c.trustBar.heading} names={c.trustBar.clientNames} clients={c.trustBar.clientLogos} />
 
+        {/* Custom Engineering • Bespoke Solutions */}
+        <CustomToolsSection content={c.customToolsSection} theme="light" />
+
         {/* HRMS overview */}
         <section id="hrms" aria-labelledby="hrms-heading" className="scroll-mt-18 bg-slate-50 pt-[clamp(64px,12vw,112px)] pb-4">
           <div className={`${container} flex flex-wrap items-stretch gap-4`}>
@@ -398,9 +401,6 @@ export default function Home() {
             <ProductTour content={c.productTour} />
           </Reveal>
         </section>
-
-        {/* Custom Tools for Business Growth */}
-        <CustomToolsSection content={c.customToolsSection} theme="light" />
 
         {/* Why Uptrix */}
         <section id="about" aria-labelledby="why-heading" className={`scroll-mt-18 bg-white ${sectionPad}`}>
