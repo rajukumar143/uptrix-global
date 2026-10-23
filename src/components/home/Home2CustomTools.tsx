@@ -302,42 +302,21 @@ export default function Home2CustomTools({
       className="relative overflow-hidden py-20 sm:py-28 bg-[#f8fafc] border-y border-slate-200"
     >
       <div className="relative mx-auto max-w-[1240px] px-6">
-        {/* Section Header with Solid Logo Colors Only */}
-        <div className="flex flex-col items-center gap-5 text-center">
-          <Reveal>
-            <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4.5 py-1.5 shadow-2xs">
-              <Image
-                src="/logo-mark.png"
-                alt="Uptrix Logo"
-                width={20}
-                height={20}
-                className="h-5 w-5 rounded-md object-contain"
-              />
-              <span className="h-3.5 w-px bg-slate-200" />
-              <span className="text-xs font-bold tracking-[.14em] uppercase text-[#1f5fd6]">
-                {content.eyebrow} • {content.tag}
-              </span>
-              <span className="relative flex h-2 w-2">
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0f8b8d]" />
-              </span>
-            </div>
-          </Reveal>
-
-          <Reveal delay={80}>
+        {/* Section Header (Clean, Shorter Heading & Text, Subheading Removed) */}
+        <div className="flex flex-col items-center gap-3.5 text-center">
+          <Reveal delay={60}>
             <h2
               id="custom-tools-heading"
-              className="font-display text-[clamp(30px,4vw,50px)] font-black tracking-[-0.03em] text-slate-900 leading-[1.15] max-w-4xl text-balance"
+              className="font-display text-[clamp(28px,3.8vw,44px)] font-black tracking-[-0.03em] text-slate-900 leading-[1.2] max-w-2xl text-balance"
             >
-              We Develop{" "}
-              <span className="text-[#1f5fd6]">
-                Custom Tools for Your Business Growth
-              </span>
+              Custom Tools for{" "}
+              <span className="text-[#1f5fd6]">Your Business</span>
             </h2>
           </Reveal>
 
-          <Reveal delay={140}>
-            <p className="max-w-[760px] text-pretty text-[clamp(16px,1.2vw,18px)] text-slate-600 leading-relaxed">
-              {content.body}
+          <Reveal delay={120}>
+            <p className="max-w-[580px] text-pretty text-[15px] sm:text-base text-slate-600 leading-relaxed">
+              Dedicated tools and internal systems built to eliminate bottlenecks and scale operations.
             </p>
           </Reveal>
         </div>
