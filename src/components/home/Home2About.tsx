@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 
@@ -13,9 +12,9 @@ function ArrowRightIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-function CheckIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
+function CheckIcon({ className = "h-3.5 w-3.5", style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
       <path d="M20 6 9 17l-5-5" />
     </svg>
   );
@@ -72,8 +71,6 @@ export default function Home2About() {
     {
       icon: BuildingOfficeIcon,
       color: "#1f5fd6",
-      bg: "bg-blue-50",
-      border: "border-blue-100",
       badge: "Unified Ecosystem",
       title: "All-in-One Operations Platform",
       body: "Seamlessly unites CRM, HRMS, and bespoke internal workflow tools on a single, clean database with zero synchronization lag.",
@@ -82,8 +79,6 @@ export default function Home2About() {
     {
       icon: ShieldCheckIcon,
       color: "#0f8b8d",
-      bg: "bg-teal-50",
-      border: "border-teal-100",
       badge: "Data Sovereignty",
       title: "100% IP & Source Code Ownership",
       body: "Deploy on your private dedicated cloud or on-premise infrastructure. You own full source code, databases, and IP with zero vendor lock-in.",
@@ -92,8 +87,6 @@ export default function Home2About() {
     {
       icon: BoltIcon,
       color: "#4f46e5",
-      bg: "bg-indigo-50",
-      border: "border-indigo-100",
       badge: "Interoperability",
       title: "Bi-Directional ERP & Tally Sync",
       body: "Native real-time bridges for Tally, WhatsApp Business API, payment gateways, and banking systems via high-throughput REST webhooks.",
@@ -102,8 +95,6 @@ export default function Home2About() {
     {
       icon: RocketIcon,
       color: "#5db833",
-      bg: "bg-emerald-50",
-      border: "border-emerald-100",
       badge: "Rapid Engineering",
       title: "Built & Deployed in 4 Sprints",
       body: "We skip multi-month consulting delays. From clickable prototype to production deployment in weeks, backed by strict 99.98% SLAs.",
@@ -148,49 +139,61 @@ export default function Home2About() {
           </Reveal>
         </div>
 
-        {/* 4 Core Pillars Grid */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4 Core Pillars - Open Editorial Grid without Boxes */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 lg:divide-x lg:divide-slate-200">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <Reveal key={idx} delay={160 + idx * 70} className="h-full">
-                <div className="group relative flex flex-col justify-between h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-left">
+                <div className="flex flex-col justify-between h-full lg:px-8 first:lg:pl-0 last:lg:pr-0">
                   <div>
-                    {/* Icon & Badge */}
-                    <div className="flex items-center justify-between gap-2">
+                    {/* Top Solid Accent Bar */}
+                    <div
+                      className="h-1 w-12 rounded-full mb-6"
+                      style={{ backgroundColor: pillar.color }}
+                    />
+
+                    {/* Badge & Number Index */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
                       <span
-                        className="grid h-11 w-11 place-items-center rounded-xl text-white shadow-xs transition-transform duration-300 group-hover:scale-105"
+                        className="inline-flex items-center text-[11px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded"
+                        style={{ color: pillar.color, backgroundColor: `${pillar.color}14` }}
+                      >
+                        {pillar.badge}
+                      </span>
+                      <span className="font-mono text-xs font-bold text-slate-400">
+                        // 0{idx + 1}
+                      </span>
+                    </div>
+
+                    {/* Icon + Title */}
+                    <div className="flex items-start gap-3 mt-3">
+                      <span
+                        className="grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-xs"
                         style={{ backgroundColor: pillar.color }}
                       >
                         <Icon className="h-5 w-5" />
                       </span>
-                      <span className={`inline-flex items-center gap-1 text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-md border ${pillar.bg} ${pillar.border}`} style={{ color: pillar.color }}>
-                        {pillar.badge}
-                      </span>
+                      <h3 className="font-display text-lg font-bold text-slate-900 leading-snug">
+                        {pillar.title}
+                      </h3>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="font-display text-lg font-bold text-slate-900 mt-5 leading-snug group-hover:text-slate-950">
-                      {pillar.title}
-                    </h3>
-
                     {/* Description */}
-                    <p className="mt-2.5 text-xs sm:text-[13px] leading-relaxed text-slate-600">
+                    <p className="mt-3.5 text-xs sm:text-[13px] leading-relaxed text-slate-600">
                       {pillar.body}
                     </p>
                   </div>
 
                   {/* Bullet Highlights */}
-                  <div className="mt-5 pt-3.5 border-t border-slate-100">
-                    <ul className="space-y-1.5">
+                  <div className="mt-6 pt-4 border-t border-slate-100">
+                    <ul className="space-y-2">
                       {pillar.points.map((pt, pIdx) => (
                         <li key={pIdx} className="flex items-start gap-2 text-xs text-slate-700">
-                          <span
-                            className="mt-0.5 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full text-white"
-                            style={{ backgroundColor: pillar.color }}
-                          >
-                            <CheckIcon className="h-2 w-2" />
-                          </span>
+                          <CheckIcon
+                            className="h-3.5 w-3.5 mt-0.5 shrink-0"
+                            style={{ color: pillar.color }}
+                          />
                           <span className="leading-snug font-medium">{pt}</span>
                         </li>
                       ))}
@@ -202,36 +205,46 @@ export default function Home2About() {
           })}
         </div>
 
-        {/* Credentials & Trust Bar */}
-        <Reveal delay={340} className="mt-12">
-          <div className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-6 sm:p-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80">
+        {/* Borderless Metrics & Trust Bar (No Boxes) */}
+        <Reveal delay={340} className="mt-20">
+          <div className="border-t border-b border-slate-200 py-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
               {metrics.map((m, idx) => (
-                <div key={idx} className={`flex flex-col gap-1 text-center sm:text-left ${idx > 0 ? "pt-4 sm:pt-0 sm:pl-6" : ""}`}>
-                  <strong className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1f5fd6] tracking-tight">
+                <div
+                  key={idx}
+                  className={`flex flex-col gap-1.5 ${
+                    idx > 0 ? "pt-6 sm:pt-0 sm:pl-8" : ""
+                  }`}
+                >
+                  <strong className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1f5fd6] tracking-tight">
                     {m.value}
                   </strong>
-                  <span className="text-xs sm:text-sm font-medium text-slate-600">
+                  <span className="text-xs sm:text-sm font-medium text-slate-600 leading-snug">
                     {m.label}
                   </span>
                 </div>
               ))}
             </div>
+          </div>
 
-            {/* Bottom Direct CTA Strip */}
-            <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs sm:text-sm text-slate-600 font-medium text-center sm:text-left">
-                Ready to replace fragmented spreadsheets and legacy software with an integrated modern system?
+          {/* Bottom Direct CTA Strip (No Box) */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+            <div>
+              <h4 className="font-display text-base sm:text-lg font-bold text-slate-900">
+                Ready to replace fragmented spreadsheets and legacy software?
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Consult with our principal architects to scope your custom business OS.
               </p>
-              <div className="flex items-center gap-3 shrink-0">
-                <Link
-                  href="#contact"
-                  className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] px-5 text-xs sm:text-sm font-bold text-white shadow-md shadow-[#1f5fd6]/20 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
-                >
-                  <span>Book Architecture Demo</span>
-                  <ArrowRightIcon className="h-3.5 w-3.5" />
-                </Link>
-              </div>
+            </div>
+            <div className="shrink-0">
+              <Link
+                href="#contact"
+                className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#1f5fd6] hover:bg-[#184cb0] px-6 text-xs sm:text-sm font-bold text-white shadow-md shadow-[#1f5fd6]/20 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
+              >
+                <span>Book Architecture Demo</span>
+                <ArrowRightIcon className="h-3.5 w-3.5" />
+              </Link>
             </div>
           </div>
         </Reveal>
