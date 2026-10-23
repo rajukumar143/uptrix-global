@@ -454,16 +454,16 @@ export default function Home2CustomTools({
               {/* Right Column: Studio-Grade Light App Canvas & Window Frame (No Dark Colors) */}
               <div className="lg:col-span-7">
                 <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xl ring-1 ring-slate-900/5">
-                  {/* Clean Crisp Light Window Header */}
-                  <div className="flex h-11 items-center justify-between border-b border-slate-200/90 bg-slate-50/95 px-4 backdrop-blur-md">
+                  {/* Clean Crisp Light Window Header (Zero Overlap Guaranteed) */}
+                  <div className="flex h-11 items-center justify-between gap-3 border-b border-slate-200/90 bg-slate-50/95 px-3.5 backdrop-blur-md">
                     {/* Window Controls & Uptrix Mark */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5 shrink-0">
                       <div className="flex items-center gap-1.5">
                         <span className="h-3 w-3 rounded-full bg-rose-400 shadow-xs" />
                         <span className="h-3 w-3 rounded-full bg-amber-400 shadow-xs" />
                         <span className="h-3 w-3 rounded-full bg-emerald-400 shadow-xs" />
                       </div>
-                      <div className="hidden sm:flex items-center gap-1.5 border-l border-slate-200 pl-3">
+                      <div className="hidden sm:flex items-center gap-1.5 border-l border-slate-200 pl-2.5">
                         <Image
                           src="/logo-dark.png"
                           alt="Uptrix"
@@ -471,26 +471,25 @@ export default function Home2CustomTools({
                           height={235}
                           className="h-3.5 w-auto"
                         />
-                        <span className="rounded bg-purple-100 border border-purple-200/80 px-1.5 py-0.5 text-[9px] font-mono font-bold tracking-wider text-purple-700 uppercase">
-                          Custom Suite
-                        </span>
                       </div>
                     </div>
 
-                    {/* Window Address Bar */}
-                    <div className="flex items-center gap-2 rounded-lg bg-white px-3.5 py-1 font-mono text-[11px] text-slate-700 max-w-[240px] sm:max-w-xs truncate border border-slate-200 shadow-2xs">
-                      <span className="text-emerald-600">🔒</span>
-                      <span>https://custom.uptrixglobal.com/{activeShowcase.id}</span>
+                    {/* Window Address Bar with Clean Truncation */}
+                    <div className="flex min-w-0 flex-1 max-w-[260px] items-center justify-center gap-1.5 rounded-lg bg-white px-2.5 py-1 font-mono text-[11px] text-slate-700 border border-slate-200 shadow-2xs">
+                      <span className="text-emerald-600 shrink-0">🔒</span>
+                      <span className="truncate">custom.uptrixglobal.com/{activeShowcase.id}</span>
                     </div>
 
-                    {/* Live Telemetry Ping */}
-                    <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      {activeShowcase.statusBadge}
-                    </span>
+                    {/* Live Telemetry Status Pill */}
+                    <div className="shrink-0 flex items-center">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200 whitespace-nowrap">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Live Telemetry</span>
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Screenshot Canvas with Pure Light Floating Overlay Badges */}
+                  {/* Screenshot Canvas with 100% Unobstructed Visibility */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-50">
                     <Image
                       key={activeShowcase.id}
@@ -498,29 +497,26 @@ export default function Home2CustomTools({
                       alt={activeShowcase.title}
                       fill
                       priority
-                      className="object-cover object-top transition-transform duration-700 hover:scale-[1.02]"
+                      className="object-cover object-top transition-transform duration-700 hover:scale-[1.01]"
                       sizes="(max-width: 1024px) 100vw, 760px"
                     />
+                  </div>
 
-                    {/* Subtle Top Inner Vignette */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/10 via-transparent to-transparent opacity-40" />
-
-                    {/* Floating Light Glassmorphic Metric Badge (Top-Right) */}
-                    <div className="absolute top-4 right-4 rounded-xl border border-purple-200/90 bg-white/95 px-3.5 py-2 shadow-xl backdrop-blur-md">
-                      <div className="flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                        <span className="font-display text-xs font-bold text-slate-900 tracking-wide">
-                          {activeShowcase.floatingStat}
-                        </span>
-                      </div>
-                      <p className="mt-0.5 text-[10px] font-medium text-slate-500">
+                  {/* Dedicated Window Telemetry & Status Footer Bar (Zero Overlap) */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200/90 bg-slate-50/90 px-4 py-2.5 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <strong className="font-display font-bold text-slate-900 tracking-tight">
+                        {activeShowcase.floatingStat}
+                      </strong>
+                      <span className="text-slate-300">•</span>
+                      <span className="text-slate-500 font-medium">
                         {activeShowcase.statSubtitle}
-                      </p>
+                      </span>
                     </div>
 
-                    {/* Floating Light Live Sync Chip (Bottom-Left) */}
-                    <div className="absolute bottom-4 left-4 hidden sm:flex items-center gap-2 rounded-lg border border-emerald-200/90 bg-white/95 px-3 py-1.5 shadow-lg backdrop-blur-md text-[11px] font-mono text-emerald-800 font-semibold">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    <div className="inline-flex items-center gap-1.5 rounded-md bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[11px] font-mono text-emerald-700 font-medium">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                       <span>Bi-Directional ERP & Tally Sync Active</span>
                     </div>
                   </div>
