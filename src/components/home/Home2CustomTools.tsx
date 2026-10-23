@@ -530,10 +530,8 @@ export default function Home2CustomTools({
         {/* 6 Capabilities Grid (Solid Logo Colors Only) */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map((tool) => {
-            const meta = toolIcons[tool.originalIndex % toolIcons.length];
             const tags = toolTags[tool.originalIndex % toolTags.length];
             const cardImg = toolCardImages[tool.originalIndex % toolCardImages.length];
-            const IconComponent = meta.icon;
 
             return (
               <Reveal key={tool.originalIndex} delay={tool.originalIndex * 60}>
@@ -567,18 +565,10 @@ export default function Home2CustomTools({
                   </div>
 
                   <div className="flex flex-col gap-3.5 p-6 flex-1">
-                    {/* Icon + Title */}
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="grid h-10 w-10 shrink-0 place-items-center rounded-xl transition duration-300 group-hover:scale-105"
-                        style={{ background: meta.bg, color: meta.color, border: `1px solid ${meta.border}` }}
-                      >
-                        <IconComponent className="h-5 w-5" />
-                      </div>
-                      <h3 className="font-display text-lg font-bold text-slate-900 transition group-hover:text-[#1f5fd6]">
-                        {tool.title}
-                      </h3>
-                    </div>
+                    {/* Title */}
+                    <h3 className="font-display text-lg font-bold text-slate-900 transition group-hover:text-[#1f5fd6]">
+                      {tool.title}
+                    </h3>
 
                     {/* Description */}
                     <p className="text-[14px] leading-relaxed text-slate-600">
@@ -592,7 +582,7 @@ export default function Home2CustomTools({
                           key={idx}
                           className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-0.5 text-[11px] text-[#1f5fd6]"
                         >
-                          <span className="text-[#0f8b8d] font-bold">✓</span> {tg}
+                          <CheckIcon className="h-2.5 w-2.5 text-[#0f8b8d]" /> <span>{tg}</span>
                         </span>
                       ))}
                     </div>
