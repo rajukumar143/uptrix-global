@@ -8,7 +8,7 @@ import CustomToolsSection from "@/components/home/CustomToolsSection";
 import Faq from "@/components/home/Faq";
 import Home2Hero from "@/components/home/Home2Hero";
 import { Icon } from "@/components/home/icons";
-import { getPageContent } from "@/lib/content-store";
+import { getPageContent, getContent } from "@/lib/content-store";
 
 export const metadata: Metadata = {
   title: "Générateurs de sites pour associations | Uptrix Home 2",
@@ -53,6 +53,7 @@ function telHref(tel: string) {
 }
 
 export default function Home2() {
+  const siteContent = getContent();
   const c = getPageContent("home");
   const year = new Date().getFullYear();
 
@@ -101,7 +102,7 @@ export default function Home2() {
         </section>
 
         {/* Stories Section */}
-        <StoriesSection content={c.stories} />
+        <StoriesSection section={c.stories} caseStudies={siteContent.caseStudies} videoTestimonials={siteContent.videoTestimonials} reviews={siteContent.reviews} />
 
         {/* Case Studies Section */}
         <CaseStudiesSection productFilter={c.stories.productFilter} theme="light" />

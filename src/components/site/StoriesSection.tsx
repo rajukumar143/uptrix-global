@@ -6,31 +6,35 @@ import StoryCard from "@/components/site/StoryCard";
 import CardsCarousel from "@/components/site/CardsCarousel";
 import { liveStudies, youtubeId, caseStudiesDefaults, videoTestimonialsDefaults, reviewsDefaults } from "@/content/stories";
 
-type Section = { eyebrow: string; heading: string; intro: string; productFilter: string };
+type Section = { eyebrow?: string; heading?: string; intro?: string; productFilter?: string };
 
 const matches = (product: string, filter: string) => !filter.trim() || product.toLowerCase().includes(filter.trim().toLowerCase());
 
 /** Video testimonials and customer reviews for one product, styled like the executive college case studies. */
 export default function StoriesSection({
   section,
+  content,
   className = "",
   showCaseStudies = false,
   caseStudies = caseStudiesDefaults,
   videoTestimonials = videoTestimonialsDefaults,
   reviews = reviewsDefaults,
 }: {
-  section: Section;
+  section?: Section;
+  content?: Section;
   className?: string;
   showCaseStudies?: boolean;
   caseStudies?: any;
   videoTestimonials?: any;
   reviews?: any;
 }) {
+  const sec = section || content || { eyebrow: "", heading: "", intro: "", productFilter: "" };
+  const filter = sec.productFilter || "";
   const [activeVideo, setActiveVideo] = useState<any>(null);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
 
   const studies = liveStudies(caseStudies.studies)
-    .filter((s: any) => matches(s.product, section.productFilter))
+    .filter((s: any) => matches(s.product, filter))
     .slice(0, 4);
 
   const allVideos = videoTestimonials.videos
@@ -48,9 +52,9 @@ export default function StoriesSection({
       episodeTitle: v.episodeTitle || v.headline || "Institutional Transformation & Scaled Growth",
       transcript: v.transcript || v.quote || "Our team achieved verifiable velocity within 30 days of implementation.",
     }))
-    .filter((v: any) => matches(v.product, section.productFilter));
+    .filter((v: any) => matches(v.product, filter));
 
-  const reviewList = reviews.items.filter((r: any) => r.quote && matches(r.product, section.productFilter)).slice(0, 12);
+  const reviewList = reviews.items.filter((r: any) => r.quote && matches(r.product, filter)).slice(0, 12);
 
   if (!studies.length && !allVideos.length && !reviewList.length) return null;
 
@@ -61,11 +65,11 @@ export default function StoriesSection({
     <section aria-labelledby="stories-h" className={`border-t border-pulse-line bg-pulse-bg ${className}`}>
       <div className="mx-auto flex max-w-[1200px] flex-col gap-12 px-[clamp(20px,4vw,40px)] py-[clamp(64px,9vw,112px)]">
         <div className="flex flex-col gap-4">
-          <p className="font-code text-xs tracking-[0.08em] text-pulse uppercase">{section.eyebrow}</p>
+          <p className="font-code text-xs tracking-[0.08em] text-pulse uppercase">{sec.eyebrow}</p>
           <h2 id="stories-h" className="max-w-[760px] text-[clamp(30px,3.8vw,44px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-balance text-pulse-ink">
-            {section.heading}
+            {sec.heading}
           </h2>
-          {section.intro && <p className="max-w-[640px] text-[17px] leading-relaxed text-pulse-muted">{section.intro}</p>}
+          {sec.intro && <p className="max-w-[640px] text-[17px] leading-relaxed text-pulse-muted">{sec.intro}</p>}
         </div>
 
         {/* 1. Video testimonials carousel: matching the 4K executive layout of College page */}
