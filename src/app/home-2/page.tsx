@@ -48,7 +48,13 @@ export default function Home2() {
 
         {/* Case Studies Section */}
         {c.stories && (
-          <CaseStudiesSection productFilter={c.stories.productFilter || ""} theme="light" />
+          <CaseStudiesSection
+            productFilter={c.stories.productFilter || ""}
+            theme="light"
+            hideEyebrow
+            heading="Results You Can Measure"
+            intro="How growing companies use Uptrix to capture leads, close deals, and scale."
+          />
         )}
 
         {/* Stories Section */}

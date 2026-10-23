@@ -55,16 +55,18 @@ export default function CaseStudiesSection({
       <div className={`${container} relative flex flex-col gap-10`}>
         {/* Section Heading & Eyebrow */}
         <div className="flex flex-col gap-4">
-          <div
-            className={`inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-bold uppercase tracking-wider ${
-              isLight
-                ? "border-emerald-500/25 bg-emerald-50 text-emerald-800"
-                : "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
-            }`}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#22b07d] animate-pulse" />
-            Proven Customer Results
-          </div>
+          {!hideEyebrow && (
+            <div
+              className={`inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-bold uppercase tracking-wider ${
+                isLight
+                  ? "border-emerald-500/25 bg-emerald-50 text-emerald-800"
+                  : "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
+              }`}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#22b07d] animate-pulse" />
+              Proven Customer Results
+            </div>
+          )}
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex max-w-[680px] flex-col gap-3">
               <h2
@@ -73,14 +75,14 @@ export default function CaseStudiesSection({
                   isLight ? "text-slate-900" : "text-white"
                 }`}
               >
-                {cs.heading}
+                {heading || cs.heading}
               </h2>
               <p
                 className={`text-[17px] leading-relaxed ${
                   isLight ? "text-slate-600" : "text-[#c9cbf0]"
                 }`}
               >
-                {cs.intro}
+                {intro || cs.intro}
               </p>
             </div>
           </div>
