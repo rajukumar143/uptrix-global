@@ -11,14 +11,15 @@ function WhatsAppLogo({ className = "w-4 h-4 text-white" }: { className?: string
   );
 }
 
-// 3D Database Cylinder Icon
-function DatabaseCylinderIcon({ className = "w-6 h-6" }: { className?: string }) {
+// 3D Database Cylinder Icon (Silver/Slate Metallic)
+function DatabaseCylinderIcon({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className}>
-      <ellipse cx="12" cy="5" rx="8" ry="3" fill="#94a3b8" />
-      <path d="M4 5v5c0 1.66 3.58 3 8 3s8-1.34 8-3V5" stroke="#64748b" strokeWidth="1.5" fill="#cbd5e1" />
-      <path d="M4 10v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5" stroke="#64748b" strokeWidth="1.5" fill="#94a3b8" />
-      <path d="M4 15v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4" stroke="#475569" strokeWidth="1.5" fill="#64748b" />
+    <svg viewBox="0 0 32 32" fill="none" className={className}>
+      <ellipse cx="16" cy="7" rx="10" ry="4" fill="#94a3b8" />
+      <ellipse cx="16" cy="6" rx="10" ry="4" fill="#cbd5e1" />
+      <path d="M6 7v6c0 2.21 4.48 4 10 4s10-1.79 10-4V7" stroke="#64748b" strokeWidth="1.5" fill="#94a3b8" />
+      <path d="M6 13v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6" stroke="#475569" strokeWidth="1.5" fill="#64748b" />
+      <path d="M6 19v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6" stroke="#334155" strokeWidth="1.5" fill="#475569" />
     </svg>
   );
 }
@@ -27,7 +28,7 @@ function DatabaseCylinderIcon({ className = "w-6 h-6" }: { className?: string })
 function CheckCircle({ bg = "bg-[#2563eb]" }: { bg?: string }) {
   return (
     <span className={`w-5 h-5 rounded-full ${bg} text-white flex items-center justify-center shrink-0 shadow-2xs`}>
-      <svg className="w-3 h-3 stroke-white stroke-[2.8]" fill="none" viewBox="0 0 24 24">
+      <svg className="w-3 h-3 stroke-white stroke-[3]" fill="none" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
       </svg>
     </span>
@@ -142,219 +143,226 @@ export default function CollegeTraditionalVsPulse() {
   const [showDemoModal, setShowDemoModal] = useState(false);
 
   return (
-    <section className="relative py-14 sm:py-20 lg:py-24 bg-gradient-to-b from-[#f8faff] via-white to-[#f5f8ff] border-b border-slate-200/80 overflow-hidden font-sans">
+    <section className="relative py-16 sm:py-20 lg:py-24 bg-white overflow-hidden font-sans">
       
       {/* Ambient background glows matching theme */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-10 left-10 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#eff6ff_0,transparent_60%)] opacity-80"
+        className="pointer-events-none absolute -top-12 left-1/4 w-[600px] h-[450px] bg-[radial-gradient(ellipse_at_center,#eff6ff_0,transparent_65%)] opacity-70"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/3 right-0 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#f5f3ff_0,transparent_60%)] opacity-80"
+        className="pointer-events-none absolute top-1/2 right-10 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#f5f3ff_0,transparent_65%)] opacity-70"
       />
 
-      <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 flex flex-col gap-9 sm:gap-11">
+      <div className="relative mx-auto max-w-[1220px] px-4 sm:px-6 lg:px-8 flex flex-col gap-10 sm:gap-12">
         
         {/* =========================================================================
             HEADER: TRADITIONAL CRM vs. PULSE
         ========================================================================== */}
         <header className="text-center">
           {/* Eyebrow Badge: TRADITIONAL CRM vs. PULSE */}
-          <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white border border-[#c4b5fd] shadow-2xs mb-3.5">
-            <span className="text-[11px] sm:text-xs font-bold text-slate-800 tracking-wider">
+          <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white border border-[#c4b5fd] shadow-2xs mb-4">
+            <span className="text-[11px] sm:text-xs font-extrabold text-[#1e293b] tracking-wider">
               TRADITIONAL CRM
             </span>
-            <span className="text-[11px] sm:text-xs font-black text-[#2563eb]">
+            <span className="text-[11px] sm:text-xs font-bold text-[#3b82f6]">
               vs.
             </span>
-            <span className="text-[11px] sm:text-xs font-black text-[#6938ef] tracking-wider">
+            <span className="text-[11px] sm:text-xs font-extrabold text-[#6938ef] tracking-wider">
               PULSE
             </span>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#0f172a] tracking-tight leading-tight m-0">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[48px] font-black text-[#0b0f19] tracking-tight leading-[1.15] m-0">
             The AI CRM That Turns<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed]">
+            <span className="text-[#2563eb]">
               Business Data Into Action
             </span>
           </h2>
 
-          <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[620px] mx-auto">
+          <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed mt-3 max-w-[650px] mx-auto">
             Acquire smarter. Follow up faster. Convert better. Collect more.
           </p>
         </header>
 
         {/* =========================================================================
-            3-COLUMN COMPARISON TABLE (Matching Reference Image 1:1)
+            3-COLUMN COMPARISON TABLE (Exact Match to Reference Image)
         ========================================================================== */}
         <div className="relative">
           
-          {/* Sparkle lines on top-right of Pulse card */}
-          <div className="hidden lg:block absolute -top-5 right-2 z-20 pointer-events-none text-[#a855f7]">
-            <svg className="w-9 h-7" viewBox="0 0 36 28" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="8" y1="20" x2="2" y2="6" />
-              <line x1="18" y1="20" x2="18" y2="2" />
-              <line x1="28" y1="20" x2="34" y2="6" />
+          {/* Three Sparkle Rays on top-right of Pulse card */}
+          <div className="hidden md:block absolute -top-5.5 right-4 lg:right-5 z-30 pointer-events-none text-[#9333ea]">
+            <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="6" y1="20" x2="2" y2="4" />
+              <line x1="16" y1="20" x2="16" y2="2" />
+              <line x1="26" y1="20" x2="30" y2="4" />
             </svg>
           </div>
 
-          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.04)] grid grid-cols-1 md:grid-cols-12 overflow-hidden">
-            
-            {/* ---------------------------------------------------------------------
-                COLUMN 1: FEATURES LIST (Left 4 cols)
-            ---------------------------------------------------------------------- */}
-            <div className="md:col-span-4 bg-white border-b md:border-b-0 md:border-r border-slate-200/80 flex flex-col">
-              {/* Column Top Spacer (aligns with headers in Col 2 & Col 3) */}
-              <div className="h-[78px] p-4 flex items-center border-b border-slate-100/90">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
-                  Feature Comparison
-                </span>
-              </div>
+          {/* Horizontal scroll on mobile to keep layout intact */}
+          <div className="overflow-x-auto pb-4 md:overflow-visible">
+            <div className="min-w-[800px] md:min-w-0 flex items-stretch">
+              
+              {/* -------------------------------------------------------------------
+                  LEFT CONTAINER: COL 1 (Features) + COL 2 (Traditional CRM)
+                  Enclosed in Light Blue Border with Rounded Left Corners
+              -------------------------------------------------------------------- */}
+              <div className="w-[62%] rounded-l-3xl border-2 border-[#60a5fa] bg-white flex overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.03)]">
+                
+                {/* COLUMN 1: Features List (~45% of left box) */}
+                <div className="w-[45%] border-r-2 border-[#60a5fa] flex flex-col bg-white">
+                  {/* Empty header cell matching Col 2 & Col 3 header height */}
+                  <div className="h-[84px] border-b border-slate-200 shrink-0" />
 
-              {/* 9 Feature Rows */}
-              <div className="divide-y divide-slate-100 flex-1 flex flex-col justify-around">
-                {comparisonRows.map((row) => (
-                  <div
-                    key={row.id}
-                    className="h-[52px] sm:h-[56px] px-4 sm:px-5 flex items-center gap-3 hover:bg-slate-50/70 transition-colors"
-                  >
-                    <div
-                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${row.iconBg} ${row.iconColor} flex items-center justify-center shrink-0 shadow-2xs font-bold`}
-                    >
-                      {row.featureIcon === "users" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "chart" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "user-group" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.5c0-1.12.44-2.16 1.19-2.97-.4-.02-.8-.03-1.19-.03z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "bell" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "whatsapp" && <WhatsAppLogo className="w-4 h-4 text-white" />}
-                      {row.featureIcon === "megaphone" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M20 2v3h-2V4h-1.5c-2.48 0-4.5 2.02-4.5 4.5V10h-2V8.5C10 5.46 12.46 3 15.5 3H18V2h2zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "coins" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 2C6.48 2 2 3.79 2 6s4.48 4 10 4 10-1.79 10-4-4.48-4-10-4zm0 6c-4.41 0-8-1.34-8-2s3.59-2 8-2 8 1.34 8 2-3.59 2-8 2zm0 3c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4V7c0 2.21-4.48 4-10 4zm0 5c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4v-3c0 2.21-4.48 4-10 4z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "grid" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z" />
-                        </svg>
-                      )}
-                      {row.featureIcon === "database" && (
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 2C6.48 2 2 3.79 2 6v12c0 2.21 4.48 4 10 4s10-1.79 10-4V6c0-2.21-4.48-4-10-4zm0 2c4.41 0 8 1.34 8 2s-3.59 2-8 2-8-1.34-8-2 3.59-2 8-2z" />
-                        </svg>
-                      )}
-                    </div>
-                    <span className="text-xs sm:text-[13px] font-bold text-slate-900 truncate">
-                      {row.feature}
-                    </span>
+                  {/* 9 Feature Rows */}
+                  <div className="flex-1 flex flex-col justify-between">
+                    {comparisonRows.map((row) => (
+                      <div
+                        key={row.id}
+                        className="h-[54px] px-4 sm:px-5 flex items-center gap-3 border-b border-slate-100 last:border-b-0 hover:bg-slate-50/70 transition-colors"
+                      >
+                        <div
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${row.iconBg} ${row.iconColor} flex items-center justify-center shrink-0 shadow-2xs font-bold`}
+                        >
+                          {row.featureIcon === "users" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "chart" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "user-group" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M16.5 12c1.38 0 2.49-1.12 2.49-2.5S17.88 7 16.5 7C15.12 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 2.99-1.34 2.99-3S10.66 5 9 5C7.34 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.5c0-1.12.44-2.16 1.19-2.97-.4-.02-.8-.03-1.19-.03z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "bell" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "whatsapp" && <WhatsAppLogo className="w-4 h-4 text-white" />}
+                          {row.featureIcon === "megaphone" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M20 2v3h-2V4h-1.5c-2.48 0-4.5 2.02-4.5 4.5V10h-2V8.5C10 5.46 12.46 3 15.5 3H18V2h2zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "coins" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M12 2C6.48 2 2 3.79 2 6s4.48 4 10 4 10-1.79 10-4-4.48-4-10-4zm0 6c-4.41 0-8-1.34-8-2s3.59-2 8-2 8 1.34 8 2-3.59 2-8 2zm0 3c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4V7c0 2.21-4.48 4-10 4zm0 5c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4v-3c0 2.21-4.48 4-10 4z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "grid" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z" />
+                            </svg>
+                          )}
+                          {row.featureIcon === "database" && (
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                              <path d="M12 2C6.48 2 2 3.79 2 6v12c0 2.21 4.48 4 10 4s10-1.79 10-4V6c0-2.21-4.48-4-10-4zm0 2c4.41 0 8 1.34 8 2s-3.59 2-8 2-8-1.34-8-2 3.59-2 8-2z" />
+                            </svg>
+                          )}
+                        </div>
+                        <span className="text-xs sm:text-[13.5px] font-bold text-[#0f172a] truncate">
+                          {row.feature}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* ---------------------------------------------------------------------
-                COLUMN 2: TRADITIONAL CRM (Center 4 cols)
-            ---------------------------------------------------------------------- */}
-            <div className="md:col-span-4 bg-white border-b md:border-b-0 md:border-r border-slate-200/80 flex flex-col text-center">
-              {/* Column Header */}
-              <div className="h-[78px] p-3 flex items-center justify-center gap-2.5 border-b border-slate-100/90 bg-slate-50/40">
-                <DatabaseCylinderIcon className="w-6 h-6 shrink-0" />
-                <div className="text-left">
-                  <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight m-0">
-                    Traditional CRM
-                  </h4>
-                  <span className="text-[10px] text-slate-500 font-medium block leading-tight">
-                    Stores information
+                {/* COLUMN 2: Traditional CRM (~55% of left box) */}
+                <div className="w-[55%] flex flex-col bg-white text-center">
+                  {/* Column Header */}
+                  <div className="h-[84px] px-3 flex items-center justify-center gap-3 border-b border-slate-200 bg-slate-50/20 shrink-0">
+                    <DatabaseCylinderIcon className="w-7 h-7 shrink-0" />
+                    <div className="text-left">
+                      <h4 className="font-extrabold text-[#0f172a] text-sm leading-tight m-0">
+                        Traditional CRM
+                      </h4>
+                      <span className="text-[11px] text-slate-500 font-medium block leading-tight mt-0.5">
+                        Stores information
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 9 Feature Status Rows */}
+                  <div className="flex-1 flex flex-col justify-between">
+                    {comparisonRows.map((row) => (
+                      <div
+                        key={row.id}
+                        className="h-[54px] px-3 flex items-center justify-center text-xs sm:text-[13.5px] text-slate-700 font-medium border-b border-slate-100 last:border-b-0 hover:bg-slate-50/50 transition-colors"
+                      >
+                        {row.traditional}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* -------------------------------------------------------------------
+                  RIGHT CONTAINER: COLUMN 3 (PULSE - Highlighted Hero Column)
+                  Enclosed in 2px Vibrant Purple Border with Rounded Right Corners
+              -------------------------------------------------------------------- */}
+              <div className="w-[38%] rounded-r-3xl border-2 border-[#7c3aed] bg-gradient-to-b from-[#f5f3ff] via-[#f8faff] to-[#faf5ff] flex flex-col relative overflow-hidden -ml-[2px] z-10 shadow-[0_15px_35px_rgba(124,58,237,0.1)]">
+                
+                {/* Column Header: Vibrant Royal Blue to Purple Gradient Banner */}
+                <div className="h-[84px] px-4 py-3 bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed] text-white flex flex-col items-center justify-center text-center shadow-sm shrink-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-lg">✦</span>
+                    <h4 className="font-extrabold text-lg sm:text-xl tracking-wide text-white m-0">
+                      Pulse
+                    </h4>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-white/95 font-medium block leading-tight mt-0.5">
+                    Understands and acts on your data
                   </span>
                 </div>
-              </div>
 
-              {/* 9 Feature Status Rows */}
-              <div className="divide-y divide-slate-100 flex-1 flex flex-col justify-around">
-                {comparisonRows.map((row) => (
-                  <div
-                    key={row.id}
-                    className="h-[52px] sm:h-[56px] px-3 flex items-center justify-center text-xs sm:text-[13px] text-slate-600 font-medium hover:bg-slate-50/50 transition-colors"
-                  >
-                    {row.traditional}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ---------------------------------------------------------------------
-                COLUMN 3: PULSE (Right 4 cols - Highlighted Purple Hero)
-            ---------------------------------------------------------------------- */}
-            <div className="md:col-span-4 bg-gradient-to-b from-[#f5f3ff] via-[#f8faff] to-white flex flex-col relative shadow-[inset_0_0_0_1.5px_rgba(105,56,239,0.35)] rounded-b-3xl md:rounded-b-none md:rounded-r-3xl overflow-hidden">
-              
-              {/* Column Header: Vibrant Purple Gradient Banner */}
-              <div className="h-[78px] px-4 py-3 bg-gradient-to-r from-[#2563eb] via-[#5825df] to-[#6938ef] text-white flex flex-col items-center justify-center text-center shadow-md">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-base">✦</span>
-                  <h4 className="font-extrabold text-base sm:text-lg tracking-wide text-white m-0">
-                    Pulse
-                  </h4>
+                {/* 9 Pulse Feature Rows with Floating White Pill Cards */}
+                <div className="flex-1 flex flex-col justify-between p-1.5 sm:p-2">
+                  {comparisonRows.map((row) => (
+                    <div
+                      key={row.id}
+                      className="h-[54px] flex items-center justify-center px-1"
+                    >
+                      <div className="w-full h-[42px] px-3.5 sm:px-4 rounded-xl bg-white border border-purple-100/90 shadow-[0_2px_6px_rgba(0,0,0,0.03)] flex items-center gap-2.5 sm:gap-3 hover:border-[#6938ef] hover:shadow-xs transition-all">
+                        <CheckCircle bg={row.pulseCheckBg} />
+                        <span className="text-xs sm:text-[13px] font-extrabold text-[#0f172a] truncate">
+                          {row.pulse}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <span className="text-[10px] sm:text-[11px] text-white/90 font-medium block leading-tight mt-0.5">
-                  Understands and acts on your data
-                </span>
+
               </div>
 
-              {/* 9 Pulse Feature Rows with Checkmarks */}
-              <div className="divide-y divide-purple-100/70 flex-1 flex flex-col justify-around p-1.5 sm:p-2">
-                {comparisonRows.map((row) => (
-                  <div
-                    key={row.id}
-                    className="h-[52px] sm:h-[56px] px-3 sm:px-4 rounded-xl bg-white border border-purple-100/80 shadow-2xs flex items-center gap-2.5 my-0.5 hover:border-[#6938ef] hover:shadow-xs transition-all"
-                  >
-                    <CheckCircle bg={row.pulseCheckBg} />
-                    <span className="text-xs sm:text-[13px] font-extrabold text-slate-900 truncate">
-                      {row.pulse}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </div>
-
           </div>
         </div>
 
         {/* =========================================================================
-            BOTTOM CALL-TO-ACTION BANNER (Matching Reference Image 1:1)
+            BOTTOM CALL-TO-ACTION BANNER (Exact Match to Reference Image)
         ========================================================================== */}
-        <div className="relative rounded-[28px] sm:rounded-[34px] bg-white border-2 border-[#c4b5fd]/80 p-5 sm:p-7 lg:p-8 shadow-[0_20px_45px_rgba(105,56,239,0.08)] flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 overflow-hidden">
+        <div className="relative rounded-[28px] sm:rounded-[36px] bg-white border-2 border-[#7c3aed] p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(105,56,239,0.08)] flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 overflow-hidden">
           
           {/* Top-Right Decorative Flow Arrow */}
-          <div className="absolute top-4 right-6 hidden lg:block text-[#6938ef] pointer-events-none">
-            <svg className="w-12 h-10" viewBox="0 0 50 40" fill="none">
+          <div className="absolute top-5 right-8 hidden lg:block text-[#6938ef] pointer-events-none">
+            <svg className="w-14 h-12" viewBox="0 0 54 44" fill="none">
               <path
-                d="M 5 35 C 15 25, 30 18, 42 8"
+                d="M 6 38 C 18 28, 32 18, 46 8"
                 stroke="currentColor"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
               <path
-                d="M 28 6 L 44 7 L 43 23"
+                d="M 30 7 L 47 7 L 46 24"
                 stroke="currentColor"
                 strokeWidth="3.5"
                 strokeLinecap="round"
@@ -363,47 +371,84 @@ export default function CollegeTraditionalVsPulse() {
             </svg>
           </div>
 
+          {/* Left Sparkle Accents */}
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#7c3aed] hidden sm:block">
+            <svg className="w-6 h-10" viewBox="0 0 24 40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="20" y1="12" x2="4" y2="4" />
+              <line x1="20" y1="20" x2="2" y2="20" />
+              <line x1="20" y1="28" x2="4" y2="36" />
+            </svg>
+          </div>
+
           {/* Left Mini Cockpit / Window Mockup */}
-          <div className="relative w-full max-w-[340px] shrink-0">
+          <div className="relative w-full max-w-[340px] shrink-0 my-3 sm:my-4">
+            
             {/* Background window card */}
-            <div className="rounded-2xl bg-white border border-slate-200/90 shadow-[0_10px_25px_rgba(0,0,0,0.06)] p-3">
+            <div className="rounded-2xl bg-white border border-slate-200/90 shadow-[0_10px_25px_rgba(0,0,0,0.06)] p-3.5 pb-6">
               {/* Chrome dots */}
-              <div className="flex items-center gap-1.5 pb-2 border-b border-slate-100">
-                <span className="w-2 h-2 rounded-full bg-slate-300" />
-                <span className="w-2 h-2 rounded-full bg-slate-300" />
-                <span className="w-2 h-2 rounded-full bg-slate-300" />
+              <div className="flex items-center gap-1.5 pb-2.5 border-b border-slate-100">
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
               </div>
 
-              {/* Curvy Line Chart */}
-              <div className="py-3 h-20 flex items-center justify-center">
-                <svg className="w-full h-full text-[#6938ef]" viewBox="0 0 200 60" fill="none">
-                  <path
-                    d="M 10 50 Q 50 10, 90 35 T 150 15 T 190 5"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    fill="none"
+              {/* Purple pill bar & placeholders */}
+              <div className="pt-3">
+                <div className="w-14 h-3.5 rounded-full bg-[#8b5cf6]" />
+                <div className="w-10 h-1.5 rounded-full bg-slate-200 mt-2" />
+                <div className="w-16 h-1.5 rounded-full bg-slate-200 mt-1" />
+              </div>
+
+              {/* Rising Line Chart with Gradient Fill & Nodes */}
+              <div className="pt-2 h-24 flex items-center justify-center">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 280 85" fill="none">
+                  <defs>
+                    <linearGradient id="chartPulseGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Gradient Area under line */}
+                  <polygon
+                    points="10,65 55,70 95,40 140,52 185,22 230,30 275,10 275,85 10,85"
+                    fill="url(#chartPulseGrad)"
                   />
-                  <circle cx="10" cy="50" r="3" fill="#6938ef" />
-                  <circle cx="90" cy="35" r="3" fill="#6938ef" />
-                  <circle cx="150" cy="15" r="3" fill="#6938ef" />
-                  <circle cx="190" cy="5" r="4" fill="#2563eb" />
+                  
+                  {/* Purple Zigzag Line */}
+                  <path
+                    d="M 10 65 L 55 70 L 95 40 L 140 52 L 185 22 L 230 30 L 275 10"
+                    stroke="#7c3aed"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* Circular Nodes */}
+                  <circle cx="10" cy="65" r="3.5" fill="#7c3aed" />
+                  <circle cx="55" cy="70" r="3.5" fill="#7c3aed" />
+                  <circle cx="95" cy="40" r="3.5" fill="#7c3aed" />
+                  <circle cx="140" cy="52" r="3.5" fill="#7c3aed" />
+                  <circle cx="185" cy="22" r="3.5" fill="#7c3aed" />
+                  <circle cx="230" cy="30" r="3.5" fill="#7c3aed" />
+                  <circle cx="275" cy="10" r="4.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
                 </svg>
               </div>
             </div>
 
             {/* Overlapping Floating Badge 1: New Lead from WhatsApp */}
-            <div className="absolute -bottom-3 -left-3 z-10 rounded-2xl bg-white border border-slate-200 shadow-md p-2 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#25d366] text-white flex items-center justify-center shrink-0 shadow-2xs">
-                <WhatsAppLogo className="w-4.5 h-4.5 text-white" />
+            <div className="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 z-20 flex items-center">
+              <div className="w-11 h-11 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-lg -mr-3 z-10 shrink-0">
+                <WhatsAppLogo className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <strong className="block text-[10px] font-extrabold text-slate-900 leading-tight">
+              <div className="bg-white rounded-2xl shadow-xl border border-slate-100 py-2 px-3 pl-4.5 flex flex-col">
+                <strong className="block text-[11px] font-extrabold text-slate-900 leading-tight">
                   New Lead
                 </strong>
-                <span className="text-[8px] text-slate-400 block leading-tight">
+                <span className="text-[8.5px] text-slate-400 font-medium block leading-tight">
                   from WhatsApp
                 </span>
-                <span className="text-[7.5px] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
+                <span className="text-[8px] text-emerald-600 font-bold flex items-center gap-1 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Converted
                 </span>
@@ -411,36 +456,46 @@ export default function CollegeTraditionalVsPulse() {
             </div>
 
             {/* Overlapping Floating Badge 2: Revenue +68% */}
-            <div className="absolute -bottom-3 -right-2 z-10 rounded-2xl bg-white border border-slate-200 shadow-md p-2 flex items-center gap-2.5">
+            <div className="absolute -bottom-4 -right-3 sm:-bottom-5 sm:-right-4 z-20 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 px-3.5 flex items-center gap-3">
               <div>
-                <span className="text-[8.5px] font-semibold text-slate-400 block">Revenue</span>
-                <span className="text-xs font-black text-slate-900">+68%</span>
+                <span className="text-[9px] font-semibold text-slate-400 block leading-tight">Revenue</span>
+                <span className="text-sm font-black text-slate-900 leading-tight">+68%</span>
               </div>
               <div className="flex items-end gap-1 h-6">
-                <span className="w-1.5 h-2 bg-blue-300 rounded-t-sm" />
-                <span className="w-1.5 h-3 bg-blue-400 rounded-t-sm" />
-                <span className="w-1.5 h-4.5 bg-blue-500 rounded-t-sm" />
-                <span className="w-1.5 h-6 bg-blue-600 rounded-t-sm" />
+                <span className="w-1.5 h-2 bg-blue-300 rounded-t-xs" />
+                <span className="w-1.5 h-3 bg-blue-400 rounded-t-xs" />
+                <span className="w-1.5 h-4.5 bg-blue-500 rounded-t-xs" />
+                <span className="w-1.5 h-5.5 bg-blue-600 rounded-t-xs" />
+                <span className="w-1.5 h-6.5 bg-blue-700 rounded-t-xs" />
               </div>
             </div>
           </div>
 
+          {/* Middle Sparkle Accents */}
+          <div className="pointer-events-none text-[#7c3aed] hidden lg:block shrink-0 -mx-1">
+            <svg className="w-6 h-10" viewBox="0 0 24 40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="4" y1="12" x2="20" y2="4" />
+              <line x1="4" y1="20" x2="22" y2="20" />
+              <line x1="4" y1="28" x2="20" y2="36" />
+            </svg>
+          </div>
+
           {/* Right Copy & CTA Buttons */}
           <div className="flex-1 flex flex-col justify-center text-left">
-            <h3 className="font-display text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#0f172a] leading-snug tracking-tight m-0">
+            <h3 className="font-display text-2xl sm:text-3xl lg:text-[32px] font-black text-[#0f172a] leading-tight tracking-tight m-0">
               Stop Managing Your CRM.<br />
               <span className="text-[#2563eb]">Start Running Your Business From It.</span>
             </h3>
 
-            <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mt-2 mb-4 max-w-[560px]">
+            <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed mt-2.5 mb-5 max-w-[580px]">
               CRM-Pulse brings AI dashboards, lead automation, Meta conversations, follow-ups, marketing intelligence and payment analytics into one intelligent platform.
             </p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons Row */}
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#lead-capture"
-                className="inline-flex items-center justify-center gap-1.5 px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-[#6938ef] to-[#7c3aed] text-white text-xs sm:text-[13px] font-bold shadow-md hover:opacity-95 transition-opacity"
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#7c3aed] text-white text-xs sm:text-sm font-bold shadow-md hover:opacity-95 transition-opacity"
               >
                 <span>See what Pulse can do for your business</span>
                 <span>→</span>
@@ -449,7 +504,7 @@ export default function CollegeTraditionalVsPulse() {
               <button
                 type="button"
                 onClick={() => setShowDemoModal(true)}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-purple-200 text-[#6938ef] text-xs sm:text-[13px] font-bold hover:bg-purple-50 transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-1.5 px-4.5 py-3 rounded-xl bg-white border-2 border-[#7c3aed] text-[#6938ef] text-xs sm:text-sm font-bold hover:bg-purple-50 transition-colors cursor-pointer"
               >
                 <span>📅</span>
                 <span>Book a free demo</span>
@@ -457,7 +512,7 @@ export default function CollegeTraditionalVsPulse() {
 
               <a
                 href="#lead-capture"
-                className="text-xs sm:text-[13px] font-bold text-[#6938ef] hover:underline ml-1"
+                className="text-xs sm:text-sm font-bold text-[#6938ef] hover:underline ml-1"
               >
                 Start your free trial →
               </a>
@@ -468,7 +523,7 @@ export default function CollegeTraditionalVsPulse() {
 
       </div>
 
-      {/* Demo Modal Trigger */}
+      {/* Demo Modal */}
       {showDemoModal && (
         <div
           role="dialog"
