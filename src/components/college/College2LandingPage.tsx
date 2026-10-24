@@ -971,7 +971,7 @@ export default function College2LandingPage({ header, footer, content }: College
                     const fd = new FormData(e.currentTarget);
                     fd.set("page", "College 2.0");
                     const res = await submitLead(fd);
-                    if (res.success) {
+                    if (res.ok || res.success) {
                       setDemoSubmitted(true);
                     } else {
                       setDemoError(res.error || "Failed to submit request.");
@@ -987,13 +987,13 @@ export default function College2LandingPage({ header, footer, content }: College
                 <div>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700">
                     <GraduationCapIcon className="w-3 h-3 text-emerald-700" />
-                    <span>{demoModal.eyebrow}</span>
+                    <span>{"eyebrow" in demoModal ? (demoModal as any).eyebrow : "Book a Demo"}</span>
                   </span>
                   <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-2">
                     {demoModal.heading}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    {demoModal.subheading}
+                    {"subheading" in demoModal ? (demoModal as any).subheading : demoModal.body}
                   </p>
                 </div>
 
@@ -1247,7 +1247,7 @@ export default function College2LandingPage({ header, footer, content }: College
               <div>
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 font-mono">
                   <FileTextIcon className="w-3.5 h-3.5 text-blue-700" />
-                  <span>{caseStudies.modal.eyebrow}</span>
+                  <span>{"modal" in caseStudies && (caseStudies as any).modal?.eyebrow ? (caseStudies as any).modal.eyebrow : caseStudies.eyebrow}</span>
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
                   {selectedCaseStudyCard?.title}

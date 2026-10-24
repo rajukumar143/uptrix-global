@@ -23,7 +23,7 @@ export default function Faq({
 
   return (
     <div className="flex flex-col border-t border-slate-200">
-      {faqs.map((f, i) => {
+      {faqs.map((f: { q: string; a: string }, i: number) => {
         const isOpen = open === i;
         return (
           <div key={i} className="border-b border-slate-200">

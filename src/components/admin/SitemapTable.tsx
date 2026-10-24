@@ -41,7 +41,7 @@ export function SitemapTable({
         url: urlStr,
         path,
         category: cat,
-        lastModified: e.lastModified ? new Date(e.lastModified).isoString().split("T")[0] : "N/A",
+        lastModified: e.lastModified ? new Date(e.lastModified).toISOString().split("T")[0] : "N/A",
         priority: typeof e.priority === 'number' ? e.priority : 0.5,
         frequency: e.changeFrequency || 'weekly',
       };
@@ -166,7 +166,7 @@ export function SitemapTable({
                               : 'bg-slate-100 text-slate-600'
                           }`}
                         >
-                          {item.priority.fixed(1)}
+                          {item.priority.toFixed(1)}
                         </span>
                       </td>
                       <td className='py-2.5 px-4 capitalize font-sans text-slate-600'>

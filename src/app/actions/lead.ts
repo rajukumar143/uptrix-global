@@ -5,7 +5,7 @@ import { z } from "zod";
 import { clientAddress } from "@/lib/admin-auth";
 import { addLead, type Lead } from "@/lib/lead-store";
 
-export type LeadResult = { ok: boolean; error?: string };
+export type LeadResult = { ok: boolean; success?: boolean; error?: string };
 
 // A few submissions per visitor every 10 minutes, so bots can't flood the file
 const recent = new Map<string, number[]>();
@@ -59,7 +59,7 @@ async function verifyTurnstile(formData: FormData, ip: string): Promise<boolean>
 
 /** Saves an enquiry from a website form. It shows up in Admin → Leads with all details. */
 export async function submitLead(formData: FormData): Promise<LeadResult> {
-  if (clean(formData.get("website"), 100)) return { ok: true }; // honeypot for bots
+  if (clean(formData.get("website"), 100)) return { ok: true, success: true }; // honeypot for bots
 
   const h = await headers();
   const refererUrl = h.get("referer") || "";
@@ -128,5 +128,5 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
     console.error("Could not persist website enquiry", error);
     return { ok: false, error: "Something went wrong. Please try again." };
   }
-  return { ok: true };
+  return { ok: true, success: true };
 }

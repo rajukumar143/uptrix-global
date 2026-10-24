@@ -306,7 +306,7 @@ ${sitemapEntries
       {/* TAB 2: SITEMAP */}
       {activeTab === "sitemap" && (
         <div className="space-y-4">
-          <SitemapTable entries={sitemapEntries} siteUrl={siteUrl} rawXml={rawSitemapXml} />
+          <SitemapTable entries={sitemapEntries} siteBaseUrl={siteUrl} rawXml={rawSitemapXml} onCopy={copyToClipboard} copiedText={copiedUrl} />
         </div>
       )}
 

@@ -59,9 +59,9 @@ const home2HeroSlides = [
 ];
 
 const home2HeroStats = [
-  { stat: "100%", label: "IP Ownership" },
-  { stat: "4 Sprints", label: "Idea to Launch" },
-  { stat: "0 Code", label: "Bottlenecks" },
+  { value: "100%", label: "IP Ownership" },
+  { value: "4 Sprints", label: "Idea to Launch" },
+  { value: "0 Code", label: "Bottlenecks" },
 ];
 
 function telHref(tel: string) {
