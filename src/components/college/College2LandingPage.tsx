@@ -215,144 +215,230 @@ export default function College2LandingPage({ header, footer, content }: College
                     </div>
                   </div>
 
-                  {/* Mockup Body Content */}
-                  <div className="p-4 sm:p-5 bg-slate-50/70 space-y-4">
-                    {/* Top Row: Pipeline Summary */}
-                    <div className="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold text-slate-800">Lead Conversion Pipeline (2026 Batch)</span>
-                        <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">
-                          92.4% Counseling Target
-                        </span>
+                  {/* Cockpit Inner Body */}
+                  <div className="grid grid-cols-12 min-h-[420px] bg-slate-50/60">
+                    
+                    {/* Left Mini Sidebar */}
+                    <div className="col-span-3 bg-[#0d2a20] text-emerald-100 p-3 flex flex-col justify-between text-xs">
+                      <div className="space-y-1">
+                        <div className="px-2 py-1.5 rounded-lg bg-emerald-700/60 text-white font-semibold flex items-center gap-2 text-[11px]">
+                          <ChartBarIcon className="w-3.5 h-3.5 text-white" />
+                          <span>Leads</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <GraduationCapIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Admissions</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <UsersIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Students</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <BookOpenIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Academic</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <CreditCardIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Fee &amp; Finance</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <MessageSquareIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Communication</span>
+                        </div>
+                        <div className="px-2 py-1.5 rounded-lg text-emerald-200/80 hover:bg-emerald-800/40 flex items-center gap-2 text-[11px] cursor-pointer">
+                          <TrendingUpIcon className="w-3.5 h-3.5 text-emerald-300" />
+                          <span>Reports</span>
+                        </div>
                       </div>
-
-                      {/* 5-Stage Stepper Track */}
-                      <div className="grid grid-cols-5 gap-1.5 text-center pt-1">
-                        <div>
-                          <div className="w-6 h-6 mx-auto rounded-full bg-blue-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-                            1
-                          </div>
-                          <span className="text-[9px] font-bold text-slate-700 block mt-1">Inquiries</span>
-                          <span className="text-[11px] font-black text-blue-700 font-mono">482</span>
-                        </div>
-                        <div>
-                          <div className="w-6 h-6 mx-auto rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-                            2
-                          </div>
-                          <span className="text-[9px] font-bold text-slate-700 block mt-1">Contacted</span>
-                          <span className="text-[11px] font-black text-indigo-700 font-mono">192</span>
-                        </div>
-                        <div>
-                          <div className="w-6 h-6 mx-auto rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-                            3
-                          </div>
-                          <span className="text-[9px] font-bold text-slate-700 block mt-1">Counseling</span>
-                          <span className="text-[11px] font-black text-amber-700 font-mono">96</span>
-                        </div>
-                        <div>
-                          <div className="w-6 h-6 mx-auto rounded-full bg-purple-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-                            4
-                          </div>
-                          <span className="text-[9px] font-bold text-slate-700 block mt-1">Applied</span>
-                          <span className="text-[11px] font-black text-purple-700 font-mono">42</span>
-                        </div>
-                        <div>
-                          <div className="w-6 h-6 mx-auto rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
-                            5
-                          </div>
-                          <span className="text-[9px] font-bold text-slate-700 block mt-1">Enrolled</span>
-                          <span className="text-[11px] font-black text-emerald-700 font-mono">28</span>
-                        </div>
+                      <div className="pt-2 border-t border-emerald-900/60 text-[10px] text-emerald-300/70 px-2 flex items-center gap-1.5">
+                        <SettingsIcon className="w-3 h-3 text-emerald-400" />
+                        <span>Settings</span>
                       </div>
                     </div>
 
-                    {/* Lower Split: Recent Activity & Leads by Source */}
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
-                      {/* Recent Activity */}
-                      <div className="sm:col-span-7 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
-                        <span className="text-[11px] font-bold text-slate-800 block mb-2">
-                          Recent Activity
-                        </span>
-                        <div className="space-y-2 text-[10px]">
-                          <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
-                            <div className="flex items-center gap-1.5 truncate">
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-                              <span className="font-semibold text-slate-700 truncate">New lead from website</span>
+                    {/* Main Cockpit Content */}
+                    <div className="col-span-9 p-3 sm:p-4 flex flex-col gap-3">
+                      
+                      {/* 4 Metric Cards */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs">
+                          <span className="text-[10px] font-semibold text-slate-500 uppercase block">Total Leads</span>
+                          <div className="text-base font-black text-slate-900 mt-0.5">1,284</div>
+                          <span className="inline-flex items-center text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded mt-0.5">
+                            ↑ 16.4%
+                          </span>
+                        </div>
+
+                        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs">
+                          <span className="text-[10px] font-semibold text-slate-500 uppercase block">Admissions</span>
+                          <div className="text-base font-black text-emerald-700 mt-0.5">386</div>
+                          <span className="inline-flex items-center text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded mt-0.5">
+                            ↑ 12.8%
+                          </span>
+                        </div>
+
+                        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs">
+                          <span className="text-[10px] font-semibold text-slate-500 uppercase block">Active Students</span>
+                          <div className="text-base font-black text-indigo-700 mt-0.5">2,840</div>
+                          <span className="inline-flex items-center text-[9px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded mt-0.5">
+                            ↑ 8.2%
+                          </span>
+                        </div>
+
+                        <div className="bg-white p-2.5 rounded-xl border border-slate-200/90 shadow-2xs">
+                          <span className="text-[10px] font-semibold text-slate-500 uppercase block">Revenue</span>
+                          <div className="text-base font-black text-amber-700 mt-0.5">₹48.6L</div>
+                          <span className="inline-flex items-center text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.2 rounded mt-0.5">
+                            ↑ 21.4%
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Admission Pipeline Stepper */}
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-bold text-slate-800">Admission Pipeline</span>
+                          <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md font-bold">
+                            Live Funnel
+                          </span>
+                        </div>
+
+                        {/* Visual Connected Pipeline */}
+                        <div className="relative pt-2 pb-1">
+                          <div className="absolute top-1/2 left-4 right-4 h-1 -translate-y-1/2 bg-slate-100 rounded-full z-0" />
+                          <div className="grid grid-cols-5 gap-1 relative z-10 text-center">
+                            <div>
+                              <div className="w-6 h-6 mx-auto rounded-full bg-blue-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                                1
+                              </div>
+                              <span className="text-[9px] font-bold text-slate-700 block mt-1">New Leads</span>
+                              <span className="text-[11px] font-black text-blue-700 font-mono">291</span>
                             </div>
-                            <span className="text-slate-400 font-mono text-[9px] shrink-0">12 mins ago</span>
-                          </div>
-                          <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
-                            <div className="flex items-center gap-1.5 truncate">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
-                              <span className="font-semibold text-slate-700 truncate">Counseling booked for Rahul</span>
+                            <div>
+                              <div className="w-6 h-6 mx-auto rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                                2
+                              </div>
+                              <span className="text-[9px] font-bold text-slate-700 block mt-1">Contacted</span>
+                              <span className="text-[11px] font-black text-indigo-700 font-mono">192</span>
                             </div>
-                            <span className="text-slate-400 font-mono text-[9px] shrink-0">28 mins ago</span>
-                          </div>
-                          <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
-                            <div className="flex items-center gap-1.5 truncate">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                              <span className="font-semibold text-slate-700 truncate">Fee payment received ₹1,42,500</span>
+                            <div>
+                              <div className="w-6 h-6 mx-auto rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                                3
+                              </div>
+                              <span className="text-[9px] font-bold text-slate-700 block mt-1">Counseling</span>
+                              <span className="text-[11px] font-black text-amber-700 font-mono">96</span>
                             </div>
-                            <span className="text-slate-400 font-mono text-[9px] shrink-0">1 hour ago</span>
-                          </div>
-                          <div className="flex items-center justify-between gap-1.5">
-                            <div className="flex items-center gap-1.5 truncate">
-                              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
-                              <span className="font-semibold text-slate-700 truncate">Document uploaded - Aadhaar</span>
+                            <div>
+                              <div className="w-6 h-6 mx-auto rounded-full bg-purple-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                                4
+                              </div>
+                              <span className="text-[9px] font-bold text-slate-700 block mt-1">Applied</span>
+                              <span className="text-[11px] font-black text-purple-700 font-mono">42</span>
                             </div>
-                            <span className="text-slate-400 font-mono text-[9px] shrink-0">2 hours ago</span>
+                            <div>
+                              <div className="w-6 h-6 mx-auto rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center shadow-xs">
+                                5
+                              </div>
+                              <span className="text-[9px] font-bold text-slate-700 block mt-1">Enrolled</span>
+                              <span className="text-[11px] font-black text-emerald-700 font-mono">28</span>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Leads by Source Donut Simulation */}
-                      <div className="sm:col-span-5 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex flex-col justify-between">
-                        <span className="text-[11px] font-bold text-slate-800 block mb-1">
-                          Leads by Source
-                        </span>
+                      {/* Lower Split: Recent Activity & Leads by Source */}
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
                         
-                        <div className="flex items-center gap-2">
-                          <div className="relative w-14 h-14 shrink-0 rounded-full flex items-center justify-center bg-[conic-gradient(#3b82f6_0deg_115deg,#8b5cf6_115deg_216deg,#f59e0b_216deg_280deg,#10b981_280deg_330deg,#94a3b8_330deg_360deg)] p-2">
-                            <div className="w-10 h-10 rounded-full bg-white flex flex-col items-center justify-center">
-                              <span className="text-[9px] font-black text-slate-800 font-mono leading-none">1,284</span>
-                              <span className="text-[6px] text-slate-400 uppercase">Total</span>
+                        {/* Recent Activity */}
+                        <div className="sm:col-span-7 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
+                          <span className="text-[11px] font-bold text-slate-800 block mb-2">
+                            Recent Activity
+                          </span>
+                          <div className="space-y-2 text-[10px]">
+                            <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
+                              <div className="flex items-center gap-1.5 truncate">
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                                <span className="font-semibold text-slate-700 truncate">New lead from website</span>
+                              </div>
+                              <span className="text-slate-400 font-mono text-[9px] shrink-0">12 mins ago</span>
                             </div>
-                          </div>
-
-                          <div className="text-[9px] space-y-0.5 flex-1">
-                            <div className="flex items-center justify-between">
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" /> Website
-                              </span>
-                              <span className="font-mono font-bold text-slate-800">32%</span>
+                            <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
+                              <div className="flex items-center gap-1.5 truncate">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                                <span className="font-semibold text-slate-700 truncate">Counseling booked for Rahul</span>
+                              </div>
+                              <span className="text-slate-400 font-mono text-[9px] shrink-0">28 mins ago</span>
                             </div>
-                            <div className="flex items-center justify-between">
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 inline-block" /> Meta Ads
-                              </span>
-                              <span className="font-mono font-bold text-slate-800">28%</span>
+                            <div className="flex items-center justify-between gap-1.5 pb-1 border-b border-slate-100">
+                              <div className="flex items-center gap-1.5 truncate">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                                <span className="font-semibold text-slate-700 truncate">Fee payment received ₹42,500</span>
+                              </div>
+                              <span className="text-slate-400 font-mono text-[9px] shrink-0">1 hour ago</span>
                             </div>
-                            <div className="flex items-center justify-between">
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" /> Google Ads
-                              </span>
-                              <span className="font-mono font-bold text-slate-800">18%</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" /> WhatsApp
-                              </span>
-                              <span className="font-mono font-bold text-slate-800">14%</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400 inline-block" /> Others
-                              </span>
-                              <span className="font-mono font-bold text-slate-800">8%</span>
+                            <div className="flex items-center justify-between gap-1.5">
+                              <div className="flex items-center gap-1.5 truncate">
+                                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
+                                <span className="font-semibold text-slate-700 truncate">Document uploaded - Aadhaar</span>
+                              </div>
+                              <span className="text-slate-400 font-mono text-[9px] shrink-0">2 hours ago</span>
                             </div>
                           </div>
                         </div>
+
+                        {/* Leads by Source Donut Simulation */}
+                        <div className="sm:col-span-5 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs flex flex-col justify-between">
+                          <span className="text-[11px] font-bold text-slate-800 block mb-1">
+                            Leads by Source
+                          </span>
+                          
+                          <div className="flex items-center gap-2">
+                            {/* Circular CSS Donut */}
+                            <div className="relative w-14 h-14 shrink-0 rounded-full flex items-center justify-center bg-[conic-gradient(#3b82f6_0deg_115deg,#8b5cf6_115deg_216deg,#f59e0b_216deg_280deg,#10b981_280deg_330deg,#94a3b8_330deg_360deg)] p-2">
+                              <div className="w-10 h-10 rounded-full bg-white flex flex-col items-center justify-center">
+                                <span className="text-[9px] font-black text-slate-800 font-mono leading-none">1,284</span>
+                                <span className="text-[6px] text-slate-400 uppercase">Total</span>
+                              </div>
+                            </div>
+
+                            {/* Legend */}
+                            <div className="text-[9px] space-y-0.5 flex-1">
+                              <div className="flex items-center justify-between">
+                                <span className="flex items-center gap-1 text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" /> Website
+                                </span>
+                                <span className="font-mono font-bold text-slate-800">32%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="flex items-center gap-1 text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 inline-block" /> Meta Ads
+                                </span>
+                                <span className="font-mono font-bold text-slate-800">28%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="flex items-center gap-1 text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" /> Google Ads
+                                </span>
+                                <span className="font-mono font-bold text-slate-800">18%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="flex items-center gap-1 text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" /> WhatsApp
+                                </span>
+                                <span className="font-mono font-bold text-slate-800">14%</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span className="flex items-center gap-1 text-slate-600">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 inline-block" /> Others
+                                </span>
+                                <span className="font-mono font-bold text-slate-800">8%</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
+
                     </div>
                   </div>
 
