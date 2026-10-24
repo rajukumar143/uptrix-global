@@ -685,20 +685,38 @@ export default function CollegeCrmFeatures() {
                 <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-sky-200/90 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] min-h-[340px] sm:min-h-[355px] flex flex-col justify-between rounded-[24px] bg-white border-2 border-sky-200/90 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold text-[8px] flex items-center gap-1">
                           ⚡ Instant Dispatch
                         </span>
                         <span className="text-[7.5px] text-slate-400">Just now</span>
                       </div>
-                      <div className="py-2.5">
-                        <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Incoming Student</span>
-                        <h5 className="font-extrabold text-slate-900 text-xs mt-0.5">Arjun Verma</h5>
-                        <p className="text-[8px] text-slate-500 mt-0.5">B.Tech Computer Science & AI</p>
-                        <div className="mt-2 p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-between">
+                      <div className="py-2 space-y-2">
+                        <div>
+                          <span className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider block">Incoming Student</span>
+                          <h5 className="font-extrabold text-slate-900 text-xs mt-0.5">Arjun Verma</h5>
+                          <p className="text-[8px] text-slate-500 mt-0.5">B.Tech Computer Science &amp; AI</p>
+                        </div>
+                        
+                        <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-between">
                           <span className="text-[8px] text-emerald-800 font-bold">Lead Score: 94%</span>
                           <span className="text-[7.5px] text-emerald-600 font-semibold">High Intent</span>
+                        </div>
+
+                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 text-[7.5px] space-y-1 text-slate-600">
+                          <div className="flex justify-between">
+                            <span>Channel:</span>
+                            <span className="font-bold text-slate-900">WhatsApp Inbound</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Location:</span>
+                            <span className="font-bold text-slate-900">Delhi NCR</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Preferred Batch:</span>
+                            <span className="font-bold text-slate-900">Fall 2026</span>
+                          </div>
                         </div>
                       </div>
                       <div className="pt-2 border-t border-slate-100">
@@ -711,7 +729,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] min-h-[340px] sm:min-h-[355px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 shrink-0 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">👥</span>
@@ -719,7 +737,7 @@ export default function CollegeCrmFeatures() {
                         </div>
                         <span className="text-[7.5px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">5 Online</span>
                       </div>
-                      <div className="py-2 space-y-2 text-[8.5px]">
+                      <div className="py-2 space-y-1.5 text-[8.5px]">
                         <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-1.5">
                             <ContactAvatar
@@ -764,6 +782,36 @@ export default function CollegeCrmFeatures() {
                             </div>
                           </div>
                           <span className="text-[7px] text-amber-600 font-bold">🟡 In Call</span>
+                        </div>
+                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80"
+                              initials="PN"
+                              gradient="bg-rose-500"
+                              className="w-5 h-5"
+                            />
+                            <div>
+                              <strong className="block text-slate-900 text-[8px]">Pooja Nair</strong>
+                              <span className="text-[7px] text-slate-400">Law &amp; Policy • 8 leads</span>
+                            </div>
+                          </div>
+                          <span className="text-[7px] text-emerald-600 font-bold">🟢 Active (4m)</span>
+                        </div>
+                        <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                              initials="AP"
+                              gradient="bg-emerald-500"
+                              className="w-5 h-5"
+                            />
+                            <div>
+                              <strong className="block text-slate-900 text-[8px]">Amit Patel</strong>
+                              <span className="text-[7px] text-slate-400">Biotech • 12 leads</span>
+                            </div>
+                          </div>
+                          <span className="text-[7px] text-emerald-600 font-bold">🟢 Active (3m)</span>
                         </div>
                       </div>
                       <div className="pt-1.5 border-t border-slate-100 text-[7.5px] text-slate-500 flex justify-between">
@@ -921,7 +969,7 @@ export default function CollegeCrmFeatures() {
                 <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] min-h-[340px] sm:min-h-[355px] flex flex-col justify-between rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px]">
                           Ad Spend Analysis
@@ -949,7 +997,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] min-h-[340px] sm:min-h-[355px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 shrink-0 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">📈</span>
@@ -985,6 +1033,26 @@ export default function CollegeCrmFeatures() {
                           </div>
                           <div className="text-right">
                             <span className="font-extrabold text-emerald-600">₹708</span>
+                            <span className="text-[6.5px] text-slate-400 block">CAC / Student</span>
+                          </div>
+                        </div>
+                        <div className="p-1 rounded bg-slate-50 border border-slate-100 flex justify-between items-center">
+                          <div>
+                            <span className="font-bold text-slate-800 block">Campus Referral &amp; Alumni</span>
+                            <span className="text-[7px] text-slate-400">210 leads • 38 Enrolled</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="font-extrabold text-amber-600">₹0</span>
+                            <span className="text-[6.5px] text-slate-400 block">Organic CAC</span>
+                          </div>
+                        </div>
+                        <div className="p-1 rounded bg-slate-50 border border-slate-100 flex justify-between items-center">
+                          <div>
+                            <span className="font-bold text-slate-800 block">Education Fairs &amp; Expos</span>
+                            <span className="text-[7px] text-slate-400">180 leads • 24 Enrolled</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="font-extrabold text-rose-600">₹1,450</span>
                             <span className="text-[6.5px] text-slate-400 block">CAC / Student</span>
                           </div>
                         </div>
@@ -1144,7 +1212,7 @@ export default function CollegeCrmFeatures() {
                 <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-rose-200/90 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] min-h-[340px] sm:min-h-[355px] flex flex-col justify-between rounded-[24px] bg-white border-2 border-rose-200/90 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold text-[8px]">
                           Funnel Warning
@@ -1167,7 +1235,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] min-h-[340px] sm:min-h-[355px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 shrink-0 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">🔻</span>
@@ -1377,7 +1445,7 @@ export default function CollegeCrmFeatures() {
                 <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-emerald-200/90 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] min-h-[340px] sm:min-h-[355px] flex flex-col justify-between rounded-[24px] bg-white border-2 border-emerald-200/90 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[8px] flex items-center gap-1">
                           ✓ Payment Received
@@ -1409,7 +1477,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] min-h-[340px] sm:min-h-[355px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 shrink-0 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">💼</span>
@@ -1595,7 +1663,7 @@ export default function CollegeCrmFeatures() {
                 <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] min-h-[340px] sm:min-h-[355px] flex flex-col justify-between rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px] flex items-center gap-1">
                           ✦ AI Admissions Bot
@@ -1617,7 +1685,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] min-h-[340px] sm:min-h-[355px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 shrink-0 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">✦</span>
