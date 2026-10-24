@@ -122,17 +122,6 @@ export default function College2LandingPage({ header, footer, content }: College
                   <span>{hero.eyebrow}</span>
                 </div>
 
-                {hero.tagline && (
-                  <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 text-emerald-400 text-xs font-mono font-medium border border-slate-800 shadow-xs">
-                    <span className="font-bold text-white">{hero.tagline}</span>
-                    {hero.subtagline && (
-                      <span className="text-emerald-300 font-sans border-l border-slate-700 pl-2">
-                        {hero.subtagline}
-                      </span>
-                    )}
-                  </div>
-                )}
-
                 {/* Main Heading */}
                 <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.14] font-black tracking-tight text-slate-900">
                   {hero.headingStart} <br className="hidden sm:inline" />
