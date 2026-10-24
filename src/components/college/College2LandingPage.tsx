@@ -6,6 +6,7 @@ import Header from "@/components/site/Header";
 import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import CollegeHubArchitecture from "./CollegeHubArchitecture";
+import CollegeCrmIntelligence from "./CollegeCrmIntelligence";
 import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
 import { youtubeId } from "@/content/stories";
@@ -427,6 +428,9 @@ export default function College2LandingPage({ header, footer, content }: College
           clients={trustBar.clientLogos}
           id="college2-trust-heading"
         />
+
+        {/* SECTION: AI POWERED COLLEGE CRM - BUILT AROUND YOUR BUSINESS (Below Trust Section) */}
+        <CollegeCrmIntelligence />
 
         {/* Hub-and-Spoke Connected Ecosystem Architecture (Below Trust Logos) */}
         <CollegeHubArchitecture />
