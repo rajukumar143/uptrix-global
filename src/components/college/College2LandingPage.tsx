@@ -26,6 +26,11 @@ import {
   TargetIcon,
   UserCheckIcon,
   GraduationCapIcon,
+  ChartBarIcon,
+  UsersIcon,
+  BookOpenIcon,
+  TrendingUpIcon,
+  SettingsIcon,
 } from "./CollegeIcons";
 
 interface College2LandingPageProps {
