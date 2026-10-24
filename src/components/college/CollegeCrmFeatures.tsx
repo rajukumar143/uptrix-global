@@ -11,12 +11,46 @@ function WhatsAppLogo({ className = "w-5 h-5 text-white" }: { className?: string
   );
 }
 
-// Meta Infinity Logo
+// Meta Infinity Logo SVG
 function MetaInfinityLogo({ className = "w-6 h-6 text-[#0081fb]" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M16.962 4.332c-1.895 0-3.612.87-4.962 2.308-1.35-1.438-3.067-2.308-4.962-2.308C3.12 4.332 0 7.452 0 11.294c0 3.842 3.12 6.962 7.038 6.962 2.368 0 4.414-1.162 5.688-2.946 1.274 1.784 3.32 2.946 5.688 2.946 3.918 0 7.038-3.12 7.038-6.962 0-3.842-3.12-6.962-7.038-6.962zm-9.924 11.75c-2.684 0-4.864-2.18-4.864-4.864s2.18-4.864 4.864-4.864c1.88 0 3.518 1.074 4.34 2.666-.822 1.592-2.46 2.666-4.34 2.666zm9.924 0c-1.88 0-3.518-1.074-4.34-2.666.822-1.592 2.46-2.666 4.34-2.666 2.684 0 4.864 2.18 4.864 4.864s-2.18 4.864-4.864 4.864z" />
     </svg>
+  );
+}
+
+// Realistic Avatar with image fallback
+function ContactAvatar({
+  src,
+  initials,
+  gradient,
+  className = "w-7 h-7"
+}: {
+  src?: string;
+  initials: string;
+  gradient: string;
+  className?: string;
+}) {
+  const [hasError, setHasError] = useState(false);
+
+  if (src && !hasError) {
+    return (
+      <img
+        src={src}
+        alt={initials}
+        onError={() => setHasError(true)}
+        className={`${className} rounded-full object-cover shrink-0 shadow-2xs border border-white/80`}
+      />
+    );
+  }
+
+  return (
+    <div
+      className={`${className} rounded-full ${gradient} text-white font-bold text-[9px] flex items-center justify-center shrink-0 shadow-2xs`}
+    >
+      {initials}
+    </div>
   );
 }
 
@@ -77,37 +111,37 @@ export default function CollegeCrmFeatures() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section className="relative py-14 sm:py-20 lg:py-24 bg-gradient-to-b from-[#f8faff] via-[#f3f4fd] to-white border-b border-slate-200/80 overflow-hidden font-sans">
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-[#f8faff] border-b border-slate-200/80 overflow-hidden font-sans">
       
-      {/* Background radial ambient highlights */}
+      {/* Background radial ambient highlights matching reference graphic */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-0 left-0 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_0%_0%,#e9f3ff_0,transparent_45%)] opacity-80"
+        className="pointer-events-none absolute -top-10 -left-10 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#eaf1ff_0,transparent_60%)] opacity-90"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-10 right-0 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_100%_10%,#f0eaff_0,transparent_45%)] opacity-80"
+        className="pointer-events-none absolute top-10 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#f3e8ff_0,transparent_60%)] opacity-80"
       />
 
-      <div className="relative mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-8 flex flex-col gap-8 sm:gap-10">
+      <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 flex flex-col gap-7 sm:gap-9">
         
         {/* =========================================================================
-            HEADER: Section 3 Eyebrow + Headline + Subtitle
+            HEADER: Section 3 Eyebrow + Headline + Subtitle (1:1 with reference)
         ========================================================================== */}
         <header className="text-center">
           {/* Eyebrow with flanking divider lines */}
-          <div className="flex items-center justify-center gap-3 mb-2.5">
-            <div className="w-9 h-[1.5px] bg-[#d8b4fe]" />
-            <span className="px-3.5 py-1 rounded-full bg-[#ede9fe] text-[#7c3aed] text-xs font-bold tracking-wide shadow-2xs">
+          <div className="flex items-center justify-center gap-3.5 mb-3">
+            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
+            <span className="px-4 py-1 rounded-full bg-[#f3e8ff] border border-[#e9d5ff] text-[#6938ef] text-xs font-bold tracking-wide shadow-2xs">
               Section 3
             </span>
-            <div className="w-9 h-[1.5px] bg-[#d8b4fe]" />
+            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#111827] tracking-tight leading-tight m-0">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#111827] tracking-tight leading-tight m-0">
             <span className="text-[#6938ef]">Key Features</span> of Your CRM Tool
           </h2>
-          <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-medium leading-relaxed mt-2 max-w-[620px] mx-auto">
+          <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
             Everything you need to capture, manage, convert and grow — all in one place.
           </p>
         </header>
@@ -131,24 +165,28 @@ export default function CollegeCrmFeatures() {
                 aria-selected={isActive}
                 aria-controls={`crm-feature-panel-${idx}`}
                 onClick={() => setActiveTab(idx)}
-                className={`relative rounded-2xl p-2.5 sm:py-3.5 sm:px-3 min-h-[72px] sm:min-h-[80px] flex items-center gap-2.5 text-left cursor-pointer transition-all duration-200 border ${
+                className={`relative rounded-2xl p-2.5 sm:py-3.5 sm:px-3 min-h-[72px] sm:min-h-[78px] flex items-center gap-2.5 text-left cursor-pointer transition-all duration-200 border ${
                   isActive
-                    ? "bg-[#5b21b6] text-white border-transparent shadow-[0_10px_25px_rgba(91,33,182,0.28)] -translate-y-0.5"
-                    : "bg-white text-slate-800 border-slate-100 hover:border-[#d8b4fe] hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                    ? "bg-[#6938ef] text-white border-transparent shadow-[0_10px_25px_rgba(105,56,239,0.28)] -translate-y-0.5"
+                    : "bg-white text-slate-800 border-slate-200/70 hover:border-[#c4b5fd] hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(0,0,0,0.03)]"
                 }`}
               >
-                {/* Active Indicator Tail Triangle (Points directly to panel below) */}
+                {/* Active Indicator Tail Triangle (Points directly down to panel below) */}
                 {isActive && (
                   <div
                     aria-hidden
-                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[8px] border-x-transparent border-t-[8px] border-t-[#5b21b6]"
+                    className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[9px] border-x-transparent border-t-[9px] border-t-[#6938ef] z-20"
                   />
                 )}
 
                 {/* Tab Icon Circle */}
                 <div
                   className={`w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full flex items-center justify-center font-bold text-sm shadow-2xs ${
-                    isActive ? "bg-white/20 text-white" : `${tab.iconBg} ${tab.iconColor}`
+                    isActive
+                      ? tab.icon === "whatsapp"
+                        ? "bg-[#25d366] text-white"
+                        : "bg-white/20 text-white"
+                      : `${tab.iconBg} ${tab.iconColor}`
                   }`}
                 >
                   {tab.icon === "whatsapp" && <WhatsAppLogo className="w-5 h-5 text-white" />}
@@ -192,9 +230,9 @@ export default function CollegeCrmFeatures() {
           role="tabpanel"
           id={`crm-feature-panel-${activeTab}`}
           aria-labelledby={`crm-feature-tab-${activeTab}`}
-          className="rounded-[28px] sm:rounded-[36px] bg-white border border-slate-200/90 p-5 sm:p-8 lg:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.04)] flex flex-col gap-8 sm:gap-10 transition-all duration-300"
+          className="rounded-[30px] sm:rounded-[38px] bg-white border border-slate-200/90 p-5 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.04)] flex flex-col gap-8 sm:gap-10 transition-all duration-300"
         >
-          {/* TAB 0: META CONVERSATION API */}
+          {/* TAB 0: META CONVERSATION API (1:1 with Reference Image) */}
           {activeTab === 0 && (
             <>
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
@@ -204,11 +242,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#6938ef] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       META CONVERSATION API
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Turn Meta Conversations<br />
                       <span className="text-[#6938ef]">Into Revenue</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Your <strong className="text-slate-900 font-bold">customers</strong> are already talking to you on <strong className="text-slate-900 font-bold">WhatsApp</strong>. Pulse brings those conversations directly into your CRM through the <strong className="text-slate-900 font-bold">Meta Conversation API</strong>.
                       </p>
@@ -224,6 +262,7 @@ export default function CollegeCrmFeatures() {
                     </div>
                   </div>
 
+                  {/* Bottom Integration Box */}
                   <div className="mt-6 p-4 rounded-2xl bg-[#f8faff] border border-slate-200/80 text-center flex flex-col items-center justify-center">
                     <div className="flex items-center justify-center gap-2 mb-1">
                       <MetaInfinityLogo className="w-6 h-6 text-[#0081fb]" />
@@ -239,36 +278,56 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (WhatsApp Phone + College CRM Tablet) */}
+                {/* Column 2: Visual Cockpit (WhatsApp Smartphone + College CRM Tablet + Dotted Curve + Floating Badge) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
-                  <div className="absolute top-0 right-1/4 z-30 hidden sm:block pointer-events-none">
-                    <svg className="w-24 h-10 text-[#7c3aed]" viewBox="0 0 100 40" fill="none">
-                      <path d="M 10 32 C 35 5, 75 5, 92 24" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" />
+                  {/* Dotted Purple Curved Arrow pointing from Phone to CRM Tablet */}
+                  <div className="absolute -top-3 right-1/4 z-30 hidden sm:block pointer-events-none">
+                    <svg className="w-28 h-12 text-[#6938ef]" viewBox="0 0 100 40" fill="none">
+                      <path
+                        d="M 10 32 C 35 5, 75 5, 92 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeDasharray="4 4"
+                      />
                       <path d="M 86 24 L 92 24 L 92 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                   </div>
 
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Smartphone UI */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[26px] bg-white border-2 border-slate-200 shadow-[0_20px_45px_rgba(0,0,0,0.12)] p-2 -mr-10 sm:-mr-12 shrink-0">
-                      <div className="absolute -top-3.5 left-4 w-8 h-8 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-md">
-                        <WhatsAppLogo className="w-4.5 h-4.5 text-white" />
+                    {/* 1. SMARTPHONE (WhatsApp Inbox) */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[26px] bg-white border-2 border-slate-200/90 shadow-[0_20px_45px_rgba(0,0,0,0.12)] p-2 -mr-10 sm:-mr-12 shrink-0">
+                      {/* Floating WhatsApp Green Icon Badge */}
+                      <div className="absolute -top-3.5 left-4 w-9 h-9 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-md">
+                        <WhatsAppLogo className="w-5 h-5 text-white" />
                       </div>
+
+                      {/* Screen Content */}
                       <div className="rounded-[20px] bg-white overflow-hidden text-slate-800 text-[10px]">
-                        <div className="bg-white px-2.5 pt-3 pb-1.5 flex items-center justify-between border-b border-slate-100">
+                        {/* Status bar / App title */}
+                        <div className="bg-white px-2.5 pt-3.5 pb-1.5 flex items-center justify-between border-b border-slate-100">
                           <span className="font-extrabold text-[#128c7e] text-xs">WhatsApp</span>
                           <div className="flex items-center gap-1.5 text-slate-500 text-[10px]">
                             <span>📷</span><span>🔍</span><span>⋮</span>
                           </div>
                         </div>
+
+                        {/* Filter Tabs */}
                         <div className="flex items-center gap-1 px-2 py-1.5 bg-slate-50/80 text-[8px] font-bold border-b border-slate-100">
                           <span className="px-1.5 py-0.5 rounded-full bg-[#128c7e] text-white">All 12</span>
                           <span className="px-1.5 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">Unread 8</span>
                           <span className="px-1.5 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">Groups 2</span>
                         </div>
+
+                        {/* Contact Rows */}
                         <div className="divide-y divide-slate-100">
+                          {/* Priya Sharma */}
                           <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-purple-400 to-indigo-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">PS</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+                              initials="PS"
+                              gradient="bg-gradient-to-tr from-purple-400 to-indigo-500"
+                              className="w-6 h-6"
+                            />
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-center">
                                 <span className="font-bold text-slate-900 truncate text-[9px]">Priya Sharma</span>
@@ -278,8 +337,15 @@ export default function CollegeCrmFeatures() {
                             </div>
                             <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">1</span>
                           </div>
+
+                          {/* Rahul Mehta */}
                           <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-400 to-sky-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">RM</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                              initials="RM"
+                              gradient="bg-gradient-to-tr from-blue-400 to-sky-500"
+                              className="w-6 h-6"
+                            />
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-center">
                                 <span className="font-bold text-slate-900 truncate text-[9px]">Rahul Mehta</span>
@@ -289,8 +355,15 @@ export default function CollegeCrmFeatures() {
                             </div>
                             <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">2</span>
                           </div>
+
+                          {/* Sneha Reddy */}
                           <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
-                            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">SR</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80"
+                              initials="SR"
+                              gradient="bg-gradient-to-tr from-pink-400 to-rose-500"
+                              className="w-6 h-6"
+                            />
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-center">
                                 <span className="font-bold text-slate-900 truncate text-[9px]">Sneha Reddy</span>
@@ -300,32 +373,97 @@ export default function CollegeCrmFeatures() {
                             </div>
                             <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">1</span>
                           </div>
+
+                          {/* Arjun Kumar */}
+                          <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+                              initials="AK"
+                              gradient="bg-gradient-to-tr from-amber-400 to-orange-500"
+                              className="w-6 h-6"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-center">
+                                <span className="font-bold text-slate-900 truncate text-[9px]">Arjun Kumar</span>
+                                <span className="text-[7.5px] text-slate-400">09:20 AM</span>
+                              </div>
+                              <p className="text-[7.5px] text-slate-500 truncate">Is there any discount available?</p>
+                            </div>
+                          </div>
+
+                          {/* Neha Verma */}
+                          <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+                              initials="NV"
+                              gradient="bg-gradient-to-tr from-emerald-400 to-teal-500"
+                              className="w-6 h-6"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-center">
+                                <span className="font-bold text-slate-900 truncate text-[9px]">Neha Verma</span>
+                                <span className="text-[7.5px] text-slate-400">Yesterday</span>
+                              </div>
+                              <p className="text-[7.5px] text-slate-500 truncate">I want to enroll for next batch</p>
+                            </div>
+                          </div>
+
+                          {/* Karan Singh */}
+                          <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=120&q=80"
+                              initials="KS"
+                              gradient="bg-gradient-to-tr from-indigo-400 to-violet-500"
+                              className="w-6 h-6"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex justify-between items-center">
+                                <span className="font-bold text-slate-900 truncate text-[9px]">Karan Singh</span>
+                                <span className="text-[7.5px] text-slate-400">Yesterday</span>
+                              </div>
+                              <p className="text-[7.5px] text-slate-500 truncate">Can we schedule a demo class?</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Tablet UI */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(30,27,75,0.14)] p-2.5 flex flex-col justify-between">
+                    {/* 2. TABLET (College CRM Chat Window) */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(30,27,75,0.12)] p-2.5 flex flex-col justify-between">
+                      {/* Top Bar */}
                       <div className="flex items-center gap-1.5 pb-2 border-b border-slate-100">
                         <span className="text-xs">🎓</span>
                         <span className="font-extrabold text-[#111827] text-[11px] tracking-wide">College CRM</span>
                       </div>
+
+                      {/* Student Profile Card with Photo Avatar */}
                       <div className="flex items-center gap-2 py-2 border-b border-slate-100">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">PS</div>
+                        <ContactAvatar
+                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&q=80"
+                          initials="PS"
+                          gradient="bg-gradient-to-tr from-purple-500 to-indigo-600"
+                          className="w-8 h-8"
+                        />
                         <div>
                           <div className="flex items-center gap-1.5">
                             <span className="font-extrabold text-slate-900 text-[11px]">Priya Sharma</span>
-                            <span className="px-1.5 py-0.2 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[7.5px]">New Lead</span>
+                            <span className="px-1.5 py-0.2 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[7.5px]">
+                              New Lead
+                            </span>
                           </div>
                           <span className="text-[8px] text-slate-400 block leading-tight">From WhatsApp • Today, 10:24 AM</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 py-1 text-[8.5px] font-bold border-b border-slate-100 text-slate-500">
+
+                      {/* Chat Sub-tabs */}
+                      <div className="flex items-center gap-2.5 py-1 text-[8.5px] font-bold border-b border-slate-100 text-slate-500">
                         <span className="text-[#6938ef] border-b-2 border-[#6938ef] pb-0.5">Conversation</span>
                         <span>Details</span>
                         <span>Activities</span>
                         <span>Notes</span>
                       </div>
+
+                      {/* Message Thread */}
                       <div className="py-2 space-y-1.5 text-[8.5px]">
                         <div className="flex justify-start">
                           <div className="bg-slate-100 text-slate-800 rounded-lg rounded-tl-none p-1.5 max-w-[85%]">
@@ -346,18 +484,21 @@ export default function CollegeCrmFeatures() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Message Input */}
                       <div className="pt-1.5 border-t border-slate-100 flex items-center justify-between text-[8px] text-slate-400">
                         <span>Type a message...</span>
-                        <div className="flex items-center gap-1 text-[#6938ef]">
-                          <span>📎</span><span>😊</span>
-                          <span className="w-4 h-4 rounded-full bg-[#6938ef] text-white flex items-center justify-center text-[7px]">➤</span>
+                        <div className="flex items-center gap-1.5 text-[#6938ef]">
+                          <span className="cursor-pointer">📎</span>
+                          <span className="cursor-pointer">😊</span>
+                          <span className="w-4 h-4 rounded-full bg-[#6938ef] text-white flex items-center justify-center text-[7px] cursor-pointer">➤</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Floating WhatsApp Leads Stat */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#25d366] text-white flex items-center justify-center shrink-0 shadow-sm">
+                    {/* 3. FLOATING METRIC BADGE (WhatsApp Leads This Month) */}
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#25d366] text-white flex items-center justify-center shrink-0 shadow-sm">
                         <WhatsAppLogo className="w-4.5 h-4.5 text-white" />
                       </div>
                       <div>
@@ -367,44 +508,76 @@ export default function CollegeCrmFeatures() {
                           <span className="text-[10px] font-bold text-emerald-600 flex items-center">↗ 22%</span>
                         </div>
                       </div>
-                      <div className="flex items-end gap-0.5 h-6 ml-1">
+                      <div className="flex items-end gap-1 h-6 ml-1">
                         <span className="w-1.5 h-2 bg-emerald-300 rounded-t-sm" />
                         <span className="w-1.5 h-3 bg-emerald-400 rounded-t-sm" />
                         <span className="w-1.5 h-4 bg-emerald-500 rounded-t-sm" />
+                        <span className="w-1.5 h-5 bg-emerald-600 rounded-t-sm" />
                         <span className="w-1.5 h-6 bg-emerald-600 rounded-t-sm" />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Column 3: 4 Benefits */}
+                {/* Column 3: 4 Benefits (1:1 with Reference Image) */}
                 <div className="lg:col-span-3 flex flex-col gap-5 sm:gap-6">
+                  {/* Benefit 1 */}
                   <div className="flex items-start gap-3">
-                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center text-lg shadow-2xs">⚡</div>
+                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#eff6ff] text-[#3b82f6] flex items-center justify-center text-lg shadow-2xs">
+                      ⚡
+                    </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">All Conversations in One Place</h4>
-                      <p className="text-xs text-slate-500 leading-relaxed m-0">No switching between WhatsApp and CRM.</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                        All Conversations in One Place
+                      </h4>
+                      <p className="text-xs text-slate-500 leading-relaxed m-0">
+                        No switching between WhatsApp and CRM.
+                      </p>
                     </div>
                   </div>
+
+                  {/* Benefit 2 */}
                   <div className="flex items-start gap-3">
-                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center text-lg shadow-2xs">🔗</div>
+                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center text-lg shadow-2xs">
+                      🔗
+                    </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">Connected to Customer Records</h4>
-                      <p className="text-xs text-slate-500 leading-relaxed m-0">Every chat is linked to the right student profile.</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                        Connected to Customer Records
+                      </h4>
+                      <p className="text-xs text-slate-500 leading-relaxed m-0">
+                        Every chat is linked to the right student profile.
+                      </p>
                     </div>
                   </div>
+
+                  {/* Benefit 3 */}
                   <div className="flex items-start gap-3">
-                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center text-lg shadow-2xs">📊</div>
+                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center text-lg shadow-2xs">
+                      📊
+                    </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">Track Real Impact</h4>
-                      <p className="text-xs text-slate-500 leading-relaxed m-0">Measure how many conversations actually convert.</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                        Track Real Impact
+                      </h4>
+                      <p className="text-xs text-slate-500 leading-relaxed m-0">
+                        Measure how many conversations actually convert.
+                      </p>
                     </div>
                   </div>
+
+                  {/* Benefit 4 */}
                   <div className="flex items-start gap-3">
-                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center text-lg shadow-2xs">👥</div>
+                    <div className="w-11 h-11 shrink-0 rounded-full bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center text-lg shadow-2xs">
+                      👥
+                    </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">Respond Faster</h4>
-                      <p className="text-xs text-slate-500 leading-relaxed m-0">Give your team the full context to follow up and convert.</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                        Respond Faster
+                      </h4>
+                      <p className="text-xs text-slate-500 leading-relaxed m-0">
+                        Give your team the full context to follow up and convert.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -476,11 +649,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#0284c7] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       SMART LEAD ASSIGNMENT
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Route Every Inbound Lead<br />
                       <span className="text-[#0284c7]">In Under 15 Seconds</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Distribute prospective student enquiries instantaneously using <strong className="text-slate-900 font-bold">round-robin</strong>, course specialization, region, or counsellor capacity.
                       </p>
@@ -508,11 +681,11 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (Lead Dispatch Card + Counsellor Roster Tablet) */}
+                {/* Column 2: Visual Cockpit (Lead Dispatch Card + Counsellor Live Roster) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Foreground Alert Card */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-sky-200 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
+                    {/* Foreground Card */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-sky-200/90 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold text-[8px] flex items-center gap-1">
                           ⚡ Instant Dispatch
@@ -537,8 +710,8 @@ export default function CollegeCrmFeatures() {
                       </div>
                     </div>
 
-                    {/* Background Tablet: Counsellor Live Roster */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    {/* Background Tablet */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">👥</span>
@@ -549,7 +722,12 @@ export default function CollegeCrmFeatures() {
                       <div className="py-2 space-y-2 text-[8.5px]">
                         <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-1.5">
-                            <div className="w-5 h-5 rounded-full bg-sky-500 text-white font-bold text-[7px] flex items-center justify-center">RS</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80"
+                              initials="RS"
+                              gradient="bg-sky-500"
+                              className="w-5 h-5"
+                            />
                             <div>
                               <strong className="block text-slate-900 text-[8px]">Rohan Sharma</strong>
                               <span className="text-[7px] text-slate-400">Engineering • 14 leads</span>
@@ -559,7 +737,12 @@ export default function CollegeCrmFeatures() {
                         </div>
                         <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-1.5">
-                            <div className="w-5 h-5 rounded-full bg-purple-500 text-white font-bold text-[7px] flex items-center justify-center">AR</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80"
+                              initials="AR"
+                              gradient="bg-purple-500"
+                              className="w-5 h-5"
+                            />
                             <div>
                               <strong className="block text-slate-900 text-[8px]">Ananya Roy</strong>
                               <span className="text-[7px] text-slate-400">MBA / Finance • 11 leads</span>
@@ -569,7 +752,12 @@ export default function CollegeCrmFeatures() {
                         </div>
                         <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-between">
                           <div className="flex items-center gap-1.5">
-                            <div className="w-5 h-5 rounded-full bg-amber-500 text-white font-bold text-[7px] flex items-center justify-center">VS</div>
+                            <ContactAvatar
+                              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80"
+                              initials="VS"
+                              gradient="bg-amber-500"
+                              className="w-5 h-5"
+                            />
                             <div>
                               <strong className="block text-slate-900 text-[8px]">Vikram Seth</strong>
                               <span className="text-[7px] text-slate-400">Design • 9 leads</span>
@@ -585,12 +773,12 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Floating Metric Badge */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-sky-500 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
                         ⚡
                       </div>
                       <div>
-                        <span className="text-[9px] font-semibold text-slate-500 block leading-tight">Average Lead Assignment Time</span>
+                        <span className="text-[9px] font-semibold text-slate-500 block leading-tight">Average Lead Routing Time</span>
                         <div className="flex items-baseline gap-2">
                           <span className="text-base sm:text-lg font-extrabold text-slate-900">12 Seconds</span>
                           <span className="text-[10px] font-bold text-emerald-600">-94% Drop-off</span>
@@ -697,11 +885,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#8b5cf6] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       LEAD COST CALCULATOR
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Know Your Exact Cost Per Lead<br />
                       <span className="text-[#8b5cf6]">&amp; CAC By Channel</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Stop guessing marketing ROI. Connect ad accounts (<strong className="text-slate-900 font-bold">Meta, Google, LinkedIn</strong>) directly to enrolled students.
                       </p>
@@ -729,11 +917,11 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (CPL Calculator Dial + Channel Cost Table) */}
+                {/* Column 2: Visual Cockpit (CPL Calculator Dial + Channel Attribution Table) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Foreground Card: Quick CPL Metric */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-purple-200 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
+                    {/* Foreground Card */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px]">
                           Ad Spend Analysis
@@ -760,8 +948,8 @@ export default function CollegeCrmFeatures() {
                       </div>
                     </div>
 
-                    {/* Background Tablet: Channel Attribution Table */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    {/* Background Tablet */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">📈</span>
@@ -808,8 +996,8 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Floating Metric Badge */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
                         📊
                       </div>
                       <div>
@@ -920,11 +1108,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#e11d48] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       CONVERSION ANALYTICS
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Uncover Every Bottleneck<br />
                       <span className="text-[#e11d48]">In Your Admission Funnel</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Gain crystal-clear visibility into where prospective students drop off—from initial click to verified fee deposit.
                       </p>
@@ -952,11 +1140,11 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (Drop-off Alert Card + 5-Stage Funnel Tablet) */}
+                {/* Column 2: Visual Cockpit (Drop-off Alert Card + 5-Stage Funnel Visualizer) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Foreground Card: Stage Drop-off Alert */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-rose-200 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
+                    {/* Foreground Card */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-rose-200/90 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold text-[8px]">
                           Funnel Warning
@@ -978,8 +1166,8 @@ export default function CollegeCrmFeatures() {
                       </div>
                     </div>
 
-                    {/* Background Tablet: Admission Funnel Visualizer */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    {/* Background Tablet */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">🔻</span>
@@ -1041,8 +1229,8 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Floating Metric Badge */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-rose-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
                         📈
                       </div>
                       <div>
@@ -1153,11 +1341,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#107e43] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       PAYMENT ANALYTICS
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Automate Tuition Fee Collection<br />
                       <span className="text-[#107e43]">&amp; Ledger Reconciliation</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Send branded payment links via <strong className="text-slate-900 font-bold">WhatsApp, SMS, and Email</strong> with instant receipt generation and ERP synchronization.
                       </p>
@@ -1185,11 +1373,11 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (WhatsApp Payment Confirmation + Finance Ledger Tablet) */}
+                {/* Column 2: Visual Cockpit (Payment Receipt + Fee Collections Dashboard) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Foreground Card: WhatsApp Payment Receipt */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-emerald-200 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
+                    {/* Foreground Card */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-emerald-200/90 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[8px] flex items-center gap-1">
                           ✓ Payment Received
@@ -1220,8 +1408,8 @@ export default function CollegeCrmFeatures() {
                       </div>
                     </div>
 
-                    {/* Background Tablet: Tuition Fee Dashboard */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    {/* Background Tablet */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">💼</span>
@@ -1259,8 +1447,8 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Floating Metric Badge */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm font-bold">
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm font-bold">
                         ₹
                       </div>
                       <div>
@@ -1371,11 +1559,11 @@ export default function CollegeCrmFeatures() {
                     <span className="text-[#7c3aed] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       AI ACTION CENTER
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.15] mb-4">
                       Autonomous AI Agents That<br />
                       <span className="text-[#7c3aed]">Convert Leads 24/7</span>
                     </h3>
-                    <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                    <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
                         Empower your admissions office with an intelligent AI copilot that responds to student queries <strong className="text-slate-900 font-bold">24/7 in 15+ Indian languages</strong>.
                       </p>
@@ -1403,11 +1591,11 @@ export default function CollegeCrmFeatures() {
                   </div>
                 </div>
 
-                {/* Column 2: Cockpit Visual (AI WhatsApp Chat + AI Action Dispatcher Tablet) */}
+                {/* Column 2: Visual Cockpit (AI Bot Chat + AI Action Queue) */}
                 <div className="lg:col-span-5 relative flex items-center justify-center py-4">
                   <div className="relative w-full max-w-[430px] flex items-center justify-center">
-                    {/* Foreground Card: AI Chat on WhatsApp */}
-                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-purple-200 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
+                    {/* Foreground Card */}
+                    <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 -mr-10 sm:-mr-12 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px] flex items-center gap-1">
                           ✦ AI Admissions Bot
@@ -1428,8 +1616,8 @@ export default function CollegeCrmFeatures() {
                       </div>
                     </div>
 
-                    {/* Background Tablet: AI Action Center Queue */}
-                    <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    {/* Background Tablet */}
+                    <div className="relative z-10 w-[245px] sm:w-[265px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">✦</span>
@@ -1467,8 +1655,8 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Floating Metric Badge */}
-                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
+                    <div className="absolute -bottom-4 left-0 sm:left-4 z-30 bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_32px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-purple-600 text-white flex items-center justify-center shrink-0 text-base shadow-sm">
                         ✦
                       </div>
                       <div>
