@@ -23,8 +23,6 @@ import {
   FileTextIcon,
   MessageSquareIcon,
   CreditCardIcon,
-  TargetIcon,
-  UserCheckIcon,
   GraduationCapIcon,
   ChartBarIcon,
   UsersIcon,
@@ -66,41 +64,6 @@ export default function College2LandingPage({ header, footer, content }: College
   const activeVideo = videos.cards.find((video) => video.id === activeVideoId) ?? videos.cards[0];
   const selectedCaseStudyIndex = selectedCaseStudy === "apex" ? 0 : selectedCaseStudy === "vanguard" ? 1 : 2;
   const selectedCaseStudyCard = caseStudies.cards[selectedCaseStudyIndex] ?? caseStudies.cards[0];
-
-  const corePillars = [
-    {
-      icon: MessageSquareIcon,
-      color: "#1f5fd6",
-      badge: "Unified Admissions",
-      title: "Omnichannel Lead Ingestion & Meta API",
-      body: "Automatically pull inquiries from Meta Ads, Google Ads, Shiksha, and website forms directly into verified counselor queues with zero latency.",
-      points: ["Real-time WhatsApp Business API sync", "Zero duplicate lead routing", "Instant counselor assignment triggers"],
-    },
-    {
-      icon: UserCheckIcon,
-      color: "#0f8b8d",
-      badge: "Student 360",
-      title: "Complete Student Lifecycle Tracking",
-      body: "Unify applicant counseling, document verification, biometric attendance, and academic examination history into a single clean record.",
-      points: ["Digital DigiLocker & Aadhaar verification", "Biometric and RFID attendance bridges", "Single sign-on parent & student portal"],
-    },
-    {
-      icon: CreditCardIcon,
-      color: "#4f46e5",
-      badge: "Fee Automation",
-      title: "Bi-Directional ERP & Tally Prime Sync",
-      body: "Automate tuition installment schedules, WhatsApp payment links, and reconciliation with university bank accounts and Tally ledgers.",
-      points: ["UPI, NetBanking & Credit Card gateways", "Automated WhatsApp fee reminder cadence", "Real-time Tally Prime voucher posting"],
-    },
-    {
-      icon: TargetIcon,
-      color: "#5db833",
-      badge: "Intelligence",
-      title: "Executive Dean & Management Cockpit",
-      body: "Eliminate fragmented spreadsheets. Give Chancellors and Trustees live cohort retention metrics, counselor conversion rates, and revenue forecasts.",
-      points: ["Real-time enrollment funnel analytics", "Counselor performance scorecards", "Daily cashflow & collection telemetry"],
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-[#fafbfc] text-[#1e293b] font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900">
@@ -463,89 +426,6 @@ export default function College2LandingPage({ header, footer, content }: College
           clients={trustBar.clientLogos}
           id="college2-trust-heading"
         />
-
-        {/* =========================================================================
-            SECTION 3: ARCHITECTURAL PILLARS (Clean, Borderless Layout)
-        ========================================================================== */}
-        <section className="py-20 sm:py-24 bg-white border-b border-slate-200">
-          <div className="mx-auto max-w-[1240px] px-6">
-            <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-                Comprehensive Campus Suite
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-slate-900 mt-3.5 leading-tight">
-                Engineered for High-Growth <span className="text-emerald-600">Educational Institutions</span>
-              </h2>
-              <p className="mt-3.5 text-slate-600 text-base sm:text-lg leading-relaxed">
-                Connect your counselors, academic registry, financial controllers, and executive leadership on one real-time operational engine.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-              {corePillars.map((pillar, idx) => {
-                const Icon = pillar.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="flex flex-col justify-between h-full pt-6 border-t-2 transition-all duration-300"
-                    style={{ borderColor: pillar.color }}
-                  >
-                    <div>
-                      {/* Top Row: Icon + Number */}
-                      <div className="flex items-center justify-between gap-3 mb-5">
-                        <span
-                          className="grid h-11 w-11 place-items-center rounded-xl text-white shadow-xs"
-                          style={{ backgroundColor: pillar.color }}
-                        >
-                          <Icon className="h-5 w-5" />
-                        </span>
-                        <span className="font-mono text-xs font-bold tracking-widest text-slate-400">
-                          0{idx + 1}
-                        </span>
-                      </div>
-
-                      {/* Category Badge */}
-                      <span
-                        className="inline-block text-[11px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full"
-                        style={{ color: pillar.color, backgroundColor: `${pillar.color}15` }}
-                      >
-                        {pillar.badge}
-                      </span>
-
-                      {/* Title */}
-                      <h3 className="font-display text-lg sm:text-[19px] font-bold text-slate-900 mt-3 leading-snug min-h-[54px] flex items-center">
-                        {pillar.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="mt-2 text-xs sm:text-[13.5px] leading-relaxed text-slate-600 min-h-[72px]">
-                        {pillar.body}
-                      </p>
-                    </div>
-
-                    {/* Highlights */}
-                    <div className="mt-6 pt-5 border-t border-slate-100">
-                      <ul className="space-y-2.5">
-                        {pillar.points.map((pt, pIdx) => (
-                          <li key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700">
-                            <span
-                              className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full text-white"
-                              style={{ backgroundColor: pillar.color }}
-                            >
-                              <CheckIcon className="h-2.5 w-2.5" />
-                            </span>
-                            <span className="leading-snug font-medium text-slate-800">{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
 
         {/* =========================================================================
             SECTION 4: INSTITUTIONAL CASE STUDIES (3-Card Showcase + Dossier)
