@@ -2,502 +2,673 @@
 
 import React, { useState } from "react";
 
-interface FeatureData {
-  label: string;
-  title: [string, string];
-  description: string[];
-  integration: string;
-  brands: string;
-  demo: string;
-  kpis: [string, string, string][];
-  chart: string;
-  rows: [string, string, string, string][];
-  insightTag: string;
-  insight: string;
-  benefits: [string, string, string][];
-  steps: [string, string, string][];
-  closing: [string, string];
+// WhatsApp Logo SVG
+function WhatsAppLogo({ className = "w-5 h-5 text-white" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
 }
 
-const features: FeatureData[] = [
+// Meta Infinity Logo
+function MetaInfinityLogo({ className = "w-6 h-6 text-[#0081fb]" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M16.962 4.332c-1.895 0-3.612.87-4.962 2.308-1.35-1.438-3.067-2.308-4.962-2.308C3.12 4.332 0 7.452 0 11.294c0 3.842 3.12 6.962 7.038 6.962 2.368 0 4.414-1.162 5.688-2.946 1.274 1.784 3.32 2.946 5.688 2.946 3.918 0 7.038-3.12 7.038-6.962 0-3.842-3.12-6.962-7.038-6.962zm-9.924 11.75c-2.684 0-4.864-2.18-4.864-4.864s2.18-4.864 4.864-4.864c1.88 0 3.518 1.074 4.34 2.666-.822 1.592-2.46 2.666-4.34 2.666zm9.924 0c-1.88 0-3.518-1.074-4.34-2.666.822-1.592 2.46-2.666 4.34-2.666 2.684 0 4.864 2.18 4.864 4.864s-2.18 4.864-4.864 4.864z" />
+    </svg>
+  );
+}
+
+interface FeatureTabItem {
+  id: string;
+  name: [string, string];
+  icon: string;
+  iconBg: string;
+  iconColor: string;
+}
+
+const tabItems: FeatureTabItem[] = [
   {
-    label: "Meta Conversation API",
-    title: ["Turn Meta Conversations", "Into Revenue"],
-    description: [
-      "Your customers are already talking to you on WhatsApp. Pulse brings those conversations directly into your CRM through the Meta Conversation API.",
-      "No switching between WhatsApp and CRM.",
-      "Every conversation can be connected to the right customer record, giving your team the context they need to respond, follow up and convert.",
-      "And because conversations become part of the CRM data, you can finally measure what your conversations are actually generating."
-    ],
-    integration: "Direct integration with Meta Conversation API",
-    brands: "∞ Meta  ↔  ◉ WhatsApp",
-    demo: "▣ College CRM",
-    kpis: [
-      ["WhatsApp leads this month", "1,248", "↗ 22% growth"],
-      ["Conversations today", "186", "Active conversations"]
-    ],
-    chart: "Recent conversations",
-    rows: [
-      ["Priya Sharma", "Interested in Data Science", "New lead", ""],
-      ["Rahul Mehta", "Asked about course fees", "Replied", ""],
-      ["Sneha Reddy", "Requested a callback", "Follow-up", "warn"]
-    ],
-    insightTag: "CRM INSIGHT",
-    insight: "Every conversation becomes useful customer context, helping your team follow up and measure results.",
-    benefits: [
-      ["ϟ", "All Conversations in One Place", "No switching between WhatsApp and CRM."],
-      ["↗", "Connected to Customer Records", "Every chat is linked to the right customer profile."],
-      ["▥", "Track Real Impact", "Measure how many conversations actually convert."],
-      ["♟", "Respond Faster", "Give your team the full context to follow up and convert."]
-    ],
-    steps: [
-      ["◉", "Capture", "Leads from WhatsApp via Meta API"],
-      ["♟", "Assign", "Auto assign to the right counsellor"],
-      ["☏", "Converse", "Respond and provide details"],
-      ["▣", "Follow Up", "Track activities and reminders"],
-      ["▥", "Convert", "Turn conversations into enrolments"]
-    ],
-    closing: ["Every conversation has potential.", "Make it count."]
+    id: "meta-api",
+    name: ["Meta Conversation", "API"],
+    icon: "whatsapp",
+    iconBg: "bg-[#25d366]",
+    iconColor: "text-white"
   },
   {
-    label: "Smart Lead Assignment",
-    title: ["The Right Lead.", "The Right Person."],
-    description: [
-      "Stop manually distributing leads. Pulse automatically assigns incoming enquiries using your business rules.",
-      "Set rules based on team availability, workload, location, product or course, lead source, round-robin and sales team.",
-      "Every assignment can trigger an owner notification so your team knows who is responsible.",
-      "No lead sitting in an inbox waiting to be noticed."
-    ],
-    integration: "Flexible routing rules for your sales team",
-    brands: "⚙ Smart Rules  ↔  ♟ Counsellors",
-    demo: "♟ Lead Assignment",
-    kpis: [
-      ["Incoming leads", "248", "Today's enquiries"],
-      ["Assigned automatically", "96%", "Illustrative rate"]
-    ],
-    chart: "Assignment queue",
-    rows: [
-      ["Priya Sharma", "Website · Data Science", "Assigned", ""],
-      ["Rahul Mehta", "Meta Ads · MBA", "Assigned", ""],
-      ["Sneha Reddy", "Google Ads · B.Tech", "Pending", "warn"]
-    ],
-    insightTag: "ROUTING RULE",
-    insight: "Route leads using your configured rules, team availability and workload limits.",
-    benefits: [
-      ["♟", "Availability-Based", "Route enquiries to available team members."],
-      ["⇄", "Round-Robin Routing", "Distribute leads across your configured team."],
-      ["⌖", "Business Rules", "Assign by location, source or product."],
-      ["✓", "Clear Ownership", "Give every lead a responsible owner."]
-    ],
-    steps: [
-      ["◉", "New Lead", "Capture incoming enquiry"],
-      ["⚙", "Apply Rules", "Check your assignment criteria"],
-      ["♟", "Select Owner", "Identify the right team member"],
-      ["↗", "Notify", "Alert the assigned counsellor"],
-      ["✓", "Follow Up", "Start the conversation"]
-    ],
-    closing: ["Every lead needs an owner.", "Make responsibility clear."]
+    id: "smart-lead",
+    name: ["Smart Lead", "Assignment"],
+    icon: "users",
+    iconBg: "bg-[#e0f2fe]",
+    iconColor: "text-[#0284c7]"
   },
   {
-    label: "Lead Cost Calculator",
-    title: ["Know What Every Lead", "Really Costs You"],
-    description: [
-      "Your marketing team spends money generating leads. But do you know what each lead actually costs?",
-      "Pulse connects ad spend and lead volume to calculate cost per lead.",
-      "Go one step further by comparing enrolments, revenue generated and marketing spend.",
-      "Stop optimizing for cheap leads. Optimize for profitable customers."
-    ],
-    integration: "Connect marketing spend with CRM outcomes",
-    brands: "₹ Spend Tracking  ↔  📊 ROI Analysis",
-    demo: "▦ Lead Cost Calculator",
-    kpis: [
-      ["Marketing spend", "₹2.4L", "Selected period"],
-      ["Cost per lead", "₹480", "Spend ÷ leads"]
-    ],
-    chart: "Lead cost breakdown",
-    rows: [
-      ["Google Ads", "Spend / leads", "₹420", ""],
-      ["Meta Ads", "Spend / leads", "₹510", ""],
-      ["Other channels", "Spend / leads", "₹480", "warn"]
-    ],
-    insightTag: "COST INSIGHT",
-    insight: "Compare cost per lead and cost per acquisition by channel using your actual spend and conversion data.",
-    benefits: [
-      ["₹", "Ad Spend Tracking", "Connect marketing costs to lead volume."],
-      ["÷", "Cost Per Lead", "See the average cost of each lead."],
-      ["▥", "Acquisition Cost", "Compare spend with enrolled customers."],
-      ["↗", "Revenue Context", "Evaluate marketing efficiency against revenue."]
-    ],
-    steps: [
-      ["₹", "Ad Spend", "Record marketing expenditure"],
-      ["◉", "Lead Volume", "Count generated leads"],
-      ["÷", "Calculate CPL", "Divide spend by leads"],
-      ["✓", "Track Enrolments", "Connect leads with outcomes"],
-      ["▥", "Calculate CPA", "Compare spend per acquisition"]
-    ],
-    closing: ["Cheap leads aren't the goal.", "Profitable growth is."]
+    id: "lead-cost",
+    name: ["Lead Cost", "Calculator"],
+    icon: "calc",
+    iconBg: "bg-[#f3e8ff]",
+    iconColor: "text-[#8b5cf6]"
   },
   {
-    label: "Conversion Analytics",
-    title: ["See Where Leads Convert", "And Where They Get Lost"],
-    description: [
-      "Pulse turns your sales activity into a visual conversion journey.",
-      "Follow the funnel from leads to contacted prospects, engaged prospects, qualified leads and enrolled customers.",
-      "Identify where prospects drop off, which channels convert best and which counsellors need support.",
-      "Your funnel stops being a report and becomes a decision-making tool."
-    ],
-    integration: "Visualize your complete lead-to-enrolment funnel",
-    brands: "▥ Funnel Stages  ↔  🎯 Conversions",
-    demo: "▥ Conversion Analytics",
-    kpis: [
-      ["Total leads", "10,000", "Illustrative funnel"],
-      ["Enrolled", "620", "6.2% of leads"]
-    ],
-    chart: "Conversion funnel",
-    rows: [
-      ["Contacted", "10,000 leads", "6,800", ""],
-      ["Engaged", "Contacted leads", "3,200", ""],
-      ["Qualified", "Engaged leads", "1,400", "warn"],
-      ["Enrolled", "Qualified prospects", "620", ""]
-    ],
-    insightTag: "FUNNEL INSIGHT",
-    insight: "Compare stage-by-stage conversion to identify where follow-up or qualification needs attention.",
-    benefits: [
-      ["▥", "Full Funnel Visibility", "Track every stage from lead to enrolment."],
-      ["⌖", "Channel Performance", "Compare conversion rates by source."],
-      ["♟", "Counsellor Insights", "Understand performance by team member."],
-      ["↗", "Spot Drop-Offs", "Find where prospects leave the funnel."]
-    ],
-    steps: [
-      ["◉", "10,000 Leads", "Capture enquiries"],
-      ["☏", "6,800 Contacted", "Start conversations"],
-      ["↗", "3,200 Engaged", "Track engagement"],
-      ["✓", "1,400 Qualified", "Identify serious prospects"],
-      ["▥", "620 Enrolled", "Measure final outcomes"]
-    ],
-    closing: ["Find the drop-off.", "Improve the conversion."]
+    id: "conversion",
+    name: ["Conversion", "Analytics"],
+    icon: "chart",
+    iconBg: "bg-[#ffe4e6]",
+    iconColor: "text-[#e11d48]"
   },
   {
-    label: "Payment Analytics",
-    title: ["Revenue Doesn't End", "At Enrollment"],
-    description: [
-      "Getting the customer is one thing. Getting paid is another.",
-      "Pulse gives management a clear view of the money behind the pipeline, from total revenue and collections to pending and overdue payments.",
-      "Understand which products generate the most revenue, which customers need follow-up and how revenue is trending.",
-      "Connect sales with cash."
-    ],
-    integration: "Bring revenue, collections and pending payments into view",
-    brands: "₹ Total Pipeline  ↔  💳 Collections",
-    demo: "₹ Revenue Dashboard",
-    kpis: [
-      ["Total revenue", "₹12.4L", "Illustrative data"],
-      ["Collected", "₹9.8L", "Selected period"]
-    ],
-    chart: "Payment status",
-    rows: [
-      ["Collected", "Payments received", "₹9.8L", ""],
-      ["Pending", "Awaiting payment", "₹1.8L", "warn"],
-      ["Overdue", "Past due date", "₹0.8L", "danger"],
-      ["Refunded", "Payments refunded", "₹0.2L", ""]
-    ],
-    insightTag: "REVENUE INSIGHT",
-    insight: "Review outstanding balances, overdue payments and expected revenue to prioritize collection follow-ups.",
-    benefits: [
-      ["₹", "Revenue Dashboard", "See revenue across products and courses."],
-      ["✓", "Collections", "Track payments received."],
-      ["!", "Overdue Payments", "Identify accounts needing attention."],
-      ["↗", "Revenue Trends", "Review pending and expected revenue."]
-    ],
-    steps: [
-      ["▥", "Total Revenue", "Review generated revenue"],
-      ["₹", "Collected", "Track received payments"],
-      ["◷", "Pending", "Identify outstanding balances"],
-      ["!", "Overdue", "Prioritize collection follow-ups"],
-      ["↗", "Forecast", "Review expected revenue"]
-    ],
-    closing: ["Sales create the opportunity.", "Collections complete the picture."]
+    id: "payment",
+    name: ["Payment", "Analytics"],
+    icon: "rupee",
+    iconBg: "bg-[#dcfce7]",
+    iconColor: "text-[#107e43]"
   },
   {
-    label: "AI Action Center",
-    title: ["Pulse Doesn't Just Show Problems.", "It Shows What to Do Next."],
-    description: [
-      "Imagine opening your CRM in the morning and seeing a prioritized list of actions based on your business data.",
-      "Surface leads that have not been contacted, overdue follow-ups, rising cost per lead and improving ad performance.",
-      "Give your team a daily view of what needs attention first, with supporting context for each recommendation.",
-      "Your dashboard becomes your daily action list."
-    ],
-    integration: "Turn CRM data into prioritized actions",
-    brands: "✧ AI Signals  ↔  ⚡ Instant Action",
-    demo: "✧ Today's AI Priorities",
-    kpis: [
-      ["Leads needing contact", "18", "Requires attention"],
-      ["Overdue payments", "₹2.4L", "Review collection"]
-    ],
-    chart: "Priority action queue",
-    rows: [
-      ["Uncontacted leads", "18 leads", "High", "danger"],
-      ["Overdue follow-ups", "7 tasks", "Medium", "warn"],
-      ["Meta CPL change", "+21%", "Review", "warn"],
-      ["Google conversion", "+14%", "Improving", ""]
-    ],
-    insightTag: "AI ACTION CENTER",
-    insight: "Prioritize lead follow-ups, payment collections and marketing changes using available CRM data.",
-    benefits: [
-      ["!", "Missed Lead Alerts", "Highlight leads without a timely contact."],
-      ["◷", "Follow-Up Reminders", "Surface overdue activities."],
-      ["▥", "Marketing Signals", "Flag meaningful metric changes."],
-      ["✧", "Action Priorities", "Organize the next steps for your team."]
-    ],
-    steps: [
-      ["◉", "Collect Data", "Read available CRM metrics"],
-      ["✧", "Detect Issues", "Identify notable patterns"],
-      ["!", "Prioritize", "Rank items needing attention"],
-      ["♟", "Assign Action", "Give tasks an owner"],
-      ["✓", "Review Results", "Track progress and outcomes"]
-    ],
-    closing: ["Don't just see what happened.", "Know what to do next."]
+    id: "ai-action",
+    name: ["AI Action", "Center"],
+    icon: "sparkle",
+    iconBg: "bg-[#f3e8ff]",
+    iconColor: "text-[#7c3aed]"
   }
 ];
 
-const tabIcons = ["◉", "♟", "▦", "▥", "₹", "✧"];
-
 export default function CollegeCrmFeatures() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeFeature = features[activeIndex];
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section className="relative py-16 sm:py-20 lg:py-24 bg-[#f9faff] border-b border-slate-200/80 overflow-hidden font-sans">
-      {/* Subtle radial ambient gradients */}
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-gradient-to-b from-[#f8faff] via-[#f3f4fd] to-white border-b border-slate-200/80 overflow-hidden font-sans">
+      
+      {/* Background radial ambient highlights */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-0 left-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_0%_0%,#e9f3ff_0,transparent_40%)] opacity-80"
+        className="pointer-events-none absolute top-0 left-0 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_0%_0%,#e9f3ff_0,transparent_45%)] opacity-80"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-10 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_100%_10%,#f0eaff_0,transparent_40%)] opacity-80"
+        className="pointer-events-none absolute top-10 right-0 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_100%_10%,#f0eaff_0,transparent_45%)] opacity-80"
       />
 
-      <div className="relative mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-8 flex flex-col gap-8 sm:gap-10">
         
-        {/* Section Heading */}
-        <header className="text-center mb-9 sm:mb-11">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#eee7ff] text-[#5927e8] text-[13px] font-extrabold tracking-wide mb-4">
-            SECTION 03 · CRM PLATFORM
+        {/* =========================================================================
+            HEADER: Section 3 Eyebrow + Headline + Subtitle
+        ========================================================================== */}
+        <header className="text-center">
+          {/* Eyebrow with flanking divider lines */}
+          <div className="flex items-center justify-center gap-3 mb-2.5">
+            <div className="w-9 h-[1.5px] bg-[#d8b4fe]" />
+            <span className="px-3.5 py-1 rounded-full bg-[#ede9fe] text-[#7c3aed] text-xs font-bold tracking-wide shadow-2xs">
+              Section 3
+            </span>
+            <div className="w-9 h-[1.5px] bg-[#d8b4fe]" />
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[50px] font-extrabold text-[#111536] tracking-tight leading-[1.12] m-0">
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#111827] tracking-tight leading-tight m-0">
             <span className="text-[#6938ef]">Key Features</span> of Your CRM Tool
           </h2>
-          <p className="text-[#535d80] text-sm sm:text-base leading-relaxed mt-3 max-w-[640px] mx-auto">
+          <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-medium leading-relaxed mt-2 max-w-[620px] mx-auto">
             Everything you need to capture, manage, convert and grow — all in one place.
           </p>
         </header>
 
-        {/* Feature Tabs (6 Columns) */}
+        {/* =========================================================================
+            TABS ROW: 6 Interactive Horizontal Tabs (Active has downward pointer tail)
+        ========================================================================== */}
         <div
           role="tablist"
-          aria-label="CRM features"
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 mb-5"
+          aria-label="Key CRM Features"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3"
         >
-          {features.map((feature, idx) => {
-            const isActive = idx === activeIndex;
+          {tabItems.map((tab, idx) => {
+            const isActive = idx === activeTab;
             return (
               <button
-                key={feature.label}
+                key={tab.id}
                 type="button"
                 role="tab"
-                id={`crm-tab-${idx}`}
+                id={`crm-feature-tab-${idx}`}
                 aria-selected={isActive}
-                aria-controls="crm-tabpanel"
-                onClick={() => setActiveIndex(idx)}
-                className={`relative rounded-[15px] p-3 sm:py-4 sm:px-3 min-h-[80px] sm:min-h-[88px] flex items-center gap-2.5 text-left cursor-pointer transition-all duration-200 border ${
+                onClick={() => setActiveTab(idx)}
+                className={`relative rounded-2xl p-2.5 sm:py-3.5 sm:px-3 min-h-[72px] sm:min-h-[80px] flex items-center gap-2.5 text-left cursor-pointer transition-all duration-200 border ${
                   isActive
-                    ? "bg-gradient-to-r from-[#7044f5] to-[#5725e9] text-white border-transparent shadow-[0_10px_24px_rgba(112,68,245,0.22)] -translate-y-0.5"
-                    : "bg-white/90 text-[#111536] border-transparent hover:border-[#cfc1ff] hover:-translate-y-0.5 shadow-[0_5px_20px_rgba(52,61,118,0.06)]"
+                    ? "bg-[#5b21b6] text-white border-transparent shadow-[0_10px_25px_rgba(91,33,182,0.28)] -translate-y-0.5"
+                    : "bg-white text-slate-800 border-slate-100 hover:border-[#d8b4fe] hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
                 }`}
               >
-                {/* Icon Circle */}
+                {/* Active Indicator Tail Triangle (Points directly to panel below) */}
+                {isActive && (
+                  <div
+                    aria-hidden
+                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-x-[8px] border-x-transparent border-t-[8px] border-t-[#5b21b6]"
+                  />
+                )}
+
+                {/* Tab Icon Circle */}
                 <div
-                  className={`w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full flex items-center justify-center text-lg transition-colors ${
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : idx === 0
-                      ? "bg-[#eee8ff] text-[#6635ed]"
-                      : idx === 1
-                      ? "bg-[#e3f2ff] text-[#1684e8]"
-                      : idx === 2
-                      ? "bg-[#f0e8ff] text-[#7846ee]"
-                      : idx === 3
-                      ? "bg-[#ffe9ed] text-[#f04460]"
-                      : idx === 4
-                      ? "bg-[#dcfbed] text-[#08a66a]"
-                      : "bg-[#f0e8ff] text-[#7846ee]"
+                  className={`w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full flex items-center justify-center font-bold text-sm shadow-2xs ${
+                    isActive ? "bg-white/20 text-white" : `${tab.iconBg} ${tab.iconColor}`
                   }`}
                 >
-                  {tabIcons[idx]}
+                  {tab.icon === "whatsapp" && <WhatsAppLogo className="w-5 h-5 text-white" />}
+                  {tab.icon === "users" && (
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                  )}
+                  {tab.icon === "calc" && (
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 2H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm-1 16H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1zM7 6h10v3H7zm1 5h2v2H8zm4 0h2v2h-2zm4 0h2v2h-2zm-8 4h2v2H8zm4 0h2v2h-2zm4 0h2v2h-2z" />
+                    </svg>
+                  )}
+                  {tab.icon === "chart" && (
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
+                    </svg>
+                  )}
+                  {tab.icon === "rupee" && <span className="text-base font-black">₹</span>}
+                  {tab.icon === "sparkle" && <span className="text-base">✦</span>}
                 </div>
-                <span className="text-xs font-bold leading-snug line-clamp-2">
-                  {feature.label}
-                </span>
+
+                {/* 2-Line Tab Title */}
+                <div className="leading-tight">
+                  <span className="block text-[11px] sm:text-xs font-bold leading-tight">
+                    {tab.name[0]}
+                  </span>
+                  <span className="block text-[11px] sm:text-xs font-bold leading-tight">
+                    {tab.name[1]}
+                  </span>
+                </div>
               </button>
             );
           })}
         </div>
 
-        {/* Main Feature Panel */}
-        <div
-          id="crm-tabpanel"
-          role="tabpanel"
-          aria-labelledby={`crm-tab-${activeIndex}`}
-          className="rounded-[26px] bg-white/95 border border-[#e9edff] p-5 sm:p-8 lg:p-9 shadow-[0_20px_70px_rgba(56,75,150,0.08)] flex flex-col gap-7 sm:gap-9 transition-all"
-        >
-          {/* Panel Grid: Left Copy (1fr) + Middle Dashboard (1.25fr) + Right Benefits (.85fr) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 items-center">
+        {/* =========================================================================
+            WHITE SHOWCASE CARD (Matching Reference Image 1:1)
+        ========================================================================== */}
+        <div className="rounded-[28px] sm:rounded-[36px] bg-white border border-slate-200/90 p-5 sm:p-8 lg:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.04)] flex flex-col gap-8 sm:gap-10">
+          
+          {/* Main 3-Column Display: Left Copy + Middle Visual Mockups + Right Benefits */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
-            {/* LEFT: Copy */}
+            {/* ---------------------------------------------------------------------
+                COLUMN 1: Left Copy (Title, Descriptions, Meta & WhatsApp Integration)
+            ---------------------------------------------------------------------- */}
             <div className="lg:col-span-4 flex flex-col justify-between">
               <div>
-                <span className="text-[#6938ef] text-xs font-extrabold tracking-wider uppercase">
-                  {activeFeature.label}
+                <span className="text-[#6938ef] font-bold text-xs tracking-wider uppercase block mb-2.5">
+                  META CONVERSATION API
                 </span>
-                <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111536] tracking-tight leading-[1.13] my-3">
-                  {activeFeature.title[0]} <span className="text-[#6938ef] block">{activeFeature.title[1]}</span>
+
+                <h3 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#111827] tracking-tight leading-[1.15] mb-4">
+                  Turn Meta Conversations<br />
+                  <span className="text-[#6938ef]">Into Revenue</span>
                 </h3>
 
-                <div className="space-y-2 text-[#535d80] text-sm leading-relaxed">
-                  {activeFeature.description.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
+                <div className="space-y-3 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                  <p>
+                    Your <strong className="text-slate-900 font-bold">customers</strong> are already talking to you on <strong className="text-slate-900 font-bold">WhatsApp</strong>.
+                    Pulse brings those conversations directly into your CRM through the <strong className="text-slate-900 font-bold">Meta Conversation API</strong>.
+                  </p>
+                  <p>
+                    No switching between WhatsApp and CRM.
+                  </p>
+                  <p>
+                    Every conversation can be connected to the right customer record, giving your team the context they need to respond, follow up and convert.
+                  </p>
+                  <p>
+                    And because conversations become part of the CRM data, you can finally measure what your conversations are actually generating.
+                  </p>
                 </div>
               </div>
 
-              {/* Integration Box */}
-              <div className="mt-5 p-4 rounded-[17px] border border-[#e6eafe] bg-gradient-to-r from-[#f2f5ff] to-[#f7f1ff] text-center">
-                <div className="text-base sm:text-lg font-extrabold text-[#111536] mb-1">
-                  {activeFeature.brands}
+              {/* Bottom Integration Box */}
+              <div className="mt-6 p-4 rounded-2xl bg-[#f8faff] border border-slate-200/80 text-center flex flex-col items-center justify-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <MetaInfinityLogo className="w-6 h-6 text-[#0081fb]" />
+                  <span className="text-base font-bold text-slate-900">Meta</span>
+                  <span className="text-slate-400 text-sm">🔗</span>
+                  <div className="w-6 h-6 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-2xs">
+                    <WhatsAppLogo className="w-3.5 h-3.5 text-white" />
+                  </div>
                 </div>
-                <small className="text-[#535d80] text-xs font-medium block">
-                  {activeFeature.integration}
+                <small className="text-slate-500 text-xs font-medium">
+                  Direct integration with Meta Conversation API
                 </small>
               </div>
             </div>
 
-            {/* MIDDLE: Interactive Dashboard Demo */}
-            <div className="lg:col-span-5 rounded-[21px] border border-[#dfe5ff] p-4 sm:p-5 bg-gradient-to-br from-[#f7f9ff] to-white shadow-[0_15px_35px_rgba(82,99,163,0.1)]">
-              {/* Top Bar */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#e6eafe] text-[13px] font-extrabold text-[#111536]">
-                <span>{activeFeature.demo}</span>
-                <small className="text-[10px] text-[#657092] font-medium">Live overview</small>
+            {/* ---------------------------------------------------------------------
+                COLUMN 2: Middle Visual Showcase (Overlapping Phone + Tablet + Floating Stat)
+            ---------------------------------------------------------------------- */}
+            <div className="lg:col-span-5 relative flex items-center justify-center py-4">
+              
+              {/* Dotted Purple Curved Arrow pointing from Phone to CRM Tablet */}
+              <div className="absolute top-0 right-1/4 z-30 hidden sm:block pointer-events-none">
+                <svg className="w-24 h-10 text-[#7c3aed]" viewBox="0 0 100 40" fill="none">
+                  <path
+                    d="M 10 32 C 35 5, 75 5, 92 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeDasharray="4 4"
+                  />
+                  <path d="M 86 24 L 92 24 L 92 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
               </div>
 
-              {/* 2 KPIs */}
-              <div className="grid grid-cols-2 gap-2.5 my-3.5">
-                {activeFeature.kpis.map(([label, val, em], i) => (
-                  <div key={i} className="p-3 rounded-[14px] bg-white border border-[#e6eafe]">
-                    <small className="block text-[#68718d] text-[10px] mb-1 font-medium">{label}</small>
-                    <strong className="block text-xl sm:text-2xl font-extrabold text-[#111536] tracking-tight">{val}</strong>
-                    <em className="block text-[#0b9d67] text-[10px] not-italic font-bold mt-1">{em}</em>
+              {/* Container for Overlapping Screens */}
+              <div className="relative w-full max-w-[430px] flex items-center justify-center">
+                
+                {/* 1. SMARTPHONE (WhatsApp UI, Foreground Left) */}
+                <div className="relative z-20 w-[215px] sm:w-[230px] rounded-[26px] bg-white border-2 border-slate-200 shadow-[0_20px_45px_rgba(0,0,0,0.12)] p-2 -mr-10 sm:-mr-12 shrink-0">
+                  
+                  {/* Floating WhatsApp Green Icon Badge */}
+                  <div className="absolute -top-3.5 left-4 w-8 h-8 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-md">
+                    <WhatsAppLogo className="w-4.5 h-4.5 text-white" />
                   </div>
-                ))}
-              </div>
 
-              {/* Activity Card */}
-              <div className="rounded-[14px] bg-white border border-[#e6eafe] p-3.5 mt-2.5">
-                <h4 className="text-xs font-extrabold text-[#111536] mb-2.5 m-0">{activeFeature.chart}</h4>
-                <div className="divide-y divide-[#f0f2fa]">
-                  {activeFeature.rows.map(([name, detail, status, statusType], i) => (
-                    <div key={i} className="grid grid-cols-[1fr_auto] items-center gap-2.5 py-2 text-xs">
-                      <div>
-                        <strong className="block font-bold text-[#111536] text-[11px] leading-tight">{name}</strong>
-                        <small className="block text-[10px] text-[#7a829e] mt-0.5">{detail}</small>
+                  {/* Phone Screen Content */}
+                  <div className="rounded-[20px] bg-white overflow-hidden text-slate-800 text-[10px]">
+                    {/* Phone Status / WhatsApp Header */}
+                    <div className="bg-white px-2.5 pt-3 pb-1.5 flex items-center justify-between border-b border-slate-100">
+                      <span className="font-extrabold text-[#128c7e] text-xs">WhatsApp</span>
+                      <div className="flex items-center gap-1.5 text-slate-500 text-[10px]">
+                        <span>📷</span>
+                        <span>🔍</span>
+                        <span>⋮</span>
                       </div>
-                      <span
-                        className={`rounded-full px-2 py-1 text-[9px] font-bold whitespace-nowrap ${
-                          statusType === "warn"
-                            ? "bg-[#fff0d9] text-[#b86b05]"
-                            : statusType === "danger"
-                            ? "bg-[#ffe5e9] text-[#d33351]"
-                            : "bg-[#e0f9ed] text-[#07885b]"
-                        }`}
-                      >
-                        {status}
+                    </div>
+
+                    {/* Filter Chips */}
+                    <div className="flex items-center gap-1 px-2 py-1.5 bg-slate-50/80 text-[8px] font-bold border-b border-slate-100">
+                      <span className="px-1.5 py-0.5 rounded-full bg-[#128c7e] text-white">All 12</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">Unread 8</span>
+                      <span className="px-1.5 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">Groups 2</span>
+                    </div>
+
+                    {/* WhatsApp Chat Contacts List */}
+                    <div className="divide-y divide-slate-100">
+                      {/* Contact 1 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-purple-400 to-indigo-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          PS
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Priya Sharma</span>
+                            <span className="text-[7.5px] text-emerald-600 font-semibold">10:24 AM</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">Hi, I&apos;m interested in Data Science...</p>
+                        </div>
+                        <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">
+                          1
+                        </span>
+                      </div>
+
+                      {/* Contact 2 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-400 to-sky-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          RM
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Rahul Mehta</span>
+                            <span className="text-[7.5px] text-emerald-600 font-semibold">10:15 AM</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">Can you share fee details?</p>
+                        </div>
+                        <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">
+                          2
+                        </span>
+                      </div>
+
+                      {/* Contact 3 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          SR
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Sneha Reddy</span>
+                            <span className="text-[7.5px] text-slate-400">09:45 AM</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">Do you have weekend batches?</p>
+                        </div>
+                        <span className="w-3.5 h-3.5 rounded-full bg-[#25d366] text-white text-[7px] font-bold flex items-center justify-center shrink-0">
+                          1
+                        </span>
+                      </div>
+
+                      {/* Contact 4 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          AK
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Arjun Kumar</span>
+                            <span className="text-[7.5px] text-slate-400">09:20 AM</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">Is there any discount available?</p>
+                        </div>
+                      </div>
+
+                      {/* Contact 5 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          NV
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Neha Verma</span>
+                            <span className="text-[7.5px] text-slate-400">Yesterday</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">I want to enroll for next batch</p>
+                        </div>
+                      </div>
+
+                      {/* Contact 6 */}
+                      <div className="p-1.5 flex items-center gap-1.5 hover:bg-slate-50 cursor-pointer">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-400 to-violet-500 text-white font-bold text-[8px] flex items-center justify-center shrink-0">
+                          KS
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-center">
+                            <span className="font-bold text-slate-900 truncate text-[9px]">Karan Singh</span>
+                            <span className="text-[7.5px] text-slate-400">Yesterday</span>
+                          </div>
+                          <p className="text-[7.5px] text-slate-500 truncate">Can we schedule a demo class?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. TABLET (College CRM Chat Window, Slanted Right) */}
+                <div className="relative z-10 w-[240px] sm:w-[260px] rounded-[22px] bg-white border border-slate-200 shadow-[0_15px_40px_rgba(30,27,75,0.14)] p-2.5 flex flex-col justify-between">
+                  {/* Tablet Top Brand Bar */}
+                  <div className="flex items-center gap-1.5 pb-2 border-b border-slate-100">
+                    <span className="text-xs">🎓</span>
+                    <span className="font-extrabold text-[#111827] text-[11px] tracking-wide">
+                      College CRM
+                    </span>
+                  </div>
+
+                  {/* Student Lead Profile Card */}
+                  <div className="flex items-center gap-2 py-2 border-b border-slate-100">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                      PS
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-extrabold text-slate-900 text-[11px]">Priya Sharma</span>
+                        <span className="px-1.5 py-0.2 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[7.5px]">
+                          New Lead
+                        </span>
+                      </div>
+                      <span className="text-[8px] text-slate-400 block leading-tight">
+                        From WhatsApp • Today, 10:24 AM
                       </span>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Chat Sub-tabs */}
+                  <div className="flex items-center gap-2 py-1 text-[8.5px] font-bold border-b border-slate-100 text-slate-500">
+                    <span className="text-[#6938ef] border-b-2 border-[#6938ef] pb-0.5">Conversation</span>
+                    <span>Details</span>
+                    <span>Activities</span>
+                    <span>Notes</span>
+                  </div>
+
+                  {/* Chat Bubbles */}
+                  <div className="space-y-1.5 py-2 min-h-[120px]">
+                    {/* Incoming 1 */}
+                    <div className="max-w-[85%] rounded-lg rounded-tl-xs bg-slate-100 p-1.5 text-[8.5px] text-slate-800">
+                      Hi, I&apos;m interested in Data Science course
+                      <span className="text-[6.5px] text-slate-400 block text-right mt-0.5">10:24 AM</span>
+                    </div>
+
+                    {/* Outgoing 2 */}
+                    <div className="ml-auto max-w-[88%] rounded-lg rounded-tr-xs bg-[#e8f8f0] border border-[#a7f3d0] p-1.5 text-[8.5px] text-slate-800">
+                      Hi Priya! Thanks for reaching out. I can share all the details.
+                      <span className="text-[6.5px] text-emerald-600 font-bold block text-right mt-0.5">10:25 AM ✓✓</span>
+                    </div>
+
+                    {/* Incoming 3 */}
+                    <div className="max-w-[85%] rounded-lg rounded-tl-xs bg-slate-100 p-1.5 text-[8.5px] text-slate-800">
+                      Can you share the fee structure and next batch date?
+                      <span className="text-[6.5px] text-slate-400 block text-right mt-0.5">10:26 AM</span>
+                    </div>
+                  </div>
+
+                  {/* Chat Input Bar */}
+                  <div className="pt-1.5 border-t border-slate-100 flex items-center gap-1.5">
+                    <input
+                      type="text"
+                      readOnly
+                      placeholder="Type a message..."
+                      className="flex-1 bg-slate-50 border border-slate-200 rounded-md px-2 py-1 text-[8px] text-slate-600 focus:outline-hidden"
+                    />
+                    <span className="text-[10px] text-slate-400 cursor-pointer">📎</span>
+                    <span className="text-[10px] text-slate-400 cursor-pointer">😊</span>
+                    <div className="w-5 h-5 rounded-md bg-[#6938ef] text-white flex items-center justify-center text-[9px] cursor-pointer shadow-xs">
+                      ➤
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              {/* AI Insight Box */}
-              <div className="p-3 rounded-[15px] bg-gradient-to-r from-[#f3edff] to-[#f5f8ff] border border-[#e9e0ff] mt-3">
-                <span className="inline-block bg-[#6938ef] text-white rounded px-1.5 py-0.5 text-[9px] font-extrabold mb-1">
-                  {activeFeature.insightTag}
-                </span>
-                <p className="text-xs text-[#333b66] leading-relaxed m-0 font-medium">
-                  {activeFeature.insight}
-                </p>
-              </div>
-            </div>
-
-            {/* RIGHT: Benefits */}
-            <div className="lg:col-span-3 flex flex-col gap-4">
-              {activeFeature.benefits.map(([icon, title, desc], i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div
-                    className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center text-lg font-bold ${
-                      i === 0
-                        ? "bg-[#eee8ff] text-[#6938ef]"
-                        : i === 1
-                        ? "bg-[#e3f2ff] text-[#1586e8]"
-                        : i === 2
-                        ? "bg-[#ffe9ed] text-[#f04460]"
-                        : "bg-[#e3f9ed] text-[#08a66a]"
-                    }`}
-                  >
-                    {icon}
+                {/* 3. FLOATING METRIC CARD (WhatsApp Leads This Month: 1,248) */}
+                <div className="absolute -bottom-5 left-1/4 -translate-x-1/4 z-30 rounded-2xl bg-white border border-slate-200/90 shadow-[0_15px_30px_rgba(0,0,0,0.12)] p-2.5 sm:p-3 flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-xs shrink-0">
+                    <WhatsAppLogo className="w-4.5 h-4.5 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#111536] mb-1 leading-snug">{title}</h4>
-                    <p className="text-xs text-[#535d80] leading-relaxed m-0">{desc}</p>
+                    <div className="text-[8.5px] text-slate-500 font-semibold leading-tight">
+                      WhatsApp Leads This Month
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                        1,248
+                      </span>
+                      <span className="text-[9px] font-bold text-emerald-600">
+                        ↗ 22%
+                      </span>
+                    </div>
+                  </div>
+                  {/* Mini Growth Bar Graphic */}
+                  <div className="flex items-end gap-0.5 h-5 ml-1">
+                    <div className="w-1 h-[25%] rounded-t bg-[#bbf7d0]" />
+                    <div className="w-1 h-[45%] rounded-t bg-[#86efac]" />
+                    <div className="w-1 h-[65%] rounded-t bg-[#4ade80]" />
+                    <div className="w-1 h-[85%] rounded-t bg-[#22c55e]" />
+                    <div className="w-1 h-[100%] rounded-t bg-[#16a34a]" />
                   </div>
                 </div>
-              ))}
+
+              </div>
             </div>
 
-          </div>
-
-          {/* Workflow Pipeline */}
-          <div className="p-4 sm:p-5 rounded-[20px] bg-gradient-to-r from-[#f2f5ff] to-[#f6f1ff] border border-[#e9edff]">
-            <h3 className="text-center text-sm sm:text-base font-extrabold text-[#111536] mb-4 m-0">
-              {activeFeature.steps.map((s, idx) => (
-                <React.Fragment key={idx}>
-                  <span>{s[1]}</span>
-                  {idx < activeFeature.steps.length - 1 && (
-                    <span className="text-[#6938ef] mx-1 sm:mx-1.5">→</span>
-                  )}
-                </React.Fragment>
-              ))}
-            </h3>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
-              {activeFeature.steps.map(([icon, stepName, stepDesc], i) => (
-                <div
-                  key={i}
-                  className="p-3 rounded-[15px] bg-white/90 border border-[#e8ebfa] shadow-2xs min-w-0"
-                >
-                  <div className="text-lg mb-1.5">{icon}</div>
-                  <strong className="block text-xs font-bold text-[#111536] mb-1">
-                    {i + 1}. {stepName}
-                  </strong>
-                  <p className="text-[11px] text-[#535d80] leading-snug m-0">
-                    {stepDesc}
+            {/* ---------------------------------------------------------------------
+                COLUMN 3: Right Benefits (4 Items with Circular Icons)
+            ---------------------------------------------------------------------- */}
+            <div className="lg:col-span-3 flex flex-col gap-5 sm:gap-6 pl-0 lg:pl-2">
+              
+              {/* Benefit 1: All Conversations in One Place */}
+              <div className="flex items-start gap-3">
+                <div className="w-11 h-11 shrink-0 rounded-full bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center text-lg shadow-2xs">
+                  ⚡
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                    All Conversations in One Place
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed m-0">
+                    No switching between WhatsApp and CRM.
                   </p>
                 </div>
-              ))}
+              </div>
+
+              {/* Benefit 2: Connected to Customer Records */}
+              <div className="flex items-start gap-3">
+                <div className="w-11 h-11 shrink-0 rounded-full bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center text-lg shadow-2xs">
+                  🔗
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                    Connected to Customer Records
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed m-0">
+                    Every chat is linked to the right student profile.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 3: Track Real Impact */}
+              <div className="flex items-start gap-3">
+                <div className="w-11 h-11 shrink-0 rounded-full bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center text-lg shadow-2xs">
+                  📊
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                    Track Real Impact
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed m-0">
+                    Measure how many conversations actually convert.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 4: Respond Faster */}
+              <div className="flex items-start gap-3">
+                <div className="w-11 h-11 shrink-0 rounded-full bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center text-lg shadow-2xs">
+                  👥
+                </div>
+                <div>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug mb-0.5">
+                    Respond Faster
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed m-0">
+                    Give your team the full context to follow up and convert.
+                  </p>
+                </div>
+              </div>
+
             </div>
+
           </div>
 
-          {/* Closing Punchline */}
-          <div className="text-center text-base sm:text-lg font-extrabold text-[#111536] tracking-tight">
-            {activeFeature.closing[0]} <span className="text-[#6938ef]">{activeFeature.closing[1]}</span>
+          {/* =========================================================================
+              BOTTOM WORKFLOW PIPELINE: Capture → Assign → Converse → Follow Up → Convert
+          ========================================================================== */}
+          <div className="rounded-2xl sm:rounded-3xl bg-[#f8faff] border border-slate-200/90 p-4 sm:p-6 flex flex-col gap-4">
+            
+            {/* Workflow Heading with Purple Arrows */}
+            <h4 className="text-center font-display text-xs sm:text-sm lg:text-base font-extrabold text-[#111827] flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 m-0">
+              <span>Capture</span>
+              <span className="text-[#6938ef]">→</span>
+              <span>Assign</span>
+              <span className="text-[#6938ef]">→</span>
+              <span>Converse</span>
+              <span className="text-[#6938ef]">→</span>
+              <span>Follow Up</span>
+              <span className="text-[#6938ef]">→</span>
+              <span>Convert</span>
+            </h4>
+
+            {/* 5 Step Cards with Connecting Right Arrows */}
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-center">
+              
+              {/* Step 1: Capture */}
+              <div className="relative rounded-2xl bg-white border border-slate-100 p-3.5 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#25d366] text-white flex items-center justify-center shadow-xs shrink-0">
+                  <WhatsAppLogo className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <strong className="block text-xs font-extrabold text-slate-900">
+                    1. Capture
+                  </strong>
+                  <span className="text-[10px] text-slate-500 block leading-tight">
+                    Leads from WhatsApp via Meta API
+                  </span>
+                </div>
+                {/* Arrow to Next Step on Desktop */}
+                <span className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold z-10">
+                  →
+                </span>
+              </div>
+
+              {/* Step 2: Assign */}
+              <div className="relative rounded-2xl bg-white border border-slate-100 p-3.5 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center shadow-xs shrink-0 text-base">
+                  👤
+                </div>
+                <div>
+                  <strong className="block text-xs font-extrabold text-slate-900">
+                    2. Assign
+                  </strong>
+                  <span className="text-[10px] text-slate-500 block leading-tight">
+                    Auto assign to the right counsellor
+                  </span>
+                </div>
+                <span className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold z-10">
+                  →
+                </span>
+              </div>
+
+              {/* Step 3: Converse */}
+              <div className="relative rounded-2xl bg-white border border-slate-100 p-3.5 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center shadow-xs shrink-0 text-base">
+                  💬
+                </div>
+                <div>
+                  <strong className="block text-xs font-extrabold text-slate-900">
+                    3. Converse
+                  </strong>
+                  <span className="text-[10px] text-slate-500 block leading-tight">
+                    Respond and provide details
+                  </span>
+                </div>
+                <span className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold z-10">
+                  →
+                </span>
+              </div>
+
+              {/* Step 4: Follow Up */}
+              <div className="relative rounded-2xl bg-white border border-slate-100 p-3.5 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#fef3c7] text-[#d97706] flex items-center justify-center shadow-xs shrink-0 text-base">
+                  📅
+                </div>
+                <div>
+                  <strong className="block text-xs font-extrabold text-slate-900">
+                    4. Follow Up
+                  </strong>
+                  <span className="text-[10px] text-slate-500 block leading-tight">
+                    Track activities and reminders
+                  </span>
+                </div>
+                <span className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold z-10">
+                  →
+                </span>
+              </div>
+
+              {/* Step 5: Convert */}
+              <div className="rounded-2xl bg-white border border-slate-100 p-3.5 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center shadow-xs shrink-0 text-base">
+                  📊
+                </div>
+                <div>
+                  <strong className="block text-xs font-extrabold text-slate-900">
+                    5. Convert
+                  </strong>
+                  <span className="text-[10px] text-slate-500 block leading-tight">
+                    Turn conversations into enrollments
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
