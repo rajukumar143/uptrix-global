@@ -1,15 +1,7 @@
 "use client";
 
 import React from "react";
-
-// Exact Meta Infinity Logo SVG
-function MetaInfinityLogo({ className = "w-16 h-16 text-[#0081fb]" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M16.962 4.332c-1.895 0-3.612.87-4.962 2.308-1.35-1.438-3.067-2.308-4.962-2.308C3.12 4.332 0 7.452 0 11.294c0 3.842 3.12 6.962 7.038 6.962 2.368 0 4.414-1.162 5.688-2.946 1.274 1.784 3.32 2.946 5.688 2.946 3.918 0 7.038-3.12 7.038-6.962 0-3.842-3.12-6.962-7.038-6.962zm-9.924 11.75c-2.684 0-4.864-2.18-4.864-4.864s2.18-4.864 4.864-4.864c1.88 0 3.518 1.074 4.34 2.666-.822 1.592-2.46 2.666-4.34 2.666zm9.924 0c-1.88 0-3.518-1.074-4.34-2.666.822-1.592 2.46-2.666 4.34-2.666 2.684 0 4.864 2.18 4.864 4.864s-2.18 4.864-4.864 4.864z" />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 // Facebook Icon
 function FacebookIcon({ className = "w-5 h-5 text-white" }: { className?: string }) {
@@ -49,11 +41,13 @@ function MessengerIcon({ className = "w-5 h-5 text-white" }: { className?: strin
   );
 }
 
-// Reality Labs / Quest VR Icon
+// Reality Labs / Hardware Icon
 function RealityLabsIcon({ className = "w-5 h-5 text-white" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M19.5 7h-15C3.12 7 2 8.12 2 9.5v5c0 1.38 1.12 2.5 2.5 2.5h15c1.38 0 2.5-1.12 2.5-2.5v-5c0-1.38-1.12-2.5-2.5-2.5zM7.5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm9 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a9 9 0 0 1 9 9" />
+      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
@@ -63,62 +57,13 @@ export default function CollegeHubArchitecture() {
     <section className="relative py-16 sm:py-24 bg-[#f8fbff] border-b border-slate-200/80 overflow-hidden flex items-center justify-center">
       
       {/* Outer Main Container matching Reference Image Aspect Ratio & Rounded Corners */}
-      <div className="relative w-full max-w-[840px] mx-4 sm:mx-auto rounded-[38px] sm:rounded-[44px] bg-[#f0f4f9] p-5 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,40,120,0.08)] border border-[#e1eaf5] overflow-hidden">
+      <div className="relative w-full max-w-[860px] mx-4 sm:mx-auto rounded-[38px] sm:rounded-[44px] bg-[#f0f4f9] p-5 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,40,120,0.08)] border border-[#e1eaf5] overflow-hidden">
         
         {/* Soft Radial Ambient Glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full bg-[radial-gradient(circle,#cde4ff_0%,#dbe9f9_40%,transparent_75%)] opacity-80"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,#cde4ff_0%,#dbe9f9_45%,transparent_75%)] opacity-80"
         />
-
-        {/* Concentric Radial Circles Behind Central Hub */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="w-[520px] h-[520px] rounded-full border border-blue-200/50" />
-          <div className="absolute w-[380px] h-[380px] rounded-full border border-blue-200/70" />
-          <div className="absolute w-[260px] h-[260px] rounded-full border-2 border-blue-300/80 shadow-[0_0_40px_rgba(0,129,251,0.15)]" />
-        </div>
-
-        {/* Connector Lines & Floating Dots (Visible on Desktop/Tablet) */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 hidden sm:block">
-          {/* Top Line to App Access */}
-          <div className="absolute top-[138px] left-1/2 -translate-x-1/2 w-[2px] h-[64px] bg-blue-300" />
-          <div className="absolute top-[138px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-          <div className="absolute top-[200px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-
-          {/* Left Line to Device Integration */}
-          <div className="absolute top-[320px] left-[242px] w-[64px] h-[2px] bg-blue-300" />
-          <div className="absolute top-[320px] left-[242px] -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-          <div className="absolute top-[320px] left-[304px] -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-
-          {/* Right Line to Security Controls */}
-          <div className="absolute top-[320px] right-[242px] w-[64px] h-[2px] bg-blue-300" />
-          <div className="absolute top-[320px] right-[242px] -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-          <div className="absolute top-[320px] right-[304px] -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-
-          {/* Bottom Left Ray with Lock Icon */}
-          <div className="absolute bottom-[230px] left-[255px] w-[50px] h-[2px] rotate-[32deg] bg-blue-300 origin-left" />
-          <div className="absolute bottom-[204px] left-[248px] w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-sm">
-            <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-          </div>
-
-          {/* Bottom Center Line to Centralized Settings */}
-          <div className="absolute bottom-[170px] left-1/2 -translate-x-1/2 w-[2px] h-[55px] bg-blue-300" />
-          <div className="absolute bottom-[170px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-          <div className="absolute bottom-[224px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-
-          {/* Bottom Right Ray with Database Icon */}
-          <div className="absolute bottom-[230px] right-[255px] w-[50px] h-[2px] -rotate-[32deg] bg-blue-300 origin-right" />
-          <div className="absolute bottom-[204px] right-[248px] w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-sm">
-            <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
-          </div>
-        </div>
 
         {/* Diagram Contents Grid */}
         <div className="relative z-10 flex flex-col gap-6 sm:gap-7">
@@ -172,61 +117,91 @@ export default function CollegeHubArchitecture() {
                 <span className="text-[9px] font-medium text-slate-600">Reality Labs</span>
               </div>
 
-              {/* More */}
+              {/* More / Plus */}
               <div className="flex flex-col items-center gap-1">
-                <div className="w-9 h-9 rounded-[10px] bg-white border border-dashed border-slate-300 flex items-center justify-center text-slate-500 font-bold text-base shadow-xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#edf2f7] text-slate-600 flex items-center justify-center font-bold text-base shadow-xs">
                   +
                 </div>
-                <span className="text-[9px] font-medium text-slate-500">More</span>
+                <span className="text-[9px] font-medium text-slate-600">More</span>
               </div>
             </div>
           </div>
 
           {/* =========================================================================
-              ROW 2: Left Card (Device Integration), Center Hub (Unified Account), Right Card (Security Controls)
+              ROW 2: Left Device, Perfectly Centered Hub, Right Security
           ========================================================================== */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+          <div className="relative grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
             
+            {/* Concentric Radial Circles Anchored Exactly on Central Hub */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:flex items-center justify-center z-0">
+              <div className="w-[520px] h-[520px] rounded-full border border-blue-200/50" />
+              <div className="absolute w-[380px] h-[380px] rounded-full border border-blue-200/70" />
+              <div className="absolute w-[260px] h-[260px] rounded-full border-2 border-blue-300/80 shadow-[0_0_40px_rgba(0,129,251,0.12)]" />
+              
+              {/* Radial Top Line to App Access */}
+              <div className="absolute -top-[52px] left-1/2 -translate-x-1/2 w-[2px] h-[56px] bg-blue-300" />
+              <div className="absolute -top-[52px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+              <div className="absolute -top-[10px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+
+              {/* Radial Bottom Line to Centralized Settings */}
+              <div className="absolute -bottom-[52px] left-1/2 -translate-x-1/2 w-[2px] h-[56px] bg-blue-300" />
+              <div className="absolute -bottom-[52px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+              <div className="absolute -bottom-[10px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+
+              {/* Radial Bottom-Left Ray with Lock Icon */}
+              <div className="absolute -bottom-[42px] left-[32%] w-[42px] h-[2px] rotate-[32deg] bg-blue-300 origin-left" />
+              <div className="absolute -bottom-[54px] left-[30%] w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-sm">
+                <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+
+              {/* Radial Bottom-Right Ray with Database Icon */}
+              <div className="absolute -bottom-[42px] right-[32%] w-[42px] h-[2px] -rotate-[32deg] bg-blue-300 origin-right" />
+              <div className="absolute -bottom-[54px] right-[30%] w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-sm">
+                <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+            </div>
+
             {/* CARD 2: MIDDLE-LEFT (Device Integration) */}
-            <div className="md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
-              <span className="text-xs font-bold text-slate-800 text-center block mb-3 font-sans">
+            <div className="relative z-10 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+              <span className="text-xs font-bold text-slate-800 text-center block mb-2 font-sans">
                 Device Integration
               </span>
 
-              {/* Realistic Device Lineup Illustration */}
-              <div className="bg-[#f8fafc] rounded-xl p-3 flex items-center justify-center gap-2 border border-slate-100/80">
-                {/* Meta Quest VR Headset Simulation */}
-                <div className="relative w-16 h-10 rounded-2xl bg-gradient-to-b from-white to-slate-200 border border-slate-300 shadow-sm flex items-center justify-center">
-                  <div className="w-12 h-6 rounded-xl bg-slate-900 flex items-center justify-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700" />
+              {/* Visual Hardware Displays */}
+              <div className="flex items-center justify-center gap-3 py-1">
+                {/* Meta Quest VR Headset Illustration */}
+                <div className="w-13 h-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white shadow-xs">
+                  <div className="flex items-center gap-1.5 opacity-90">
+                    <div className="w-3.5 h-3.5 rounded-full border border-slate-400 bg-slate-800" />
+                    <div className="w-3.5 h-3.5 rounded-full border border-slate-400 bg-slate-800" />
                   </div>
-                  <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-4 bg-slate-400 rounded-l" />
                 </div>
 
-                {/* Smartphone with Meta screen */}
-                <div className="w-9 h-16 rounded-[10px] bg-slate-900 p-0.5 border-2 border-slate-800 shadow-md flex flex-col justify-between items-center">
-                  <div className="w-2 h-0.5 bg-slate-700 rounded-full mt-0.5" />
-                  <div className="w-full flex-1 rounded bg-[#0081fb]/10 flex flex-col items-center justify-center gap-0.5">
-                    <MetaInfinityLogo className="w-3.5 h-3.5 text-[#0081fb]" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#0081fb] text-white flex items-center justify-center text-[7px] font-bold">
-                      ✓
-                    </span>
-                  </div>
-                  <div className="w-2.5 h-0.5 bg-slate-700 rounded-full mb-0.5" />
+                {/* Smartphone with Logo */}
+                <div className="w-7 h-12 rounded-lg bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center p-0.5 shadow-xs">
+                  <div className="w-1.5 h-0.5 rounded-full bg-slate-600 mb-auto mt-0.5" />
+                  <Image src="/logo-mark.png" alt="Uptrix" width={12} height={12} className="w-3 h-3 object-contain" />
+                  <div className="w-2 h-0.5 rounded-full bg-slate-600 mt-auto mb-0.5" />
                 </div>
 
-                {/* Laptop with Meta screen */}
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-11 rounded-t-lg bg-slate-900 border border-slate-800 p-1 flex items-center justify-center shadow-xs">
-                    <MetaInfinityLogo className="w-5 h-5 text-[#0081fb]" />
+                {/* Laptop with Logo */}
+                <div className="w-14 flex flex-col items-center">
+                  <div className="w-12 h-8 rounded-t-md bg-slate-800 border border-slate-700 flex items-center justify-center shadow-xs">
+                    <Image src="/logo-mark.png" alt="Uptrix" width={10} height={10} className="w-2.5 h-2.5 object-contain" />
                   </div>
-                  <div className="w-20 h-1 rounded-b bg-slate-400" />
+                  <div className="w-14 h-1 rounded-b-md bg-slate-400" />
                 </div>
               </div>
 
-              {/* 3 Sub-features */}
-              <div className="grid grid-cols-3 gap-1 pt-3.5 border-t border-slate-100 mt-3 text-center">
+              {/* 3 Status Columns */}
+              <div className="grid grid-cols-3 gap-1 pt-3 border-t border-slate-100 mt-2 text-center">
                 <div className="flex flex-col items-center gap-0.5">
                   <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
@@ -250,11 +225,35 @@ export default function CollegeHubArchitecture() {
               </div>
             </div>
 
-            {/* CENTER HUB: Concentric Unified Account White Card */}
-            <div className="md:col-span-4 flex items-center justify-center my-2 md:my-0">
-              <div className="w-[190px] h-[190px] rounded-full bg-white shadow-[0_15px_35px_rgba(0,129,251,0.12)] border border-blue-200 flex flex-col items-center justify-center p-4 text-center">
-                {/* Blue Meta Logo */}
-                <MetaInfinityLogo className="w-14 h-14 text-[#0081fb] mb-1" />
+            {/* CENTER HUB: Concentric Unified Account White Card with Uptrix Logo */}
+            <div className="relative z-10 md:col-span-4 flex items-center justify-center my-2 md:my-0">
+              
+              {/* Desktop Horizontal Ray to Left Card with Junction Dots */}
+              <div aria-hidden className="pointer-events-none absolute right-[100%] top-1/2 -translate-y-1/2 w-14 h-[2px] bg-blue-300 hidden md:block">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+              </div>
+
+              {/* Desktop Horizontal Ray to Right Card with Junction Dots */}
+              <div aria-hidden className="pointer-events-none absolute left-[100%] top-1/2 -translate-y-1/2 w-14 h-[2px] bg-blue-300 hidden md:block">
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+              </div>
+
+              {/* Circular Hub Card */}
+              <div className="w-[196px] h-[196px] rounded-full bg-white shadow-[0_15px_35px_rgba(0,129,251,0.14)] border border-blue-200 flex flex-col items-center justify-center p-4 text-center transform transition-transform hover:scale-105 duration-300">
+                
+                {/* UPTRIX LOGO IN CENTER */}
+                <div className="relative mb-1 flex items-center justify-center">
+                  <Image
+                    src="/logo-mark.png"
+                    alt="Uptrix Logo"
+                    width={56}
+                    height={56}
+                    className="w-13 h-13 object-contain drop-shadow-xs"
+                    priority
+                  />
+                </div>
 
                 {/* Unified Account Label */}
                 <h3 className="font-display text-base font-extrabold text-slate-900 leading-tight">
@@ -263,12 +262,12 @@ export default function CollegeHubArchitecture() {
 
                 {/* Profile Avatar with Blue Checkmark */}
                 <div className="relative mt-2">
-                  <div className="w-9 h-9 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-xs">
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#1f5fd6] to-[#0081fb] text-white flex items-center justify-center shadow-xs">
+                    <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
                       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                     </svg>
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white text-[#0081fb] border border-[#0081fb] flex items-center justify-center text-[9px] font-black shadow-2xs">
+                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white text-[#1f5fd6] border border-[#1f5fd6] flex items-center justify-center text-[9px] font-black shadow-2xs">
                     ✓
                   </span>
                 </div>
@@ -276,7 +275,7 @@ export default function CollegeHubArchitecture() {
             </div>
 
             {/* CARD 3: MIDDLE-RIGHT (Security Controls) */}
-            <div className="md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+            <div className="relative z-10 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
               <span className="text-xs font-bold text-slate-800 text-center block mb-3 font-sans">
                 Security Controls
               </span>
@@ -314,8 +313,8 @@ export default function CollegeHubArchitecture() {
                 <div className="flex items-center justify-between gap-1 py-1">
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-[#0081fb]" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
                     <span className="text-[10.5px] font-medium text-slate-700">Login Alerts</span>
                   </div>
@@ -349,7 +348,7 @@ export default function CollegeHubArchitecture() {
             {/* CARD 4: BOTTOM-LEFT (One Login Unlimited Possibilities) */}
             <div className="md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between text-center">
               <div>
-                <div className="w-7 h-7 mx-auto rounded-full bg-[#10b981] text-white flex items-center justify-center font-bold text-xs mb-2">
+                <div className="w-7 h-7 mx-auto rounded-full bg-[#10b981] text-white flex items-center justify-center font-bold text-xs mb-2 shadow-2xs">
                   ✓
                 </div>
                 <strong className="text-xs font-bold text-slate-900 block leading-tight">
@@ -360,9 +359,9 @@ export default function CollegeHubArchitecture() {
                 </span>
               </div>
 
-              {/* 6 Micro Icons */}
+              {/* 6 Micro Icons including Uptrix */}
               <div className="flex items-center justify-center gap-1.5 pt-3 border-t border-slate-100 mt-3">
-                <MetaInfinityLogo className="w-3.5 h-3.5 text-[#0081fb]" />
+                <Image src="/logo-mark.png" alt="Uptrix" width={14} height={14} className="w-3.5 h-3.5 object-contain" />
                 <div className="w-3.5 h-3.5 rounded bg-[#1877f2] flex items-center justify-center">
                   <FacebookIcon className="w-2.5 h-2.5 text-white" />
                 </div>
@@ -415,7 +414,7 @@ export default function CollegeHubArchitecture() {
                       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
                     </svg>
                   </div>
-                  <span className="text-[8.5px] font-medium text-slate-600 leading-tight">Notifications Preferences</span>
+                  <span className="text-[8.5px] font-medium text-slate-600 leading-tight">Notification Preferences</span>
                 </div>
 
                 {/* Payment Methods */}
@@ -442,46 +441,31 @@ export default function CollegeHubArchitecture() {
             </div>
 
             {/* CARD 6: BOTTOM-RIGHT (Your data. Synchronized.) */}
-            <div className="md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between relative overflow-hidden">
-              <div>
-                <div className="flex items-center gap-1.5 mb-2">
-                  <span className="w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center">
-                    <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                  </span>
-                  <span className="text-[11px] font-bold text-slate-800">Your data. Synchronized.</span>
+            <div className="md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex items-center justify-between gap-3">
+              <div className="space-y-1.5 text-left">
+                <strong className="text-xs font-bold text-slate-900 block leading-tight">
+                  Your data.<br />Synchronized.
+                </strong>
+                <div className="space-y-1 pt-1 text-[9px] text-slate-600 font-medium">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#10b981] font-bold">✓</span>
+                    <span>Real-time Sync</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#10b981] font-bold">✓</span>
+                    <span>Encrypted</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[#10b981] font-bold">✓</span>
+                    <span>Backups</span>
+                  </div>
                 </div>
-
-                <ul className="space-y-1 text-[10px] text-slate-600 mt-2">
-                  <li className="flex items-center gap-1.5">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#0081fb] text-white flex items-center justify-center text-[8px] font-bold">
-                      ✓
-                    </span>
-                    <span>Unified preferences</span>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#0081fb] text-white flex items-center justify-center text-[8px] font-bold">
-                      ✓
-                    </span>
-                    <span>Shared securely</span>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#0081fb] text-white flex items-center justify-center text-[8px] font-bold">
-                      ✓
-                    </span>
-                    <span>Always in sync</span>
-                  </li>
-                </ul>
               </div>
 
-              {/* Glossy 3D Blue Cloud with circular sync arrow in bottom right */}
-              <div className="absolute -bottom-2 -right-2 w-16 h-14 rounded-full bg-gradient-to-tr from-[#7fc5ff] to-[#a2d4ff] shadow-md flex items-center justify-center text-white">
-                <svg className="w-6 h-6 animate-[spin_8s_linear_infinite]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-                  <path d="M21 3v5h-5" />
-                  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-                  <path d="M8 16H3v5" />
+              {/* 3D Glossy Sync Cloud Icon */}
+              <div className="relative shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#0066ff] via-[#0081fb] to-[#38bdf8] p-2.5 shadow-[0_10px_20px_rgba(0,129,251,0.3)] flex items-center justify-center text-white">
+                <svg className="w-7 h-7 fill-current filter drop-shadow-sm" viewBox="0 0 24 24">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
                 </svg>
               </div>
             </div>
@@ -489,33 +473,36 @@ export default function CollegeHubArchitecture() {
           </div>
 
           {/* =========================================================================
-              BOTTOM FLOATING PILL BAR (Secure. Private. Connected.)
+              BOTTOM BAR: Floating Pill Tag & Sparkle Search Button
           ========================================================================== */}
-          <div className="mx-auto inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 shadow-[0_8px_20px_rgba(0,0,0,0.05)] border border-slate-100 text-xs text-slate-700">
-            <div className="w-6 h-6 rounded-full bg-[#0081fb] text-white flex items-center justify-center shrink-0">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <div className="flex items-center justify-between pt-1">
+            <div className="hidden sm:block w-9" /> {/* Spacer */}
+
+            {/* Central Pill Tag */}
+            <div className="mx-auto flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-xs px-4 py-2 shadow-xs border border-blue-100 text-[11px] font-semibold text-slate-700">
+              <svg className="w-4 h-4 text-[#0081fb]" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
+              <span>
+                <strong className="text-slate-900">Secure. Private. Connected.</strong> One account for everything Uptrix.
+              </span>
             </div>
-            <span className="text-[11px] font-medium text-slate-700">
-              <strong className="font-bold text-slate-900">Secure. Private. Connected.</strong> One account for everything Meta.
-            </span>
+
+            {/* Floating Search Action Button */}
+            <button
+              type="button"
+              aria-label="Search Ecosystem"
+              className="w-9 h-9 rounded-full bg-white text-slate-600 border border-slate-200 shadow-xs flex items-center justify-center hover:bg-slate-50 hover:text-slate-900 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </button>
           </div>
 
         </div>
-
-        {/* Bottom Right Floating Action Button (Search / Sparkle) */}
-        <div className="absolute bottom-5 right-5 w-11 h-11 rounded-[14px] bg-white border border-slate-200/90 shadow-md flex items-center justify-center text-slate-800">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-            <path d="M11 8v.01" />
-          </svg>
-        </div>
-
       </div>
-
     </section>
   );
 }
