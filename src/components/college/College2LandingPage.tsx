@@ -7,6 +7,7 @@ import PulseFooter from "@/components/crm/PulseFooter";
 import LogoMarquee from "@/components/site/LogoMarquee";
 import CollegeHubArchitecture from "./CollegeHubArchitecture";
 import CollegeCrmIntelligence from "./CollegeCrmIntelligence";
+import CollegeCrmFeatures from "./CollegeCrmFeatures";
 import TurnstileField from "@/components/site/TurnstileField";
 import { submitLead } from "@/app/actions/lead";
 import { youtubeId } from "@/content/stories";
@@ -434,6 +435,9 @@ export default function College2LandingPage({ header, footer, content }: College
 
         {/* Hub-and-Spoke Connected Ecosystem Architecture (Below Trust Logos) */}
         <CollegeHubArchitecture />
+
+        {/* SECTION 03: CRM PLATFORM - KEY FEATURES OF YOUR CRM TOOL */}
+        <CollegeCrmFeatures />
 
         {/* =========================================================================
             SECTION 4: INSTITUTIONAL CASE STUDIES (3-Card Showcase + Dossier)
