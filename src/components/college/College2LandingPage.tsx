@@ -62,13 +62,6 @@ export default function College2LandingPage({ header, footer, content }: College
   const selectedCaseStudyIndex = selectedCaseStudy === "apex" ? 0 : selectedCaseStudy === "vanguard" ? 1 : 2;
   const selectedCaseStudyCard = caseStudies.cards[selectedCaseStudyIndex] ?? caseStudies.cards[0];
 
-  const trustMetrics = [
-    { value: "500+", label: "Higher Education Campuses" },
-    { value: "150,000+", label: "Active Students Managed" },
-    { value: "99.98%", label: "Guaranteed Production SLA Uptime" },
-    { value: "₹85Cr+", label: "Annual Tuition Collections Processed" },
-  ];
-
   const corePillars = [
     {
       icon: MessageSquareIcon,
@@ -390,27 +383,6 @@ export default function College2LandingPage({ header, footer, content }: College
           clients={trustBar.clientLogos}
           id="college2-trust-heading"
         />
-
-        {/* Borderless Metrics & Institutional Track Record */}
-        <section className="py-16 bg-white border-b border-slate-200">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
-              {trustMetrics.map((m, idx) => (
-                <div
-                  key={idx}
-                  className={`flex flex-col gap-1.5 ${idx > 0 ? "pt-6 sm:pt-0 sm:pl-8" : ""}`}
-                >
-                  <strong className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1f5fd6] tracking-tight">
-                    {m.value}
-                  </strong>
-                  <span className="text-xs sm:text-sm font-medium text-slate-600 leading-snug">
-                    {m.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* =========================================================================
             SECTION 3: ARCHITECTURAL PILLARS (Clean, Borderless Layout)
