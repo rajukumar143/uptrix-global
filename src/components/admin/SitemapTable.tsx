@@ -9,7 +9,7 @@ export interface SitemapEntry {
   priority?: number;
 }
 
-export default function SitemapTable({
+export function SitemapTable({
   entries,
   siteBaseUrl,
   rawXml,
@@ -23,7 +23,7 @@ export default function SitemapTable({
   copiedText: string | null;
 }) {
   const [viewMode, setViewMode] = useState<"table" | "xml">("table");
-  const [search,\n  setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
 
   const normalized = useMemo(() => {
@@ -63,7 +63,8 @@ export default function SitemapTable({
             onClick={() => setViewMode('table')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-md transition ${
               viewMode === 'table' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
-            }}J          >
+            }`}
+          >
             Table View
           </button>
           <button
@@ -71,7 +72,7 @@ export default function SitemapTable({
             onClick={() => setViewMode('xml')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-md transition ${
               viewMode === 'xml' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
-            }}
+            }`}
           >
             Raw XML
           </button>
@@ -116,11 +117,11 @@ export default function SitemapTable({
                   key={c}
                   type='button'
                   onClick={() => setCategory(c)}
-                  className={`px-3 py-1.5 rounded-lg font-medium transition ${"
+                  className={`px-3 py-1.5 rounded-lg font-medium transition ${
                     category === c
                       ? 'bg-indigo-600 text-white shadow-xs'
                       : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }}`
+                  }`}
                 >
                   {c.charAt(0).toUpperCase() + c.slice(1)}
                 </button>
@@ -206,3 +207,5 @@ export default function SitemapTable({
     </div>
   );
 }
+
+export default SitemapTable;
