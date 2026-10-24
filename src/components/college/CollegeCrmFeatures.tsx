@@ -123,7 +123,7 @@ export default function CollegeCrmFeatures() {
         className="pointer-events-none absolute top-10 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#f3e8ff_0,transparent_60%)] opacity-80"
       />
 
-      <div className="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 flex flex-col gap-7 sm:gap-9">
+      <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 flex flex-col gap-7 sm:gap-9">
         
         {/* =========================================================================
             HEADER: Section 3 Eyebrow + Headline + Subtitle (1:1 with reference)
@@ -235,9 +235,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 0: META CONVERSATION API (1:1 with Reference Image) */}
           {activeTab === 0 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#6938ef] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       META CONVERSATION API
@@ -279,9 +279,9 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (WhatsApp Smartphone + College CRM Tablet + Dotted Curve + Floating Badge) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
                   {/* Dotted Purple Curved Arrow pointing from Phone to CRM Tablet */}
-                  <div className="absolute -top-7 left-1/2 -translate-x-10 z-30 hidden sm:block pointer-events-none">
+                  <div className="absolute -top-7 left-1/2 -translate-x-9 z-30 hidden sm:block pointer-events-none">
                     <svg className="w-28 h-12 text-[#6938ef]" viewBox="0 0 100 40" fill="none">
                       <path
                         d="M 10 32 C 35 5, 75 5, 92 24"
@@ -293,9 +293,9 @@ export default function CollegeCrmFeatures() {
                     </svg>
                   </div>
 
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* 1. SMARTPHONE (WhatsApp Inbox) */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[26px] bg-white border-2 border-slate-200/90 shadow-[0_20px_45px_rgba(0,0,0,0.12)] p-2 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[26px] bg-white border-2 border-slate-200/90 shadow-[0_20px_45px_rgba(0,0,0,0.12)] p-2 shrink-0">
                       {/* Floating WhatsApp Green Icon Badge */}
                       <div className="absolute -top-3.5 left-4 w-9 h-9 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-md">
                         <WhatsAppLogo className="w-5 h-5 text-white" />
@@ -429,7 +429,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* 2. TABLET (College CRM Chat Window) */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(30,27,75,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(30,27,75,0.12)] p-2.5 flex flex-col justify-between">
                       {/* Top Bar */}
                       <div className="flex items-center gap-1.5 pb-2 border-b border-slate-100">
                         <span className="text-xs">🎓</span>
@@ -642,9 +642,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 1: SMART LEAD ASSIGNMENT */}
           {activeTab === 1 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#0284c7] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       SMART LEAD ASSIGNMENT
@@ -682,10 +682,10 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (Lead Dispatch Card + Counsellor Live Roster) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[24px] bg-white border-2 border-sky-200/90 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-sky-200/90 shadow-[0_20px_45px_rgba(2,132,199,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 font-bold text-[8px] flex items-center gap-1">
                           ⚡ Instant Dispatch
@@ -711,7 +711,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">👥</span>
@@ -878,9 +878,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 2: LEAD COST CALCULATOR */}
           {activeTab === 2 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#8b5cf6] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       LEAD COST CALCULATOR
@@ -918,10 +918,10 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (CPL Calculator Dial + Channel Attribution Table) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(139,92,246,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px]">
                           Ad Spend Analysis
@@ -949,7 +949,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">📈</span>
@@ -1101,9 +1101,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 3: CONVERSION ANALYTICS */}
           {activeTab === 3 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#e11d48] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       CONVERSION ANALYTICS
@@ -1141,10 +1141,10 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (Drop-off Alert Card + 5-Stage Funnel Visualizer) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[24px] bg-white border-2 border-rose-200/90 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-rose-200/90 shadow-[0_20px_45px_rgba(225,29,72,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold text-[8px]">
                           Funnel Warning
@@ -1167,7 +1167,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">🔻</span>
@@ -1334,9 +1334,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 4: PAYMENT ANALYTICS */}
           {activeTab === 4 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#107e43] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       PAYMENT ANALYTICS
@@ -1374,10 +1374,10 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (Payment Receipt + Fee Collections Dashboard) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[24px] bg-white border-2 border-emerald-200/90 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-emerald-200/90 shadow-[0_20px_45px_rgba(16,126,67,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[8px] flex items-center gap-1">
                           ✓ Payment Received
@@ -1409,7 +1409,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">💼</span>
@@ -1552,9 +1552,9 @@ export default function CollegeCrmFeatures() {
           {/* TAB 5: AI ACTION CENTER */}
           {activeTab === 5 && (
             <>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-5 xl:gap-6 items-center">
                 {/* Column 1: Copy */}
-                <div className="lg:col-span-3 flex flex-col justify-between">
+                <div className="lg:col-span-4 flex flex-col justify-between">
                   <div>
                     <span className="text-[#7c3aed] font-bold text-xs tracking-wider uppercase block mb-2.5">
                       AI ACTION CENTER
@@ -1592,10 +1592,10 @@ export default function CollegeCrmFeatures() {
                 </div>
 
                 {/* Column 2: Visual Cockpit (AI Bot Chat + AI Action Queue) */}
-                <div className="lg:col-span-6 relative flex items-center justify-center py-4">
-                  <div className="relative w-full max-w-[530px] flex items-center justify-center gap-3.5 sm:gap-5">
+                <div className="lg:col-span-5 relative flex items-center justify-center py-2">
+                  <div className="relative w-full max-w-[500px] flex items-center justify-center gap-3 sm:gap-3.5">
                     {/* Foreground Card */}
-                    <div className="relative z-20 w-[200px] sm:w-[218px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 shrink-0">
+                    <div className="relative z-20 w-[195px] sm:w-[210px] rounded-[24px] bg-white border-2 border-purple-200/90 shadow-[0_20px_45px_rgba(124,58,237,0.14)] p-3 shrink-0">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <span className="px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-bold text-[8px] flex items-center gap-1">
                           ✦ AI Admissions Bot
@@ -1617,7 +1617,7 @@ export default function CollegeCrmFeatures() {
                     </div>
 
                     {/* Background Tablet */}
-                    <div className="relative z-10 w-[250px] sm:w-[275px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
+                    <div className="relative z-10 w-[245px] sm:w-[268px] rounded-[22px] bg-white border border-slate-200/90 shadow-[0_15px_40px_rgba(15,23,42,0.12)] p-2.5 flex flex-col justify-between">
                       <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs">✦</span>
