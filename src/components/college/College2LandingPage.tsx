@@ -433,11 +433,11 @@ export default function College2LandingPage({ header, footer, content }: College
         {/* SECTION: AI POWERED COLLEGE CRM - BUILT AROUND YOUR BUSINESS (Below Trust Section) */}
         <CollegeCrmIntelligence />
 
-        {/* Hub-and-Spoke Connected Ecosystem Architecture (Below Trust Logos) */}
-        <CollegeHubArchitecture />
-
         {/* SECTION 03: CRM PLATFORM - KEY FEATURES OF YOUR CRM TOOL */}
         <CollegeCrmFeatures />
+
+        {/* SECTION 04: UNIFIED ACCOUNT & CONNECTED ECOSYSTEM ARCHITECTURE */}
+        <CollegeHubArchitecture />
 
         {/* =========================================================================
             SECTION 4: INSTITUTIONAL CASE STUDIES (3-Card Showcase + Dossier)

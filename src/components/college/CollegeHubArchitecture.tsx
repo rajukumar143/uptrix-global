@@ -54,10 +54,43 @@ function RealityLabsIcon({ className = "w-5 h-5 text-white" }: { className?: str
 
 export default function CollegeHubArchitecture() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#f8fbff] border-b border-slate-200/80 overflow-hidden flex items-center justify-center">
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-[#f8faff] border-b border-slate-200/80 overflow-hidden font-sans">
       
-      {/* Outer Main Container matching Reference Image Aspect Ratio & Rounded Corners */}
-      <div className="relative w-full max-w-[860px] mx-4 sm:mx-auto rounded-[38px] sm:rounded-[44px] bg-[#f0f4f9] p-5 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,40,120,0.08)] border border-[#e1eaf5] overflow-hidden">
+      {/* Background radial ambient highlights matching design theme */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-10 -left-10 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#eaf1ff_0,transparent_60%)] opacity-90"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-10 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#f3e8ff_0,transparent_60%)] opacity-80"
+      />
+
+      <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        
+        {/* =========================================================================
+            HEADER: Section Eyebrow + Headline + Subtitle
+        ========================================================================== */}
+        <header className="text-center mb-8 sm:mb-12">
+          {/* Eyebrow with flanking divider lines */}
+          <div className="flex items-center justify-center gap-3.5 mb-3">
+            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
+            <span className="px-4 py-1 rounded-full bg-[#f3e8ff] border border-[#e9d5ff] text-[#6938ef] text-xs font-bold tracking-wide shadow-2xs">
+              Unified Ecosystem
+            </span>
+            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#111827] tracking-tight leading-tight m-0">
+            <span className="text-[#6938ef]">One Account.</span> Unlimited Possibilities.
+          </h2>
+          <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
+            One central account for everything Uptrix — seamlessly connecting your apps, devices, and security controls across your entire campus.
+          </p>
+        </header>
+
+        {/* Outer Main Container matching Reference Image Aspect Ratio & Rounded Corners */}
+        <div className="relative w-full max-w-[860px] mx-4 sm:mx-auto rounded-[38px] sm:rounded-[44px] bg-[#f0f4f9] p-5 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,40,120,0.08)] border border-[#e1eaf5] overflow-hidden">
         
         {/* Soft Radial Ambient Glow */}
         <div
@@ -502,6 +535,7 @@ export default function CollegeHubArchitecture() {
           </div>
 
         </div>
+      </div>
       </div>
     </section>
   );
