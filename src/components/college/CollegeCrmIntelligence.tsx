@@ -58,14 +58,7 @@ export default function CollegeCrmIntelligence() {
     <section className="relative py-14 sm:py-20 lg:py-24 bg-white overflow-hidden font-sans border-b border-slate-200/80">
       
       {/* Ambient background glows */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-20 left-10 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#eff6ff_0,transparent_65%)] opacity-80"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/3 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#f5f3ff_0,transparent_65%)] opacity-80"
-      />
+      
 
       <div className="relative mx-auto max-w-[1260px] px-4 sm:px-6 lg:px-8">
         
@@ -218,7 +211,7 @@ export default function CollegeCrmIntelligence() {
             </div>
 
             {/* Bottom-Left Blue-Purple Pill: Don&apos;t just look at your numbers. Know what they mean. */}
-            <div className="rounded-2xl bg-gradient-to-r from-[#0284c7] via-[#2563eb] to-[#7c3aed] text-white p-3 sm:p-3.5 flex items-center gap-3 shadow-md">
+            <div className="rounded-2xl bg-[#2563eb] text-white p-3 sm:p-3.5 flex items-center gap-3 shadow-md">
               <div className="w-10 h-10 rounded-full border border-white/30 bg-white/10 flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />
@@ -250,7 +243,7 @@ export default function CollegeCrmIntelligence() {
             {/* Top Floating AI Badge */}
             <div className="relative flex justify-end -mb-3 z-30">
               {/* Purple Glow */}
-              <div className="absolute top-0 right-10 w-44 h-16 bg-[#a855f7]/30 blur-xl pointer-events-none" />
+              
               
               <div className="relative rounded-2xl bg-white/95 backdrop-blur-md border border-purple-100 shadow-[0_10px_25px_rgba(105,56,239,0.15)] p-2.5 px-4 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-[#f3e8ff] border border-purple-200 text-[#7c3aed] flex items-center justify-center shrink-0">
@@ -531,7 +524,7 @@ export default function CollegeCrmIntelligence() {
             <div className="rounded-[22px] overflow-hidden border-2 border-[#7c3aed] bg-white shadow-xl flex flex-col">
               
               {/* Header Banner */}
-              <div className="bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed] text-white px-4 py-2 flex items-center gap-1.5 shadow-xs">
+              <div className="bg-[#6938ef] text-white px-4 py-2 flex items-center gap-1.5 shadow-xs">
                 <span className="text-sm">✦</span>
                 <h4 className="font-black text-xs sm:text-sm tracking-wide text-white m-0">
                   And AI tells you what matters:

@@ -146,14 +146,7 @@ export default function CollegeTraditionalVsPulse() {
     <section className="relative py-16 sm:py-20 lg:py-24 bg-white overflow-hidden font-sans">
       
       {/* Ambient background glows matching theme */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-12 left-1/4 w-[600px] h-[450px] bg-[radial-gradient(ellipse_at_center,#eff6ff_0,transparent_65%)] opacity-70"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 right-10 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#f5f3ff_0,transparent_65%)] opacity-70"
-      />
+      
 
       <div className="relative mx-auto max-w-[1220px] px-4 sm:px-6 lg:px-8 flex flex-col gap-10 sm:gap-12">
         
@@ -309,10 +302,10 @@ export default function CollegeTraditionalVsPulse() {
                   RIGHT CONTAINER: COLUMN 3 (PULSE - Highlighted Hero Column)
                   Enclosed in 2px Vibrant Purple Border with Rounded Right Corners
               -------------------------------------------------------------------- */}
-              <div className="w-[38%] rounded-r-3xl border-2 border-[#7c3aed] bg-gradient-to-b from-[#f5f3ff] via-[#f8faff] to-[#faf5ff] flex flex-col relative overflow-hidden -ml-[2px] z-10 shadow-[0_15px_35px_rgba(124,58,237,0.1)]">
+              <div className="w-[38%] rounded-r-3xl border-2 border-[#7c3aed] bg-[#f8f7ff] flex flex-col relative overflow-hidden -ml-[2px] z-10 shadow-[0_15px_35px_rgba(124,58,237,0.1)]">
                 
                 {/* Column Header: Vibrant Royal Blue to Purple Gradient Banner */}
-                <div className="h-[84px] px-4 py-3 bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed] text-white flex flex-col items-center justify-center text-center shadow-sm shrink-0">
+                <div className="h-[84px] px-4 py-3 bg-[#6938ef] text-white flex flex-col items-center justify-center text-center shadow-sm shrink-0">
                   <div className="flex items-center gap-1.5">
                     <span className="text-lg">✦</span>
                     <h4 className="font-extrabold text-lg sm:text-xl tracking-wide text-white m-0">
@@ -402,18 +395,9 @@ export default function CollegeTraditionalVsPulse() {
               {/* Rising Line Chart with Gradient Fill & Nodes */}
               <div className="pt-2 h-24 flex items-center justify-center">
                 <svg className="w-full h-full overflow-visible" viewBox="0 0 280 85" fill="none">
-                  <defs>
-                    <linearGradient id="chartPulseGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.25" />
-                      <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
                   
-                  {/* Gradient Area under line */}
-                  <polygon
-                    points="10,65 55,70 95,40 140,52 185,22 230,30 275,10 275,85 10,85"
-                    fill="url(#chartPulseGrad)"
-                  />
+                  
+                  
                   
                   {/* Purple Zigzag Line */}
                   <path
@@ -495,7 +479,7 @@ export default function CollegeTraditionalVsPulse() {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#lead-capture"
-                className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#7c3aed] text-white text-xs sm:text-sm font-bold shadow-md hover:opacity-95 transition-opacity"
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl bg-[#6938ef] text-white text-xs sm:text-sm font-bold shadow-md hover:opacity-95 transition-opacity"
               >
                 <span>See what Pulse can do for your business</span>
                 <span>→</span>
