@@ -2,680 +2,589 @@
 
 import React, { useState } from "react";
 
-// Google G logo icon
-function GoogleGIcon({ className = "w-4 h-4" }: { className?: string }) {
+// AI Robot Mascot SVG
+function AiRobotMascot({ className = "w-28 h-28" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className}>
+    <svg viewBox="0 0 120 120" fill="none" className={className}>
+      {/* Radiant Spark Rays around head */}
+      <line x1="28" y1="20" x2="16" y2="12" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="60" y1="12" x2="60" y2="2" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="92" y1="20" x2="104" y2="12" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+
+      {/* Antenna */}
+      <line x1="60" y1="30" x2="60" y2="18" stroke="#60a5fa" strokeWidth="3" strokeLinecap="round" />
+      <circle cx="60" cy="16" r="4.5" fill="#3b82f6" stroke="#93c5fd" strokeWidth="1.5" />
+
+      {/* Robot Ears / Headset */}
+      <rect x="22" y="38" width="6" height="14" rx="3" fill="#3b82f6" />
+      <rect x="92" y="38" width="6" height="14" rx="3" fill="#3b82f6" />
+
+      {/* Head Outer Pill */}
+      <rect x="26" y="24" width="68" height="42" rx="20" fill="#f8fafc" stroke="#60a5fa" strokeWidth="2.5" />
+
+      {/* Visor / Face Screen */}
+      <rect x="33" y="31" width="54" height="28" rx="14" fill="#0f172a" />
+
+      {/* Cyan Smiling Eyes */}
+      <path d="M 43 45 Q 48 39 53 45" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M 67 45 Q 72 39 77 45" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" fill="none" />
+
+      {/* Smile */}
+      <path d="M 56 50 Q 60 53 64 50" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" fill="none" />
+
+      {/* Neck */}
+      <rect x="54" y="66" width="12" height="6" rx="2" fill="#94a3b8" />
+
+      {/* Body */}
+      <path d="M 40 72 C 40 70, 80 70, 80 72 L 86 102 C 86 106, 34 106, 34 102 Z" fill="#f1f5f9" stroke="#60a5fa" strokeWidth="2.5" />
+
+      {/* Chest Star */}
       <path
-        fill="#4285F4"
-        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+        d="M 60 81 L 61.5 86 L 66.5 87.5 L 61.5 89 L 60 94 L 58.5 89 L 53.5 87.5 L 58.5 86 Z"
+        fill="#7c3aed"
       />
-      <path
-        fill="#34A853"
-        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
-      />
+
+      {/* Arms */}
+      <path d="M 36 78 C 28 85, 30 96, 38 98" stroke="#60a5fa" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M 84 78 C 92 85, 90 96, 82 98" stroke="#60a5fa" strokeWidth="3" strokeLinecap="round" fill="none" />
     </svg>
   );
 }
 
-// 3D AI Robot Head Vector Illustration
-function AiRobotAvatar({ className = "w-12 h-12" }: { className?: string }) {
-  return (
-    <div className={`relative ${className} shrink-0 flex items-center justify-center`}>
-      {/* Outer Floating Glow */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#6938ef] to-[#a855f7] opacity-30 blur-md animate-pulse" />
-      
-      {/* Robot Head Body */}
-      <div className="relative w-full h-full rounded-[18px] bg-gradient-to-b from-white via-[#f3f0ff] to-[#e9d5ff] p-1 shadow-[0_6px_16px_rgba(105,56,239,0.22)] border-2 border-white flex flex-col items-center justify-center">
-        {/* Antenna */}
-        <div className="absolute -top-1.5 w-1 h-1.5 rounded-full bg-[#7c3aed]" />
-        <div className="absolute -top-2.5 w-1.5 h-1.5 rounded-full bg-[#a855f7] shadow-[0_0_6px_#a855f7]" />
-
-        {/* Ears */}
-        <div className="absolute -left-1 w-1.5 h-3 rounded-full bg-[#7c3aed]" />
-        <div className="absolute -right-1 w-1.5 h-3 rounded-full bg-[#7c3aed]" />
-
-        {/* Visor Screen */}
-        <div className="w-[84%] h-[70%] rounded-[11px] bg-[#110d29] p-0.5 flex items-center justify-center gap-1.5 shadow-inner border border-[#3b0764]/40">
-          <div className="w-2 h-2.5 rounded-full bg-gradient-to-b from-[#60a5fa] to-[#9333ea] shadow-[0_0_6px_#60a5fa]" />
-          <div className="w-2 h-2.5 rounded-full bg-gradient-to-b from-[#60a5fa] to-[#9333ea] shadow-[0_0_6px_#60a5fa]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function CollegeCrmIntelligence() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "leads" | "conversations" | "marketing" | "payments">("dashboard");
 
   return (
-    <section className="relative py-10 sm:py-14 lg:py-16 bg-gradient-to-b from-[#f9faff] via-[#f4f3ff] to-[#eef2ff] border-b border-slate-200/80 overflow-hidden font-sans">
+    <section className="relative py-14 sm:py-20 lg:py-24 bg-white overflow-hidden font-sans border-b border-slate-200/80">
       
-      {/* Soft Ambient Radial Glows */}
+      {/* Ambient background glows */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-8 left-1/4 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,#ede9fe_0%,transparent_70%)] opacity-70 blur-3xl"
+        className="pointer-events-none absolute -top-20 left-10 w-[550px] h-[550px] bg-[radial-gradient(ellipse_at_center,#eff6ff_0,transparent_65%)] opacity-80"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-8 right-1/4 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,#dbeafe_0%,transparent_70%)] opacity-60 blur-3xl"
+        className="pointer-events-none absolute top-1/3 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#f5f3ff_0,transparent_65%)] opacity-80"
       />
 
-      <div className="relative mx-auto max-w-[1340px] px-4 sm:px-6 lg:px-8 flex flex-col gap-8 sm:gap-10">
+      <div className="relative mx-auto max-w-[1260px] px-4 sm:px-6 lg:px-8">
         
-        {/* =========================================================================
-            TOP ROW: Left Copy & 6 Metric Cards (3 IN A ROW) + Right Shorter Cockpit
-        ========================================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           
-          {/* -----------------------------------------------------------------------
-              LEFT COLUMN: Header Copy + 6 Metric Cards (3 in a row)
-          ------------------------------------------------------------------------ */}
-          <div className="lg:col-span-6 flex flex-col justify-start">
+          {/* =========================================================================
+              LEFT COLUMN: HEADINGS, 6 METRIC CARDS, BOTTOM PILL BANNER
+          ========================================================================== */}
+          <div className="lg:col-span-5 flex flex-col justify-start">
             
-            {/* Tag Badge */}
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ecfdf5] border border-[#a7f3d0] text-[#059669] text-[11px] font-bold tracking-wider uppercase mb-3 w-fit shadow-2xs">
-              <span className="text-xs leading-none">✳</span>
-              <span>AI POWERED COLLEGE CRM</span>
+            {/* Eyebrow Pill: SECTION 2 — AI DASHBOARD */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#c4b5fd] shadow-2xs mb-4 w-fit">
+              <span className="text-[11px] sm:text-xs font-extrabold text-[#6938ef] tracking-wider uppercase">
+                SECTION 2 — AI DASHBOARD
+              </span>
             </div>
 
-            {/* Main Headline (Shorter & Tighter) */}
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-slate-900 leading-[1.15] tracking-tight mb-2">
-              Your College CRM. Built Around Your{" "}
-              <span className="text-[#6938ef] font-black">Business.</span>
+            {/* Main Headline: Your Dashboard. Built Around Your Business. */}
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-black text-[#0b0f19] tracking-tight leading-[1.12] mb-3">
+              Your Dashboard.<br />
+              <span className="text-[#2563eb]">
+                Built Around<br />
+                Your Business.
+              </span>
             </h2>
 
-            {/* Subheading */}
-            <p className="text-sm sm:text-base font-bold text-slate-800 mb-2">
-              Don’t settle for a dashboard. Ask for{" "}
-              <span className="relative inline-block text-[#6938ef] font-extrabold">
-                intelligence.
-                <svg
-                  className="absolute -bottom-1 left-0 w-full h-1.5 text-[#a855f7]"
-                  viewBox="0 0 100 12"
-                  preserveAspectRatio="none"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                >
-                  <path d="M0,6 Q25,0 50,6 T100,6" />
-                </svg>
-              </span>
-            </p>
+            {/* Subheading: Don't settle for a dashboard. Ask for intelligence. */}
+            <div className="text-sm sm:text-base font-bold text-[#0f172a] mb-2.5 leading-snug">
+              Don’t settle for a dashboard.<br />
+              Ask for intelligence.
+            </div>
 
             {/* Description Paragraph */}
-            <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-5 font-normal">
-              Every college tracks different numbers. Pulse uses AI to create dashboards
-              around the metrics that matter to your institution — admissions, marketing,
-              student engagement or operations.
+            <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-5 font-normal max-w-[460px]">
+              Every business tracks different numbers. Pulse uses AI to create dashboards
+              around the metrics that matter to your business — marketing, sales, revenue,
+              customer engagement or operations.
             </p>
 
-            {/* 6 Metric Cards Grid: THREE IN A ROW (3 Columns x 2 Rows) */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+            {/* Sub-label: Your management view could show: */}
+            <span className="text-xs sm:text-[13px] font-bold text-[#6938ef] mb-3 block">
+              Your management view could show:
+            </span>
+
+            {/* 6 Metric Cards Grid: 2 COLUMNS x 3 ROWS */}
+            <div className="grid grid-cols-2 gap-3 mb-5">
               
               {/* Card 1: Revenue this month */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#e8f8f0] text-[#107e43] font-black text-xs flex items-center justify-center">
-                    ₹
-                  </div>
-                  <span className="text-[11px] font-bold text-[#10b981]">↗</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#f3e8ff] text-[#7c3aed] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     ₹12.4L
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Revenue this month
                   </div>
-                </div>
-                {/* Mini Green Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[35%] rounded-t bg-[#bbf7d0]" />
-                  <div className="flex-1 h-[60%] rounded-t bg-[#86efac]" />
-                  <div className="flex-1 h-[45%] rounded-t bg-[#86efac]" />
-                  <div className="flex-1 h-[80%] rounded-t bg-[#4ade80]" />
-                  <div className="flex-1 h-[100%] rounded-t bg-[#22c55e]" />
                 </div>
               </div>
 
               {/* Card 2: Average Lead Cost */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#f3e8ff] text-[#8b5cf6] flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-bold text-amber-500">⌵</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#dcfce7] text-[#16a34a] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     ₹480
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Average Lead Cost
                   </div>
-                </div>
-                {/* Mini Purple Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[90%] rounded-t bg-[#c084fc]" />
-                  <div className="flex-1 h-[70%] rounded-t bg-[#d8b4fe]" />
-                  <div className="flex-1 h-[85%] rounded-t bg-[#c084fc]" />
-                  <div className="flex-1 h-[50%] rounded-t bg-[#e9d5ff]" />
-                  <div className="flex-1 h-[40%] rounded-t bg-[#a855f7]" />
                 </div>
               </div>
 
               {/* Card 3: Lead Conversion */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-bold text-[#10b981]">↗</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#ffedd5] text-[#ea580c] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     18.60%
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Lead Conversion
                   </div>
-                </div>
-                {/* Mini Blue Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[40%] rounded-t bg-[#bae6fd]" />
-                  <div className="flex-1 h-[55%] rounded-t bg-[#7dd3fc]" />
-                  <div className="flex-1 h-[70%] rounded-t bg-[#38bdf8]" />
-                  <div className="flex-1 h-[65%] rounded-t bg-[#38bdf8]" />
-                  <div className="flex-1 h-[95%] rounded-t bg-[#0284c7]" />
                 </div>
               </div>
 
               {/* Card 4: Cost per Acquisition */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#ffedd5] text-[#ea580c] flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="12" cy="12" r="6" />
-                      <circle cx="12" cy="12" r="2" />
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-bold text-[#ea580c]">↗</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 3.79 2 6s4.48 4 10 4 10-1.79 10-4-4.48-4-10-4zm0 6c-4.41 0-8-1.34-8-2s3.59-2 8-2 8 1.34 8 2-3.59 2-8 2zm0 3c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4V7c0 2.21-4.48 4-10 4zm0 5c-5.52 0-10-1.79-10-4v3c0 2.21 4.48 4 10 4s10-1.79 10-4v-3c0 2.21-4.48 4-10 4z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     ₹2,850
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Cost per Acquisition
                   </div>
-                </div>
-                {/* Mini Orange Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[30%] rounded-t bg-[#fed7aa]" />
-                  <div className="flex-1 h-[50%] rounded-t bg-[#fdba74]" />
-                  <div className="flex-1 h-[75%] rounded-t bg-[#fb923c]" />
-                  <div className="flex-1 h-[60%] rounded-t bg-[#fb923c]" />
-                  <div className="flex-1 h-[90%] rounded-t bg-[#ea580c]" />
                 </div>
               </div>
 
               {/* Card 5: Leads requiring action */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#fce7f3] text-[#db2777] flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-bold text-slate-400">→</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     94
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Leads requiring action
                   </div>
-                </div>
-                {/* Mini Pink Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[40%] rounded-t bg-[#fbcfe8]" />
-                  <div className="flex-1 h-[65%] rounded-t bg-[#f472b6]" />
-                  <div className="flex-1 h-[80%] rounded-t bg-[#f472b6]" />
-                  <div className="flex-1 h-[95%] rounded-t bg-[#db2777]" />
-                  <div className="flex-1 h-[60%] rounded-t bg-[#be185d]" />
                 </div>
               </div>
 
               {/* Card 6: Pending payments */}
-              <div className="rounded-[14px] bg-white p-2.5 sm:p-3 border border-slate-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="w-7 h-7 rounded-full bg-[#ccfbf1] text-[#0d9488] flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                      <rect width="20" height="14" x="2" y="5" rx="2" />
-                      <line x1="2" x2="22" y1="10" y2="10" />
-                    </svg>
-                  </div>
-                  <span className="text-[11px] font-bold text-slate-400">→</span>
+              <div className="rounded-2xl bg-white p-3 sm:p-3.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#dcfce7] text-[#16a34a] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" />
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
+                  <div className="text-base sm:text-lg font-black text-[#0f172a] leading-tight">
                     ₹4.2L
                   </div>
-                  <div className="text-[9.5px] text-slate-500 font-medium truncate">
+                  <div className="text-[10px] text-slate-500 font-medium leading-tight mt-0.5">
                     Pending payments
                   </div>
                 </div>
-                {/* Mini Teal Bar Chart */}
-                <div className="flex items-end gap-0.5 sm:gap-1 mt-2 h-4 sm:h-5">
-                  <div className="flex-1 h-[35%] rounded-t bg-[#99f6e4]" />
-                  <div className="flex-1 h-[55%] rounded-t bg-[#5eead4]" />
-                  <div className="flex-1 h-[75%] rounded-t bg-[#2dd4bf]" />
-                  <div className="flex-1 h-[90%] rounded-t bg-[#0d9488]" />
-                  <div className="flex-1 h-[65%] rounded-t bg-[#0f766e]" />
-                </div>
               </div>
 
             </div>
 
-          </div>
-
-          {/* -----------------------------------------------------------------------
-              RIGHT COLUMN: Shorter & Cleaner 3D Cockpit Tablet Screen
-          ------------------------------------------------------------------------ */}
-          <div className="lg:col-span-6 relative flex flex-col">
-            
-            {/* Handwritten Annotation Callout with Curved Arrow */}
-            <div className="relative self-start sm:self-center mb-1.5 z-20 flex items-center gap-1.5 pl-4 sm:pl-0">
-              <span className="font-handwriting font-semibold text-xs sm:text-sm text-slate-700 italic tracking-wide">
-                Get a complete view of your college, in one place.
-              </span>
-              <svg className="w-8 h-5 text-[#7c3aed] transform rotate-12" viewBox="0 0 40 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M4 14 C 15 2, 28 4, 34 16" />
-                <path d="M28 16 L 34 16 L 34 10" />
-              </svg>
+            {/* Bottom-Left Blue-Purple Pill: Don&apos;t just look at your numbers. Know what they mean. */}
+            <div className="rounded-2xl bg-gradient-to-r from-[#0284c7] via-[#2563eb] to-[#7c3aed] text-white p-3 sm:p-3.5 flex items-center gap-3 shadow-md">
+              <div className="w-10 h-10 rounded-full border border-white/30 bg-white/10 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m4.93 4.93 4.24 4.24" />
+                  <path d="m14.83 9.17 4.24-4.24" />
+                  <path d="m14.83 14.83 4.24 4.24" />
+                  <path d="m9.17 14.83-4.24 4.24" />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+              </div>
+              <div className="h-8 w-px bg-white/20 shrink-0" />
+              <div>
+                <div className="font-extrabold text-xs sm:text-[13px] text-white leading-tight">
+                  Don't just look at your numbers.
+                </div>
+                <div className="text-xs sm:text-[13px] text-white/90 font-medium leading-tight mt-0.5">
+                  Know what they mean.
+                </div>
+              </div>
             </div>
 
-            {/* 3D Cockpit Tablet Device Frame (Shorter & Compact) */}
-            <div className="relative rounded-[22px] sm:rounded-[28px] bg-[#111827] p-2 sm:p-3 shadow-[0_25px_50px_-12px_rgba(30,27,75,0.22)] border-3 sm:border-4 border-[#1f2937] transition-transform duration-300 hover:scale-[1.01]">
+          </div>
+
+          {/* =========================================================================
+              RIGHT COLUMN: FLOATING AI BADGE, COCKPIT FRAME, AND AI INSIGHTS CARD
+          ========================================================================== */}
+          <div className="lg:col-span-7 flex flex-col gap-5 relative">
+            
+            {/* Top Floating AI Badge */}
+            <div className="relative flex justify-end -mb-3 z-30">
+              {/* Purple Glow */}
+              <div className="absolute top-0 right-10 w-44 h-16 bg-[#a855f7]/30 blur-xl pointer-events-none" />
               
-              {/* Tablet Screen Surface */}
-              <div className="rounded-[14px] sm:rounded-[18px] bg-[#f8fafc] overflow-hidden flex flex-col border border-slate-200/60 text-slate-800">
-                
-                {/* Cockpit Inner Grid: Mini Sidebar + Main Workspace */}
-                <div className="grid grid-cols-12 min-h-[360px]">
-                  
-                  {/* --- Sidebar (Navy #111827) --- */}
-                  <div className="col-span-3 bg-[#111827] text-slate-300 p-2 sm:p-2.5 flex flex-col justify-between text-[10px]">
-                    <div className="space-y-2">
-                      {/* Brand Logo */}
-                      <div className="flex items-center gap-1 pb-1.5 border-b border-slate-800">
-                        <div className="w-4 h-4 rounded bg-indigo-600 flex items-center justify-center text-white text-[9px]">
-                          🎓
-                        </div>
-                        <span className="font-bold text-white tracking-wide text-[11px] truncate">
-                          College CRM
-                        </span>
-                      </div>
+              <div className="relative rounded-2xl bg-white/95 backdrop-blur-md border border-purple-100 shadow-[0_10px_25px_rgba(105,56,239,0.15)] p-2.5 px-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[#f3e8ff] border border-purple-200 text-[#7c3aed] flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.38-1 1.72V7h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4V5.72A2 2 0 0 1 10 4a2 2 0 0 1 2-2m-3 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-6 5v1h6v-1z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-xs text-slate-900 leading-tight m-0">
+                    AI Dashboard
+                  </h4>
+                  <span className="text-[9.5px] text-slate-400 font-medium block leading-tight mt-0.5">
+                    Custom insights for your business
+                  </span>
+                </div>
+                <span className="text-sm ml-1 text-purple-600">🪄</span>
+              </div>
+            </div>
 
-                      {/* Nav Links */}
-                      <nav className="space-y-0.5">
-                        <button
-                          type="button"
-                          onClick={() => setActiveTab("dashboard")}
-                          className={`w-full flex items-center gap-1.5 px-2 py-1 rounded-md font-medium text-left transition-colors ${
-                            activeTab === "dashboard"
-                              ? "bg-[#4f46e5] text-white shadow-xs"
-                              : "text-slate-400 hover:text-white hover:bg-slate-800/60"
-                          }`}
-                        >
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <rect width="7" height="9" x="3" y="3" rx="1" />
-                            <rect width="7" height="5" x="14" y="3" rx="1" />
-                            <rect width="7" height="9" x="14" y="12" rx="1" />
-                            <rect width="7" height="5" x="3" y="16" rx="1" />
-                          </svg>
-                          <span className="truncate">Dashboard</span>
-                        </button>
+            {/* Main Cockpit Frame (Tablet UI) */}
+            <div className="rounded-[24px] bg-[#0f172a] shadow-[0_25px_60px_rgba(0,0,0,0.14)] border border-slate-200 overflow-hidden flex flex-row">
+              
+              {/* Dark Left Sidebar */}
+              <div className="w-[125px] sm:w-[145px] bg-[#0f172a] p-3 sm:p-4 flex flex-col justify-between shrink-0 text-white border-r border-slate-800">
+                <div className="flex flex-col gap-4">
+                  {/* Logo */}
+                  <div className="flex items-center gap-1.5 px-1 py-1">
+                    <span className="text-white text-base">✦</span>
+                    <span className="font-black text-sm tracking-wide text-white">Pulse</span>
+                  </div>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                          </svg>
-                          <span>Leads</span>
-                        </div>
+                  {/* Menu Items */}
+                  <div className="flex flex-col gap-1 text-[11px] font-semibold">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("dashboard")}
+                      className={
+                        activeTab === "dashboard"
+                          ? "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all bg-[#6938ef] text-white shadow-xs"
+                          : "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50"
+                      }
+                    >
+                      <span>📊</span>
+                      <span>Dashboard</span>
+                    </button>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-                          </svg>
-                          <span>Admissions</span>
-                        </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("leads")}
+                      className={
+                        activeTab === "leads"
+                          ? "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all bg-[#6938ef] text-white shadow-xs"
+                          : "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50"
+                      }
+                    >
+                      <span>👥</span>
+                      <span>Leads</span>
+                    </button>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                          </svg>
-                          <span>Students</span>
-                        </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("conversations")}
+                      className={
+                        activeTab === "conversations"
+                          ? "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all bg-[#6938ef] text-white shadow-xs"
+                          : "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50"
+                      }
+                    >
+                      <span>💬</span>
+                      <span>Conversations</span>
+                    </button>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <rect width="20" height="14" x="2" y="5" rx="2" />
-                            <line x1="2" x2="22" y1="10" y2="10" />
-                          </svg>
-                          <span className="truncate">Fees</span>
-                        </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("marketing")}
+                      className={
+                        activeTab === "marketing"
+                          ? "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all bg-[#6938ef] text-white shadow-xs"
+                          : "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50"
+                      }
+                    >
+                      <span>📢</span>
+                      <span>Marketing</span>
+                    </button>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="m3 11 18-5v12L3 14v-3z" />
-                          </svg>
-                          <span>Marketing</span>
-                        </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("payments")}
+                      className={
+                        activeTab === "payments"
+                          ? "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all bg-[#6938ef] text-white shadow-xs"
+                          : "w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 transition-all text-slate-400 hover:text-white hover:bg-slate-800/50"
+                      }
+                    >
+                      <span>💳</span>
+                      <span>Payments</span>
+                    </button>
 
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="m9 11 3 3L22 4" />
-                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-                          </svg>
-                          <span>Tasks</span>
-                        </div>
-
-                        <div className="flex items-center gap-1.5 px-2 py-1 text-slate-400 hover:text-white cursor-pointer">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M3 3v18h18" />
-                            <path d="m19 9-5 5-4-4-3 3" />
-                          </svg>
-                          <span>Reports</span>
-                        </div>
-                      </nav>
+                    <div className="w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 text-slate-400 hover:text-white">
+                      <span>📑</span>
+                      <span>Reports</span>
                     </div>
 
-                    {/* Settings at bottom */}
-                    <div className="pt-1.5 border-t border-slate-800 flex items-center gap-1.5 px-1.5 text-slate-400 hover:text-white cursor-pointer text-[10px]">
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="3" />
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                      </svg>
+                    <div className="w-full text-left px-2.5 py-1.5 rounded-xl flex items-center gap-2 text-slate-400 hover:text-white">
+                      <span>⚙️</span>
                       <span>Settings</span>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* --- Main Workspace (Right 9 Cols) --- */}
-                  <div className="col-span-9 p-2.5 sm:p-3 flex flex-col gap-2.5 bg-[#f8fafc]">
-                    
-                    {/* Top Search & Profile Bar */}
-                    <div className="flex items-center justify-between gap-1.5 pb-1.5 border-b border-slate-200">
-                      {/* Search */}
-                      <div className="relative flex-1 max-w-[220px]">
-                        <svg className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                          <circle cx="11" cy="11" r="8" />
-                          <path d="m21 21-4.3-4.3" />
-                        </svg>
-                        <input
-                          type="text"
-                          readOnly
-                          placeholder="Search students, leads..."
-                          className="w-full pl-6 pr-2 py-0.5 text-[9px] rounded-md bg-white border border-slate-200 text-slate-700 placeholder:text-slate-400 focus:outline-hidden"
-                        />
-                      </div>
+              {/* Main White Content Area */}
+              <div className="flex-1 bg-white p-3.5 sm:p-5 flex flex-col gap-3.5 overflow-hidden">
+                
+                {/* Header Welcome Bar */}
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <div>
+                    <h3 className="font-extrabold text-sm sm:text-base text-slate-900 leading-tight m-0">
+                      Welcome back!
+                    </h3>
+                    <p className="text-[9.5px] text-slate-400 leading-tight mt-0.5">
+                      Here&apos;s what&apos;s happening with your business today.
+                    </p>
+                  </div>
+                  <div className="rounded-lg border border-slate-200 px-2 py-1 text-[10px] text-slate-600 font-semibold bg-white flex items-center gap-1 shrink-0">
+                    <span>📅</span>
+                    <span>This Month</span>
+                    <span>⌵</span>
+                  </div>
+                </div>
 
-                      {/* Right Controls */}
-                      <div className="flex items-center gap-1.5">
-                        <div className="relative cursor-pointer text-slate-500">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                          </svg>
-                          <span className="absolute -top-0.5 -right-0.5 w-1 h-1 rounded-full bg-red-500" />
-                        </div>
-
-                        <div className="flex items-center gap-1 pl-1 border-l border-slate-200">
-                          <div className="w-5 h-5 rounded-full bg-indigo-900 text-white font-bold text-[9px] flex items-center justify-center">
-                            A
-                          </div>
-                          <span className="hidden sm:inline text-[9px] font-bold text-slate-800">Admin</span>
-                        </div>
-
-                        <span className="px-1.5 py-0.5 rounded bg-white border border-slate-200 text-[9px] font-medium text-slate-700 shadow-2xs">
-                          📅 This Month ▾
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Welcome Text */}
+                {/* 6 Metric Mini Cards (3 Columns x 2 Rows) */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+                  {/* Metric 1 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-xs font-extrabold text-slate-900 leading-tight">Welcome Back!</h4>
-                        <p className="text-[9px] text-slate-500 leading-tight">
-                          Here&apos;s what&apos;s happening today.
-                        </p>
-                      </div>
+                      <span className="w-5 h-5 rounded-md bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center text-xs">📊</span>
+                      <span className="text-[9px] font-bold text-emerald-600">↑ +14%</span>
                     </div>
-
-                    {/* Top 3 Stat Cards in Cockpit */}
-                    <div className="grid grid-cols-3 gap-1.5">
-                      <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 shadow-2xs">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-emerald-600">₹</span>
-                          <span className="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1 rounded">+22%</span>
-                        </div>
-                        <div className="text-[11px] font-bold text-slate-900 mt-0.5">₹12.4L</div>
-                        <div className="text-[7.5px] text-slate-400 truncate">Revenue this month</div>
-                      </div>
-
-                      <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 shadow-2xs">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-purple-600">👤</span>
-                          <span className="text-[8px] font-bold text-rose-500 bg-rose-50 px-1 rounded">-8%</span>
-                        </div>
-                        <div className="text-[11px] font-bold text-slate-900 mt-0.5">₹480</div>
-                        <div className="text-[7.5px] text-slate-400 truncate">Avg Lead Cost</div>
-                      </div>
-
-                      <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 shadow-2xs">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-sky-600">📊</span>
-                          <span className="text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1 rounded">+18%</span>
-                        </div>
-                        <div className="text-[11px] font-bold text-slate-900 mt-0.5">18.60%</div>
-                        <div className="text-[7.5px] text-slate-400 truncate">Lead Conversion</div>
-                      </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">₹12.4L</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Revenue this month</div>
                     </div>
-
-                    {/* Middle Row: Leads by Source (Multi-Line Chart) & Applications Donut */}
-                    <div className="grid grid-cols-12 gap-1.5">
-                      
-                      {/* Left: Leads by Source Line Chart (7 Cols) */}
-                      <div className="col-span-7 bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs flex flex-col justify-between">
-                        <div className="flex items-center justify-between text-[9px] mb-0.5">
-                          <span className="font-bold text-slate-800">Leads by Source</span>
-                        </div>
-
-                        {/* Legend */}
-                        <div className="flex flex-wrap gap-1.5 text-[7px] text-slate-500 mb-1">
-                          <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-blue-500" />Google</span>
-                          <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-purple-500" />Meta</span>
-                          <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-emerald-500" />Web</span>
-                          <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-amber-500" />Ref</span>
-                        </div>
-
-                        {/* Line Chart Graphic */}
-                        <div className="relative h-14 w-full">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60">
-                            <line x1="0" y1="15" x2="200" y2="15" stroke="#f1f5f9" strokeWidth="1" />
-                            <line x1="0" y1="35" x2="200" y2="35" stroke="#f1f5f9" strokeWidth="1" />
-                            <line x1="0" y1="50" x2="200" y2="50" stroke="#f1f5f9" strokeWidth="1" />
-
-                            <path
-                              d="M 10,48 Q 40,40 70,28 T 130,16 T 190,22"
-                              fill="none"
-                              stroke="#3b82f6"
-                              strokeWidth="2"
-                            />
-                            <circle cx="130" cy="16" r="3" fill="#3b82f6" stroke="#fff" strokeWidth="1.5" />
-
-                            <path
-                              d="M 10,54 Q 50,45 90,50 T 150,38 T 190,36"
-                              fill="none"
-                              stroke="#10b981"
-                              strokeWidth="1.5"
-                            />
-
-                            <path
-                              d="M 10,38 Q 50,35 90,40 T 150,28 T 190,14"
-                              fill="none"
-                              stroke="#8b5cf6"
-                              strokeWidth="1.5"
-                            />
-                          </svg>
-
-                          <div className="absolute top-0.5 left-[62%] -translate-x-1/2 bg-[#3b82f6] text-white text-[7px] font-bold px-1 py-0.2 rounded shadow-2xs">
-                            320
-                          </div>
-                        </div>
-
-                        {/* Months X-axis */}
-                        <div className="flex justify-between text-[7px] text-slate-400 pt-0.5 border-t border-slate-100">
-                          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
-                        </div>
-                      </div>
-
-                      {/* Right: Applications by Status Donut (5 Cols) */}
-                      <div className="col-span-5 bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs flex flex-col justify-between">
-                        <span className="font-bold text-slate-800 text-[9px] mb-0.5">
-                          Applications
-                        </span>
-
-                        <div className="flex items-center gap-1.5 my-auto">
-                          {/* Donut Circle SVG */}
-                          <div className="relative w-12 h-12 shrink-0 flex items-center justify-center">
-                            <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 36 36">
-                              <circle cx="18" cy="18" r="14" fill="transparent" stroke="#3b82f6" strokeWidth="5" strokeDasharray="30 70" strokeDashoffset="0" />
-                              <circle cx="18" cy="18" r="14" fill="transparent" stroke="#ec4899" strokeWidth="5" strokeDasharray="25 75" strokeDashoffset="-30" />
-                              <circle cx="18" cy="18" r="14" fill="transparent" stroke="#10b981" strokeWidth="5" strokeDasharray="20 80" strokeDashoffset="-55" />
-                              <circle cx="18" cy="18" r="14" fill="transparent" stroke="#f59e0b" strokeWidth="5" strokeDasharray="25 75" strokeDashoffset="-75" />
-                            </svg>
-                            <div className="absolute text-center leading-none">
-                              <span className="text-[10px] font-black text-slate-900 block">286</span>
-                              <span className="text-[6.5px] text-slate-400 block font-medium">Total</span>
-                            </div>
-                          </div>
-
-                          {/* Legend List */}
-                          <div className="space-y-0.5 text-[7px] text-slate-600">
-                            <div className="flex items-center justify-between gap-1">
-                              <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-blue-500" />New</span>
-                              <span className="font-bold text-slate-900">76</span>
-                            </div>
-                            <div className="flex items-center justify-between gap-1">
-                              <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-purple-500" />Contact</span>
-                              <span className="font-bold text-slate-900">68</span>
-                            </div>
-                            <div className="flex items-center justify-between gap-1">
-                              <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-emerald-500" />Qual</span>
-                              <span className="font-bold text-slate-900">52</span>
-                            </div>
-                            <div className="flex items-center justify-between gap-1">
-                              <span className="flex items-center gap-0.5"><span className="w-1 h-1 rounded-full bg-amber-500" />Adm</span>
-                              <span className="font-bold text-slate-900">64</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    {/* Bottom Row: Recent Leads Table & AI Insights */}
-                    <div className="grid grid-cols-12 gap-1.5">
-                      
-                      {/* Left: Recent Leads Table (7 Cols) */}
-                      <div className="col-span-7 bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs">
-                        <span className="font-bold text-slate-800 text-[9px] block mb-1">
-                          Recent Leads
-                        </span>
-
-                        <table className="w-full text-left text-[7.5px]">
-                          <thead>
-                            <tr className="text-slate-400 border-b border-slate-100">
-                              <th className="pb-0.5 font-semibold">Name</th>
-                              <th className="pb-0.5 font-semibold">Course</th>
-                              <th className="pb-0.5 font-semibold">Status</th>
-                              <th className="pb-0.5 font-semibold">Follow-up</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-slate-50">
-                            <tr>
-                              <td className="py-0.5 font-bold text-slate-800">Rahul M.</td>
-                              <td className="py-0.5 text-slate-500">B.Tech</td>
-                              <td className="py-0.5"><span className="px-1 py-0.2 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[7px]">New</span></td>
-                              <td className="py-0.5 text-slate-500">Today</td>
-                            </tr>
-                            <tr>
-                              <td className="py-0.5 font-bold text-slate-800">Sneha R.</td>
-                              <td className="py-0.5 text-slate-500">MBA</td>
-                              <td className="py-0.5"><span className="px-1 py-0.2 rounded-full bg-blue-50 text-blue-700 font-bold text-[7px]">Contact</span></td>
-                              <td className="py-0.5 text-slate-500">Today</td>
-                            </tr>
-                            <tr>
-                              <td className="py-0.5 font-bold text-slate-800">Arjun K.</td>
-                              <td className="py-0.5 text-slate-500">B.Sc</td>
-                              <td className="py-0.5"><span className="px-1 py-0.2 rounded-full bg-rose-50 text-rose-700 font-bold text-[7px]">Hot</span></td>
-                              <td className="py-0.5 text-slate-500">Today</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Right: AI Insights Widget (5 Cols) */}
-                      <div className="col-span-5 bg-white p-2 rounded-lg border border-slate-200/80 shadow-2xs flex flex-col justify-between">
-                        <div className="flex items-center justify-between text-[8px] mb-1">
-                          <span className="flex items-center gap-0.5 font-bold text-purple-700">
-                            <span>✦</span> AI Insights
-                          </span>
-                          <span className="text-[7.5px] text-indigo-600 font-semibold cursor-pointer">View →</span>
-                        </div>
-
-                        <div className="space-y-1">
-                          <div className="flex items-center justify-between gap-1 p-0.5 rounded bg-slate-50 text-[7.5px]">
-                            <div className="flex items-center gap-1">
-                              <GoogleGIcon className="w-3 h-3 shrink-0" />
-                              <span className="text-slate-700 truncate">Google Ads 2.1X better</span>
-                            </div>
-                            <span className="text-slate-400">›</span>
-                          </div>
-
-                          <div className="flex items-center justify-between gap-1 p-0.5 rounded bg-slate-50 text-[7.5px]">
-                            <div className="flex items-center gap-1">
-                              <span className="text-[9px]">👥</span>
-                              <span className="text-slate-700 truncate">23 leads need follow-up</span>
-                            </div>
-                            <span className="text-slate-400">›</span>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
                   </div>
 
+                  {/* Metric 2 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <span className="w-5 h-5 rounded-md bg-[#dcfce7] text-[#16a34a] flex items-center justify-center text-xs">⬇️</span>
+                      <span className="text-[9px] font-bold text-emerald-600">↓ +12%</span>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">₹480</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Average Lead Cost</div>
+                    </div>
+                  </div>
+
+                  {/* Metric 3 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <span className="w-5 h-5 rounded-md bg-[#ffedd5] text-[#ea580c] flex items-center justify-center text-xs">🎯</span>
+                      <span className="text-[9px] font-bold text-emerald-600">↑ +2.4%</span>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">18.60%</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Lead Conversion</div>
+                    </div>
+                  </div>
+
+                  {/* Metric 4 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <span className="w-5 h-5 rounded-md bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center text-xs">🪙</span>
+                      <span className="text-[9px] font-bold text-rose-500">🔻</span>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">₹2,850</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Cost per Acquisition</div>
+                    </div>
+                  </div>
+
+                  {/* Metric 5 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <span className="w-5 h-5 rounded-md bg-[#ffe4e6] text-[#e11d48] flex items-center justify-center text-xs">👥</span>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">94</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Leads requiring action</div>
+                    </div>
+                  </div>
+
+                  {/* Metric 6 */}
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <span className="w-5 h-5 rounded-md bg-[#dcfce7] text-[#16a34a] flex items-center justify-center text-xs">💳</span>
+                    </div>
+                    <div className="mt-1">
+                      <div className="font-black text-xs sm:text-sm text-slate-900 leading-tight">₹4.2L</div>
+                      <div className="text-[8.5px] text-slate-400 font-medium truncate">Pending payments</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Two Bottom Charts: Leads by Source & Revenue Trend */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  
+                  {/* Left Chart: Leads by Source */}
+                  <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <h5 className="font-bold text-[11px] text-slate-800 m-0 leading-tight">
+                      Leads by Source
+                    </h5>
+                    
+                    {/* Vertical multi-color bar chart */}
+                    <div className="flex items-end gap-1.5 h-16 pt-2 pb-1 justify-center">
+                      <div className="w-3.5 h-[65%] rounded-t bg-[#3b82f6]" />
+                      <div className="w-3.5 h-[90%] rounded-t bg-[#2563eb]" />
+                      <div className="w-3.5 h-[75%] rounded-t bg-[#06b6d4]" />
+                      <div className="w-3.5 h-[45%] rounded-t bg-[#10b981]" />
+                      <div className="w-3.5 h-[55%] rounded-t bg-[#f59e0b]" />
+                    </div>
+
+                    {/* Chart Legend */}
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[8.5px] text-slate-500 pt-1 border-t border-slate-200/60">
+                      <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />Meta Ads</span>
+                      <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#2563eb]" />Google Ads</span>
+                      <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#06b6d4]" />Organic</span>
+                      <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />Referrals</span>
+                      <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" />Other</span>
+                    </div>
+                  </div>
+
+                  {/* Right Chart: Revenue Trend */}
+                  <div className="p-3 rounded-xl bg-slate-50/70 border border-slate-100 flex flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <h5 className="font-bold text-[11px] text-slate-800 m-0 leading-tight">
+                        Revenue Trend
+                      </h5>
+                      <span className="font-black text-xs text-slate-900 leading-tight">₹12.4L <span className="text-[8px] text-slate-400 font-normal">This month</span></span>
+                    </div>
+
+                    {/* Line Chart */}
+                    <div className="h-16 pt-1 flex items-center justify-center">
+                      <svg className="w-full h-full overflow-visible" viewBox="0 0 160 50">
+                        <path
+                          d="M 5 40 L 30 35 L 60 30 L 90 28 L 120 20 L 155 8"
+                          fill="none"
+                          stroke="#7c3aed"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="5" cy="40" r="2.5" fill="#7c3aed" />
+                        <circle cx="30" cy="35" r="2.5" fill="#7c3aed" />
+                        <circle cx="60" cy="30" r="2.5" fill="#7c3aed" />
+                        <circle cx="90" cy="28" r="2.5" fill="#7c3aed" />
+                        <circle cx="120" cy="20" r="2.5" fill="#7c3aed" />
+                        <circle cx="155" cy="8" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+
+                    <div className="flex justify-between text-[8px] text-slate-400 font-medium pt-1 border-t border-slate-200/60 px-1">
+                      <span>Jan</span>
+                      <span>Feb</span>
+                      <span>Mar</span>
+                      <span>Apr</span>
+                      <span>May</span>
+                      <span>Jun</span>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Bottom Right Box: And AI tells you what matters */}
+            <div className="rounded-[22px] overflow-hidden border-2 border-[#7c3aed] bg-white shadow-xl flex flex-col">
+              
+              {/* Header Banner */}
+              <div className="bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed] text-white px-4 py-2 flex items-center gap-1.5 shadow-xs">
+                <span className="text-sm">✦</span>
+                <h4 className="font-black text-xs sm:text-sm tracking-wide text-white m-0">
+                  And AI tells you what matters:
+                </h4>
+              </div>
+
+              {/* Body: 3 Insight Cards + Robot Mascot */}
+              <div className="p-3.5 sm:p-4 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                
+                {/* 3 Insight Cards */}
+                <div className="flex-1 flex flex-col gap-2 w-full">
+                  
+                  {/* Insight 1: Google Ads */}
+                  <div className="rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] p-2 sm:p-2.5 px-3 flex items-center gap-2.5 shadow-2xs hover:border-emerald-300 transition-colors">
+                    <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
+                      </svg>
+                    </div>
+                    <span className="text-xs sm:text-[12.5px] font-semibold text-slate-800 leading-tight">
+                      “Google Ads is generating fewer leads than Meta, but converting 2.1X better.”
+                    </span>
+                  </div>
+
+                  {/* Insight 2: High-value leads */}
+                  <div className="rounded-xl bg-[#fff1f2] border border-[#fecdd3] p-2 sm:p-2.5 px-3 flex items-center gap-2.5 shadow-2xs hover:border-rose-300 transition-colors">
+                    <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                      </svg>
+                    </div>
+                    <span className="text-xs sm:text-[12.5px] font-semibold text-slate-800 leading-tight">
+                      “23 high-value leads haven&apos;t received a follow-up today.”
+                    </span>
+                  </div>
+
+                  {/* Insight 3: Cost per acquisition */}
+                  <div className="rounded-xl bg-[#fff7ed] border border-[#fed7aa] p-2 sm:p-2.5 px-3 flex items-center gap-2.5 shadow-2xs hover:border-orange-300 transition-colors">
+                    <div className="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center shrink-0">
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
+                      </svg>
+                    </div>
+                    <span className="text-xs sm:text-[12.5px] font-semibold text-slate-800 leading-tight">
+                      “Your cost per acquisition increased 18% this week.”
+                    </span>
+                  </div>
+
+                </div>
+
+                {/* Right Robot Mascot */}
+                <div className="shrink-0 flex items-center justify-center">
+                  <AiRobotMascot className="w-24 h-24 sm:w-28 sm:h-28 drop-shadow-md" />
                 </div>
 
               </div>
@@ -686,88 +595,8 @@ export default function CollegeCrmIntelligence() {
 
         </div>
 
-        {/* =========================================================================
-            BOTTOM ROW: 3D AI Robot + Speech Bubble + 3 Insight Cards
-        ========================================================================== */}
-        <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4 justify-center">
-          
-          {/* Left: 3D Robot Head + Speech Bubble */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            <AiRobotAvatar className="w-11 h-11" />
-            
-            {/* Speech Bubble Tag */}
-            <div className="relative px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#6938ef] to-[#8b5cf6] text-white font-bold text-xs shadow-md">
-              <span>And AI tells you what matters:</span>
-              <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 bg-[#6938ef] rotate-45" />
-            </div>
-          </div>
-
-          {/* 3 Insight Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full lg:w-auto flex-1 max-w-[850px]">
-            
-            {/* Insight Card 1 */}
-            <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
-              <div className="w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100">
-                <GoogleGIcon className="w-4 h-4" />
-              </div>
-              <p className="text-[11px] text-slate-700 leading-tight font-medium">
-                &ldquo;Google Ads is generating fewer leads than Meta, but converting <strong>2.1X better</strong>.&rdquo;
-              </p>
-            </div>
-
-            {/* Insight Card 2 */}
-            <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
-              <div className="w-7 h-7 rounded-lg bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center shrink-0">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                </svg>
-              </div>
-              <p className="text-[11px] text-slate-700 leading-tight font-medium">
-                &ldquo;<strong>23 high-value leads</strong> haven&apos;t received a follow-up today.&rdquo;
-              </p>
-            </div>
-
-            {/* Insight Card 3 */}
-            <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow">
-              <div className="w-7 h-7 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center shrink-0">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z" />
-                </svg>
-              </div>
-              <p className="text-[11px] text-slate-700 leading-tight font-medium">
-                &ldquo;Your cost per acquisition increased <strong>18% this week</strong>.&rdquo;
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* =========================================================================
-            BOTTOM PUNCHLINE
-        ========================================================================== */}
-        <div className="text-center pt-1">
-          <p className="font-display text-base sm:text-lg md:text-xl font-bold text-slate-900 tracking-tight inline-flex flex-wrap items-center justify-center gap-1">
-            <span>Don&apos;t just look at your numbers.</span>{" "}
-            <span className="relative inline-block text-[#6938ef] font-extrabold">
-              Know what they mean.
-              <svg
-                className="absolute -bottom-1.5 left-0 w-full h-2.5 text-[#7c3aed]"
-                viewBox="0 0 200 12"
-                preserveAspectRatio="none"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              >
-                <path d="M2,7 C60,2 140,11 198,6" />
-              </svg>
-            </span>
-            <span className="text-[#a855f7] text-xs ml-1 select-none">✦</span>
-          </p>
-        </div>
-
       </div>
+
     </section>
   );
 }
