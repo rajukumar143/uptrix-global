@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CollegeLandingPage from "@/components/college/CollegeLandingPage";
+import College2LandingPage from "@/components/college/College2LandingPage";
 import { getContent } from "@/lib/content-store";
 
 export function generateMetadata(): Metadata {
@@ -20,5 +20,5 @@ export function generateMetadata(): Metadata {
 
 export default function CollegePage() {
   const all = getContent();
-  return <CollegeLandingPage header={all.header} footer={all.crmLayout.footer} content={all.college} />;
+  return <College2LandingPage header={all.header} footer={all.crmLayout.footer} content={all.college} />;
 }
