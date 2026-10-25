@@ -109,12 +109,46 @@ function readSaved(): Record<string, unknown> {
   }
 }
 
+function ensureHeaderDefaults(saved: any, def: typeof defaultContent.header): typeof defaultContent.header {
+  if (!saved || typeof saved !== "object") return def;
+  const out = { ...def, ...saved };
+
+  const savedProducts = Array.isArray(saved.products) ? saved.products : [];
+  out.products = def.products.map((defP) => {
+    const foundP = savedProducts.find((sp: any) => sp && (sp.link === defP.link || sp.label === defP.label));
+    if (!foundP) return defP;
+    const mergedSubLinks = [...(foundP.subLinks || [])];
+    defP.subLinks.forEach((defSub) => {
+      if (!mergedSubLinks.some((s: any) => s && s.link === defSub.link)) {
+        mergedSubLinks.push(defSub);
+      }
+    });
+    return { ...defP, ...foundP, subLinks: mergedSubLinks };
+  });
+
+  const savedLinks = Array.isArray(saved.menuLinks) ? saved.menuLinks : [];
+  const mergedLinks = [...savedLinks];
+  def.menuLinks.forEach((defLink) => {
+    if (!mergedLinks.some((l: any) => l && l.link === defLink.link)) {
+      const idx = def.menuLinks.indexOf(defLink);
+      mergedLinks.splice(idx, 0, defLink);
+    }
+  });
+  out.menuLinks = mergedLinks;
+  return out;
+}
+
 /** All page content: saved edits laid over the defaults. */
 export function getContent(): SiteContent {
-  return mergeWithDefaults(defaultContent, readSaved());
+  const all = mergeWithDefaults(defaultContent, readSaved());
+  all.header = ensureHeaderDefaults(readSaved().header, defaultContent.header);
+  return all;
 }
 
 export function getPageContent<K extends PageKey>(key: K): SiteContent[K] {
+  if (key === "header") {
+    return ensureHeaderDefaults(readSaved().header, defaultContent.header) as SiteContent[K];
+  }
   return mergeWithDefaults(defaultContent[key], readSaved()[key]);
 }
 
