@@ -29,6 +29,8 @@ export const headerDefaults = {
     },
   ],
   menuLinks: [
+    { label: "Home 2", link: "/home-2" },
+    { label: "College 2", link: "/college-2" },
     { label: "Blog", link: "/blog" },
     { label: "Contact", link: "/crm/contact" },
   ],

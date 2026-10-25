@@ -27,8 +27,7 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
   const pathname = usePathname();
   const products = content.products.filter((p) => p.label);
   const productPaths = products.flatMap((p) => [p.link, ...p.subLinks.map((s) => s.link)]).map(path);
-  const primaryPaths = new Set([path(content.homeLink || "/"), ...productPaths]);
-  const links = content.menuLinks.filter((link) => link.label && !primaryPaths.has(path(link.link)));
+  const links = content.menuLinks.filter((link) => link.label && path(link.link) !== path(content.homeLink || "/"));
   const productsActive = productPaths.some((p) => p !== "/" && p === pathname);
 
   const [scrolled, setScrolled] = useState(false);
