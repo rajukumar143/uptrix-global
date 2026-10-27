@@ -1,5 +1,6 @@
 import Script from "next/script";
 import { getPageContent } from "@/lib/content-store";
+import PageSpecificTags from "./PageSpecificTags";
 
 export default function MarketingTags() {
   // Do not run tracking on admin dashboard
@@ -13,19 +14,19 @@ export default function MarketingTags() {
     return null;
   }
 
-  const gtmId = tracking?.googleTagManagerId?.trim();
-  const googleAdsId = tracking?.googleAdsId?.trim();
-  const metaPixelId = tracking?.metaPixelId?.trim();
-  const ga4Id = tracking?.googleAnalyticsId?.trim();
-  const customHeadScript = tracking?.customHeadScript?.trim();
-  const customBodyScript = tracking?.customBodyScript?.trim();
+  // Support both new nested globalTracking structure and legacy flat structure
+  const global = tracking?.globalTracking || (tracking as unknown as typeof tracking.globalTracking);
 
-  const hasAnyTag = Boolean(gtmId || googleAdsId || metaPixelId || ga4Id || customHeadScript || customBodyScript);
-  if (!hasAnyTag) return null;
+  const gtmId = global?.googleTagManagerId?.trim();
+  const googleAdsId = global?.googleAdsId?.trim();
+  const metaPixelId = global?.metaPixelId?.trim();
+  const ga4Id = global?.googleAnalyticsId?.trim();
+  const customHeadScript = global?.customHeadScript?.trim();
+  const customBodyScript = global?.customBodyScript?.trim();
 
   return (
     <>
-      {/* 1. Google Tag Manager (GTM) */}
+      {/* 1. Global Google Tag Manager (GTM) */}
       {gtmId && (
         <>
           <Script id="gtm-script" strategy="afterInteractive">
@@ -47,7 +48,7 @@ export default function MarketingTags() {
         </>
       )}
 
-      {/* 2. Google Ads Tag / Conversion Tracking */}
+      {/* 2. Global Google Ads Tag / Conversion Tracking */}
       {googleAdsId && (
         <>
           <Script
@@ -65,7 +66,7 @@ export default function MarketingTags() {
         </>
       )}
 
-      {/* 3. Meta (Facebook) Pixel */}
+      {/* 3. Global Meta (Facebook) Pixel */}
       {metaPixelId && (
         <>
           <Script id="meta-pixel-script" strategy="afterInteractive">
@@ -95,7 +96,7 @@ export default function MarketingTags() {
         </>
       )}
 
-      {/* 4. Google Analytics 4 (if configured via admin dashboard) */}
+      {/* 4. Global Google Analytics 4 (if configured via admin dashboard) */}
       {ga4Id && !process.env.NEXT_PUBLIC_GA4_ID && (
         <>
           <Script
@@ -113,7 +114,7 @@ export default function MarketingTags() {
         </>
       )}
 
-      {/* 5. Custom Head Scripts (Raw code injection) */}
+      {/* 5. Global Custom Head Scripts */}
       {customHeadScript && (
         <script
           id="custom-head-tracking"
@@ -121,13 +122,16 @@ export default function MarketingTags() {
         />
       )}
 
-      {/* 6. Custom Body Scripts (Raw code injection) */}
+      {/* 6. Global Custom Body Scripts */}
       {customBodyScript && (
         <div
           id="custom-body-tracking"
           dangerouslySetInnerHTML={{ __html: customBodyScript }}
         />
       )}
+
+      {/* 7. Individual Page-Specific Tracking & Conversions */}
+      <PageSpecificTags tracking={tracking} />
     </>
   );
 }

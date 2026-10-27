@@ -45,6 +45,16 @@ const LABELS: Record<string, string> = {
   googleAnalyticsId: "Google Analytics 4 Measurement ID (e.g. G-XXXXXXXXXX)",
   customHeadScript: "Custom Head Tracking Scripts (HTML/JS inside <head>)",
   customBodyScript: "Custom Body Tracking Scripts (HTML/JS inside <body>)",
+  globalTracking: "Global Tracking (All Pages)",
+  homePage: "Home Page (/)",
+  collegePage: "College Page (/college)",
+  realEstatePage: "Real Estate CRM (/crm/real-estate)",
+  crmPage: "Pulse CRM (/crm)",
+  pricingPage: "Pricing Page (/crm/pricing)",
+  contactPage: "Contact Page (/crm/contact)",
+  blogPage: "Blog (/blog)",
+  googleAdsConversionId: "Google Ads Conversion ID (e.g. AW-XXXXXXXXXX/conversion_label)",
+  metaEvent: "Meta Pixel Event Name (e.g. Lead, Contact, ViewContent, CompleteRegistration, PageView)",
 };
 
 const UPPER = new Set(["hrms", "crm", "faq", "seo", "cta", "url", "ai", "sso", "gtm", "ga4", "id"]);
@@ -98,6 +108,14 @@ const SECTION_DETAILS: Record<string, { icon: string; description: string }> = {
   faq: { icon: "?", description: "Frequently asked questions" },
   finalCta: { icon: "→", description: "Closing call to action" },
   footer: { icon: "⌄", description: "Footer links and contact details" },
+  globalTracking: { icon: "🌐", description: "Global tracking tags loaded across every page of the website" },
+  homePage: { icon: "🏠", description: "Dedicated conversion tags and pixels for Home (/)" },
+  collegePage: { icon: "🎓", description: "Dedicated conversion tags and pixels for College ERP (/college)" },
+  realEstatePage: { icon: "🏢", description: "Dedicated conversion tags and pixels for Real Estate CRM (/crm/real-estate)" },
+  crmPage: { icon: "💼", description: "Dedicated conversion tags and pixels for Pulse Sales CRM (/crm)" },
+  pricingPage: { icon: "💳", description: "Dedicated conversion tags and pixels for Pricing (/crm/pricing)" },
+  contactPage: { icon: "📞", description: "Dedicated conversion tags and pixels for Contact & Demo (/crm/contact)" },
+  blogPage: { icon: "📰", description: "Dedicated conversion tags and pixels for Blog (/blog)" },
 };
 
 // ---------- immutable update ----------
