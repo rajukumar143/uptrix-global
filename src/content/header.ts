@@ -20,12 +20,6 @@ export const headerDefaults = {
       description: "Payroll, attendance, leave and people records",
       subLinks: [],
     },
-    {
-      label: "Custom Tools",
-      link: "/#custom-tools",
-      description: "Tailor-made software & automations for your business",
-      subLinks: [],
-    },
   ],
   menuLinks: [
     { label: "Blog", link: "/blog" },

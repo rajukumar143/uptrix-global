@@ -124,7 +124,7 @@ function ensureHeaderDefaults(saved: any, def: typeof defaultContent.header): ty
       }
     });
     return { ...defP, ...foundP, subLinks: mergedSubLinks.filter((s: any) => s && s.link !== "/college-2" && s.link !== "/college2") };
-  });
+  }).filter((p: any) => p && p.label !== "Custom Tools" && p.link !== "/#custom-tools");
 
   const isBannedMenuLink = (link: string) => ["/home-2", "/home2", "/college-2", "/college2"].includes(link);
   const savedLinks = Array.isArray(saved.menuLinks)
