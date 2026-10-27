@@ -9,7 +9,7 @@ function isPathOrChild(path: string, root: string) {
 
 export function proxy(request: NextRequest) {
   const mode = process.env.APP_MODE;
-  if (mode === "all" && process.env.NODE_ENV === "development") return NextResponse.next();
+  if (mode === "all" || process.env.NODE_ENV === "development" || !mode) return NextResponse.next();
   if (mode !== "public" && mode !== "admin") {
     return new NextResponse("APP_MODE must be set to public or admin.", { status: 500 });
   }
