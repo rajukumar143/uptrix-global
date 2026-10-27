@@ -77,6 +77,8 @@ export default function CookieConsent() {
     setPreferencesOpen(false);
   };
 
+  if (!measurementId) return null;
+
   return (
     <>
       {consent === "accepted" && measurementId && (
@@ -121,16 +123,6 @@ export default function CookieConsent() {
             </button>
           </div>
         </aside>
-      )}
-      {consent !== null && !preferencesOpen && (
-        <button
-          type="button"
-          onClick={() => setPreferencesOpen(true)}
-          className="fixed bottom-3 left-3 z-[90] min-h-11 rounded-full border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-md hover:bg-slate-50"
-          aria-label="Change cookie preferences"
-        >
-          Cookie settings
-        </button>
       )}
     </>
   );
