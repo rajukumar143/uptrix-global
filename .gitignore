@@ -70,8 +70,6 @@ AGENTS.md
 .env*
 !.env.example
 !**/.env.example
-!.env.public.example
-!.env.admin.example
 
 # vercel
 .vercel
