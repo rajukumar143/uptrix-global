@@ -7,7 +7,7 @@ import { z } from "zod";
 import { safeLink } from "@/content/merge";
 import { listFiles, listFilesSync, readText, readTextSync, removeFile, withFileLock, writeAtomic } from "@/lib/content-files";
 import { slugify } from "./markdown";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { dbQuery } from "@/lib/db";
 
 export type Post = {
   id: string;
@@ -263,31 +263,38 @@ export async function savePost(input: Partial<Post>, id?: string) {
 
   postSchema.parse(post);
 
-  // 1. Primary storage: Supabase database
-  let supabaseSaved = false;
+  // 1. Primary storage: PostgreSQL database
+  let dbSaved = false;
   try {
-    const { error: sbError } = await supabaseAdmin.from("posts").upsert(
-      {
-        title: post.title,
-        slug: post.slug,
-        content: post.content,
-        cover_image_url: post.coverImage?.src || null,
-        meta_title: post.seoTitle || post.title,
-        meta_description: post.metaDescription || post.excerpt,
-        meta_keywords: post.tags?.join(", ") || post.focusKeyword || null,
-        og_image_url: post.coverImage?.src || null,
-        published: post.status === "published",
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "slug" }
+    await dbQuery(
+      `INSERT INTO posts (title, slug, content, cover_image_url, meta_title, meta_description, meta_keywords, og_image_url, published, updated_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       ON CONFLICT (slug) DO UPDATE SET
+         title = EXCLUDED.title,
+         content = EXCLUDED.content,
+         cover_image_url = EXCLUDED.cover_image_url,
+         meta_title = EXCLUDED.meta_title,
+         meta_description = EXCLUDED.meta_description,
+         meta_keywords = EXCLUDED.meta_keywords,
+         og_image_url = EXCLUDED.og_image_url,
+         published = EXCLUDED.published,
+         updated_at = EXCLUDED.updated_at`,
+      [
+        post.title,
+        post.slug,
+        post.content,
+        post.coverImage?.src || null,
+        post.seoTitle || post.title,
+        post.metaDescription || post.excerpt,
+        post.tags?.join(", ") || post.focusKeyword || null,
+        post.coverImage?.src || null,
+        post.status === "published",
+        new Date().toISOString(),
+      ]
     );
-    if (sbError) {
-      console.error("[blog-store] Supabase upsert error:", sbError);
-    } else {
-      supabaseSaved = true;
-    }
+    dbSaved = true;
   } catch (err) {
-    console.error("[blog-store] Failed to sync post to Supabase:", err);
+    console.error("[blog-store] Failed to sync post to PostgreSQL:", err);
   }
 
   // 2. Secondary storage: Local file backup (if filesystem is writable)
@@ -301,10 +308,10 @@ export async function savePost(input: Partial<Post>, id?: string) {
       await writeAtomic(["blog", "posts", `${post.id}.json`], JSON.stringify(post, null, 2));
     });
   } catch (fsErr) {
-    console.warn("[blog-store] Local filesystem write failed (proceeding since Supabase is active):", fsErr);
-    // If Supabase also failed, throw so user is notified
-    if (!supabaseSaved) {
-      throw new Error(`Failed to save post: ${fsErr instanceof Error ? fsErr.message : "Filesystem not writable"}`);
+    console.warn("[blog-store] Local filesystem write failed (proceeding since database is active):", fsErr);
+    // If PostgreSQL also failed, throw so user is notified
+    if (!dbSaved) {
+      throw new Error(`Failed to save post: ${fsErr instanceof Error ? fsErr.message : "Filesystem and database not writable"}`);
     }
   }
 
@@ -320,13 +327,13 @@ export async function deletePost(id: string) {
     await removeFile(["blog", "posts", `${id}.json`]);
     invalidatePostsCache();
 
-    // Delete from Supabase database
+    // Delete from PostgreSQL database
     try {
       if (existing?.slug) {
-        await supabaseAdmin.from("posts").delete().eq("slug", existing.slug);
+        await dbQuery("DELETE FROM posts WHERE slug = $1", [existing.slug]);
       }
     } catch (err) {
-      console.warn("[blog-store] Failed to delete post from Supabase:", err);
+      console.warn("[blog-store] Failed to delete post from PostgreSQL:", err);
     }
   });
 }
