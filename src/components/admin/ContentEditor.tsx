@@ -39,9 +39,15 @@ const LABELS: Record<string, string> = {
   clientLogos: "Client logos",
   clientNames: "Client names",
   logoUrl: "Logo image URL",
+  googleTagManagerId: "Google Tag Manager ID (e.g. GTM-XXXXXXX)",
+  googleAdsId: "Google Ads Tag / Conversion ID (e.g. AW-XXXXXXXXXX)",
+  metaPixelId: "Meta (Facebook) Pixel ID (e.g. 1234567890123456)",
+  googleAnalyticsId: "Google Analytics 4 Measurement ID (e.g. G-XXXXXXXXXX)",
+  customHeadScript: "Custom Head Tracking Scripts (HTML/JS inside <head>)",
+  customBodyScript: "Custom Body Tracking Scripts (HTML/JS inside <body>)",
 };
 
-const UPPER = new Set(["hrms", "crm", "faq", "seo", "cta", "url", "ai", "sso"]);
+const UPPER = new Set(["hrms", "crm", "faq", "seo", "cta", "url", "ai", "sso", "gtm", "ga4", "id"]);
 
 function humanize(key: string) {
   if (LABELS[key]) return LABELS[key];
@@ -53,7 +59,7 @@ function humanize(key: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-const LONG_KEYS = /^(body|intro|summary|challenge|solution|text|description|metaDescription|answer|quote|lead|detail|paragraphs|helpBoxText|mainCardBody|footnote|successBody|statLabel|tagline|address|office)$/;
+const LONG_KEYS = /^(body|intro|summary|challenge|solution|text|description|metaDescription|answer|quote|lead|detail|paragraphs|helpBoxText|mainCardBody|footnote|successBody|statLabel|tagline|address|office|customHeadScript|customBodyScript)$/;
 
 function itemTitle(v: Json, i: number) {
   if (typeof v === "string") return v || `Item ${i + 1}`;

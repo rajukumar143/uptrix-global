@@ -95,6 +95,12 @@ const CATEGORY_MAP: Record<string, { label: string; icon: string; tag: string; t
     tag: "Footer",
     tagColor: "bg-slate-100 text-slate-700 border-slate-200",
   },
+  tracking: {
+    label: "Global Shell",
+    icon: "🎯",
+    tag: "Analytics & Ads",
+    tagColor: "bg-blue-50 text-blue-700 border-blue-200",
+  },
 };
 
 const when = (iso: string) => {

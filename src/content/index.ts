@@ -8,6 +8,7 @@ import { homeDefaults } from "./home";
 import { realEstateDefaults } from "./industries";
 import { pricingDefaults } from "./pricing";
 import { caseStudiesDefaults, reviewsDefaults, videoTestimonialsDefaults } from "./stories";
+import { trackingDefaults } from "./tracking";
 
 // Every editable page. The key is how the content is stored in content/site.json.
 export const defaultContent = {
@@ -24,6 +25,7 @@ export const defaultContent = {
   contact: contactDefaults,
   blog: blogDefaults,
   crmLayout: crmLayoutDefaults,
+  tracking: trackingDefaults,
 };
 
 export type SiteContent = typeof defaultContent;
@@ -67,6 +69,11 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
     title: "Footer (CRM, blog & stories)",
     description: "The footer on the CRM pages, blog, case studies and video testimonials. The home page footer is edited in Home page.",
     paths: ["/crm", "/blog", "/case-studies"],
+  },
+  tracking: {
+    title: "Google & Meta Ads / GTM",
+    description: "Configure Google Tag Manager (GTM), Google Ads conversion tags, Meta (Facebook) Pixel, and custom marketing scripts.",
+    paths: ["/", "/crm", "/college", "/crm/real-estate", "/blog"],
   },
 };
 

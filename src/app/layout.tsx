@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Manrope, Plus_Jakarta_Sans } from "next/font/google";
 import CookieConsent from "@/components/site/CookieConsent";
+import MarketingTags from "@/components/site/MarketingTags";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
@@ -45,7 +46,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body suppressHydrationWarning className="min-h-full font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema).replace(/</g, "\\u003c") }} />
         {children}
-        {process.env.APP_MODE !== "admin" && <CookieConsent />}
+        {process.env.APP_MODE !== "admin" && (
+          <>
+            <CookieConsent />
+            <MarketingTags />
+          </>
+        )}
       </body>
     </html>
   );

@@ -213,6 +213,30 @@ export default function AdminPanelShell({
                   LIVE
                 </span>
               </Link>
+
+              <Link
+                href="/admin/pages/tracking"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`group flex items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold transition-all ${
+                  pathname === "/admin/pages/tracking"
+                    ? "bg-indigo-600 text-white shadow-sm shadow-indigo-600/30"
+                    : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm">🎯</span>
+                  <span>Google & Meta Ads / GTM</span>
+                </div>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                    pathname === "/admin/pages/tracking"
+                      ? "bg-white/20 text-white"
+                      : "bg-blue-500/20 text-blue-400"
+                  }`}
+                >
+                  TAGS
+                </span>
+              </Link>
             </nav>
           </div>
 
