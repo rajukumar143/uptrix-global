@@ -11,7 +11,6 @@ export const headerDefaults = {
       description: "Capture every lead and automate follow-ups",
       subLinks: [
         { label: "College ERP & CRM", link: "/college", description: "Higher education, colleges & universities" },
-        { label: "College ERP 2.0", link: "/college-2", description: "Next-gen higher education operating system" },
         { label: "Real Estate CRM", link: "/crm/real-estate", description: "Builders, brokers and property teams" },
       ],
     },
@@ -29,15 +28,13 @@ export const headerDefaults = {
     },
   ],
   menuLinks: [
-    { label: "Home 2", link: "/home-2" },
-    { label: "College 2", link: "/college-2" },
     { label: "Blog", link: "/blog" },
     { label: "Contact", link: "/crm/contact" },
   ],
-  loginLabel: "Login",
-  loginLink: "/crm#demo",
-  buttonLabel: "Book a Demo",
-  buttonLink: "/crm#demo",
+  loginLabel: "",
+  loginLink: "",
+  buttonLabel: "",
+  buttonLink: "",
 };
 
 export type HeaderContent = typeof headerDefaults;

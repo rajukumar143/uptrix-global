@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import CollegeLandingPage from "@/components/college/CollegeLandingPage";
+import College2LandingPage from "@/components/college/College2LandingPage";
 import { getContent } from "@/lib/content-store";
 
 export function generateMetadata(): Metadata {
   const { seo } = getContent().college;
   return {
-    title: seo.pageTitle,
+    title: `College ERP & CRM | ${seo.pageTitle}`,
     description: seo.metaDescription,
     alternates: { canonical: "/college" },
     openGraph: {
-      title: seo.pageTitle,
+      title: `College ERP & CRM | ${seo.pageTitle}`,
       description: seo.metaDescription,
       type: "website",
       url: "/college",
@@ -20,5 +20,5 @@ export function generateMetadata(): Metadata {
 
 export default function CollegePage() {
   const all = getContent();
-  return <CollegeLandingPage header={all.header} footer={all.crmLayout.footer} content={all.college} />;
+  return <College2LandingPage header={all.header} footer={all.crmLayout.footer} content={all.college} />;
 }

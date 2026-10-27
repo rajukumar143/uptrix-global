@@ -58,14 +58,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/college-2", destination: "/college", permanent: true },
+      { source: "/college2", destination: "/college", permanent: true },
+      { source: "/collage-2", destination: "/college", permanent: true },
+      { source: "/collage2", destination: "/college", permanent: true },
+      { source: "/crm/college", destination: "/college", permanent: true },
       { source: "/edutech", destination: "/college", permanent: true },
       { source: "/education", destination: "/college", permanent: true },
       { source: "/crm/edutech", destination: "/college", permanent: true },
       { source: "/collage", destination: "/college", permanent: true },
-      { source: "/collage-2", destination: "/college-2", permanent: true },
-      { source: "/college2", destination: "/college-2", permanent: true },
-      { source: "/collage2", destination: "/college-2", permanent: true },
-      { source: "/home2", destination: "/home-2", permanent: true },
+      { source: "/products/college-2", destination: "/college", permanent: true },
+      { source: "/home-2", destination: "/", permanent: true },
+      { source: "/home2", destination: "/", permanent: true },
       { source: "/robot.txt", destination: "/robots.txt", permanent: true },
       { source: "/sitemap", destination: "/sitemap.xml", permanent: true },
     ];

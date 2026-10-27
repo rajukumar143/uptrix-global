@@ -41,7 +41,7 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
   college: {
     title: "College page",
     description: "Edit SEO, section headings, copy, cards, case studies, testimonials and FAQs on the College / Education landing page.",
-    paths: ["/college", "/crm/college"],
+    paths: ["/college"],
   },
   crmRealEstate: { title: "Real Estate CRM page", description: "The CRM page for builders, brokers and property teams.", paths: ["/crm/real-estate"] },
   caseStudies: {

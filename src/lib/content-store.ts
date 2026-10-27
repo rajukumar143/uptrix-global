@@ -117,16 +117,19 @@ function ensureHeaderDefaults(saved: any, def: typeof defaultContent.header): ty
   out.products = def.products.map((defP) => {
     const foundP = savedProducts.find((sp: any) => sp && (sp.link === defP.link || sp.label === defP.label));
     if (!foundP) return defP;
-    const mergedSubLinks = [...(foundP.subLinks || [])];
+    const mergedSubLinks = [...(foundP.subLinks || [])].filter((s: any) => s && s.link !== "/college-2" && s.link !== "/college2");
     defP.subLinks.forEach((defSub) => {
       if (!mergedSubLinks.some((s: any) => s && s.link === defSub.link)) {
         mergedSubLinks.push(defSub);
       }
     });
-    return { ...defP, ...foundP, subLinks: mergedSubLinks };
+    return { ...defP, ...foundP, subLinks: mergedSubLinks.filter((s: any) => s && s.link !== "/college-2" && s.link !== "/college2") };
   });
 
-  const savedLinks = Array.isArray(saved.menuLinks) ? saved.menuLinks : [];
+  const isBannedMenuLink = (link: string) => ["/home-2", "/home2", "/college-2", "/college2"].includes(link);
+  const savedLinks = Array.isArray(saved.menuLinks)
+    ? saved.menuLinks.filter((l: any) => l && !isBannedMenuLink(l.link))
+    : [];
   const mergedLinks = [...savedLinks];
   def.menuLinks.forEach((defLink) => {
     if (!mergedLinks.some((l: any) => l && l.link === defLink.link)) {
@@ -134,7 +137,9 @@ function ensureHeaderDefaults(saved: any, def: typeof defaultContent.header): ty
       mergedLinks.splice(idx, 0, defLink);
     }
   });
-  out.menuLinks = mergedLinks;
+  out.menuLinks = mergedLinks.filter((l: any) => l && !isBannedMenuLink(l.link));
+  out.loginLabel = "";
+  out.buttonLabel = "";
   return out;
 }
 

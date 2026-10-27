@@ -218,9 +218,9 @@ export default function Home2CustomTools({
     setFormError("");
     const form = e.currentTarget;
     const data = new FormData(form);
-    data.set("source", "Custom Tools Consultation (Home-2)");
+    data.set("source", "Custom Tools Consultation (Home)");
     data.set("businessType", "Custom Software & Tools");
-    data.set("pageUrl", typeof window !== "undefined" ? window.location.href : "/home-2#custom-tools");
+    data.set("pageUrl", typeof window !== "undefined" ? window.location.href : "/#custom-tools");
 
     startTransition(async () => {
       try {

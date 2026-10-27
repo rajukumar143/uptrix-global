@@ -19,5 +19,5 @@ export const metadata: Metadata = {
 
 export default function DirectRealEstatePage() {
   const all = getContent();
-  return <RealEstateLandingPage header={all.header} footer={all.crmLayout.footer} />;
+  return <RealEstateLandingPage header={all.header} footer={all.crmLayout.footer} content={all.crmRealEstate} />;
 }

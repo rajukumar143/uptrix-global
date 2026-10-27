@@ -95,12 +95,12 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
           clear ? "border-b border-transparent bg-transparent" : "border-b border-pulse-line bg-white/95 backdrop-blur-md backdrop-saturate-150"
         } ${scrolled ? "shadow-[0_8px_24px_-12px_rgba(15,23,42,0.14)]" : ""}`}
       >
-        <nav aria-label="Main" className="mx-auto flex h-18 max-w-[1240px] items-center justify-between gap-6 px-[clamp(16px,4vw,40px)]">
-          <Link href={content.homeLink || "/"} aria-label="Uptrix home" className="flex shrink-0 items-center">
+        <nav aria-label="Main" className="relative mx-auto flex h-18 w-full max-w-[1240px] items-center justify-between gap-6 px-[clamp(16px,4vw,40px)]">
+          <Link href={content.homeLink || "/"} aria-label="Uptrix home" className="flex shrink-0 items-center z-10">
             <Image src={clear ? "/logo-light.png" : "/logo-dark.png"} alt="Uptrix" width={756} height={235} className="h-9 w-auto" />
           </Link>
 
-          <ul className="hidden items-center gap-[clamp(18px,2vw,30px)] text-[15px] font-semibold min-[1080px]:flex">
+          <ul className="hidden items-center gap-[clamp(18px,2vw,30px)] text-[15px] font-semibold min-[1080px]:flex min-[1080px]:absolute min-[1080px]:left-1/2 min-[1080px]:-translate-x-1/2">
             {content.homeLabel && (
               <li>
                 <Link href={content.homeLink || "/"} aria-current={pathname === "/" ? "page" : undefined} className={`transition-colors ${linkTone(pathname === "/")}`}>
@@ -181,22 +181,24 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
             })}
           </ul>
 
-          <div className="hidden shrink-0 items-center gap-2 min-[1080px]:flex">
-            {content.loginLabel && (
-              <Link href={content.loginLink || "#"} className={`hidden px-3 py-2.5 text-[15px] font-semibold transition-colors min-[1240px]:block ${linkTone(false)}`}>
-                {content.loginLabel}
-              </Link>
-            )}
-            {content.buttonLabel && (
-              <Link
-                href={content.buttonLink || "#"}
-                data-analytics-cta
-                className="flex min-h-11 items-center rounded-xl bg-pulse px-5 text-[15px] font-bold whitespace-nowrap text-white shadow-[0_10px_24px_-12px_rgba(59,63,212,0.7)] transition hover:-translate-y-0.5 hover:bg-pulse-hover"
-              >
-                {content.buttonLabel}
-              </Link>
-            )}
-          </div>
+          {(content.loginLabel || content.buttonLabel) && (
+            <div className="hidden shrink-0 items-center gap-2 min-[1080px]:flex">
+              {content.loginLabel && (
+                <Link href={content.loginLink || "#"} className={`hidden px-3 py-2.5 text-[15px] font-semibold transition-colors min-[1240px]:block ${linkTone(false)}`}>
+                  {content.loginLabel}
+                </Link>
+              )}
+              {content.buttonLabel && (
+                <Link
+                  href={content.buttonLink || "#"}
+                  data-analytics-cta
+                  className="flex min-h-11 items-center rounded-xl bg-pulse px-5 text-[15px] font-bold whitespace-nowrap text-white shadow-[0_10px_24px_-12px_rgba(59,63,212,0.7)] transition hover:-translate-y-0.5 hover:bg-pulse-hover"
+                >
+                  {content.buttonLabel}
+                </Link>
+              )}
+            </div>
+          )}
 
           <button
             type="button"
@@ -294,18 +296,20 @@ export default function Header({ content, overlay = false }: { content: HeaderCo
           ))}
         </div>
 
-        <div className="mt-auto flex flex-col gap-2.5 pt-8">
-          {content.buttonLabel && (
-            <Link href={content.buttonLink || "#"} onClick={closeAll} data-analytics-cta className="rounded-xl bg-pulse p-[15px] text-center font-bold text-white">
-              {content.buttonLabel}
-            </Link>
-          )}
-          {content.loginLabel && (
-            <Link href={content.loginLink || "#"} onClick={closeAll} className="rounded-xl border border-[#d9dbe6] p-[15px] text-center font-bold text-pulse-ink">
-              {content.loginLabel}
-            </Link>
-          )}
-        </div>
+        {(content.buttonLabel || content.loginLabel) && (
+          <div className="mt-auto flex flex-col gap-2.5 pt-8">
+            {content.buttonLabel && (
+              <Link href={content.buttonLink || "#"} onClick={closeAll} data-analytics-cta className="rounded-xl bg-pulse p-[15px] text-center font-bold text-white">
+                {content.buttonLabel}
+              </Link>
+            )}
+            {content.loginLabel && (
+              <Link href={content.loginLink || "#"} onClick={closeAll} className="rounded-xl border border-[#d9dbe6] p-[15px] text-center font-bold text-pulse-ink">
+                {content.loginLabel}
+              </Link>
+            )}
+          </div>
+        )}
       </aside>
     </>
   );
