@@ -603,11 +603,11 @@ export default function RealEstateLandingPage({ header, footer, content }: RealE
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={
-                            "posterImage" in card && typeof card.posterImage === "string"
+                            card.posterImage
                               ? card.posterImage
                               : ytId
                               ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`
-                              : card.thumbnail
+                              : ""
                           }
                           alt={card.speaker}
                           loading="lazy"
@@ -981,13 +981,13 @@ export default function RealEstateLandingPage({ header, footer, content }: RealE
                 <div>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700">
                     <BuildingOfficeIcon className="w-3 h-3 text-emerald-700" />
-                    <span>{"eyebrow" in demoModal ? (demoModal as any).eyebrow : "Book a Demo"}</span>
+                    <span>{demoModal.eyebrow || "Book a Demo"}</span>
                   </span>
                   <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-2">
                     {demoModal.heading}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    {"subheading" in demoModal ? (demoModal as any).subheading : demoModal.body}
+                    {demoModal.subheading || demoModal.body}
                   </p>
                 </div>
 
