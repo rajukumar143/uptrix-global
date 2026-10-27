@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/next-mode.js all dev",
     "build": "next build --webpack",
-    "start": "node scripts/next-mode.js public start",
+    "start": "node scripts/next-mode.js all start",
     "build:public": "node scripts/next-mode.js public build",
     "build:admin": "node scripts/next-mode.js admin build",
     "start:public": "node scripts/next-mode.js public start",
