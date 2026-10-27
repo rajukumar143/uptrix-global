@@ -1,13 +1,8 @@
 import "server-only";
 
 export async function revalidatePublic(paths: string[]) {
-  if (process.env.APP_MODE === "all" && process.env.NODE_ENV === "development") return;
-
-  const siteUrl = process.env.PUBLIC_SITE_URL;
-  const secret = process.env.ADMIN_API_SECRET;
-  if (!siteUrl || !secret || secret.length < 32) {
-    throw new Error("Public cache revalidation is not configured.");
-  }
+  // When running unified (both admin and public together), local revalidatePath() already refreshed the cache.
+  if (process.env.APP_MODE === "all" || !process.env.PUBLIC_SITE_URL) return;
 
   const publicUrl = new URL(siteUrl);
   if (
