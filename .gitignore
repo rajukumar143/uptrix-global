@@ -22,13 +22,49 @@
 
 # misc
 .DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
 *.pem
 
-# debug
+# debug & logs
+*.log
+*.log.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# temporary & backup files
+*.tmp
+*.temp
+*.bak
+*~
+scratch/
+
+# ide & editor files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swo
+*.swp
+
+# markdown & documentation (ignores markdown notes/docs except README.md)
+*.md
+!README.md
+
+# ai assistant & agent files
+.agents/
+.claude/
+.gemini/
+CLAUDE.md
+AGENTS.md
 
 # env files (can opt-in for committing if needed)
 .env*
