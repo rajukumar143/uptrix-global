@@ -54,12 +54,14 @@ function isAllowedOrigin(request: Request): boolean {
       if (originHostname === cleanHost.split(":")[0]) return true;
     }
 
-    // 4. Match configured site URLs (SITE_URL, PUBLIC_SITE_URL, NEXT_PUBLIC_SITE_URL, siteUrl())
+    // 4. Match configured site URLs (SITE_URL, PUBLIC_SITE_URL, NEXT_PUBLIC_SITE_URL, ADMIN_SITE_URL, siteUrl())
     const configuredSites = [
       siteUrl(),
       process.env.SITE_URL,
       process.env.PUBLIC_SITE_URL,
       process.env.NEXT_PUBLIC_SITE_URL,
+      process.env.ADMIN_SITE_URL,
+      "https://proud.uptrixglobal.com",
     ].filter(Boolean) as string[];
 
     for (const site of configuredSites) {
@@ -78,7 +80,8 @@ function isAllowedOrigin(request: Request): boolean {
       h === "[::1]" ||
       h.startsWith("192.168.") ||
       h.startsWith("10.") ||
-      h.endsWith(".local");
+      h.endsWith(".local") ||
+      h.endsWith(".localhost");
 
     if (isLoopback(originHostname)) return true;
 

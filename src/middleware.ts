@@ -8,11 +8,6 @@ function isPathOrChild(path: string, root: string) {
 }
 
 export function middleware(request: NextRequest) {
-  const mode = process.env.APP_MODE;
-  if (mode === "all" || process.env.NODE_ENV === "development") {
-    return NextResponse.next();
-  }
-
   const path = request.nextUrl.pathname;
 
   // Immediately terminate WordPress cron, PHP probes, and scanner bots in 0ms with Connection: close
@@ -44,9 +39,56 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // PUBLIC APP MODE (trendsondigital.in)
+  // Detect Host / Subdomain (supports local port forwarding and reverse proxies)
+  const rawHost = request.headers.get("x-forwarded-host") || request.headers.get("host") || request.nextUrl.host || "";
+  const hostname = rawHost.toLowerCase().split(":")[0];
+
+  // 1. OLD ADMIN SUBDOMAIN: admin.localhost or admin.uptrixglobal.com -> Redirect to proud.
+  if (hostname === "admin.localhost" || hostname === "admin.uptrixglobal.com" || hostname.startsWith("admin.")) {
+    const newHost = rawHost.replace(/^admin\./i, "proud.");
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.host = newHost;
+    return NextResponse.redirect(redirectUrl, 301);
+  }
+
+  // 2. PROUD ADMIN SUBDOMAIN: proud.localhost or proud.uptrixglobal.com
+  const isProudAdmin =
+    hostname === "proud.localhost" ||
+    hostname === "proud.uptrixglobal.com" ||
+    hostname.startsWith("proud.");
+
+  if (isProudAdmin) {
+    // If visiting root or /login on the proud admin subdomain, go directly to admin
+    if (path === "/") {
+      return NextResponse.redirect(new URL("/admin", request.url), 307);
+    }
+    if (path === "/login") {
+      return NextResponse.redirect(new URL("/admin/login", request.url), 307);
+    }
+
+    // Only allow admin endpoints and health check on the proud admin subdomain
+    const isAdminAllowed =
+      isPathOrChild(path, "/admin") ||
+      isPathOrChild(path, "/api/admin") ||
+      isPathOrChild(path, "/admin/api") ||
+      path === "/api/health";
+
+    if (!isAdminAllowed) {
+      return NextResponse.redirect(new URL("/admin", request.url), 307);
+    }
+
+    return NextResponse.next();
+  }
+
+  // APP_MODE overrides (used when running separate public & admin production instances)
+  const mode = process.env.APP_MODE;
+  if (mode === "all" || process.env.NODE_ENV === "development") {
+    return NextResponse.next();
+  }
+
+  // PUBLIC APP MODE (uptrixglobal.com)
   if (mode === "public") {
-    // If someone visits admin on public site, deflect or return 404 immediately
+    // If someone visits admin on public site, deflect to homepage
     if (isPathOrChild(path, "/admin")) {
       return NextResponse.redirect(new URL("/", request.url), 307);
     }
@@ -59,7 +101,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // ADMIN APP MODE (admin.trendsondigital.in)
+  // ADMIN APP MODE (proud.uptrixglobal.com)
   if (mode === "admin") {
     // Immediately redirect root to login page instead of rendering the heavy public homepage
     if (path === "/") {
@@ -74,7 +116,7 @@ export function middleware(request: NextRequest) {
       path === "/api/health";
 
     if (!isAdminAllowed) {
-      // Deflect automated bot traffic (e.g. /wp-admin, .php, public pages) in 0ms without server-side rendering
+      // Deflect automated bot traffic in 0ms without server-side rendering
       return new NextResponse("Not Found", { status: 404 });
     }
 

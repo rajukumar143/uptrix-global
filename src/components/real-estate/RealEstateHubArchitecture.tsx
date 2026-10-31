@@ -45,7 +45,7 @@ export default function RealEstateHubArchitecture() {
   return (
     <section className="relative py-14 sm:py-20 lg:py-24 bg-[#f8faff] border-b border-slate-200/80 overflow-hidden font-sans">
       
-      {/* Background ambient highlights matching college theme */}
+      {/* Background ambient highlights matching theme */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-10 -left-10 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,#eaf1ff_0,transparent_60%)] opacity-90"
@@ -58,7 +58,7 @@ export default function RealEstateHubArchitecture() {
       <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         
         {/* =========================================================================
-            HEADER: Section Eyebrow + Headline + Subtitle (Identical to College)
+            HEADER: Section Eyebrow + Headline + Subtitle
         ========================================================================== */}
         <header className="text-center mb-8 sm:mb-12">
           <div className="flex items-center justify-center gap-3.5 mb-3">
@@ -80,17 +80,29 @@ export default function RealEstateHubArchitecture() {
         {/* Outer Main Container matching Reference Image Aspect Ratio & Rounded Corners */}
         <div className="relative w-full max-w-[860px] mx-4 sm:mx-auto rounded-[38px] sm:rounded-[44px] bg-[#f0f4f9] p-5 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,40,120,0.08)] border border-[#e1eaf5] overflow-hidden">
           
-          {/* Soft Radial Ambient Glow */}
+          {/* 1. Soft Radial Ambient Glow */}
           <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,#cde4ff_0%,#dbe9f9_45%,transparent_75%)] opacity-80"
+            className="pointer-events-none absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,#cde4ff_0%,#dbe9f9_45%,transparent_75%)] opacity-80 z-0"
           />
 
-          {/* Diagram Contents Grid */}
+          {/* 2. Concentric Radial Circles Anchored Behind Central Hub (z-0, strictly behind all cards) */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center z-0"
+          >
+            <div className="w-[520px] h-[520px] rounded-full border border-blue-200/50" />
+            <div className="absolute w-[380px] h-[380px] rounded-full border border-blue-200/70" />
+            <div className="absolute w-[260px] h-[260px] rounded-full border-2 border-blue-300/80 shadow-[0_0_40px_rgba(0,129,251,0.12)]" />
+          </div>
+
+          {/* Diagram Contents Grid (relative z-10 with opaque white cards) */}
           <div className="relative z-10 flex flex-col gap-6 sm:gap-7">
             
-            {/* CARD 1: TOP (App & Portal Ingestion) */}
-            <div className="mx-auto w-full max-w-[460px] rounded-[24px] bg-white p-3.5 sm:p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 text-center">
+            {/* =========================================================================
+                CARD 1: TOP (Portal & Channel Ingestion)
+            ========================================================================== */}
+            <div className="relative z-20 mx-auto w-full max-w-[460px] rounded-[24px] bg-white p-3.5 sm:p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 text-center">
               <span className="text-xs font-bold text-slate-800 block mb-3 font-sans">
                 Portal & Channel Ingestion
               </span>
@@ -146,26 +158,13 @@ export default function RealEstateHubArchitecture() {
               </div>
             </div>
 
-            {/* ROW 2: Left Device, Perfectly Centered Hub, Right Security */}
-            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+            {/* =========================================================================
+                ROW 2: Left Field/Lounge Devices, Center PropTech Hub, Right Security
+            ========================================================================== */}
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
               
-              {/* Concentric Radial Circles Anchored Exactly on Central Hub */}
-              <div aria-hidden className="pointer-events-none absolute inset-0 hidden md:flex items-center justify-center z-0">
-                <div className="w-[520px] h-[520px] rounded-full border border-blue-200/50" />
-                <div className="absolute w-[380px] h-[380px] rounded-full border border-blue-200/70" />
-                <div className="absolute w-[260px] h-[260px] rounded-full border-2 border-blue-300/80 shadow-[0_0_40px_rgba(0,129,251,0.12)]" />
-                
-                <div className="absolute -top-[52px] left-1/2 -translate-x-1/2 w-[2px] h-[56px] bg-blue-300" />
-                <div className="absolute -top-[52px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-                <div className="absolute -top-[10px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-
-                <div className="absolute -bottom-[52px] left-1/2 -translate-x-1/2 w-[2px] h-[56px] bg-blue-300" />
-                <div className="absolute -bottom-[52px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-                <div className="absolute -bottom-[10px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-              </div>
-
-              {/* CARD 2: MIDDLE-LEFT (Site & Field Integration) */}
-              <div className="relative z-10 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+              {/* CARD 2: MIDDLE-LEFT (Field & Lounge Devices) */}
+              <div className="relative z-20 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
                 <span className="text-xs font-bold text-slate-800 text-center block mb-2 font-sans">
                   Field & Lounge Devices
                 </span>
@@ -211,19 +210,58 @@ export default function RealEstateHubArchitecture() {
                 </div>
               </div>
 
-              {/* CENTER HUB: Concentric Unified Account Card */}
-              <div className="relative z-10 md:col-span-4 flex items-center justify-center my-2 md:my-0">
-                <div aria-hidden className="pointer-events-none absolute right-[100%] top-1/2 -translate-y-1/2 w-14 h-[2px] bg-blue-300 hidden md:block">
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+              {/* CENTER HUB: Concentric Unified PropTech OS Card */}
+              <div className="relative z-20 md:col-span-4 flex items-center justify-center my-2 md:my-0">
+                
+                {/* Horizontal Ray to Left Card (Field & Lounge Devices) */}
+                <div aria-hidden className="pointer-events-none absolute right-[calc(50%+98px)] top-1/2 -translate-y-1/2 w-12 h-[2px] bg-blue-300 hidden md:block z-10">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
                 </div>
 
-                <div aria-hidden className="pointer-events-none absolute left-[100%] top-1/2 -translate-y-1/2 w-14 h-[2px] bg-blue-300 hidden md:block">
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white" />
+                {/* Horizontal Ray to Right Card (Enterprise Security) */}
+                <div aria-hidden className="pointer-events-none absolute left-[calc(50%+98px)] top-1/2 -translate-y-1/2 w-12 h-[2px] bg-blue-300 hidden md:block z-10">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
                 </div>
 
-                <div className="w-[196px] h-[196px] rounded-full bg-white shadow-[0_15px_35px_rgba(0,129,251,0.14)] border border-blue-200 flex flex-col items-center justify-center p-4 text-center transform transition-transform hover:scale-105 duration-300">
+                {/* Vertical Ray to Top Card (Portal & Channel Ingestion) */}
+                <div aria-hidden className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 w-[2px] h-7 bg-blue-300 hidden md:block z-10">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                </div>
+
+                {/* Vertical Ray to Bottom Card (Centralized Settings) */}
+                <div aria-hidden className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 w-[2px] h-7 bg-blue-300 hidden md:block z-10">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#0081fb] ring-4 ring-white z-30" />
+                </div>
+
+                {/* Diagonal Ray to Bottom-Left (One Login) with Lock Icon */}
+                <div aria-hidden className="pointer-events-none absolute -bottom-3 left-[calc(50%-88px)] hidden md:flex items-center gap-1 -rotate-[35deg] z-10">
+                  <div className="w-8 h-[2px] bg-blue-300" />
+                  <div className="w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-xs rotate-[35deg]">
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Diagonal Ray to Bottom-Right (Uptime) with Database Icon */}
+                <div aria-hidden className="pointer-events-none absolute -bottom-3 right-[calc(50%-88px)] hidden md:flex items-center gap-1 rotate-[35deg] z-10">
+                  <div className="w-5 h-5 rounded-full bg-[#0081fb] text-white flex items-center justify-center shadow-xs -rotate-[35deg]">
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <ellipse cx="12" cy="5" rx="9" ry="3" />
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                  </div>
+                  <div className="w-8 h-[2px] bg-blue-300" />
+                </div>
+
+                {/* Circular Hub Card */}
+                <div className="relative z-20 w-[196px] h-[196px] rounded-full bg-white shadow-[0_15px_35px_rgba(0,129,251,0.14)] border border-blue-200 flex flex-col items-center justify-center p-4 text-center transform transition-transform hover:scale-105 duration-300">
                   <div className="relative mb-1 flex items-center justify-center">
                     <Image
                       src="/logo-mark.png"
@@ -252,8 +290,8 @@ export default function RealEstateHubArchitecture() {
                 </div>
               </div>
 
-              {/* CARD 3: MIDDLE-RIGHT (Security Controls) */}
-              <div className="relative z-10 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+              {/* CARD 3: MIDDLE-RIGHT (Enterprise Security) */}
+              <div className="relative z-20 md:col-span-4 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
                 <span className="text-xs font-bold text-slate-800 text-center block mb-3 font-sans">
                   Enterprise Security
                 </span>
@@ -313,11 +351,13 @@ export default function RealEstateHubArchitecture() {
 
             </div>
 
-            {/* ROW 3: Bottom Left, Bottom Center, Bottom Right */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+            {/* =========================================================================
+                ROW 3: Bottom Left, Bottom Center, Bottom Right
+            ========================================================================== */}
+            <div className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
               
               {/* CARD 4: BOTTOM-LEFT (One Login) */}
-              <div className="md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between text-center">
+              <div className="relative z-20 md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between text-center">
                 <div>
                   <div className="w-7 h-7 mx-auto rounded-full bg-[#10b981] text-white flex items-center justify-center font-bold text-xs mb-2 shadow-2xs">
                     ✓
@@ -342,7 +382,7 @@ export default function RealEstateHubArchitecture() {
               </div>
 
               {/* CARD 5: BOTTOM-CENTER (Centralized Settings) */}
-              <div className="md:col-span-6 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+              <div className="relative z-20 md:col-span-6 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
                 <span className="text-xs font-bold text-slate-800 text-center block mb-2 font-sans">
                   Centralized Developer Settings
                 </span>
@@ -368,7 +408,7 @@ export default function RealEstateHubArchitecture() {
               </div>
 
               {/* CARD 6: BOTTOM-RIGHT (Zero Downtime) */}
-              <div className="md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between text-center">
+              <div className="relative z-20 md:col-span-3 rounded-[24px] bg-white p-4 shadow-[0_8px_20px_rgba(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between text-center">
                 <div>
                   <div className="w-7 h-7 mx-auto rounded-full bg-[#0081fb] text-white flex items-center justify-center font-bold text-xs mb-2 shadow-2xs">
                     ✦
@@ -386,6 +426,35 @@ export default function RealEstateHubArchitecture() {
                 </div>
               </div>
 
+            </div>
+
+            {/* =========================================================================
+                BOTTOM BAR: Floating Pill Tag & Search Button
+            ========================================================================== */}
+            <div className="relative z-20 flex items-center justify-between pt-1">
+              <div className="hidden sm:block w-9" /> {/* Spacer */}
+
+              {/* Central Pill Tag */}
+              <div className="mx-auto flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-xs px-4 py-2 shadow-xs border border-blue-100 text-[11px] font-semibold text-slate-700">
+                <svg className="w-4 h-4 text-[#0081fb]" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>
+                  <strong className="text-slate-900">Secure. Private. Connected.</strong> One account for everything Uptrix.
+                </span>
+              </div>
+
+              {/* Floating Search Action Button */}
+              <button
+                type="button"
+                aria-label="Search Ecosystem"
+                className="w-9 h-9 rounded-full bg-white text-slate-600 border border-slate-200 shadow-xs flex items-center justify-center hover:bg-slate-50 hover:text-slate-900 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </button>
             </div>
 
           </div>

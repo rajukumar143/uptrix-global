@@ -62,17 +62,17 @@ export default function CollegeCrmIntelligence() {
 
       <div className="relative mx-auto max-w-[1260px] px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* =========================================================================
               LEFT COLUMN: HEADINGS, 6 METRIC CARDS, BOTTOM PILL BANNER
           ========================================================================== */}
-          <div className="lg:col-span-5 flex flex-col justify-start">
+          <div className="lg:col-span-6 flex flex-col justify-start">
             
-            {/* Eyebrow Pill: SECTION 2 — AI DASHBOARD */}
+            {/* Eyebrow Pill: AI DASHBOARD */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#c4b5fd] shadow-2xs mb-4 w-fit">
               <span className="text-[11px] sm:text-xs font-extrabold text-[#6938ef] tracking-wider uppercase">
-                SECTION 2 — AI DASHBOARD
+                AI DASHBOARD
               </span>
             </div>
 
@@ -238,7 +238,7 @@ export default function CollegeCrmIntelligence() {
           {/* =========================================================================
               RIGHT COLUMN: FLOATING AI BADGE, COCKPIT FRAME, AND AI INSIGHTS CARD
           ========================================================================== */}
-          <div className="lg:col-span-7 flex flex-col gap-5 relative">
+          <div className="lg:col-span-6 flex flex-col gap-5 relative">
             
             {/* Top Floating AI Badge */}
             <div className="relative flex justify-end -mb-3 z-30">
@@ -267,7 +267,7 @@ export default function CollegeCrmIntelligence() {
             <div className="rounded-[24px] bg-[#0f172a] shadow-[0_25px_60px_rgba(0,0,0,0.14)] border border-slate-200 overflow-hidden flex flex-row">
               
               {/* Dark Left Sidebar */}
-              <div className="w-[125px] sm:w-[145px] bg-[#0f172a] p-3 sm:p-4 flex flex-col justify-between shrink-0 text-white border-r border-slate-800">
+              <div className="w-[145px] sm:w-[175px] bg-[#0f172a] p-3 sm:p-4 flex flex-col justify-between shrink-0 text-white border-r border-slate-800">
                 <div className="flex flex-col gap-4">
                   {/* Logo */}
                   <div className="flex items-center gap-1.5 px-1 py-1">

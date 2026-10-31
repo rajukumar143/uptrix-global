@@ -8,6 +8,50 @@ function isPathOrChild(path: string, root: string) {
 }
 
 export function proxy(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+
+  // Detect Host / Subdomain
+  const rawHost = request.headers.get("x-forwarded-host") || request.headers.get("host") || request.nextUrl.host || "";
+  const hostname = rawHost.toLowerCase().split(":")[0];
+
+  // 1. OLD ADMIN SUBDOMAIN: admin.localhost or admin.uptrixglobal.com -> Redirect to proud.
+  if (hostname === "admin.localhost" || hostname === "admin.uptrixglobal.com" || hostname.startsWith("admin.")) {
+    const newHost = rawHost.replace(/^admin\./i, "proud.");
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.host = newHost;
+    return NextResponse.redirect(redirectUrl, 301);
+  }
+
+  // 2. PROUD ADMIN SUBDOMAIN: proud.localhost or proud.uptrixglobal.com
+  const isProudAdmin =
+    hostname === "proud.localhost" ||
+    hostname === "proud.uptrixglobal.com" ||
+    hostname.startsWith("proud.");
+
+  if (isProudAdmin) {
+    if (path === "/") {
+      return NextResponse.redirect(new URL("/admin", request.url), 307);
+    }
+    if (path === "/login") {
+      return NextResponse.redirect(new URL("/admin/login", request.url), 307);
+    }
+
+    const isAdminAllowed =
+      isPathOrChild(path, "/admin") ||
+      isPathOrChild(path, "/api/admin") ||
+      isPathOrChild(path, "/admin/api") ||
+      path === "/api/health" ||
+      isPathOrChild(path, "/_next") ||
+      isPathOrChild(path, "/media") ||
+      ADMIN_ASSET_PATH.test(path);
+
+    if (!isAdminAllowed) {
+      return NextResponse.redirect(new URL("/admin", request.url), 307);
+    }
+
+    return NextResponse.next();
+  }
+
   const mode = process.env.APP_MODE;
   if (mode === "all" || process.env.NODE_ENV === "development" || !mode) return NextResponse.next();
   if (mode !== "public" && mode !== "admin") {
@@ -37,7 +81,6 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  const path = request.nextUrl.pathname;
   const isAdminPath = ADMIN_PATHS.some((root) => isPathOrChild(path, root));
   if (mode === "public") {
     if (isPathOrChild(path, "/admin")) {

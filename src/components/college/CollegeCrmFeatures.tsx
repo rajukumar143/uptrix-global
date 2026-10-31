@@ -129,15 +129,6 @@ export default function CollegeCrmFeatures() {
             HEADER: Section 3 Eyebrow + Headline + Subtitle (1:1 with reference)
         ========================================================================== */}
         <header className="text-center">
-          {/* Eyebrow with flanking divider lines */}
-          <div className="flex items-center justify-center gap-3.5 mb-3">
-            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
-            <span className="px-4 py-1 rounded-full bg-[#f3e8ff] border border-[#e9d5ff] text-[#6938ef] text-xs font-bold tracking-wide shadow-2xs">
-              Section 3
-            </span>
-            <div className="w-12 h-[1.5px] bg-[#d8b4fe]" />
-          </div>
-
           <h2 className="font-display text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#111827] tracking-tight leading-tight m-0">
             <span className="text-[#6938ef]">Key Features</span> of Your CRM Tool
           </h2>
