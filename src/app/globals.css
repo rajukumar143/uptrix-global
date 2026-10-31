@@ -152,9 +152,23 @@ body {
   font-size: 18px;
   line-height: 1.75;
   color: #2a2f4d;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .prose-blog > * + * {
   margin-top: 1.15em;
+}
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4,
+.prose-blog h5,
+.prose-blog h6,
+.prose-blog p,
+.prose-blog a,
+.prose-blog li {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .prose-blog h2 {
   margin-top: 2em;
@@ -230,6 +244,7 @@ body {
   background: #f1f2fb;
   padding: 2px 6px;
   border-radius: 6px;
+  word-break: break-word;
 }
 .prose-blog pre {
   background: #0f1240;

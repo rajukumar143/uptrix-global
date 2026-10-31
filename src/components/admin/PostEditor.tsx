@@ -344,7 +344,7 @@ export default function PostEditor({
                 className="min-h-[560px] w-full resize-y p-5 font-mono text-[15px] leading-7 text-slate-800 focus:outline-none"
               />
             ) : (
-              <div className="prose-blog min-h-[560px] p-6" dangerouslySetInnerHTML={{ __html: preview || "<p>Nothing to preview yet.</p>" }} />
+              <div className="prose-blog min-h-[560px] p-6 break-words [overflow-wrap:anywhere]" dangerouslySetInnerHTML={{ __html: preview || "<p>Nothing to preview yet.</p>" }} />
             )}
             <div className="flex flex-wrap justify-between gap-2 border-t border-slate-100 px-4 py-2 text-xs text-slate-500">
               <span>

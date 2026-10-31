@@ -106,8 +106,8 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
-      <article>
-        <header className={`${container} flex max-w-[880px] flex-col gap-5 pt-[clamp(32px,6vw,64px)] pb-8`}>
+      <article className="min-w-0">
+        <header className={`${container} flex max-w-[880px] min-w-0 flex-col gap-5 pt-[clamp(32px,6vw,64px)] pb-8`}>
           <nav aria-label="Breadcrumb" className="text-sm font-semibold text-pulse-faint">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -133,8 +133,8 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
               )}
             </ol>
           </nav>
-          <h1 className="text-[clamp(34px,4.6vw,52px)] leading-[1.08] font-extrabold tracking-[-0.03em] text-balance">{post.title}</h1>
-          {post.excerpt && <p className="text-[clamp(18px,1.8vw,21px)] leading-relaxed text-pretty text-pulse-muted">{post.excerpt}</p>}
+          <h1 className="text-[clamp(34px,4.6vw,52px)] leading-[1.08] font-extrabold tracking-[-0.03em] text-balance break-words [overflow-wrap:anywhere]">{post.title}</h1>
+          {post.excerpt && <p className="text-[clamp(18px,1.8vw,21px)] leading-relaxed text-pretty text-pulse-muted break-words [overflow-wrap:anywhere]">{post.excerpt}</p>}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] font-semibold text-pulse-subtle">
             {post.author && (
               <span>
@@ -181,7 +181,7 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
                 <TocList toc={toc} />
               </details>
             )}
-            <div className="prose-blog" dangerouslySetInnerHTML={{ __html: html }} />
+            <div className="prose-blog break-words [overflow-wrap:anywhere]" dangerouslySetInnerHTML={{ __html: html }} />
 
             {post.tags.length > 0 && (
               <div className="mt-12 flex flex-wrap items-center gap-2">

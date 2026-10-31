@@ -261,14 +261,14 @@ export default function BlogAdminView({ posts, deleted }: BlogAdminViewProps) {
                 return (
                   <tr key={p.id} className="hover:bg-slate-50/60 transition-colors">
                     {/* Title + Slug */}
-                    <td className="px-4 py-3.5">
+                    <td className="px-4 py-3.5 max-w-[340px]">
                       <Link
                         href={`/admin/blog/${p.id}`}
-                        className="font-bold text-slate-900 hover:text-indigo-600 transition block text-sm"
+                        className="font-bold text-slate-900 hover:text-indigo-600 transition block text-sm break-words [overflow-wrap:anywhere]"
                       >
                         {p.title || "Untitled Article"}
                       </Link>
-                      <span className="font-mono text-[10px] text-slate-400">
+                      <span className="font-mono text-[10px] text-slate-400 break-words [overflow-wrap:anywhere] block">
                         /blog/{p.slug}
                       </span>
                     </td>

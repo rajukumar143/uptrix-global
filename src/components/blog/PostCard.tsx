@@ -7,7 +7,7 @@ export default function PostCard({ post, minuteLabel, large = false }: { post: P
   const href = `/blog/${post.slug}`;
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-3xl border border-pulse-line bg-white transition hover:-translate-y-0.5 hover:shadow-[0_30px_60px_-40px_rgba(30,34,120,0.45)] ${
+      className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border border-pulse-line bg-white transition hover:-translate-y-0.5 hover:shadow-[0_30px_60px_-40px_rgba(30,34,120,0.45)] ${
         large ? "md:flex-row" : ""
       }`}
     >
@@ -27,7 +27,7 @@ export default function PostCard({ post, minuteLabel, large = false }: { post: P
           <div className="placeholder-stripes aspect-[16/9] h-full w-full" />
         )}
       </Link>
-      <div className={`flex flex-1 flex-col gap-3 p-6 ${large ? "md:justify-center md:p-10" : ""}`}>
+      <div className={`flex flex-1 min-w-0 flex-col gap-3 p-6 ${large ? "md:justify-center md:p-10" : ""}`}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-semibold text-pulse-faint">
           {post.category && <span className="font-code text-xs tracking-[0.06em] text-pulse uppercase">{post.category}</span>}
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -36,13 +36,13 @@ export default function PostCard({ post, minuteLabel, large = false }: { post: P
             {readingMinutes(post.content)} {minuteLabel}
           </span>
         </div>
-        <h2 className={`font-extrabold tracking-[-0.02em] text-balance ${large ? "text-[clamp(26px,3vw,36px)] leading-[1.15]" : "text-xl leading-snug"}`}>
+        <h2 className={`font-extrabold tracking-[-0.02em] text-balance break-words [overflow-wrap:anywhere] ${large ? "text-[clamp(26px,3vw,36px)] leading-[1.15]" : "text-xl leading-snug"}`}>
           <Link href={href} className="hover:text-pulse">
             {post.title}
           </Link>
         </h2>
         {(post.excerpt || post.metaDescription) && (
-          <p className={`leading-relaxed text-pulse-muted ${large ? "text-[17px]" : "text-[15px] line-clamp-3"}`}>{post.excerpt || post.metaDescription}</p>
+          <p className={`leading-relaxed text-pulse-muted break-words [overflow-wrap:anywhere] ${large ? "text-[17px]" : "text-[15px] line-clamp-3"}`}>{post.excerpt || post.metaDescription}</p>
         )}
       </div>
     </article>
