@@ -70,12 +70,12 @@ ADMIN_USERNAME=admin&#10;ADMIN_PASSWORD_HASH=&lt;generated-scrypt-hash&gt;&#10;A
 
           {/* Back to Home Link */}
           <div className="mt-6 pt-5 border-t border-slate-800/80 text-center">
-            <Link
-              href="/"
+            <a
+              href={process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://uptrixglobal.com"}
               className="text-xs font-semibold text-slate-400 hover:text-slate-200 transition inline-flex items-center gap-1.5"
             >
               <span>← Return to Public Website</span>
-            </Link>
+            </a>
           </div>
 
         </div>

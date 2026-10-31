@@ -80,6 +80,22 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 3. PUBLIC WEBSITE (uptrixglobal.com / localhost:3000):
+  // Admin dashboard is strictly hosted on proud.uptrixglobal.com (or proud.localhost:3000).
+  // If someone accesses /admin or /admin/* on the public site, redirect them to the proud subdomain!
+  if (isPathOrChild(path, "/admin")) {
+    const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+    const proudOrigin = isLocal
+      ? (process.env.ADMIN_SITE_URL || "http://proud.localhost:3000")
+      : "https://proud.uptrixglobal.com";
+    return NextResponse.redirect(new URL(`${path}${request.nextUrl.search}`, proudOrigin), 307);
+  }
+
+  // Block admin APIs on public domain
+  if (isPathOrChild(path, "/api/admin") || isPathOrChild(path, "/admin/api")) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   // APP_MODE overrides (used when running separate public & admin production instances)
   const mode = process.env.APP_MODE;
   if (mode === "all" || process.env.NODE_ENV === "development") {
@@ -88,7 +104,6 @@ export function middleware(request: NextRequest) {
 
   // PUBLIC APP MODE (uptrixglobal.com)
   if (mode === "public") {
-    // If someone visits admin on public site, deflect to homepage
     if (isPathOrChild(path, "/admin")) {
       return NextResponse.redirect(new URL("/", request.url), 307);
     }
@@ -103,12 +118,10 @@ export function middleware(request: NextRequest) {
 
   // ADMIN APP MODE (proud.uptrixglobal.com)
   if (mode === "admin") {
-    // Immediately redirect root to login page instead of rendering the heavy public homepage
     if (path === "/") {
       return NextResponse.redirect(new URL("/admin/login", request.url), 307);
     }
 
-    // Only allow admin endpoints and health check
     const isAdminAllowed =
       isPathOrChild(path, "/admin") ||
       isPathOrChild(path, "/api/admin") ||
@@ -116,7 +129,6 @@ export function middleware(request: NextRequest) {
       path === "/api/health";
 
     if (!isAdminAllowed) {
-      // Deflect automated bot traffic in 0ms without server-side rendering
       return new NextResponse("Not Found", { status: 404 });
     }
 

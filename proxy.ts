@@ -52,6 +52,19 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 3. PUBLIC WEBSITE: Redirect /admin to proud subdomain
+  if (isPathOrChild(path, "/admin")) {
+    const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+    const proudOrigin = isLocal
+      ? (process.env.ADMIN_SITE_URL || "http://proud.localhost:3000")
+      : "https://proud.uptrixglobal.com";
+    return NextResponse.redirect(new URL(`${path}${request.nextUrl.search}`, proudOrigin), 307);
+  }
+
+  if (isPathOrChild(path, "/api/admin") || isPathOrChild(path, "/admin/api")) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   const mode = process.env.APP_MODE;
   if (mode === "all" || process.env.NODE_ENV === "development" || !mode) return NextResponse.next();
   if (mode !== "public" && mode !== "admin") {
