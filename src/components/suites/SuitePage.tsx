@@ -1,11 +1,10 @@
 import Link from "next/link";
-import PulseFooter from "@/components/crm/PulseFooter";
+import HrmsFooter from "@/components/hrms-home/HrmsFooter";
 import HrmsDemoForm from "@/components/hrms/HrmsDemoForm";
 import StickyDemoCta from "@/components/hrms/StickyDemoCta";
 import HrmsHeader from "@/components/hrms-home/HrmsHeader";
 import { APP_URL } from "@/content/hrms";
 import { SUITES, type Suite } from "@/content/suites";
-import { getContent } from "@/lib/content-store";
 import { Estimator, ModuleBoard, Walkthrough } from "./SuiteInteractive";
 import { Glyph, sparkPoints } from "./parts";
 
@@ -16,7 +15,6 @@ const h2 = "font-semibold leading-[1.06] tracking-[-0.03em] text-[#101828] text-
 const panel = "rounded-[28px] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_48px_-24px_rgba(16,24,40,0.18)]";
 
 export default function SuitePage({ suite }: { suite: Suite }) {
-  const { crmLayout } = getContent();
   const otherSuites = Object.values(SUITES).filter((s) => s.key !== suite.key);
 
   return (
@@ -205,7 +203,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
       </main>
 
       <StickyDemoCta label="Book a demo" />
-      <PulseFooter content={crmLayout.footer} />
+      <HrmsFooter />
     </div>
   );
 }
