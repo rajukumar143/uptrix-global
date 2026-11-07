@@ -1,3 +1,4 @@
+import { HRMS_SUBDOMAIN_URL } from "@/content/hrms";
 // The top menu shared by every public page
 export const headerDefaults = {
   homeLabel: "Home",
@@ -16,7 +17,7 @@ export const headerDefaults = {
     },
     {
       label: "Uptrix HRMS",
-      link: "/#hrms",
+      link: HRMS_SUBDOMAIN_URL,
       description: "Payroll, attendance, leave and people records",
       subLinks: [],
     },

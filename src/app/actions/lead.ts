@@ -27,7 +27,8 @@ const formSchema = z.object({
   name: z.string().min(1).max(120),
   company: z.string().max(150),
   email: z.union([z.literal(""), z.string().email().max(150)]),
-  phone: z.string().regex(/^[+\d][\d\s-]{6,}$/).max(40),
+  // Phone is optional: the HRMS demo form does not ask for it. A number, if given, must look like one.
+  phone: z.union([z.literal(""), z.string().regex(/^[+\d][\d\s-]{6,}$/).max(40)]),
   businessType: z.string().max(120),
   solveProblem: z.string().max(600),
   pageUrl: z.string().max(400),
