@@ -80,6 +80,34 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // HRMS SUBDOMAIN: hrms.uptrixglobal.com (or hrms.localhost:3000).
+  // "/" shows the HRMS home page; the three suite pages are its submenu. Everything else goes back to the home page.
+  const isHrms = hostname === "hrms.localhost" || hostname === "hrms.uptrixglobal.com" || hostname.startsWith("hrms.");
+  const HRMS_PAGES = ["/hr-suite", "/it-suite", "/finance-suite"];
+
+  if (isHrms) {
+    if (path === "/") {
+      return NextResponse.rewrite(new URL("/hrms-home", request.url));
+    }
+    if (path === "/hrms-home" || path.startsWith("/images/") || path.startsWith("/fonts/")) {
+      return NextResponse.next();
+    }
+    if (HRMS_PAGES.some((root) => isPathOrChild(path, root))) {
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(new URL("/", request.url), 307);
+  }
+
+  // The HRMS home page and suite pages live on the HRMS subdomain only.
+  if (isPathOrChild(path, "/hrms-home")) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+  if (HRMS_PAGES.some((root) => isPathOrChild(path, root))) {
+    const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+    const hrmsOrigin = process.env.HRMS_SITE_URL || (isLocal ? "http://hrms.localhost:3000" : "https://hrms.uptrixglobal.com");
+    return NextResponse.redirect(new URL(`${path}${request.nextUrl.search}`, hrmsOrigin), 307);
+  }
+
   // 3. PUBLIC WEBSITE (uptrixglobal.com / localhost:3000):
   // Admin dashboard is strictly hosted on proud.uptrixglobal.com (or proud.localhost:3000).
   // If someone accesses /admin or /admin/* on the public site, redirect them to the proud subdomain!

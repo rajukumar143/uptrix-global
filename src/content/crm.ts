@@ -1,3 +1,4 @@
+import { HRMS_SUBDOMAIN_URL } from "@/content/hrms";
 // Default text for the CRM landing page (/crm). Everything here can be edited in the admin dashboard.
 export const crmDefaults = {
   seo: {
@@ -405,7 +406,7 @@ export const crmLayoutDefaults = {
         links: [
           { label: "College ERP & CRM", link: "/college" },
           { label: "Real Estate CRM", link: "/crm/real-estate" },
-          { label: "Uptrix HRMS", link: "/#hrms" },
+          { label: "Uptrix HRMS", link: HRMS_SUBDOMAIN_URL },
         ],
       },
       {
