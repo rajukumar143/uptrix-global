@@ -19,11 +19,11 @@ export default function SuitePage({ suite }: { suite: Suite }) {
 
   return (
     <div className="bg-[#F3F6FB] font-sans text-[#475467] antialiased">
-      <HrmsHeader />
+      <HrmsHeader tint={suite.soft} />
 
       <main>
         {/* 1. HERO */}
-        <section id="hero" className="relative overflow-x-clip pt-28 pb-24 sm:pt-36" style={{ background: suite.heroBg }}>
+        <section id="hero" className="relative overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24" style={{ background: suite.heroBg }}>
           <div className={`${container} flex flex-wrap items-center gap-14`}>
             <div className="flex min-w-0 flex-[1_1_500px] flex-col gap-6">
               <nav aria-label="Breadcrumb" className="flex gap-2 text-[13px] text-[#667085]">
@@ -39,7 +39,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
                 </span>
                 <span className="text-[15px] font-extrabold text-[#101828]">{suite.eyebrow}</span>
               </span>
-              <h1 className="font-semibold leading-[1.02] tracking-[-0.035em] text-[#101828] text-[clamp(40px,5.4vw,68px)] text-balance">
+              <h1 className="font-semibold leading-[1.02] tracking-[-0.035em] text-[#101828] text-[clamp(34px,5.4vw,68px)] text-balance">
                 {suite.h1}
                 <span className="bg-[linear-gradient(90deg,#F0206E_0%,#FF9609_40%,#0067CC_100%)] bg-clip-text text-transparent">{suite.h1Accent}</span>
               </h1>
@@ -161,7 +161,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
         <section id="demo" className="scroll-mt-24 bg-[#F3F6FB] py-20 sm:py-28" aria-labelledby="demo-title">
           <div className={container}>
             <div className={`${panel} flex flex-wrap gap-3 p-3`}>
-              <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-5 rounded-[20px] bg-[#F6F3FF] p-10 sm:p-12">
+              <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-5 rounded-[20px] bg-[#F6F3FF] p-6 sm:p-12">
                 <span className={kicker} style={{ color: suite.accent }}>
                   <span className="h-1.5 w-1.5 rounded-full bg-[#F0206E]" />
                   Book a demo
@@ -186,7 +186,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
                   Or open the live demo →
                 </a>
               </div>
-              <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-8 sm:p-10">
+              <div className="flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-5 sm:p-10">
                 <HrmsDemoForm />
               </div>
             </div>

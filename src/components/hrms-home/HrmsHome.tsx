@@ -32,7 +32,7 @@ export default function HrmsHome() {
                 <span className="h-2 w-2 rounded-full bg-[#51AD38]" />
                 HR · IT · Finance — one platform
               </span>
-              <h1 className="font-semibold leading-[1] tracking-[-0.035em] text-[#101828] text-[clamp(44px,6vw,74px)] text-balance">
+              <h1 className="font-semibold leading-[1] tracking-[-0.035em] text-[#101828] text-[clamp(36px,6vw,74px)] text-balance">
                 Everything about your people, <span className={grad}>in one orbit.</span>
               </h1>
               <p className="max-w-[520px] text-lg leading-relaxed text-[#475467] sm:text-[19px]">
@@ -48,8 +48,22 @@ export default function HrmsHome() {
               </div>
             </div>
 
+            <ul className="flex w-full flex-col gap-2.5 sm:hidden" aria-label="The three suites">
+              {ORBIT.map((o) => (
+                <li key={o.name} className={`${panel} flex items-center gap-3 rounded-[18px] p-3.5`}>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style={{ background: o.accent.bg, color: o.accent.fg }}>
+                    <Glyph d={o.icon} size={17} />
+                  </span>
+                  <span className="flex flex-col">
+                    <span className="text-sm font-extrabold text-[#101828]">{o.name}</span>
+                    <span className="text-xs text-[#667085]">{o.note}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+
             {/* Orbit diagram */}
-            <div role="img" aria-label="Diagram: one employee record at the centre, connected to the HR, IT and Finance suites" className="relative aspect-square w-full max-w-[520px] flex-[1_1_440px]">
+            <div role="img" aria-label="Diagram: one employee record at the centre, connected to the HR, IT and Finance suites" className="relative mx-auto hidden aspect-square w-full max-w-[520px] flex-[1_1_440px] sm:block">
               <span className="absolute inset-0 rounded-full border border-dashed border-[#C6D0E1]" />
               <span className="absolute inset-[13%] rounded-full border border-dashed border-[#C6D0E1]" />
               <span className="absolute inset-[26%] rounded-full border border-[#E4E9F2]" />
@@ -249,7 +263,7 @@ export default function HrmsHome() {
         <section id="demo" className={`${sec} bg-[#F3F6FB] pt-10`}>
           <div className={container}>
             <div className={`${panel} flex flex-wrap gap-3 p-3`}>
-              <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-5 rounded-[20px] bg-[#F6F3FF] bg-[radial-gradient(#D3DBE8_1px,transparent_1px)] p-10 [background-size:22px_22px] sm:p-12">
+              <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-5 rounded-[20px] bg-[#F6F3FF] bg-[radial-gradient(#D3DBE8_1px,transparent_1px)] p-6 [background-size:22px_22px] sm:p-12">
                 <span className={kicker}>
                   {dot}Book a demo
                 </span>

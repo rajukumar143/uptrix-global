@@ -202,9 +202,9 @@ export function Estimator({ suite }: { suite: Suite }) {
           Rough illustration that assumes about {suite.minutesSaved} minutes saved per employee per month on {suite.estimatorBasis}. Your results will vary.
         </p>
       </div>
-      <div aria-live="polite" className="flex min-w-0 flex-[1_1_340px] flex-col gap-2 rounded-[24px] p-9" style={{ background: suite.soft }}>
+      <div aria-live="polite" className="flex min-w-0 flex-[1_1_340px] flex-col gap-2 rounded-[24px] p-6 sm:p-9" style={{ background: suite.soft }}>
         <span className="text-sm font-bold text-[#344054]">Estimated time back each month</span>
-        <span className="font-semibold leading-none tracking-[-0.04em] text-[#101828]" style={{ fontSize: 80 }}>
+        <span className="font-semibold leading-none tracking-[-0.04em] text-[#101828]" style={{ fontSize: "clamp(56px, 14vw, 80px)" }}>
           {hours}
           <span className="text-[28px] text-[#475467]"> hrs</span>
         </span>

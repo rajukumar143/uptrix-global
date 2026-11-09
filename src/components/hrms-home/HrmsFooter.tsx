@@ -25,7 +25,7 @@ export default function HrmsFooter() {
       <div className={`${panel} mx-auto max-w-[1180px] overflow-hidden`}>
         <div aria-hidden="true" className="h-1 bg-[linear-gradient(90deg,#F0206E,#FF9609,#FFB50D,#51AD38,#0C898D,#0067CC)]" />
 
-        <div className="flex flex-wrap items-center justify-between gap-6 border-b border-[#EEF2F7] bg-[#F8F6FF] px-10 py-9">
+        <div className="flex flex-wrap items-center justify-between gap-6 border-b border-[#EEF2F7] bg-[#F8F6FF] px-6 py-7 sm:px-10 sm:py-9">
           <div className="flex max-w-[560px] flex-col gap-1.5">
             <span className="font-semibold tracking-[-0.02em] text-[#101828]" style={{ fontSize: 26 }}>
               Bring HR, IT and Finance onto one record.
@@ -42,7 +42,7 @@ export default function HrmsFooter() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-12 px-10 py-12">
+        <div className="flex flex-wrap gap-10 px-6 py-10 sm:gap-12 sm:px-10 sm:py-12">
           <div className="flex max-w-[340px] flex-[1.4_1_280px] flex-col gap-4">
             <Link href="/" className="flex items-center gap-2.5 text-[#101828]">
               <Image src="/logo-dark.png" alt="Uptrix" width={756} height={235} className="h-8 w-auto" />
@@ -102,7 +102,7 @@ export default function HrmsFooter() {
           </FooterColumn>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#EEF2F7] bg-[#FBFCFE] px-10 py-5 text-[13px]">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#EEF2F7] bg-[#FBFCFE] px-6 py-5 text-[13px] sm:px-10">
           <span className="text-[#667085]">© 2026 Uptrix. All rights reserved.</span>
           <span className="flex flex-wrap gap-x-5 gap-y-1.5 text-[#667085]">
             <a href="#">Privacy policy</a>
