@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node build script (CommonJS) */
 // One-off assembly of the IT design source from the existing IT page, the shared header and demo form, and the new blocks.
 const fs = require("fs");
 const path = require("path");

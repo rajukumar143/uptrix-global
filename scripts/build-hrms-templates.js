@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node build script (CommonJS) */
 // Builds the editable HRMS page templates from the approved static designs.
 //   node scripts/build-hrms-templates.js
 // It writes:

@@ -55,11 +55,12 @@ export default function AdminPanelShell({
   const [topbarPagesOpen, setTopbarPagesOpen] = useState(false);
   const topbarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (pathname.startsWith("/admin/pages")) {
-      setPagesDropdownOpen(true);
-    }
-  }, [pathname]);
+  // Open the Pages menu when the admin moves into a Pages page (adjusted during render, not in an effect).
+  const [seenPathname, setSeenPathname] = useState(pathname);
+  if (pathname !== seenPathname) {
+    setSeenPathname(pathname);
+    if (isPagesActive) setPagesDropdownOpen(true);
+  }
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

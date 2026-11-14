@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Node build script (CommonJS) */
 // One-off assembly of the home design source: the AI and connect sections become editable lists,
 // the demo form and header are shared with the HR page, and the script is the shared one.
 const fs = require("fs");
