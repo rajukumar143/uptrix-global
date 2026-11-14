@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{seo.title}}</title>
+<meta name="description" content="{{seo.description}}">
+<meta name="keywords" content="{{seo.keywords}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#F3F6FB;font-family:'Manrope',system-ui,sans-serif;color:#475467;-webkit-font-smoothing:antialiased}
+::selection{background:#E3DCFF}
+a{color:#3F289D}a:hover{color:#2A1A70}
+button,input,select{font-family:inherit}
+summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+:focus-visible{outline:2px solid #3F289D;outline-offset:3px;border-radius:10px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.sec{padding:112px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3F289D}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:#F0206E}
+.t1{margin:0;font-family:'Outfit',sans-serif;font-size:74px;line-height:1;font-weight:600;letter-spacing:-.035em;color:#101828;text-wrap:balance}
+.t2{margin:0;font-family:'Outfit',sans-serif;font-size:46px;line-height:1.06;font-weight:600;letter-spacing:-.03em;color:#101828;text-wrap:balance}
+.t3{margin:0;font-family:'Outfit',sans-serif;font-size:22px;line-height:1.2;font-weight:600;letter-spacing:-.015em;color:#101828}
+.grad{background:linear-gradient(90deg,#F0206E 0%,#FF9609 40%,#0067CC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p{margin:0;font-size:17px;line-height:1.65;color:#475467;text-wrap:pretty}
+.s{margin:0;font-size:14px;line-height:1.6;color:#667085}
+.panel{background:#FFFFFF;border-radius:28px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 24px 48px -24px rgba(16,24,40,.18)}
+.soft{background:#FFFFFF;border:1px solid #E4E9F2;border-radius:20px}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;box-sizing:border-box}
+.b1{background:#3F289D;color:#FFFFFF}.b1:hover{background:#2F1E7A;color:#FFFFFF}
+.b2{background:#FFFFFF;color:#101828;box-shadow:inset 0 0 0 1px #D5DCE8}.b2:hover{box-shadow:inset 0 0 0 1px #101828;color:#101828}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;white-space:nowrap}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;background:#E7ECF4;border-radius:16px}
+.seg button{min-height:42px;padding:0 18px;border:0;border-radius:12px;background:transparent;font-size:14px;font-weight:700;color:#475467;cursor:pointer}
+.seg button:hover{color:#101828}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:#FFFFFF;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.08),0 6px 16px -6px rgba(16,24,40,.2)}
+.ring{position:absolute;border-radius:50%;border:1px dashed #C6D0E1}
+.dots{background-image:radial-gradient(#D3DBE8 1px,transparent 1px);background-size:22px 22px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #EEF2F7}
+.acc{width:100%;display:flex;align-items:center;gap:20px;padding:26px 4px;border:0;background:transparent;cursor:pointer;text-align:left;border-top:1px solid #DDE4EF}
+.acc:hover .t3{color:#3F289D}
+.acc .chev{margin-left:auto;width:40px;height:40px;flex:none;border-radius:50%;background:#FFFFFF;box-shadow:inset 0 0 0 1px #D5DCE8;display:flex;align-items:center;justify-content:center;color:#101828;transition:transform .2s}
+.acc[aria-expanded="true"] .chev{transform:rotate(180deg);background:#3F289D;color:#FFFFFF;box-shadow:none}
+.mtile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.mtile:hover{transform:translateY(-2px);border-color:#C6D0E1}
+.mtile[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px #3F289D,0 18px 36px -22px rgba(63,40,157,.55)}
+.mtile[aria-selected="true"] .mi{background:#3F289D !important;color:#FFFFFF !important}
+.tick{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;font-size:15px;font-weight:600;color:#101828}
+.tick .box{width:24px;height:24px;flex:none;border-radius:8px;box-shadow:inset 0 0 0 2px #C6D0E1;display:flex;align-items:center;justify-content:center;color:transparent}
+.tick[aria-pressed="true"]{background:#F6F3FF;border-color:#D9CFFF}
+.tick[aria-pressed="true"] .box{background:#3F289D;box-shadow:none;color:#FFFFFF}
+.tick[aria-pressed="true"] .lbl{text-decoration:line-through;color:#667085}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:800;color:#101828}
+.in{min-height:48px;padding:0 14px;border-radius:12px;border:1px solid #D5DCE8;background:#FFFFFF;font-size:15px;color:#101828;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #3F289D;outline-offset:1px}
+.scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 24px}
+.scroll>*{scroll-snap-align:start}
+@media (max-width:900px){.hide-sm{display:none !important}}
+@media (max-width:760px){.t1{font-size:46px !important}.t2{font-size:32px !important}.sec{padding:80px 0}}
+.tstep{width:100%;display:flex;align-items:flex-start;gap:16px;padding:18px 20px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;transition:border-color .2s,box-shadow .2s}
+.tstep:hover{border-color:#C6D0E1}
+.tstep .tnum{width:40px;height:40px;flex:none;border-radius:12px;background:#F3F6FB;color:#475467;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.tstep[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px #0058B0,0 18px 36px -22px rgba(0,88,176,.55)}
+.tstep[aria-selected="true"] .tnum{background:#0058B0;color:#FFFFFF}
+</style>
+<style>[hidden]{display:none !important}html{scroll-behavior:smooth;scroll-padding-top:100px}img{max-width:100%}</style>
+</head>
+<body>
+<div id="app"><div style="background: #F3F6FB; color: #475467">
+<div style="position: sticky; top: 14px; z-index: 10; padding: 14px 16px 0">
+<header class="panel" style="max-width: 1132px; margin: 0 auto; border-radius: 20px; padding: 8px 8px 8px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="{{menu.13_uptrix}}" style="height: 32px; width: auto; display: block"></a>
+<nav aria-label="{{menu.14_primary}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px">
+<details style="position: relative"><summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #101828">{{{menu.01_suites}}}<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="panel" style="position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); width: 320px; max-width: 90vw; padding: 8px; display: flex; flex-direction: column; gap: 2px; z-index: 30"><a href="/hr-suite" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: #F3F6FB"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.02_hr_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.03_people_time_and_policies}}}</span></span></a><a href="/it-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.04_it_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.05_tickets_assets_joiners}}}</span></span></a><a href="/finance-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2zM8 8h8M8 12h8M8 16h5"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.06_finance_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.07_payslips_loans_f_f}}}</span></span></a></div></details>
+<a href="#modules" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.08_modules}}}</a><a href="#lifecycle" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.09_employee_lifecycle}}}</a><a href="/services" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.10_services}}}</a>
+</nav>
+<span style="display: flex; align-items: center; gap: 6px"><a href="https://hrms.tarunkyadari.in/login" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.11_log_in}}}</a><a href="/#demo" class="b b1" style="min-height: 42px; padding: 0 18px; font-size: 14px; border-radius: 12px">{{{menu.12_book_a_demo}}}</a></span>
+</header>
+</div>
+<section id="top" style="padding: 168px 0 96px; margin-top: -78px; background: linear-gradient(180deg, #E3EFFC 0%, #F3F6FB 100%)">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<nav aria-label="{{top.31_breadcrumb}}" class="s" style="display: flex; gap: 8px; font-size: 13px"><a href="/" style="color: #667085; text-decoration: none">{{{top.01_home}}}</a><span aria-hidden="true">{{{top.02_text}}}</span><span style="color: #101828; font-weight: 700">{{{top.03_it_suite}}}</span></nav>
+<span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 40px; height: 40px; border-radius: 12px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -8px rgba(16,24,40,.3)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-size: 15px; font-weight: 800; color: #101828">{{{top.04_it_suite}}}</span></span>
+<h1 class="t1" style="font-size: 58px">{{{top.05_every_device_every_it_request_every}}} <span class="grad">{{{top.06_one_platform}}}</span></h1>
+<p class="p" style="font-size: 19px; max-width: 560px">{{{top.07_manage_company_assets_resolve_employee_i}}}</p>
+<p class="p" style="max-width: 560px; font-weight: 600; color: #344054">{{{top.08_give_your_it_team_complete_visibility}}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="#capabilities" class="b b1">{{{top.09_explore_it_suite}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></a><a href="#demo" class="b b2">{{{top.10_book_a_demo}}}</a></div>
+</div>
+<div class="panel" role="img" aria-label="{{top.32_sample_it_view_of_one_employee}}" style="flex: 1 1 400px; min-width: 0; max-width: 480px; padding: 26px; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 14px; padding-bottom: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 50%; background: #0058B0; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{{top.11_ar}}}</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 600; color: #101828">{{{top.12_anil_rao}}}</span><span class="s" style="font-size: 13px">{{{top.13_senior_developer_engineering}}}</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">{{{top.14_it_view}}}</span>
+</span>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.15_dell_latitude_5440}}}</span><span class="s" style="font-size: 12px">{{{top.16_laptop_lap_1001}}}</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{top.17_in_use}}}</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.18_lg_27_monitor}}}</span><span class="s" style="font-size: 12px">{{{top.19_monitor_mon_2044}}}</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{top.20_in_use}}}</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3zM7 15h4M3 9h18"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.21_employee_id_card}}}</span><span class="s" style="font-size: 12px">{{{top.22_id_0218}}}</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">{{{top.23_active}}}</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.24_it_1043_laptop_not_charging}}}</span><span class="s" style="font-size: 12px">{{{top.25_assigned_to_it_support_high}}}</span></span>
+<span class="tag" style="background: #FFF1DC; color: #8A4600">{{{top.26_in_progress}}}</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #FFE6EF; color: #A3124A; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5.5 5.5 0 1 1-7.8 7.8a5.5 5.5 0 0 1 7.8-7.8zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.27_email_vpn_slack_access}}}</span><span class="s" style="font-size: 12px">{{{top.28_granted_on_day_one}}}</span></span>
+<span class="tag" style="background: #EFEAFF; color: #3F289D">{{{top.29_3_apps}}}</span>
+</div>
+
+<span class="s" style="font-size: 12px; padding-top: 6px">{{{top.30_sample_data}}}</span>
+</div>
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="sec" style="padding-top: 64px">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px"><span class="kicker">{{{dashboard.01_it_operations_dashboard}}}</span><h2 class="t2">{{{dashboard.02_complete_visibility_into_your_it_operati}}}</h2></div>
+<p class="s" style="max-width: 400px; font-size: 15px">{{{dashboard.03_know_what_is_happening_across_your}}}</p>
+</div>
+<div class="panel" style="padding: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px 16px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F0206E"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFB50D"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #51AD38"></span><span style="margin-left: 10px; font-size: 14px; font-weight: 800; color: #101828">{{{dashboard.04_uptrix_it_dashboard}}}</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">{{{dashboard.05_sample_data}}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; padding: 0 2px">
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.06_total_it_assets}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.07_486}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.08_complete_inventory_visibility}}}</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.09_assigned_assets}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.10_412}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.11_devices_currently_allocated}}}</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.12_unassigned_assets}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.13_74}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.14_available_company_resources}}}</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.15_open_it_tickets}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.16_23}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.17_pending_support_requests}}}</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20M12 6v6l4 2"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.18_average_resolution_time}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.19_6_4_hrs}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.20_it_team_efficiency}}}</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #FFE6EF; color: #A3124A; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">{{{dashboard.21_pending_asset_returns}}}</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{dashboard.22_9}}}</span>
+<span class="s" style="font-size: 12px">{{{dashboard.23_assets_awaiting_collection}}}</span>
+</div>
+
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; padding: 10px 2px 2px">
+<div class="soft" style="flex: 1 1 380px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 800; color: #101828">{{{dashboard.24_ticket_priority_breakdown}}}</span><span class="s" style="font-size: 12px">{{{dashboard.25_23_open_tickets}}}</span></span>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">{{{dashboard.26_critical}}}</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 22%; background: #A3124A"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">{{{dashboard.27_2}}}</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">{{{dashboard.28_high}}}</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 67%; background: #F0206E"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">{{{dashboard.29_6}}}</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">{{{dashboard.30_medium}}}</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 100%; background: #FF9609"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">{{{dashboard.31_9}}}</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">{{{dashboard.32_low}}}</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 67%; background: #51AD38"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">{{{dashboard.33_6}}}</span>
+</div>
+
+</div>
+<div class="soft" style="flex: 1 1 380px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 800; color: #101828">{{{dashboard.34_asset_allocation_by_department}}}</span><span class="s" style="font-size: 12px">{{{dashboard.35_412_assigned_assets}}}</span></span>
+<div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap">
+<svg aria-hidden="true" width="120" height="120" viewBox="0 0 100 100" style="flex: none"><g transform="rotate(-90 50 50)" fill="none" stroke-width="15"><circle cx="50" cy="50" r="36" stroke="#0058B0" stroke-dasharray="79.2 226.2"></circle><circle cx="50" cy="50" r="36" stroke="#3F289D" stroke-dasharray="49.8 226.2" stroke-dashoffset="-79.2"></circle><circle cx="50" cy="50" r="36" stroke="#51AD38" stroke-dasharray="40.7 226.2" stroke-dashoffset="-129"></circle><circle cx="50" cy="50" r="36" stroke="#FF9609" stroke-dasharray="31.7 226.2" stroke-dashoffset="-169.7"></circle><circle cx="50" cy="50" r="36" stroke="#C6D0E1" stroke-dasharray="24.8 226.2" stroke-dashoffset="-201.4"></circle></g><text x="50" y="47" text-anchor="middle" font-family="Outfit, sans-serif" font-size="10" fill="#667085">{{{dashboard.36_assigned}}}</text><text x="50" y="61" text-anchor="middle" font-family="Outfit, sans-serif" font-size="15" font-weight="600" fill="#101828">{{{dashboard.37_412}}}</text></svg>
+<span style="flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 8px">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0058B0"></span>{{{dashboard.38_engineering}}}<span style="margin-left: auto; font-weight: 800; color: #101828">{{{dashboard.39_144}}}</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #3F289D"></span>{{{dashboard.40_sales}}}<span style="margin-left: auto; font-weight: 800; color: #101828">{{{dashboard.41_91}}}</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #51AD38"></span>{{{dashboard.42_operations}}}<span style="margin-left: auto; font-weight: 800; color: #101828">{{{dashboard.43_74}}}</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FF9609"></span>{{{dashboard.44_finance_hr}}}<span style="margin-left: auto; font-weight: 800; color: #101828">{{{dashboard.45_58}}}</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #C6D0E1"></span>{{{dashboard.46_other}}}<span style="margin-left: auto; font-weight: 800; color: #101828">{{{dashboard.47_45}}}</span></span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 800px; margin: 0 auto 44px"><span class="kicker">{{{capabilities.01_core_capabilities}}}</span><h2 class="t2">{{{capabilities.02_everything_your_it_team_needs_to}}} <span class="grad">{{{capabilities.03_stay_in_control}}}</span></h2><p class="p">{{{capabilities.04_from_managing_company_devices_to_resolvi}}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 16px">
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #E3EFFC; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{capabilities.05_it_helpdesk}}}</span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">{{{capabilities.06_sample}}}</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.07_it_1043_laptop_not_charging}}}</span><span class="s" style="font-size: 11px">{{{capabilities.08_anil_r_hardware}}}</span></span><span class="tag" style="background: #FFE6EF; color: #A3124A; font-size: 11px">{{{capabilities.09_high}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.10_it_1041_vpn_access}}}</span><span class="s" style="font-size: 11px">{{{capabilities.11_manoj_p_access}}}</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">{{{capabilities.12_medium}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.13_it_1039_printer_offline}}}</span><span class="s" style="font-size: 11px">{{{capabilities.14_sneha_k_hardware}}}</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">{{{capabilities.15_resolved}}}</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #0058B0">{{{capabilities.16_01}}}</span>
+<h3 class="t3" style="font-size: 26px">{{{capabilities.17_it_ticket_management}}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">{{{capabilities.18_resolve_employee_it_requests_without_the}}}</p>
+<p class="s" style="font-size: 15px">{{{capabilities.19_employees_can_raise_it_requests_report}}}</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.20_ticket_creation_and_categorisation}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.21_priority_and_sla_tracking}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.22_technician_assignment}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.23_ticket_status_and_resolution_tracking}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.24_employee_communication_and_updates}}}</li>
+</ul>
+<a href="#tickets" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">{{{capabilities.25_see_the_ticket_workflow}}}</a>
+</div>
+</article>
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #EFEAFF; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{capabilities.26_asset_inventory}}}</span><span class="tag" style="background: #EFEAFF; color: #3F289D; font-size: 11px">{{{capabilities.27_sample}}}</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.28_dell_latitude_5440}}}</span><span class="s" style="font-size: 11px">{{{capabilities.29_anil_rao_engineering}}}</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">{{{capabilities.30_in_use}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.31_macbook_air_13}}}</span><span class="s" style="font-size: 11px">{{{capabilities.32_in_stock_store_room}}}</span></span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">{{{capabilities.33_available}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.34_hp_laserjet_pro}}}</span><span class="s" style="font-size: 11px">{{{capabilities.35_floor_2_shared}}}</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">{{{capabilities.36_maintenance}}}</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #3F289D">{{{capabilities.37_02}}}</span>
+<h3 class="t3" style="font-size: 26px">{{{capabilities.38_it_asset_management}}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">{{{capabilities.39_know_where_every_company_asset_is}}}</p>
+<p class="s" style="font-size: 15px">{{{capabilities.40_maintain_complete_visibility_into_compan}}}</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.41_centralised_asset_inventory}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.42_employee_wise_asset_allocation}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.43_asset_assignment_and_return_tracking}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.44_device_history_and_maintenance}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.45_asset_availability_and_status}}}</li>
+</ul>
+<a href="#assets" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">{{{capabilities.46_see_asset_management}}}</a>
+</div>
+</article>
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #E6F4E0; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{capabilities.47_joiners_leavers}}}</span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">{{{capabilities.48_sample}}}</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.49_riya_sharma_joins_mon}}}</span><span class="s" style="font-size: 11px">{{{capabilities.50_laptop_monitor_accounts}}}</span></span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">{{{capabilities.51_3_of_5}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.52_kiran_das_joins_wed}}}</span><span class="s" style="font-size: 11px">{{{capabilities.53_laptop_phone}}}</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">{{{capabilities.54_not_started}}}</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">{{{capabilities.55_manoj_patil_leaves_fri}}}</span><span class="s" style="font-size: 11px">{{{capabilities.56_laptop_id_card_to_return}}}</span></span><span class="tag" style="background: #FFE6EF; color: #A3124A; font-size: 11px">{{{capabilities.57_clearance}}}</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #2E6B1E">{{{capabilities.58_03}}}</span>
+<h3 class="t3" style="font-size: 26px">{{{capabilities.59_it_onboarding_offboarding}}}</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">{{{capabilities.60_every_employee_transition_every_it_task}}}</p>
+<p class="s" style="font-size: 15px">{{{capabilities.61_ensure_employees_receive_the_right_equip}}}</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.62_new_employee_it_setup}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.63_device_and_equipment_allocation}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.64_software_and_account_access}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.65_it_onboarding_checklists}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.66_asset_recovery_and_access_revocation}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{capabilities.67_offboarding_clearance_tracking}}}</li>
+</ul>
+<a href="#transitions" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">{{{capabilities.68_see_onboarding_offboarding}}}</a>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- TICKET WORKFLOW -->
+<section id="tickets" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px; max-width: 600px"><span class="kicker">{{{ticket_workflow.01_it_ticket_management}}}</span><h2 class="t2">{{{ticket_workflow.02_from_it_issue_to_resolution_without}}}</h2><p class="p">{{{ticket_workflow.03_employees_can_raise_technical_issues_in}}}</p></div>
+</div>
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<ol role="tablist" aria-label="{{ticket_workflow.07_ticket_workflow_steps}}" style="flex: 1 1 380px; min-width: 0; margin: 0; padding: 12px; list-style: none; display: flex; flex-direction: column; gap: 8px">
+{{#each tickets}}<li style="display: flex"><button type="button" role="tab" class="tstep" aria-selected="false" data-tab-group="tickets" data-tab-index="{{$i}}"><span class="tnum">0{{$index}}</span><span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 17px; font-weight: 800; color: #101828">{{t}}</span><span class="s" style="font-size: 14px">{{d}}</span></span></button></li>{{/each}}
+</ol>
+<div aria-live="polite" style="flex: 1 1 420px; min-width: 0; border-radius: 20px; background: #E3EFFC; padding: 28px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+{{#each tickets}}<div data-panel-group="tickets" data-panel-index="{{$i}}" style="display: flex; flex-direction: column; gap: 16px">
+<div class="soft" style="overflow: hidden; box-shadow: 0 24px 48px -28px rgba(16,24,40,.35)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #EEF2F7; background: #F8FAFC"><span style="display: flex; align-items: center; gap: 10px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #0058B0; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="font-size: 15px; font-weight: 800; color: #101828">{{{ticket_workflow.04_example_ticket}}}</span></span><span class="tag" style="background: {{tbg}}; color: {{tfg}}">{{status}}</span></div>
+<div style="padding: 4px 18px 10px">{{#each fields}}<div class="row" style="padding: 11px 0"><span style="flex: 1; font-size: 14px; color: #667085">{{l}}</span><span style="font-size: 14px; font-weight: 800; color: #101828; text-align: right">{{v}}</span></div>{{/each}}</div>
+</div>
+<div style="border-radius: 16px; background: #FFFFFF; padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start"><span style="width: 32px; height: 32px; flex: none; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20M12 6v6l4 2"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{who}}</span><span class="s" style="font-size: 14px; color: #344054">{{note}}</span></span></div>
+</div>{{/each}}
+<span style="display: flex; gap: 8px"><button type="button" class="b b2" style="min-height: 44px" data-step="tickets" data-dir="-1">{{{ticket_workflow.05_back}}}</button><button type="button" class="b b1" style="min-height: 44px" data-step="tickets" data-dir="1">{{{ticket_workflow.06_next_step}}}</button></span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ASSETS -->
+<section id="assets" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px; margin-bottom: 36px"><span class="kicker">{{{assets.01_it_asset_management}}}</span><h2 class="t2">{{{assets.02_every_asset_every_assignment_every_retur}}} <span class="grad">{{{assets.03_tracked}}}</span></h2><p class="p">{{{assets.04_stop_managing_company_devices_through_sp}}}</p></div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 340px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; align-content: start">
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">{{{assets.05_centralised_inventory}}}</span>
+<span class="s" style="font-size: 14px">{{{assets.06_maintain_a_complete_register_of_company}}}</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">{{{assets.07_employee_allocation}}}</span>
+<span class="s" style="font-size: 14px">{{{assets.08_know_which_employee_is_assigned_each}}}</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12zM12 7a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">{{{assets.09_asset_tracking}}}</span>
+<span class="s" style="font-size: 14px">{{{assets.10_monitor_asset_status_ownership_and_movem}}}</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">{{{assets.11_returns_recovery}}}</span>
+<span class="s" style="font-size: 14px">{{{assets.12_track_asset_returns_during_transfers_and}}}</span>
+</div>
+
+</div>
+<div class="panel" style="flex: 1.4 1 520px; min-width: 0; padding: 0; overflow: hidden; box-shadow: 0 0 0 1px #E4E9F2, 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 22px; border-bottom: 1px solid #EEF2F7">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; color: #101828">{{{assets.13_asset_register}}}</span><span class="s" style="font-size: 12px">{{{assets.14_every_device_who_has_it_and}}}</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">{{{assets.15_sample_data}}}</span>
+</div>
+<div style="overflow-x: auto">
+<div role="table" aria-label="{{assets.52_asset_register_sample_data}}" style="min-width: 600px; font-size: 13px">
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; padding: 12px 22px; background: #F8FAFC; font-size: 12px; font-weight: 800; color: #667085"><span role="columnheader">{{{assets.16_asset}}}</span><span role="columnheader">{{{assets.17_tag}}}</span><span role="columnheader">{{{assets.18_assigned_to}}}</span><span role="columnheader">{{{assets.19_department}}}</span><span role="columnheader">{{{assets.20_status}}}</span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.21_dell_latitude_5440}}}</span></span><span role="cell" style="color: #475467">{{{assets.22_lap_1001}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.23_anil_rao}}}</span><span role="cell" style="color: #475467">{{{assets.24_engineering}}}</span><span role="cell"><span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{assets.25_in_use}}}</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.26_macbook_air_13}}}</span></span><span role="cell" style="color: #475467">{{{assets.27_lap_1027}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.28_riya_sharma}}}</span><span role="cell" style="color: #475467">{{{assets.29_engineering}}}</span><span role="cell"><span class="tag" style="background: #EFEAFF; color: #3F289D">{{{assets.30_assigned}}}</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.31_lg_27_monitor}}}</span></span><span role="cell" style="color: #475467">{{{assets.32_mon_2044}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.33_sneha_kulkarni}}}</span><span role="cell" style="color: #475467">{{{assets.34_sales}}}</span><span role="cell"><span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{assets.35_in_use}}}</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h10v20H7zM11 18h2"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.36_iphone_13}}}</span></span><span role="cell" style="color: #475467">{{{assets.37_phn_3012}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.38_text}}}</span><span role="cell" style="color: #475467">{{{assets.39_store_room}}}</span><span role="cell"><span class="tag" style="background: #E3EFFC; color: #0058B0">{{{assets.40_available}}}</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.41_hp_laserjet_pro}}}</span></span><span role="cell" style="color: #475467">{{{assets.42_prn_4003}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.43_shared_floor_2}}}</span><span role="cell" style="color: #475467">{{{assets.44_operations}}}</span><span role="cell"><span class="tag" style="background: #FFF1DC; color: #8A4600">{{{assets.45_maintenance}}}</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">{{{assets.46_thinkpad_e14}}}</span></span><span role="cell" style="color: #475467">{{{assets.47_lap_0988}}}</span><span role="cell" style="font-weight: 600; color: #101828">{{{assets.48_manoj_patil}}}</span><span role="cell" style="color: #475467">{{{assets.49_operations}}}</span><span role="cell"><span class="tag" style="background: #FFE6EF; color: #A3124A">{{{assets.50_return_due}}}</span></span></div>
+
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #0058B0; padding: 28px 36px"><p style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 24px; line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF">{{{assets.51_from_inventory_records_to_employee_alloc}}}</p></div>
+</div>
+</section>
+
+<!-- TRANSITIONS -->
+<section id="transitions" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 820px; margin: 0 auto 40px"><span class="kicker">{{{transitions.01_it_onboarding_offboarding}}}</span><h2 class="t2">{{{transitions.02_the_right_access_when_they_join}}} <span class="grad">{{{transitions.03_complete_control_when_they_leave}}}</span></h2><p class="p">{{{transitions.04_employee_transitions_involve_more_than_h}}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 16px">
+
+<article class="panel" style="overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="height: 260px; background: #E6F4E0; padding: 26px; box-sizing: border-box; display: flex; align-items: center; justify-content: center">
+<div class="soft" style="width: 100%; max-width: 400px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{transitions.05_new_joiner_it_setup}}}</span><span class="s" style="font-size: 12px">{{{transitions.06_riya_sharma_joins_monday_from_hr}}}</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{transitions.07_3_of_5}}}</span></span>
+<span style="height: 8px; border-radius: 4px; background: #F3F6FB"><span style="display: block; width: 60%; height: 8px; border-radius: 4px; background: #51AD38"></span></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #101828"><span style="color: #2E6B1E; display: flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{transitions.08_laptop_prepared_dell_latitude_5440}}}</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #101828"><span style="color: #2E6B1E; display: flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{transitions.09_monitor_and_id_card_allocated}}}</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #667085"><span style="width: 15px; height: 15px; border-radius: 50%; box-shadow: inset 0 0 0 2px #C6D0E1"></span>{{{transitions.10_email_and_software_access}}}</span>
+</div>
+</div>
+<div style="padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span class="tag" style="align-self: flex-start; background: #E6F4E0; color: #2E6B1E">{{{transitions.11_when_they_join}}}</span>
+<h3 class="t3" style="font-size: 28px">{{{transitions.12_employee_onboarding}}}</h3>
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #101828">{{{transitions.13_get_employees_ready_to_work_from}}}</p>
+<ol style="margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.14_1}}}</span>{{{transitions.15_receive_new_joiner_details_from_hr}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.16_2}}}</span>{{{transitions.17_prepare_laptops_and_equipment}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.18_3}}}</span>{{{transitions.19_allocate_company_assets}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.20_4}}}</span>{{{transitions.21_coordinate_software_and_account_access}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.22_5}}}</span>{{{transitions.23_complete_it_onboarding_checklist}}}</li>
+</ol>
+</div>
+</article>
+
+<article class="panel" style="overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 260px; position: relative; background: #FFF1DC"><img src="images/returning-equipment.jpg" alt="{{transitions.39_an_employee_carrying_a_box_of}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block"></div>
+<div style="padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span class="tag" style="align-self: flex-start; background: #FFF1DC; color: #8A4600">{{{transitions.24_when_they_leave}}}</span>
+<h3 class="t3" style="font-size: 28px">{{{transitions.25_employee_offboarding}}}</h3>
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #101828">{{{transitions.26_protect_company_resources_and_ensure_not}}}</p>
+<ol style="margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.27_1}}}</span>{{{transitions.28_receive_employee_exit_notification}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.29_2}}}</span>{{{transitions.30_track_assigned_company_assets}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.31_3}}}</span>{{{transitions.32_recover_devices_and_equipment}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.33_4}}}</span>{{{transitions.34_revoke_system_and_application_access}}}</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{{transitions.35_5}}}</span>{{{transitions.36_complete_it_clearance_checklist}}}</li>
+</ol>
+</div>
+</article>
+
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; padding: 26px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 28px; text-align: center">
+<span style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 600; color: #101828">{{{transitions.37_every_joiner_gets_what_they_need}}}</span><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #F0206E"></span><span style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 600; color: #101828">{{{transitions.38_every_leaver_completes_the_it_clearance}}}</span>
+</div>
+</div>
+</section>
+
+<!-- CONNECTED -->
+<section id="connected" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin-bottom: 36px"><span class="kicker">{{{connected.01_connected}}}</span><h2 class="t2">{{{connected.02_it_operations_don_t_stop_at}}}</h2><p class="p">{{{connected.03_connect_it_with_hr_and_finance}}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px">
+
+<a href="/hr-suite" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">{{{connected.04_hr_to_it}}}</span><span class="s" style="font-size: 15px">{{{connected.05_new_joiners_and_leavers_automatically_tr}}}</span></span>
+</a>
+
+<a href="/finance-suite" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">{{{connected.06_it_to_finance}}}</span><span class="s" style="font-size: 15px">{{{connected.07_unreturned_company_assets_can_be_flagged}}}</span></span>
+</a>
+
+<a href="#tickets" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">{{{connected.08_it_to_employees}}}</span><span class="s" style="font-size: 15px">{{{connected.09_employees_can_raise_and_track_support}}}</span></span>
+</a>
+
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #3F289D; padding: 30px 36px"><p style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF">{{{connected.10_one_employee_record_connected_department}}}</p></div>
+</div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 780px; margin: 0 auto 40px"><span class="kicker">{{{benefits.01_business_benefits}}}</span><h2 class="t2">{{{benefits.02_more_control_for_it}}} <span class="grad">{{{benefits.03_less_operational_overhead_for_business}}}</span></h2><p class="p">{{{benefits.04_give_your_it_team_the_visibility}}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px">
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">{{{benefits.05_01}}}</span></span>
+<h3 class="t3">{{{benefits.06_complete_asset_visibility}}}</h3>
+<p class="s" style="font-size: 15px">{{{benefits.07_know_what_the_company_owns_where}}}</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">{{{benefits.08_02}}}</span></span>
+<h3 class="t3">{{{benefits.09_faster_it_support}}}</h3>
+<p class="s" style="font-size: 15px">{{{benefits.10_organise_requests_assignments_and_resolu}}}</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">{{{benefits.11_03}}}</span></span>
+<h3 class="t3">{{{benefits.12_controlled_employee_transitions}}}</h3>
+<p class="s" style="font-size: 15px">{{{benefits.13_make_it_onboarding_and_offboarding_more}}}</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">{{{benefits.14_04}}}</span></span>
+<h3 class="t3">{{{benefits.15_better_accountability}}}</h3>
+<p class="s" style="font-size: 15px">{{{benefits.16_maintain_visibility_into_asset_assignmen}}}</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="sec" style="padding-top: 24px">
+<div class="wrap">
+<div class="panel" style="padding: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px"><span class="kicker">{{{estimator.01_time_back}}}</span><h2 class="t2" style="font-size: 40px">{{{estimator.02_how_much_time_could_your_it}}}</h2>
+<p class="p" style="font-size: 16px">{{{estimator.03_reduce_manual_ticket_handling_asset_trac}}}</p>
+<span style="font-size: 14px; font-weight: 800; color: #101828">{{{estimator.04_your_company_size}}}</span>
+<div class="seg" role="tablist" aria-label="{{estimator.18_company_size}}">{{#each sizes}}<button type="button" role="tab" aria-selected="false" data-tab-group="sizes" data-tab-index="{{$i}}">{{label}}</button>{{/each}}</div>
+<p class="s" style="font-size: 12px">{{{estimator.05_illustrative_estimates_not_guaranteed_sa}}}</p></div>
+<div aria-live="polite" style="flex: 1 1 340px; min-width: 0; border-radius: 24px; background: #E3EFFC; padding: 32px 36px; display: flex; flex-direction: column">
+<span class="s" style="font-size: 14px; font-weight: 700; color: #344054; padding-bottom: 8px">{{{estimator.06_estimated_it_time_saved_each_month}}}</span>
+{{#each sizes}}<div data-panel-group="sizes" data-panel-index="{{$i}}" style="display: flex; flex-direction: column">
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">{{{estimator.07_ticket_management}}}</span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.08_logging_assigning_and_following_up_on}}}</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{ticketHrs}}<span style="font-size: 16px; color: #475467"> {{{estimator.09_hrs}}}</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">{{{estimator.10_asset_allocation_tracking}}}</span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.11_keeping_the_register_and_assignments_up}}}</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{assetHrs}}<span style="font-size: 16px; color: #475467"> {{{estimator.12_hrs}}}</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">{{{estimator.13_it_onboarding_offboarding}}}</span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.14_setup_and_clearance_checklists_for_joine}}}</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{onboardHrs}}<span style="font-size: 16px; color: #475467"> {{{estimator.15_hrs}}}</span></span></div>
+<div style="padding-top: 16px; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 15px; font-weight: 800; color: #101828">{{{estimator.16_total_estimate}}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{totalHrs}}<span style="font-size: 18px; color: #475467"> {{{estimator.17_hrs_month}}}</span></span></div>
+</div>{{/each}}
+</div>
+</div>
+</div>
+</section>
+
+<section id="demo" class="sec" style="padding-top: 40px">
+<div class="wrap">
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; overflow: hidden">
+<div class="dots" style="flex: 1 1 420px; min-width: 0; border-radius: 20px; background-color: #F6F3FF; padding: 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+<span class="kicker">{{{demo.01_book_a_demo}}}</span>
+<h2 class="t2">{{{demo.02_see_the_hr_suite_with}}} <span class="grad">{{{demo.03_your_own_team}}}</span></h2>
+<p class="p">{{{demo.04_tell_us_a_little_about_your}}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px"><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.05_30_minute_walkthrough}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.06_setup_help_included}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.07_1_click_live_demo_no_sign}}}</li></ul>
+<a href="https://hrms.tarunkyadari.in/login" style="margin-top: auto; font-weight: 700">{{{demo.08_or_open_the_live_demo}}}</a>
+</div>
+<div style="flex: 1 1 400px; min-width: 0; padding: 40px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+<div data-form-open>
+<form style="display: flex; flex-direction: column; gap: 16px; margin: 0" data-demo-form>
+<div class="field"><label for="dn">{{{demo.09_your_name}}}</label><input id="dn" class="in" type="text" placeholder="{{demo.26_priya_raman}}" autocomplete="name"></div>
+<div class="field"><label for="de">{{{demo.10_work_email}}}</label><input id="de" class="in" type="email" placeholder="{{demo.27_priya_company_com}}" autocomplete="email"></div>
+<div class="field"><label for="ds">{{{demo.11_company_size}}}</label><select id="ds" class="in"><option>{{{demo.12_1_50_employees}}}</option><option>{{{demo.13_51_200_employees}}}</option><option>{{{demo.14_201_1_000_employees}}}</option><option>{{{demo.15_1_000_employees}}}</option></select></div>
+<div class="field"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{demo.16_interested_in}}}</span><div class="seg" role="group" aria-label="{{demo.28_suites_of_interest}}"><button type="button" aria-pressed="true" data-toggle="1">{{{demo.17_hr}}}</button><button type="button" aria-pressed="false" data-toggle="1">{{{demo.18_it}}}</button><button type="button" aria-pressed="false" data-toggle="1">{{{demo.19_finance}}}</button></div></div>
+<button type="button" class="b b1" style="margin-top: 6px" data-send>{{{demo.20_request_my_demo}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+<p class="s" style="font-size: 12px">{{{demo.21_this_form_is_a_design_preview}}}</p>
+</form>
+</div>
+<div data-form-sent hidden style="margin: auto 0; display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
+<span style="width: 56px; height: 56px; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<h3 class="t3" style="font-size: 28px">{{{demo.22_thanks_we_ll_be_in_touch}}}</h3>
+<p class="p">{{{demo.23_in_the_meantime_explore_everything_in}}}</p>
+<span style="display: flex; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">{{{demo.24_open_the_live_demo}}}</a><button type="button" class="b b2" data-reset>{{{demo.25_back_to_form}}}</button></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer style="padding: 24px 16px 32px">
+<div class="panel" style="max-width: 1180px; margin: 0 auto; padding: 0; overflow: hidden">
+<div aria-hidden="true" style="height: 4px; background: linear-gradient(90deg, #F0206E, #FF9609, #FFB50D, #51AD38, #0C898D, #0067CC)"></div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 36px 40px; border-bottom: 1px solid #EEF2F7; background: #F8F6FF">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 560px">
+<span style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{footer.01_bring_hr_it_and_finance_onto}}}</span>
+<span class="s" style="font-size: 15px">{{{footer.02_explore_every_screen_in_the_live}}}</span>
+</div>
+<span style="display: flex; flex-wrap: wrap; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">{{{footer.03_open_the_live_demo}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="/#demo" class="b b2">{{{footer.04_book_a_demo}}}</a></span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 48px; padding: 48px 40px">
+<div style="flex: 1.4 1 280px; min-width: 0; max-width: 340px; display: flex; flex-direction: column; gap: 18px">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="{{footer.48_uptrix}}" style="height: 32px; width: auto; display: block"></a>
+<p class="s" style="font-size: 15px; line-height: 1.6">{{{footer.05_hr_it_and_finance_suites_on}}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: #344054">
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 6l8 7 8-7"></path></svg></span><a href="mailto:[YOUR EMAIL]" style="color: #344054; text-decoration: none">{{{footer.06_your_email}}}</a></li>
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span><a href="tel:[YOUR PHONE]" style="color: #344054; text-decoration: none">{{{footer.07_your_phone}}}</a></li>
+<li style="display: flex; align-items: flex-start; gap: 10px"><span style="color: #3F289D; display: flex; margin-top: 2px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12zM12 7a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span><span>{{{footer.08_your_office_address}}}</span></li>
+</ul>
+<span style="display: flex; flex-wrap: wrap; gap: 8px"><a href="#" aria-label="{{footer.49_uptrix_on_linkedin_add_link}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">{{{footer.09_linkedin}}}</a><a href="#" aria-label="{{footer.50_uptrix_on_x_add_link}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">{{{footer.10_x}}}</a><a href="#" aria-label="{{footer.51_uptrix_on_youtube_add_link}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">{{{footer.11_youtube}}}</a><a href="#" aria-label="{{footer.52_uptrix_on_instagram_add_link}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">{{{footer.12_instagram}}}</a></span>
+</div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.13_suites}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.14_hr_suite}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.15_it_suite}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.16_finance_suite}}}</a></li><li><a href="/services" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.17_services}}}</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.18_hr_modules}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.19_employee_records_hris}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.20_attendance}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.21_leave_management}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.22_shifts_rosters}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.23_performance_tracking}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.24_hr_policies}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.25_referral_bonus}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.26_ai_assistant}}}</a> <span style="margin-left: 6px; padding: 2px 7px; border-radius: 6px; background: #EFEAFF; color: #3F289D; font-size: 11px; font-weight: 800">{{{footer.27_new}}}</span></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.28_it_finance}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.29_it_hr_tickets}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.30_asset_management}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.31_onboarding_offboarding}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.32_payslip_generator}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.33_loans_advances}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.34_exit_f_f}}}</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.35_company}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.36_about_uptrix}}}</a></li><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.37_careers}}}</a></li><li><a href="/#features" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.38_features}}}</a></li><li><a href="/#benefits" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.39_benefits}}}</a></li><li><a href="mailto:[YOUR EMAIL]" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.40_contact_us}}}</a></li><li><a href="https://hrms.tarunkyadari.in/login" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.41_log_in}}}</a></li></ul></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 40px; border-top: 1px solid #EEF2F7; background: #FBFCFE">
+<span class="s" style="font-size: 13px">{{{footer.42_2026_uptrix_all_rights_reserved}}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px"><a href="#" style="color: #667085; text-decoration: none">{{{footer.43_privacy_policy}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.44_terms_of_service}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.45_security}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.46_cookie_settings}}}</a></span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #344054"><span aria-hidden="true" style="width: 28px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #F0206E, #FF9609, #0067CC)"></span>{{{footer.47_made_for_hr_it_and_finance}}}</span>
+</div>
+</div>
+</footer>
+</div></div>
+<script>
+(function () {
+  // Tabs and panels: the group's first panel (or data-default) is shown; the rest are hidden.
+  function showPanel(group, index) {
+    document.querySelectorAll('[data-panel-group="' + group + '"]').forEach(function (p) {
+      p.hidden = Number(p.getAttribute('data-panel-index')) !== index;
+    });
+    document.querySelectorAll('[data-tab-group="' + group + '"]').forEach(function (t) {
+      var on = Number(t.getAttribute('data-tab-index')) === index;
+      t.setAttribute('aria-selected', String(on));
+      if (t.hasAttribute('data-tab-button')) t.setAttribute('aria-pressed', String(on));
+    });
+    current[group] = index;
+  }
+  function count(group) {
+    return document.querySelectorAll('[data-panel-group="' + group + '"]').length;
+  }
+  var current = {};
+  var groups = {};
+  document.querySelectorAll('[data-tab-group]').forEach(function (t) { groups[t.getAttribute('data-tab-group')] = true; });
+  Object.keys(groups).forEach(function (g) { showPanel(g, 0); });
+  // Estimator sizes start on the middle option.
+  if (groups.sizes) showPanel('sizes', 1);
+
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-tab-group]');
+    if (tab) { showPanel(tab.getAttribute('data-tab-group'), Number(tab.getAttribute('data-tab-index'))); return; }
+    var toggle = e.target.closest('[data-toggle]');
+    if (toggle) {
+      var on = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', String(!on));
+      return;
+    }
+    var step = e.target.closest('[data-step]');
+    if (step) {
+      var g = step.getAttribute('data-step'), total = count(g);
+      showPanel(g, (current[g] + Number(step.getAttribute('data-dir')) + total) % total);
+      return;
+    }
+    if (e.target.closest('[data-send]')) {
+      document.querySelector('[data-form-open]').hidden = true;
+      document.querySelector('[data-form-sent]').hidden = false;
+      return;
+    }
+    if (e.target.closest('[data-reset]')) {
+      document.querySelector('[data-form-open]').hidden = false;
+      document.querySelector('[data-form-sent]').hidden = true;
+    }
+  });
+})();
+</script>
+</body>
+</html>

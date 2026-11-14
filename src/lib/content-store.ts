@@ -123,7 +123,9 @@ function ensureHeaderDefaults(saved: any, def: typeof defaultContent.header): ty
         mergedSubLinks.push(defSub);
       }
     });
-    return { ...defP, ...foundP, subLinks: mergedSubLinks.filter((s: any) => s && s.link !== "/college-2" && s.link !== "/college2") };
+    // The HRMS product lives on its own subdomain; the old in-page "/#hrms" link must not override it.
+    const link = foundP.link === "/#hrms" ? defP.link : foundP.link;
+    return { ...defP, ...foundP, link, subLinks: mergedSubLinks.filter((s: any) => s && s.link !== "/college-2" && s.link !== "/college2") };
   }).filter((p: any) => p && p.label !== "Custom Tools" && p.link !== "/#custom-tools");
 
   const isBannedMenuLink = (link: string) => ["/home-2", "/home2", "/college-2", "/college2"].includes(link);

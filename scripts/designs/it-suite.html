@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uptrix IT Suite — Devices, IT requests and employee transitions</title>
+<meta name="description" content="Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding — all from one centralised platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#F3F6FB;font-family:'Manrope',system-ui,sans-serif;color:#475467;-webkit-font-smoothing:antialiased}
+::selection{background:#E3DCFF}
+a{color:#3F289D}a:hover{color:#2A1A70}
+button,input,select{font-family:inherit}
+summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+:focus-visible{outline:2px solid #3F289D;outline-offset:3px;border-radius:10px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.sec{padding:112px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3F289D}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:#F0206E}
+.t1{margin:0;font-family:'Outfit',sans-serif;font-size:74px;line-height:1;font-weight:600;letter-spacing:-.035em;color:#101828;text-wrap:balance}
+.t2{margin:0;font-family:'Outfit',sans-serif;font-size:46px;line-height:1.06;font-weight:600;letter-spacing:-.03em;color:#101828;text-wrap:balance}
+.t3{margin:0;font-family:'Outfit',sans-serif;font-size:22px;line-height:1.2;font-weight:600;letter-spacing:-.015em;color:#101828}
+.grad{background:linear-gradient(90deg,#F0206E 0%,#FF9609 40%,#0067CC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p{margin:0;font-size:17px;line-height:1.65;color:#475467;text-wrap:pretty}
+.s{margin:0;font-size:14px;line-height:1.6;color:#667085}
+.panel{background:#FFFFFF;border-radius:28px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 24px 48px -24px rgba(16,24,40,.18)}
+.soft{background:#FFFFFF;border:1px solid #E4E9F2;border-radius:20px}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;box-sizing:border-box}
+.b1{background:#3F289D;color:#FFFFFF}.b1:hover{background:#2F1E7A;color:#FFFFFF}
+.b2{background:#FFFFFF;color:#101828;box-shadow:inset 0 0 0 1px #D5DCE8}.b2:hover{box-shadow:inset 0 0 0 1px #101828;color:#101828}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;white-space:nowrap}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;background:#E7ECF4;border-radius:16px}
+.seg button{min-height:42px;padding:0 18px;border:0;border-radius:12px;background:transparent;font-size:14px;font-weight:700;color:#475467;cursor:pointer}
+.seg button:hover{color:#101828}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:#FFFFFF;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.08),0 6px 16px -6px rgba(16,24,40,.2)}
+.ring{position:absolute;border-radius:50%;border:1px dashed #C6D0E1}
+.dots{background-image:radial-gradient(#D3DBE8 1px,transparent 1px);background-size:22px 22px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #EEF2F7}
+.acc{width:100%;display:flex;align-items:center;gap:20px;padding:26px 4px;border:0;background:transparent;cursor:pointer;text-align:left;border-top:1px solid #DDE4EF}
+.acc:hover .t3{color:#3F289D}
+.acc .chev{margin-left:auto;width:40px;height:40px;flex:none;border-radius:50%;background:#FFFFFF;box-shadow:inset 0 0 0 1px #D5DCE8;display:flex;align-items:center;justify-content:center;color:#101828;transition:transform .2s}
+.acc[aria-expanded="true"] .chev{transform:rotate(180deg);background:#3F289D;color:#FFFFFF;box-shadow:none}
+.mtile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.mtile:hover{transform:translateY(-2px);border-color:#C6D0E1}
+.mtile[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px #3F289D,0 18px 36px -22px rgba(63,40,157,.55)}
+.mtile[aria-selected="true"] .mi{background:#3F289D !important;color:#FFFFFF !important}
+.tick{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;font-size:15px;font-weight:600;color:#101828}
+.tick .box{width:24px;height:24px;flex:none;border-radius:8px;box-shadow:inset 0 0 0 2px #C6D0E1;display:flex;align-items:center;justify-content:center;color:transparent}
+.tick[aria-pressed="true"]{background:#F6F3FF;border-color:#D9CFFF}
+.tick[aria-pressed="true"] .box{background:#3F289D;box-shadow:none;color:#FFFFFF}
+.tick[aria-pressed="true"] .lbl{text-decoration:line-through;color:#667085}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:800;color:#101828}
+.in{min-height:48px;padding:0 14px;border-radius:12px;border:1px solid #D5DCE8;background:#FFFFFF;font-size:15px;color:#101828;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #3F289D;outline-offset:1px}
+.scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 24px}
+.scroll>*{scroll-snap-align:start}
+@media (max-width:900px){.hide-sm{display:none !important}}
+@media (max-width:760px){.t1{font-size:46px !important}.t2{font-size:32px !important}.sec{padding:80px 0}}
+.tstep{width:100%;display:flex;align-items:flex-start;gap:16px;padding:18px 20px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;transition:border-color .2s,box-shadow .2s}
+.tstep:hover{border-color:#C6D0E1}
+.tstep .tnum{width:40px;height:40px;flex:none;border-radius:12px;background:#F3F6FB;color:#475467;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.tstep[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px #0058B0,0 18px 36px -22px rgba(0,88,176,.55)}
+.tstep[aria-selected="true"] .tnum{background:#0058B0;color:#FFFFFF}
+</style>
+<style>[hidden]{display:none !important}html{scroll-behavior:smooth;scroll-padding-top:100px}img{max-width:100%}</style>
+</head>
+<body>
+<div id="app"><div style="background: #F3F6FB; color: #475467">
+<div style="position: sticky; top: 14px; z-index: 10; padding: 14px 16px 0">
+<header class="panel" style="max-width: 1132px; margin: 0 auto; border-radius: 20px; padding: 8px 8px 8px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="Uptrix" style="height: 32px; width: auto; display: block"></a>
+<nav aria-label="Primary" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px">
+<details style="position: relative"><summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #101828">Suites<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="panel" style="position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); width: 320px; max-width: 90vw; padding: 8px; display: flex; flex-direction: column; gap: 2px; z-index: 30"><a href="/hr-suite" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: #F3F6FB"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">HR Suite</span><span class="s" style="font-size: 13px">People, time and policies</span></span></a><a href="/it-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">IT Suite</span><span class="s" style="font-size: 13px">Tickets, assets, joiners</span></span></a><a href="/finance-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2zM8 8h8M8 12h8M8 16h5"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">Finance Suite</span><span class="s" style="font-size: 13px">Payslips, loans, F&amp;F</span></span></a></div></details>
+<a href="#modules" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">Modules</a><a href="#lifecycle" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">Employee lifecycle</a><a href="/services" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">Services</a>
+</nav>
+<span style="display: flex; align-items: center; gap: 6px"><a href="https://hrms.tarunkyadari.in/login" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">Log in</a><a href="/#demo" class="b b1" style="min-height: 42px; padding: 0 18px; font-size: 14px; border-radius: 12px">Book a demo</a></span>
+</header>
+</div>
+<section id="top" style="padding: 168px 0 96px; margin-top: -78px; background: linear-gradient(180deg, #E3EFFC 0%, #F3F6FB 100%)">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<nav aria-label="Breadcrumb" class="s" style="display: flex; gap: 8px; font-size: 13px"><a href="/" style="color: #667085; text-decoration: none">Home</a><span aria-hidden="true">›</span><span style="color: #101828; font-weight: 700">IT Suite</span></nav>
+<span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 40px; height: 40px; border-radius: 12px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -8px rgba(16,24,40,.3)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-size: 15px; font-weight: 800; color: #101828">IT Suite</span></span>
+<h1 class="t1" style="font-size: 58px">Every Device. Every IT Request. Every Employee Transition. <span class="grad">One Platform.</span></h1>
+<p class="p" style="font-size: 19px; max-width: 560px">Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding — all from one centralised platform.</p>
+<p class="p" style="max-width: 560px; font-weight: 600; color: #344054">Give your IT team complete visibility into devices, support requests, asset allocation and employee access throughout the employee lifecycle.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="#capabilities" class="b b1">Explore IT Suite<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></a><a href="#demo" class="b b2">Book a Demo</a></div>
+</div>
+<div class="panel" role="img" aria-label="Sample IT view of one employee: assigned devices, an open ticket and system access" style="flex: 1 1 400px; min-width: 0; max-width: 480px; padding: 26px; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 14px; padding-bottom: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 50%; background: #0058B0; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center">AR</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 600; color: #101828">Anil Rao</span><span class="s" style="font-size: 13px">Senior Developer · Engineering</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">IT view</span>
+</span>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">Dell Latitude 5440</span><span class="s" style="font-size: 12px">Laptop · LAP-1001</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E">In use</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">LG 27" monitor</span><span class="s" style="font-size: 12px">Monitor · MON-2044</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E">In use</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3zM7 15h4M3 9h18"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">Employee ID card</span><span class="s" style="font-size: 12px">ID-0218</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">Active</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">IT-1043 · Laptop not charging</span><span class="s" style="font-size: 12px">Assigned to IT Support · High</span></span>
+<span class="tag" style="background: #FFF1DC; color: #8A4600">In progress</span>
+</div>
+
+<div class="row" style="padding: 13px 0; gap: 14px">
+<span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #FFE6EF; color: #A3124A; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5.5 5.5 0 1 1-7.8 7.8a5.5 5.5 0 0 1 7.8-7.8zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">Email, VPN &amp; Slack access</span><span class="s" style="font-size: 12px">Granted on day one</span></span>
+<span class="tag" style="background: #EFEAFF; color: #3F289D">3 apps</span>
+</div>
+
+<span class="s" style="font-size: 12px; padding-top: 6px">Sample data</span>
+</div>
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="sec" style="padding-top: 64px">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px"><span class="kicker">IT operations dashboard</span><h2 class="t2">Complete Visibility Into Your IT Operations.</h2></div>
+<p class="s" style="max-width: 400px; font-size: 15px">Know what is happening across your IT environment. Track assets, monitor support requests and stay on top of employee-related IT activities from one dashboard.</p>
+</div>
+<div class="panel" style="padding: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px 16px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F0206E"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFB50D"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #51AD38"></span><span style="margin-left: 10px; font-size: 14px; font-weight: 800; color: #101828">Uptrix · IT dashboard</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">Sample data</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; padding: 0 2px">
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Total IT Assets</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">486</span>
+<span class="s" style="font-size: 12px">Complete inventory visibility</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Assigned Assets</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">412</span>
+<span class="s" style="font-size: 12px">Devices currently allocated</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Unassigned Assets</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">74</span>
+<span class="s" style="font-size: 12px">Available company resources</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Open IT Tickets</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">23</span>
+<span class="s" style="font-size: 12px">Pending support requests</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20M12 6v6l4 2"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Average Resolution Time</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">6.4 hrs</span>
+<span class="s" style="font-size: 12px">IT team efficiency</span>
+</div>
+
+<div style="border-radius: 18px; background: #F8FAFC; box-shadow: inset 0 0 0 1px #EEF2F7; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 34px; height: 34px; border-radius: 10px; background: #FFE6EF; color: #A3124A; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"></path></svg></span>
+<span style="font-size: 13px; font-weight: 700; color: #475467">Pending Asset Returns</span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 30px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; color: #101828">9</span>
+<span class="s" style="font-size: 12px">Assets awaiting collection</span>
+</div>
+
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; padding: 10px 2px 2px">
+<div class="soft" style="flex: 1 1 380px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 800; color: #101828">Ticket priority breakdown</span><span class="s" style="font-size: 12px">23 open tickets</span></span>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">Critical</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 22%; background: #A3124A"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">2</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">High</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 67%; background: #F0206E"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">6</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">Medium</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 100%; background: #FF9609"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">9</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 74px; flex: none; font-size: 13px; font-weight: 700; color: #344054">Low</span>
+<span style="flex: 1; height: 12px; border-radius: 6px; background: #F3F6FB; overflow: hidden"><span style="display: block; height: 12px; border-radius: 6px; width: 67%; background: #51AD38"></span></span>
+<span style="width: 28px; text-align: right; font-size: 14px; font-weight: 800; color: #101828">6</span>
+</div>
+
+</div>
+<div class="soft" style="flex: 1 1 380px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 15px; font-weight: 800; color: #101828">Asset allocation by department</span><span class="s" style="font-size: 12px">412 assigned assets</span></span>
+<div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap">
+<svg aria-hidden="true" width="120" height="120" viewBox="0 0 100 100" style="flex: none"><g transform="rotate(-90 50 50)" fill="none" stroke-width="15"><circle cx="50" cy="50" r="36" stroke="#0058B0" stroke-dasharray="79.2 226.2"></circle><circle cx="50" cy="50" r="36" stroke="#3F289D" stroke-dasharray="49.8 226.2" stroke-dashoffset="-79.2"></circle><circle cx="50" cy="50" r="36" stroke="#51AD38" stroke-dasharray="40.7 226.2" stroke-dashoffset="-129"></circle><circle cx="50" cy="50" r="36" stroke="#FF9609" stroke-dasharray="31.7 226.2" stroke-dashoffset="-169.7"></circle><circle cx="50" cy="50" r="36" stroke="#C6D0E1" stroke-dasharray="24.8 226.2" stroke-dashoffset="-201.4"></circle></g><text x="50" y="47" text-anchor="middle" font-family="Outfit, sans-serif" font-size="10" fill="#667085">Assigned</text><text x="50" y="61" text-anchor="middle" font-family="Outfit, sans-serif" font-size="15" font-weight="600" fill="#101828">412</text></svg>
+<span style="flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 8px">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0058B0"></span>Engineering<span style="margin-left: auto; font-weight: 800; color: #101828">144</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #3F289D"></span>Sales<span style="margin-left: auto; font-weight: 800; color: #101828">91</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #51AD38"></span>Operations<span style="margin-left: auto; font-weight: 800; color: #101828">74</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #FF9609"></span>Finance &amp; HR<span style="margin-left: auto; font-weight: 800; color: #101828">58</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #344054"><span style="width: 10px; height: 10px; border-radius: 3px; background: #C6D0E1"></span>Other<span style="margin-left: auto; font-weight: 800; color: #101828">45</span></span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 800px; margin: 0 auto 44px"><span class="kicker">Core capabilities</span><h2 class="t2">Everything Your IT Team Needs to <span class="grad">Stay in Control.</span></h2><p class="p">From managing company devices to resolving employee issues and coordinating IT activities during employee transitions, Uptrix brings essential IT operations together.</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 16px">
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #E3EFFC; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">IT helpdesk</span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">Sample</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">IT-1043 · Laptop not charging</span><span class="s" style="font-size: 11px">Anil R. · Hardware</span></span><span class="tag" style="background: #FFE6EF; color: #A3124A; font-size: 11px">High</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">IT-1041 · VPN access</span><span class="s" style="font-size: 11px">Manoj P. · Access</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">Medium</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">IT-1039 · Printer offline</span><span class="s" style="font-size: 11px">Sneha K. · Hardware</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">Resolved</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #0058B0">01</span>
+<h3 class="t3" style="font-size: 26px">IT Ticket Management</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">Resolve employee IT requests without the back-and-forth.</p>
+<p class="s" style="font-size: 15px">Employees can raise IT requests, report technical issues and track ticket progress. IT teams can assign, prioritise, manage and resolve requests through a centralised helpdesk.</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Ticket creation and categorisation</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Priority and SLA tracking</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Technician assignment</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Ticket status and resolution tracking</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Employee communication and updates</li>
+</ul>
+<a href="#tickets" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">See the ticket workflow →</a>
+</div>
+</article>
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #EFEAFF; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">Asset inventory</span><span class="tag" style="background: #EFEAFF; color: #3F289D; font-size: 11px">Sample</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">Dell Latitude 5440</span><span class="s" style="font-size: 11px">Anil Rao · Engineering</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">In use</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">MacBook Air 13"</span><span class="s" style="font-size: 11px">In stock · Store room</span></span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">Available</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">HP LaserJet Pro</span><span class="s" style="font-size: 11px">Floor 2 · Shared</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">Maintenance</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #3F289D">02</span>
+<h3 class="t3" style="font-size: 26px">IT Asset Management</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">Know where every company asset is and who is using it.</p>
+<p class="s" style="font-size: 15px">Maintain complete visibility into company devices, equipment and allocated resources. Track asset assignments, availability, maintenance and returns from one centralised inventory.</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Centralised asset inventory</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Employee-wise asset allocation</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Asset assignment and return tracking</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Device history and maintenance</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Asset availability and status</li>
+</ul>
+<a href="#assets" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">See asset management →</a>
+</div>
+</article>
+
+<article class="panel" style="box-shadow: 0 0 0 1px #E4E9F2; overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="background: #E6F4E0; padding: 22px 22px 0; height: 210px; box-sizing: border-box; overflow: hidden">
+<div class="soft" style="border-radius: 16px 16px 0 0; border-bottom: 0; padding: 12px 14px; height: 100%; box-sizing: border-box; box-shadow: 0 18px 36px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 4px"><span style="font-size: 13px; font-weight: 800; color: #101828">Joiners &amp; leavers</span><span class="tag" style="background: #E6F4E0; color: #2E6B1E; font-size: 11px">Sample</span></span>
+<div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">Riya Sharma · joins Mon</span><span class="s" style="font-size: 11px">Laptop, monitor, accounts</span></span><span class="tag" style="background: #E3EFFC; color: #0058B0; font-size: 11px">3 of 5</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">Kiran Das · joins Wed</span><span class="s" style="font-size: 11px">Laptop, phone</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600; font-size: 11px">Not started</span></div><div class="row" style="padding: 10px 0"><span style="width: 30px; height: 30px; flex: none; border-radius: 9px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 13px; font-weight: 700; color: #101828">Manoj Patil · leaves Fri</span><span class="s" style="font-size: 11px">Laptop + ID card to return</span></span><span class="tag" style="background: #FFE6EF; color: #A3124A; font-size: 11px">Clearance</span></div>
+</div>
+</div>
+<div style="padding: 28px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #2E6B1E">03</span>
+<h3 class="t3" style="font-size: 26px">IT Onboarding &amp; Offboarding</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">Every employee transition. Every IT task. Accounted for.</p>
+<p class="s" style="font-size: 15px">Ensure employees receive the right equipment and system access when they join, and that company assets and access are properly managed when they leave.</p>
+<ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>New employee IT setup</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Device and equipment allocation</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Software and account access</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>IT onboarding checklists</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Asset recovery and access revocation</li><li style="display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #344054"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Offboarding clearance tracking</li>
+</ul>
+<a href="#transitions" style="margin-top: auto; padding-top: 10px; font-size: 14px; font-weight: 800">See onboarding &amp; offboarding →</a>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- TICKET WORKFLOW -->
+<section id="tickets" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px; max-width: 600px"><span class="kicker">IT ticket management</span><h2 class="t2">From IT Issue to Resolution. Without the Follow-Ups.</h2><p class="p">Employees can raise technical issues in seconds. IT teams get the information they need to assign, prioritise and resolve requests faster.</p></div>
+</div>
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<ol role="tablist" aria-label="Ticket workflow steps" style="flex: 1 1 380px; min-width: 0; margin: 0; padding: 12px; list-style: none; display: flex; flex-direction: column; gap: 8px">
+{{#each tickets}}<li style="display: flex"><button type="button" role="tab" class="tstep" aria-selected="false" data-tab-group="tickets" data-tab-index="{{$i}}"><span class="tnum">0{{$index}}</span><span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 17px; font-weight: 800; color: #101828">{{t}}</span><span class="s" style="font-size: 14px">{{d}}</span></span></button></li>{{/each}}
+</ol>
+<div aria-live="polite" style="flex: 1 1 420px; min-width: 0; border-radius: 20px; background: #E3EFFC; padding: 28px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+{{#each tickets}}<div data-panel-group="tickets" data-panel-index="{{$i}}" style="display: flex; flex-direction: column; gap: 16px">
+<div class="soft" style="overflow: hidden; box-shadow: 0 24px 48px -28px rgba(16,24,40,.35)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #EEF2F7; background: #F8FAFC"><span style="display: flex; align-items: center; gap: 10px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #0058B0; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"></path></svg></span><span style="font-size: 15px; font-weight: 800; color: #101828">Example ticket</span></span><span class="tag" style="background: {{tbg}}; color: {{tfg}}">{{status}}</span></div>
+<div style="padding: 4px 18px 10px">{{#each fields}}<div class="row" style="padding: 11px 0"><span style="flex: 1; font-size: 14px; color: #667085">{{l}}</span><span style="font-size: 14px; font-weight: 800; color: #101828; text-align: right">{{v}}</span></div>{{/each}}</div>
+</div>
+<div style="border-radius: 16px; background: #FFFFFF; padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start"><span style="width: 32px; height: 32px; flex: none; border-radius: 10px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20M12 6v6l4 2"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{who}}</span><span class="s" style="font-size: 14px; color: #344054">{{note}}</span></span></div>
+</div>{{/each}}
+<span style="display: flex; gap: 8px"><button type="button" class="b b2" style="min-height: 44px" data-step="tickets" data-dir="-1">← Back</button><button type="button" class="b b1" style="min-height: 44px" data-step="tickets" data-dir="1">Next step →</button></span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ASSETS -->
+<section id="assets" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 780px; margin-bottom: 36px"><span class="kicker">IT asset management</span><h2 class="t2">Every Asset. Every Assignment. Every Return. <span class="grad">Tracked.</span></h2><p class="p">Stop managing company devices through spreadsheets and disconnected records. Maintain a centralised view of every asset, its current user, allocation status and movement across the organisation.</p></div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 340px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; align-content: start">
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">Centralised Inventory</span>
+<span class="s" style="font-size: 14px">Maintain a complete register of company devices and equipment.</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">Employee Allocation</span>
+<span class="s" style="font-size: 14px">Know which employee is assigned each company asset.</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12zM12 7a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">Asset Tracking</span>
+<span class="s" style="font-size: 14px">Monitor asset status, ownership and movement.</span>
+</div>
+
+<div style="border-radius: 20px; background: #F3F6FB; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; color: #0058B0; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"></path></svg></span>
+<span style="font-size: 17px; font-weight: 800; color: #101828">Returns &amp; Recovery</span>
+<span class="s" style="font-size: 14px">Track asset returns during transfers and employee exits.</span>
+</div>
+
+</div>
+<div class="panel" style="flex: 1.4 1 520px; min-width: 0; padding: 0; overflow: hidden; box-shadow: 0 0 0 1px #E4E9F2, 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 22px; border-bottom: 1px solid #EEF2F7">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; color: #101828">Asset register</span><span class="s" style="font-size: 12px">Every device, who has it and where it is in its lifecycle</span></span>
+<span class="tag" style="background: #E3EFFC; color: #0058B0">Sample data</span>
+</div>
+<div style="overflow-x: auto">
+<div role="table" aria-label="Asset register (sample data)" style="min-width: 600px; font-size: 13px">
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; padding: 12px 22px; background: #F8FAFC; font-size: 12px; font-weight: 800; color: #667085"><span role="columnheader">Asset</span><span role="columnheader">Tag</span><span role="columnheader">Assigned to</span><span role="columnheader">Department</span><span role="columnheader">Status</span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">Dell Latitude 5440</span></span><span role="cell" style="color: #475467">LAP-1001</span><span role="cell" style="font-weight: 600; color: #101828">Anil Rao</span><span role="cell" style="color: #475467">Engineering</span><span role="cell"><span class="tag" style="background: #E6F4E0; color: #2E6B1E">In use</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">MacBook Air 13"</span></span><span role="cell" style="color: #475467">LAP-1027</span><span role="cell" style="font-weight: 600; color: #101828">Riya Sharma</span><span role="cell" style="color: #475467">Engineering</span><span role="cell"><span class="tag" style="background: #EFEAFF; color: #3F289D">Assigned</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg></span><span style="font-weight: 700; color: #101828">LG 27" monitor</span></span><span role="cell" style="color: #475467">MON-2044</span><span role="cell" style="font-weight: 600; color: #101828">Sneha Kulkarni</span><span role="cell" style="color: #475467">Sales</span><span role="cell"><span class="tag" style="background: #E6F4E0; color: #2E6B1E">In use</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h10v20H7zM11 18h2"></path></svg></span><span style="font-weight: 700; color: #101828">iPhone 13</span></span><span role="cell" style="color: #475467">PHN-3012</span><span role="cell" style="font-weight: 600; color: #101828">—</span><span role="cell" style="color: #475467">Store room</span><span role="cell"><span class="tag" style="background: #E3EFFC; color: #0058B0">Available</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"></path></svg></span><span style="font-weight: 700; color: #101828">HP LaserJet Pro</span></span><span role="cell" style="color: #475467">PRN-4003</span><span role="cell" style="font-weight: 600; color: #101828">Shared · Floor 2</span><span role="cell" style="color: #475467">Operations</span><span role="cell"><span class="tag" style="background: #FFF1DC; color: #8A4600">Maintenance</span></span></div>
+
+<div role="row" style="display: grid; grid-template-columns: 1.7fr 0.9fr 1.2fr 1fr 0.9fr; gap: 10px; align-items: center; padding: 12px 22px; border-top: 1px solid #EEF2F7"><span role="cell" style="display: flex; align-items: center; gap: 10px; min-width: 0"><span style="width: 32px; height: 32px; flex: none; border-radius: 9px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="font-weight: 700; color: #101828">ThinkPad E14</span></span><span role="cell" style="color: #475467">LAP-0988</span><span role="cell" style="font-weight: 600; color: #101828">Manoj Patil</span><span role="cell" style="color: #475467">Operations</span><span role="cell"><span class="tag" style="background: #FFE6EF; color: #A3124A">Return due</span></span></div>
+
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #0058B0; padding: 28px 36px"><p style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 24px; line-height: 1.3; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF">From inventory records to employee allocation and final returns, keep your IT assets accountable throughout their lifecycle.</p></div>
+</div>
+</section>
+
+<!-- TRANSITIONS -->
+<section id="transitions" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 820px; margin: 0 auto 40px"><span class="kicker">IT onboarding &amp; offboarding</span><h2 class="t2">The Right Access When They Join. <span class="grad">Complete Control When They Leave.</span></h2><p class="p">Employee transitions involve more than HR formalities. IT teams need to prepare devices, create access, allocate resources and ensure everything is recovered when employees exit.</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 16px">
+
+<article class="panel" style="overflow: hidden; display: flex; flex-direction: column">
+<div aria-hidden="true" style="height: 260px; background: #E6F4E0; padding: 26px; box-sizing: border-box; display: flex; align-items: center; justify-content: center">
+<div class="soft" style="width: 100%; max-width: 400px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 24px 48px -24px rgba(16,24,40,.35)">
+<span style="display: flex; justify-content: space-between; align-items: center"><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 800; color: #101828">New joiner IT setup</span><span class="s" style="font-size: 12px">Riya Sharma · joins Monday · from HR</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E">3 of 5</span></span>
+<span style="height: 8px; border-radius: 4px; background: #F3F6FB"><span style="display: block; width: 60%; height: 8px; border-radius: 4px; background: #51AD38"></span></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #101828"><span style="color: #2E6B1E; display: flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Laptop prepared · Dell Latitude 5440</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #101828"><span style="color: #2E6B1E; display: flex"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Monitor and ID card allocated</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #667085"><span style="width: 15px; height: 15px; border-radius: 50%; box-shadow: inset 0 0 0 2px #C6D0E1"></span>Email and software access</span>
+</div>
+</div>
+<div style="padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span class="tag" style="align-self: flex-start; background: #E6F4E0; color: #2E6B1E">When they join</span>
+<h3 class="t3" style="font-size: 28px">Employee Onboarding</h3>
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #101828">Get employees ready to work from day one.</p>
+<ol style="margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span>Receive new joiner details from HR.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span>Prepare laptops and equipment.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span>Allocate company assets.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span>Coordinate software and account access.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span>Complete IT onboarding checklist.</li>
+</ol>
+</div>
+</article>
+
+<article class="panel" style="overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 260px; position: relative; background: #FFF1DC"><img src="images/returning-equipment.jpg" alt="An employee carrying a box of company equipment to return" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block"></div>
+<div style="padding: 30px; display: flex; flex-direction: column; gap: 12px">
+<span class="tag" style="align-self: flex-start; background: #FFF1DC; color: #8A4600">When they leave</span>
+<h3 class="t3" style="font-size: 28px">Employee Offboarding</h3>
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #101828">Protect company resources and ensure nothing is left behind.</p>
+<ol style="margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span>Receive employee exit notification.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span>Track assigned company assets.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span>Recover devices and equipment.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span>Revoke system and application access.</li><li style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #EEF2F7; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1DC; color: #8A4600; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span>Complete IT clearance checklist.</li>
+</ol>
+</div>
+</article>
+
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; padding: 26px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 28px; text-align: center">
+<span style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 600; color: #101828">Every joiner gets what they need.</span><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #F0206E"></span><span style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 600; color: #101828">Every leaver completes the IT clearance process.</span>
+</div>
+</div>
+</section>
+
+<!-- CONNECTED -->
+<section id="connected" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin-bottom: 36px"><span class="kicker">Connected</span><h2 class="t2">IT Operations Don't Stop at IT. Everything Is Connected.</h2><p class="p">Connect IT with HR and Finance to ensure employee information, company assets and operational activities move seamlessly between departments.</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px">
+
+<a href="/hr-suite" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">HR to IT</span><span class="s" style="font-size: 15px">New joiners and leavers automatically trigger relevant IT checklists.</span></span>
+</a>
+
+<a href="/finance-suite" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">IT to Finance</span><span class="s" style="font-size: 15px">Unreturned company assets can be flagged for final settlement coordination.</span></span>
+</a>
+
+<a href="#tickets" class="soft" style="padding: 28px; display: flex; flex-direction: column; gap: 18px; text-decoration: none; color: #101828">
+<span style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span>
+<span aria-hidden="true" style="color: #98A2B3; display: flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+<span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 800">IT to Employees</span><span class="s" style="font-size: 15px">Employees can raise and track support requests without chasing IT teams.</span></span>
+</a>
+
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #3F289D; padding: 30px 36px"><p style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF">One employee record. Connected departments. Better operational control.</p></div>
+</div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 780px; margin: 0 auto 40px"><span class="kicker">Business benefits</span><h2 class="t2">More Control for IT. <span class="grad">Less Operational Overhead for Business.</span></h2><p class="p">Give your IT team the visibility and structure to manage company resources, employee requests and IT operations more efficiently.</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px">
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">01</span></span>
+<h3 class="t3">Complete asset visibility</h3>
+<p class="s" style="font-size: 15px">Know what the company owns, where it is and who uses it.</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">02</span></span>
+<h3 class="t3">Faster IT support</h3>
+<p class="s" style="font-size: 15px">Organise requests, assignments and resolutions in one place.</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">03</span></span>
+<h3 class="t3">Controlled employee transitions</h3>
+<p class="s" style="font-size: 15px">Make IT onboarding and offboarding more structured.</p>
+</div>
+
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; justify-content: space-between"><span style="width: 52px; height: 52px; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 600; color: #D5DCE8">04</span></span>
+<h3 class="t3">Better accountability</h3>
+<p class="s" style="font-size: 15px">Maintain visibility into asset assignments, returns and support activities.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="sec" style="padding-top: 24px">
+<div class="wrap">
+<div class="panel" style="padding: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px"><span class="kicker">Time back</span><h2 class="t2" style="font-size: 40px">How Much Time Could Your IT Team Save?</h2>
+<p class="p" style="font-size: 16px">Reduce manual ticket handling, asset tracking and employee IT setup activities with one connected IT operations platform.</p>
+<span style="font-size: 14px; font-weight: 800; color: #101828">Your company size</span>
+<div class="seg" role="tablist" aria-label="Company size">{{#each sizes}}<button type="button" role="tab" aria-selected="false" data-tab-group="sizes" data-tab-index="{{$i}}">{{label}}</button>{{/each}}</div>
+<p class="s" style="font-size: 12px">Illustrative estimates, not guaranteed savings. Assumes about 1 IT ticket per 2 employees each month with 10 minutes of handling saved per ticket; about 3 minutes saved per employee each month on asset allocation and tracking; and about 2% of employees joining or leaving each month, with 1 hour of IT setup or clearance work saved per transition. [Replace with your measured customer figures before launch.]</p></div>
+<div aria-live="polite" style="flex: 1 1 340px; min-width: 0; border-radius: 24px; background: #E3EFFC; padding: 32px 36px; display: flex; flex-direction: column">
+<span class="s" style="font-size: 14px; font-weight: 700; color: #344054; padding-bottom: 8px">Estimated IT time saved each month</span>
+{{#each sizes}}<div data-panel-group="sizes" data-panel-index="{{$i}}" style="display: flex; flex-direction: column">
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">Ticket management</span><span class="s" style="font-size: 13px; color: #475467">Logging, assigning and following up on requests</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{ticketHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">Asset allocation &amp; tracking</span><span class="s" style="font-size: 13px; color: #475467">Keeping the register and assignments up to date</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{assetHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">IT onboarding &amp; offboarding</span><span class="s" style="font-size: 13px; color: #475467">Setup and clearance checklists for joiners and leavers</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{onboardHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding-top: 16px; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 15px; font-weight: 800; color: #101828">Total estimate</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{totalHrs}}<span style="font-size: 18px; color: #475467"> hrs / month</span></span></div>
+</div>{{/each}}
+</div>
+</div>
+</div>
+</section>
+
+<section id="demo" class="sec" style="padding-top: 40px">
+<div class="wrap">
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; overflow: hidden">
+<div class="dots" style="flex: 1 1 420px; min-width: 0; border-radius: 20px; background-color: #F6F3FF; padding: 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+<span class="kicker">Book a demo</span>
+<h2 class="t2">See the HR Suite with <span class="grad">your own team.</span></h2>
+<p class="p">Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px"><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>30-minute walkthrough</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Setup help included</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>1-click live demo, no sign-up</li></ul>
+<a href="https://hrms.tarunkyadari.in/login" style="margin-top: auto; font-weight: 700">Or open the live demo →</a>
+</div>
+<div style="flex: 1 1 400px; min-width: 0; padding: 40px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+<div data-form-open>
+<form style="display: flex; flex-direction: column; gap: 16px; margin: 0" data-demo-form>
+<div class="field"><label for="dn">Your name</label><input id="dn" class="in" type="text" placeholder="Priya Raman" autocomplete="name"></div>
+<div class="field"><label for="de">Work email</label><input id="de" class="in" type="email" placeholder="priya@company.com" autocomplete="email"></div>
+<div class="field"><label for="ds">Company size</label><select id="ds" class="in"><option>1–50 employees</option><option>51–200 employees</option><option>201–1,000 employees</option><option>1,000+ employees</option></select></div>
+<div class="field"><span style="font-size: 13px; font-weight: 800; color: #101828">Interested in</span><div class="seg" role="group" aria-label="Suites of interest"><button type="button" aria-pressed="true" data-toggle="1">HR</button><button type="button" aria-pressed="false" data-toggle="1">IT</button><button type="button" aria-pressed="false" data-toggle="1">Finance</button></div></div>
+<button type="button" class="b b1" style="margin-top: 6px" data-send>Request my demo<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+<p class="s" style="font-size: 12px">This form is a design preview — connect it to your email or CRM before launch.</p>
+</form>
+</div>
+<div data-form-sent hidden style="margin: auto 0; display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
+<span style="width: 56px; height: 56px; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<h3 class="t3" style="font-size: 28px">Thanks — we’ll be in touch.</h3>
+<p class="p">In the meantime, explore everything in the live demo.</p>
+<span style="display: flex; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">Open the live demo</a><button type="button" class="b b2" data-reset>Back to form</button></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer style="padding: 24px 16px 32px">
+<div class="panel" style="max-width: 1180px; margin: 0 auto; padding: 0; overflow: hidden">
+<div aria-hidden="true" style="height: 4px; background: linear-gradient(90deg, #F0206E, #FF9609, #FFB50D, #51AD38, #0C898D, #0067CC)"></div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 36px 40px; border-bottom: 1px solid #EEF2F7; background: #F8F6FF">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 560px">
+<span style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: #101828">Bring HR, IT and Finance onto one record.</span>
+<span class="s" style="font-size: 15px">Explore every screen in the live demo — 1-click logins, no sign-up.</span>
+</div>
+<span style="display: flex; flex-wrap: wrap; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">Open the live demo<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="/#demo" class="b b2">Book a demo</a></span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 48px; padding: 48px 40px">
+<div style="flex: 1.4 1 280px; min-width: 0; max-width: 340px; display: flex; flex-direction: column; gap: 18px">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="Uptrix" style="height: 32px; width: auto; display: block"></a>
+<p class="s" style="font-size: 15px; line-height: 1.6">HR, IT and Finance suites on one employee record — with an AI assistant that answers your team’s everyday questions.</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: #344054">
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 6l8 7 8-7"></path></svg></span><a href="mailto:[YOUR EMAIL]" style="color: #344054; text-decoration: none">[YOUR EMAIL]</a></li>
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span><a href="tel:[YOUR PHONE]" style="color: #344054; text-decoration: none">[YOUR PHONE]</a></li>
+<li style="display: flex; align-items: flex-start; gap: 10px"><span style="color: #3F289D; display: flex; margin-top: 2px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12zM12 7a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span><span>[YOUR OFFICE ADDRESS]</span></li>
+</ul>
+<span style="display: flex; flex-wrap: wrap; gap: 8px"><a href="#" aria-label="Uptrix on LinkedIn (add link)" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">LinkedIn</a><a href="#" aria-label="Uptrix on X (add link)" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">X</a><a href="#" aria-label="Uptrix on YouTube (add link)" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">YouTube</a><a href="#" aria-label="Uptrix on Instagram (add link)" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; font-size: 13px; font-weight: 700; color: #344054; text-decoration: none">Instagram</a></span>
+</div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">Suites</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">HR Suite</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">IT Suite</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">Finance Suite</a></li><li><a href="/services" style="font-size: 14px; color: #475467; text-decoration: none">Services</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">HR modules</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Employee records (HRIS)</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Attendance</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Leave management</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Shifts &amp; rosters</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Performance tracking</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">HR policies</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">Referral bonus</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">AI Assistant</a> <span style="margin-left: 6px; padding: 2px 7px; border-radius: 6px; background: #EFEAFF; color: #3F289D; font-size: 11px; font-weight: 800">New</span></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">IT &amp; Finance</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">IT &amp; HR tickets</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">Asset management</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">Onboarding &amp; offboarding</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">Payslip generator</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">Loans &amp; advances</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">Exit &amp; F&amp;F</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">Company</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">About Uptrix</a></li><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">Careers</a></li><li><a href="/#features" style="font-size: 14px; color: #475467; text-decoration: none">Features</a></li><li><a href="/#benefits" style="font-size: 14px; color: #475467; text-decoration: none">Benefits</a></li><li><a href="mailto:[YOUR EMAIL]" style="font-size: 14px; color: #475467; text-decoration: none">Contact us</a></li><li><a href="https://hrms.tarunkyadari.in/login" style="font-size: 14px; color: #475467; text-decoration: none">Log in</a></li></ul></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 40px; border-top: 1px solid #EEF2F7; background: #FBFCFE">
+<span class="s" style="font-size: 13px">© 2026 Uptrix. All rights reserved.</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px"><a href="#" style="color: #667085; text-decoration: none">Privacy policy</a><a href="#" style="color: #667085; text-decoration: none">Terms of service</a><a href="#" style="color: #667085; text-decoration: none">Security</a><a href="#" style="color: #667085; text-decoration: none">Cookie settings</a></span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #344054"><span aria-hidden="true" style="width: 28px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #F0206E, #FF9609, #0067CC)"></span>Made for HR, IT and Finance teams</span>
+</div>
+</div>
+</footer>
+</div></div>
+<script>
+(function () {
+  // Tabs and panels: the group's first panel (or data-default) is shown; the rest are hidden.
+  function showPanel(group, index) {
+    document.querySelectorAll('[data-panel-group="' + group + '"]').forEach(function (p) {
+      p.hidden = Number(p.getAttribute('data-panel-index')) !== index;
+    });
+    document.querySelectorAll('[data-tab-group="' + group + '"]').forEach(function (t) {
+      var on = Number(t.getAttribute('data-tab-index')) === index;
+      t.setAttribute('aria-selected', String(on));
+      if (t.hasAttribute('data-tab-button')) t.setAttribute('aria-pressed', String(on));
+    });
+    current[group] = index;
+  }
+  function count(group) {
+    return document.querySelectorAll('[data-panel-group="' + group + '"]').length;
+  }
+  var current = {};
+  var groups = {};
+  document.querySelectorAll('[data-tab-group]').forEach(function (t) { groups[t.getAttribute('data-tab-group')] = true; });
+  Object.keys(groups).forEach(function (g) { showPanel(g, 0); });
+  // Estimator sizes start on the middle option.
+  if (groups.sizes) showPanel('sizes', 1);
+
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-tab-group]');
+    if (tab) { showPanel(tab.getAttribute('data-tab-group'), Number(tab.getAttribute('data-tab-index'))); return; }
+    var toggle = e.target.closest('[data-toggle]');
+    if (toggle) {
+      var on = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', String(!on));
+      return;
+    }
+    var step = e.target.closest('[data-step]');
+    if (step) {
+      var g = step.getAttribute('data-step'), total = count(g);
+      showPanel(g, (current[g] + Number(step.getAttribute('data-dir')) + total) % total);
+      return;
+    }
+    if (e.target.closest('[data-send]')) {
+      document.querySelector('[data-form-open]').hidden = true;
+      document.querySelector('[data-form-sent]').hidden = false;
+      return;
+    }
+    if (e.target.closest('[data-reset]')) {
+      document.querySelector('[data-form-open]').hidden = false;
+      document.querySelector('[data-form-sent]').hidden = true;
+    }
+  });
+})();
+</script>
+</body>
+</html>

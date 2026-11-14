@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 const ADMIN_PATHS = ["/admin", "/api/admin", "/admin/api"];
-const ASSET_PATH = /^\/(?:logo[^/]*|icon\.png|favicon\.ico|apple-icon(?:\d*)?(?:\.png)?|manifest\.webmanifest|robots\.txt|sitemap\.xml)$/;
+const ASSET_PATH = /^\/(?:logo[^/]*|uptrix-logo\.png|icon\.png|favicon\.ico|apple-icon(?:\d*)?(?:\.png)?|manifest\.webmanifest|robots\.txt|sitemap\.xml)$/;
 
 function isPathOrChild(path: string, root: string) {
   return path === root || path.startsWith(`${root}/`);
@@ -87,9 +87,22 @@ export function middleware(request: NextRequest) {
 
   if (isHrms) {
     if (path === "/") {
-      return NextResponse.rewrite(new URL("/hrms-home", request.url));
+      return NextResponse.rewrite(new URL("/hrms-site/home", request.url));
     }
-    if (path === "/hrms-home" || path.startsWith("/images/") || path.startsWith("/fonts/")) {
+    if (path === "/hr-suite" || path === "/hr-suite/") {
+      return NextResponse.rewrite(new URL("/hrms-site/hr", request.url));
+    }
+    // Static pages are served under clean URLs; the .html names are only used internally.
+    if (path === "/hr-suite.html") {
+      return NextResponse.redirect(new URL("/hr-suite", request.url), 308);
+    }
+    if (path === "/it-suite" || path === "/it-suite/") {
+      return NextResponse.rewrite(new URL("/hrms-site/it", request.url));
+    }
+    if (path === "/it-suite.html") {
+      return NextResponse.redirect(new URL("/it-suite", request.url), 308);
+    }
+    if (path.startsWith("/images/") || path.startsWith("/fonts/")) {
       return NextResponse.next();
     }
     if (HRMS_PAGES.some((root) => isPathOrChild(path, root))) {

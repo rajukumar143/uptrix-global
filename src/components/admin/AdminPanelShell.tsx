@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logout } from "@/app/admin/actions";
 import type { pageInfo, PageKey } from "@/content";
+
+// The HRMS subdomain page is split into four parts in the sidebar.
+const HRMS_PART_LINKS = [
+  { part: "home", label: "HRMS home page", icon: "🏠" },
+  { part: "hr", label: "HRMS HR suite", icon: "👥" },
+  { part: "it", label: "HRMS IT suite", icon: "💻" },
+  { part: "finance", label: "HRMS Finance suite", icon: "💰" },
+];
 
 const PAGE_ICONS: Record<string, string> = {
   header: "🧭",
@@ -397,8 +405,8 @@ export default function AdminPanelShell({
                   const active = pathname === `/admin/pages/${k}`;
                   const icon = PAGE_ICONS[k] || "📄";
                   return (
+                    <Fragment key={k}>
                     <Link
-                      key={k}
                       href={`/admin/pages/${k}`}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-medium transition-all ${
@@ -419,6 +427,22 @@ export default function AdminPanelShell({
                         →
                       </span>
                     </Link>
+                    {k === "hrms" && (
+                      <div className="ml-3 mt-0.5 mb-1 space-y-0.5 border-l border-slate-800/80 pl-2">
+                        {HRMS_PART_LINKS.map((p) => (
+                          <Link
+                            key={p.part}
+                            href={`/admin/pages/hrms?part=${p.part}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-[11px] font-medium text-slate-500 transition-all hover:bg-slate-900 hover:text-slate-200"
+                          >
+                            <span className="shrink-0">{p.icon}</span>
+                            <span className="truncate">{p.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                    </Fragment>
                   );
                 })}
               </nav>

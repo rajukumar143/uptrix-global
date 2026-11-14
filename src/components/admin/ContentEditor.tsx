@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { savePage } from "@/app/admin/actions";
+import type { LayoutSection } from "@/content/hrms-parts";
 import { arrayTemplate, blankOf, isLinkKey, type Json } from "@/content/merge";
 
 type Path = (string | number)[];
@@ -461,6 +462,8 @@ function ListField({
 
 export default function ContentEditor({
   pageKey,
+  part,
+  layout,
   title,
   description,
   viewPath,
@@ -470,6 +473,8 @@ export default function ContentEditor({
   wasReset,
 }: {
   pageKey: string;
+  part?: string;
+  layout?: LayoutSection[];
   title: string;
   description: string;
   viewPath: string;
@@ -505,8 +510,20 @@ export default function ContentEditor({
     const groups = Object.keys(obj).filter((k) => typeof obj[k] === "object");
     return { general, groups };
   }, [value]);
-  const sectionKeys = sections.general.length > 0 ? ["__general", ...sections.groups] : sections.groups;
+  // With a page layout, the sections are the page's own sections (in page order); fields not placed in one go to "Other fields".
+  const layoutSections = useMemo<LayoutSection[] | null>(() => {
+    if (!layout) return null;
+    const placed = new Set(layout.flatMap((s) => s.keys));
+    const leftover = Object.keys(value as Obj).filter((k) => !placed.has(k));
+    return leftover.length
+      ? [...layout, { id: "other", title: "Other fields", description: "Fields that are not part of a page section yet.", keys: leftover }]
+      : layout;
+  }, [layout, value]);
+  const sectionKeys = layoutSections
+    ? layoutSections.map((s) => s.id)
+    : sections.general.length > 0 ? ["__general", ...sections.groups] : sections.groups;
   const [activeSection, setActiveSection] = useState(() => {
+    if (layout?.length) return layout[0].id;
     const obj = initial as Obj;
     return Object.keys(obj).find((key) => typeof obj[key] === "object") ?? "__general";
   });
@@ -514,7 +531,7 @@ export default function ContentEditor({
 
   const save = () =>
     startTransition(async () => {
-      const res = await savePage(pageKey, value);
+      const res = await savePage(pageKey, value, part);
       if (res.ok) {
         setSaved(JSON.stringify(value));
         setStatus({ kind: "ok", text: "Saved. The website now shows your changes." });
@@ -526,13 +543,19 @@ export default function ContentEditor({
   const sectionValue = currentSection === "__general"
     ? undefined
     : obj[currentSection] as Json;
-  const detail = SECTION_DETAILS[currentSection] ?? {
-    icon: "✳",
-    description: `Manage the ${humanize(currentSection).toLowerCase()} content on this page`,
-  };
-  const fieldCount = currentSection === "__general"
-    ? sections.general.reduce((total, key) => total + countFields(obj[key]), 0)
-    : countFields(sectionValue ?? "");
+  const activeLayout = layoutSections?.find((s) => s.id === currentSection);
+  const activeIndex = layoutSections?.findIndex((s) => s.id === currentSection) ?? -1;
+  const detail = activeLayout
+    ? { icon: activeIndex >= 0 ? String(activeIndex + 1).padStart(2, "0") : "✳", description: activeLayout.description }
+    : SECTION_DETAILS[currentSection] ?? {
+        icon: "✳",
+        description: `Manage the ${humanize(currentSection).toLowerCase()} content on this page`,
+      };
+  const fieldCount = activeLayout
+    ? activeLayout.keys.reduce((total, key) => total + (key in obj ? countFields(obj[key]) : 0), 0)
+    : currentSection === "__general"
+      ? sections.general.reduce((total, key) => total + countFields(obj[key]), 0)
+      : countFields(sectionValue ?? "");
 
   return (
     <div className="mx-auto max-w-[1440px] pb-32">
@@ -576,12 +599,15 @@ export default function ContentEditor({
           </div>
           <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible">
             {sectionKeys.map((key, index) => {
-              const label = key === "__general" ? "General" : humanize(key);
+              const itemLayout = layoutSections?.find((s) => s.id === key);
+              const label = itemLayout ? itemLayout.title : key === "__general" ? "General" : humanize(key);
               const selected = key === currentSection;
               const valueForCount = key === "__general" ? undefined : obj[key];
-              const fields = key === "__general"
-                ? sections.general.reduce<number>((total, field) => total + countFields(obj[field]), 0)
-                : valueForCount === undefined ? 0 : countFields(valueForCount);
+              const fields = itemLayout
+                ? itemLayout.keys.reduce<number>((total, k) => total + (k in obj ? countFields(obj[k]) : 0), 0)
+                : key === "__general"
+                  ? sections.general.reduce<number>((total, field) => total + countFields(obj[field]), 0)
+                  : valueForCount === undefined ? 0 : countFields(valueForCount);
               const itemDetail = SECTION_DETAILS[key];
               return (
                 <button
@@ -598,7 +624,7 @@ export default function ContentEditor({
                   <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sm font-bold ${
                     selected ? "bg-white/15 text-white" : "bg-slate-100 text-slate-500 group-hover:bg-indigo-50 group-hover:text-indigo-600"
                   }`}>
-                    {itemDetail?.icon ?? (key === "__general" ? "⚙" : String(index).padStart(2, "0"))}
+                    {itemLayout ? String(index + 1).padStart(2, "0") : (itemDetail?.icon ?? (key === "__general" ? "⚙" : String(index).padStart(2, "0")))}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-bold">{label}</span>
@@ -611,7 +637,7 @@ export default function ContentEditor({
               );
             })}
           </div>
-          <form action={resetAction} className="mt-3 border-t border-slate-100 pt-3">
+          {!part && <form action={resetAction} className="mt-3 border-t border-slate-100 pt-3">
             <button
               type="submit"
               onClick={(e) => {
@@ -621,7 +647,7 @@ export default function ContentEditor({
             >
               <span aria-hidden>↺</span> Reset page content
             </button>
-          </form>
+          </form>}
         </nav>
 
         <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -632,7 +658,7 @@ export default function ContentEditor({
               </span>
               <div>
                 <h2 className="text-lg font-extrabold text-slate-950">
-                  {currentSection === "__general" ? "General" : humanize(currentSection)}
+                  {activeLayout ? activeLayout.title : currentSection === "__general" ? "General" : humanize(currentSection)}
                 </h2>
                 <p className="mt-0.5 text-xs text-slate-500">{detail.description}</p>
               </div>
@@ -642,7 +668,11 @@ export default function ContentEditor({
             </span>
           </div>
           <div className="flex flex-col gap-5 p-5 sm:p-7">
-            {currentSection === "__general"
+            {activeLayout
+              ? activeLayout.keys.filter((k) => k in obj).map((k) => (
+                  <Field key={k} name={k} path={[k]} value={obj[k]} defaults={defaults} onChange={onChange} />
+                ))
+              : currentSection === "__general"
               ? sections.general.map((key) => (
                   <Field key={key} name={key} path={[key]} value={obj[key]} defaults={defaults} onChange={onChange} />
                 ))

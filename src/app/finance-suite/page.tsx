@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import SuitePage from "@/components/suites/SuitePage";
-import { SUITES } from "@/content/suites";
+import { resolveHome, resolveSuite } from "@/content/hrms-site";
+import { getPageContent } from "@/lib/content-store";
 
-const suite = SUITES.finance;
-
-export const metadata: Metadata = {
-  title: suite.seoTitle,
-  description: suite.seoDescription,
-  alternates: { canonical: suite.path },
-  openGraph: {
+export function generateMetadata(): Metadata {
+  const content = getPageContent("hrms");
+  const suite = content.financeSuite;
+  return {
     title: suite.seoTitle,
     description: suite.seoDescription,
-    url: suite.path,
-    type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Uptrix" }],
-  },
-  twitter: { card: "summary_large_image", title: suite.seoTitle, description: suite.seoDescription },
-};
+    alternates: { canonical: "/finance-suite" },
+    openGraph: { title: suite.seoTitle, description: suite.seoDescription, url: "/finance-suite", type: "website", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Uptrix" }] },
+    twitter: { card: "summary_large_image", title: suite.seoTitle, description: suite.seoDescription },
+  };
+}
 
 export default function FinanceSuiteRoute() {
-  return <SuitePage suite={suite} />;
+  const content = getPageContent("hrms");
+  const home = resolveHome(content);
+  const suites = [resolveSuite("hr", content.hrSuite), resolveSuite("it", content.itSuite), resolveSuite("finance", content.financeSuite)];
+  return <SuitePage suite={resolveSuite("finance", content.financeSuite)} suites={suites} shell={{ submenu: home.submenu, nav: home.nav, footer: home.footer }} />;
 }

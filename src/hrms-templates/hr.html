@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{seo.title}}</title>
+<meta name="description" content="{{seo.description}}">
+<meta name="keywords" content="{{seo.keywords}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#F3F6FB;font-family:'Manrope',system-ui,sans-serif;color:#475467;-webkit-font-smoothing:antialiased}
+::selection{background:#E3DCFF}
+a{color:#3F289D}a:hover{color:#2A1A70}
+button,input,select{font-family:inherit}
+summary{cursor:pointer;list-style:none}summary::-webkit-details-marker{display:none}
+:focus-visible{outline:2px solid #3F289D;outline-offset:3px;border-radius:10px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.sec{padding:112px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#3F289D}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:#F0206E}
+.t1{margin:0;font-family:'Outfit',sans-serif;font-size:74px;line-height:1;font-weight:600;letter-spacing:-.035em;color:#101828;text-wrap:balance}
+.t2{margin:0;font-family:'Outfit',sans-serif;font-size:46px;line-height:1.06;font-weight:600;letter-spacing:-.03em;color:#101828;text-wrap:balance}
+.t3{margin:0;font-family:'Outfit',sans-serif;font-size:22px;line-height:1.2;font-weight:600;letter-spacing:-.015em;color:#101828}
+.grad{background:linear-gradient(90deg,#F0206E 0%,#FF9609 40%,#0067CC 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p{margin:0;font-size:17px;line-height:1.65;color:#475467;text-wrap:pretty}
+.s{margin:0;font-size:14px;line-height:1.6;color:#667085}
+.panel{background:#FFFFFF;border-radius:28px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 24px 48px -24px rgba(16,24,40,.18)}
+.soft{background:#FFFFFF;border:1px solid #E4E9F2;border-radius:20px}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;box-sizing:border-box}
+.b1{background:#3F289D;color:#FFFFFF}.b1:hover{background:#2F1E7A;color:#FFFFFF}
+.b2{background:#FFFFFF;color:#101828;box-shadow:inset 0 0 0 1px #D5DCE8}.b2:hover{box-shadow:inset 0 0 0 1px #101828;color:#101828}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:800;white-space:nowrap}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;background:#E7ECF4;border-radius:16px}
+.seg button{min-height:42px;padding:0 18px;border:0;border-radius:12px;background:transparent;font-size:14px;font-weight:700;color:#475467;cursor:pointer}
+.seg button:hover{color:#101828}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:#FFFFFF;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.08),0 6px 16px -6px rgba(16,24,40,.2)}
+.ring{position:absolute;border-radius:50%;border:1px dashed #C6D0E1}
+.dots{background-image:radial-gradient(#D3DBE8 1px,transparent 1px);background-size:22px 22px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #EEF2F7}
+.mtile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.mtile:hover{transform:translateY(-2px);border-color:#C6D0E1}
+.mtile[aria-selected="true"]{border-color:transparent;box-shadow:0 0 0 2px #3F289D,0 18px 36px -22px rgba(63,40,157,.55)}
+.mtile[aria-selected="true"] .mi{background:#3F289D !important;color:#FFFFFF !important}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:800;color:#101828}
+.in{min-height:48px;padding:0 14px;border-radius:12px;border:1px solid #D5DCE8;background:#FFFFFF;font-size:15px;color:#101828;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #3F289D;outline-offset:1px}
+@media (max-width:900px){.hide-sm{display:none !important}}
+@media (max-width:760px){.t1{font-size:46px !important}.t2{font-size:32px !important}.sec{padding:80px 0}}
+.hub{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr)}
+.stage{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;border-radius:18px;border:1px solid #E4E9F2;background:#FFFFFF;cursor:pointer;text-align:left;min-height:96px}
+.stage[aria-selected="true"]{background:#3F289D;border-color:#3F289D}
+.ask{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #D5DCE8;background:#FFFFFF;font-size:14px;font-weight:700;color:#344054;cursor:pointer;text-align:left}
+.ask:hover{border-color:#3F289D;color:#3F289D}
+.ask[aria-pressed="true"]{background:#3F289D;border-color:#3F289D;color:#FFFFFF}
+@media (max-width:900px){.hub{grid-template-columns:1fr}}
+[hidden]{display:none !important}
+</style>
+<style>html{scroll-behavior:smooth;scroll-padding-top:100px}img{max-width:100%}</style>
+</head>
+<body>
+<div id="app"><div style="background: #F3F6FB; color: #475467">
+<div style="position: sticky; top: 14px; z-index: 10; padding: 14px 16px 0">
+<header class="panel" style="max-width: 1132px; margin: 0 auto; border-radius: 20px; padding: 8px 8px 8px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="{{menu.13_uptrix}}" style="height: 32px; width: auto; display: block"></a>
+<nav aria-label="{{menu.14_primary}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px">
+<details style="position: relative"><summary style="list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #101828">{{{menu.01_suites}}}<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<div class="panel" style="position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); width: 320px; max-width: 90vw; padding: 8px; display: flex; flex-direction: column; gap: 2px; z-index: 30"><a href="/hr-suite" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: #F3F6FB"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.02_hr_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.03_people_time_and_policies}}}</span></span></a><a href="/it-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.04_it_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.05_tickets_assets_joiners}}}</span></span></a><a href="/finance-suite" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; text-decoration: none; color: #101828; background: transparent"><span style="width: 38px; height: 38px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2zM8 8h8M8 12h8M8 16h5"></path></svg></span><span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700">{{{menu.06_finance_suite}}}</span><span class="s" style="font-size: 13px">{{{menu.07_payslips_loans_f_f}}}</span></span></a></div></details>
+<a href="#modules" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.08_modules}}}</a><a href="#lifecycle" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.09_employee_lifecycle}}}</a><a href="/services" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.10_services}}}</a>
+</nav>
+<span style="display: flex; align-items: center; gap: 6px"><a href="https://hrms.tarunkyadari.in/login" class="hide-sm" style="display: flex; align-items: center; min-height: 40px; padding: 0 12px; font-size: 14px; font-weight: 600; color: #475467; text-decoration: none">{{{menu.11_log_in}}}</a><a href="/#demo" class="b b1" style="min-height: 42px; padding: 0 18px; font-size: 14px; border-radius: 12px">{{{menu.12_book_a_demo}}}</a></span>
+</header>
+</div>
+<section id="top" style="padding: 168px 0 96px; margin-top: -78px; background: linear-gradient(180deg, #EFEAFF 0%, #F3F6FB 100%)">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 500px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<nav aria-label="{{top.31_breadcrumb}}" class="s" style="display: flex; gap: 8px; font-size: 13px"><a href="/" style="color: #667085; text-decoration: none">{{{top.01_home}}}</a><span aria-hidden="true">{{{top.02_text}}}</span><span style="color: #101828; font-weight: 700">{{{top.03_hr_suite}}}</span></nav>
+<span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 40px; height: 40px; border-radius: 12px; background: #FFFFFF; color: #3F289D; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px -8px rgba(16,24,40,.3)"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="font-size: 15px; font-weight: 800; color: #101828">{{{top.04_hr_suite}}}</span></span>
+<h1 class="t1" style="font-size: 60px">{{{top.05_everything_your_employees_need_everythin}}} <span class="grad">{{{top.06_one_platform}}}</span></h1>
+<p class="p" style="font-size: 19px; max-width: 540px">{{{top.07_from_employee_records_and_attendance_to}}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="#modules" class="b b1">{{{top.08_explore_hr_suite}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="#demo" class="b b2">{{{top.09_book_a_demo}}}</a></div>
+</div>
+<div class="panel" role="img" aria-label="{{top.32_sample_employee_profile_connected_to_lea}}" style="flex: 1 1 400px; min-width: 0; max-width: 480px; padding: 26px; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 14px; padding-bottom: 14px">
+<span style="width: 56px; height: 56px; flex: none; border-radius: 50%; background: #3F289D; color: #FFFFFF; font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{{top.10_rs}}}</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 600; color: #101828">{{{top.11_riya_sharma}}}</span><span class="s" style="font-size: 13px">{{{top.12_software_engineer_engineering_emp_0214}}}</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E"><span style="width: 6px; height: 6px; border-radius: 50%; background: #2E6B1E"></span>{{{top.13_active}}}</span>
+</span>
+<span style="font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #98A2B3">{{{top.14_employee_profile_connected_activities}}}</span>
+<div class="row" style="padding: 14px 0; gap: 14px"><span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v15H3zM16 3v6M8 3v6M3 11h18"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.15_leave_attendance}}}</span><span class="s" style="font-size: 12px">{{{top.16_checked_in_09_02_14_days}}}</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{top.17_19_20_present}}}</span></div>
+<div class="row" style="padding: 14px 0; gap: 14px"><span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2zM8 8h8M8 12h8M8 16h5"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.18_payroll_information}}}</span><span class="s" style="font-size: 12px">{{{top.19_october_payslip_bank_tax_details}}}</span></span><span class="tag" style="background: #E6F4E0; color: #2E6B1E">{{{top.20_ready}}}</span></div>
+<div class="row" style="padding: 14px 0; gap: 14px"><span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.21_performance}}}</span><span class="s" style="font-size: 12px">{{{top.22_q4_goals_self_review_submitted}}}</span></span><span class="tag" style="background: #E3EFFC; color: #0058B0">{{{top.23_3_of_4_goals}}}</span></div>
+<div class="row" style="padding: 14px 0; gap: 14px"><span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M9 15l2 2 4-4"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.24_hr_requests}}}</span><span class="s" style="font-size: 12px">{{{top.25_experience_letter_address_change}}}</span></span><span class="tag" style="background: #FFF1DC; color: #8A4600">{{{top.26_in_progress}}}</span></div>
+<div class="row" style="padding: 14px 0; gap: 14px"><span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #101828">{{{top.27_ai_assistant}}}</span><span class="s" style="font-size: 12px">{{{top.28_how_many_leaves_do_i_have}}}</span></span><span class="tag" style="background: #EFEAFF; color: #3F289D">{{{top.29_answered}}}</span></div>
+<span class="s" style="font-size: 12px; padding-top: 6px">{{{top.30_sample_data}}}</span>
+</div>
+</div>
+</section>
+
+<section id="ai" class="sec" style="padding-top: 40px">
+<div class="wrap">
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="flex: 1 1 400px; min-width: 0; border-radius: 20px; background: linear-gradient(160deg, #EFEAFF 0%, #F6F3FF 60%, #FFFFFF 100%); padding: 44px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+<span class="tag" style="align-self: flex-start; background: #FFFFFF; color: #3F289D; box-shadow: inset 0 0 0 1px #D9CFFF; padding: 6px 12px; border-radius: 999px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg>{{{ai.01_ai_employee_assistant}}}</span>
+<h2 class="t2">{{{ai.02_your_hr_assistant_is_always}}} <span class="grad">{{{ai.03_one_prompt_away}}}</span></h2>
+<p class="p">{{{ai.04_employees_don_t_need_to_navigate}}}</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 800; color: #101828">{{{ai.05_other_things_employees_can_ask}}}</span>
+<div role="group" aria-label="{{ai.14_example_requests}}" style="display: flex; flex-wrap: wrap; gap: 8px">
+{{#each chats}}<button type="button" class="ask" data-tab-group="chats" data-tab-index="{{$i}}" data-tab-button="1">{{q}}</button>{{/each}}
+</div>
+</div>
+<div style="margin-top: auto; border-radius: 18px; background: #3F289D; padding: 20px 22px"><p style="margin: 0; font-size: 16px; line-height: 1.55; font-weight: 600; color: #FFFFFF">{{{ai.06_from_answering_questions_to_initiating_e}}}</p></div>
+</div>
+<div style="flex: 1.1 1 460px; min-width: 0; padding: 20px; display: flex; flex-direction: column; box-sizing: border-box">
+<div class="soft" style="overflow: hidden; box-shadow: 0 24px 48px -28px rgba(16,24,40,.35); display: flex; flex-direction: column; flex: 1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #EEF2F7; background: #F8FAFC">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #3F289D; color: #FFFFFF; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{{ai.07_ai}}}</span><span style="font-size: 15px; font-weight: 800; color: #101828">{{{ai.08_uptrix_ai_assistant}}}</span></span>
+<span class="tag" style="background: #E6F4E0; color: #2E6B1E"><span style="width: 6px; height: 6px; border-radius: 50%; background: #2E6B1E"></span>{{{ai.09_online}}}</span>
+</div>
+<div aria-live="polite" style="padding: 22px 18px; display: flex; flex-direction: column; gap: 14px; flex: 1; background: #FFFFFF">
+{{#each chats}}<div data-panel-group="chats" data-panel-index="{{$i}}" style="display: flex; flex-direction: column; gap: 14px">
+<div style="align-self: flex-end; max-width: 82%; display: flex; flex-direction: column; align-items: flex-end; gap: 4px"><span style="font-size: 11px; font-weight: 700; color: #667085">{{{ai.10_you}}}</span><p style="margin: 0; padding: 12px 16px; border-radius: 16px 16px 4px 16px; background: #3F289D; color: #FFFFFF; font-size: 15px; line-height: 1.5">{{q}}</p></div>
+<div style="align-self: flex-start; width: 88%; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 11px; font-weight: 700; color: #667085">{{{ai.11_ai_assistant}}}</span>
+<div style="border-radius: 4px 16px 16px 16px; background: #F0F8EC; box-shadow: inset 0 0 0 1px #D3EBC8; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #101828">{{a}}</p>
+<div style="border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D3EBC8; padding: 4px 14px">
+{{#each fields}}<div class="row" style="padding: 9px 0; border-top-color: #EEF2F7"><span style="flex: 1; font-size: 13px; color: #667085">{{l}}</span><span style="font-size: 14px; font-weight: 800; color: #101828">{{v}}</span></div>{{/each}}
+</div>
+<span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; background: #2E6B1E; color: #FFFFFF; font-size: 13px; font-weight: 800">{{action}}</span><span style="padding: 8px 14px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #D3EBC8; color: #344054; font-size: 13px; font-weight: 800">{{{ai.12_edit}}}</span></span>
+</div>
+</div>
+</div>{{/each}}
+</div>
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid #EEF2F7; background: #F8FAFC"><span style="flex: 1; min-height: 40px; padding: 0 14px; border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E4E9F2; display: flex; align-items: center; font-size: 14px; color: #98A2B3">{{{ai.13_ask_the_ai_assistant}}}</span><span style="width: 40px; height: 40px; border-radius: 12px; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="modules" class="sec" style="padding-top: 64px">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 680px"><span class="kicker">{{{modules.01_modules}}}</span><h2 class="t2">{{{modules.02_everything_hr_needs_to_manage_people}}}</h2></div>
+<p class="s" style="max-width: 380px; font-size: 15px">{{{modules.03_from_maintaining_employee_information_to}}}</p>
+</div>
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+{{#each modules}}<div data-panel-group="modules" data-panel-index="{{$i}}" style="flex: 1 1 100%; display: flex; flex-wrap: wrap; gap: 12px">
+<div style="flex: 1 1 380px; min-width: 0; border-radius: 20px; background: #EFEAFF; padding: 36px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 12px"><span style="width: 60px; height: 60px; border-radius: 18px; background: #FFFFFF; color: #3F289D; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px -12px rgba(16,24,40,.35)"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{{icon}}}"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; color: #3F289D; text-align: right">{{cn}} · {{cat}}</span></span>
+<h3 class="t3" style="font-size: 36px; line-height: 1.06; letter-spacing: -0.025em">{{t}}</h3>
+<p class="p" style="font-size: 16px; color: #344054">{{d}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+{{#each pts}}<li style="display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 26px; height: 26px; flex: none; border-radius: 50%; background: #FFFFFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{$value}}</li>{{/each}}
+</ul>
+</div>
+<div style="flex: 1.15 1 440px; min-width: 0; padding: 20px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box">
+<div class="soft" style="overflow: hidden; box-shadow: 0 24px 48px -28px rgba(16,24,40,.35)">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #EEF2F7; background: #F8FAFC"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F0206E"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #FFB50D"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #51AD38"></span><span style="margin-left: 10px; font-size: 13px; font-weight: 800; color: #101828">Uptrix · {{t}}</span></div>
+<div style="padding: 18px 20px 10px">
+<span style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 8px"><span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; color: #101828">{{screen}}</span><span class="tag" style="background: #EFEAFF; color: #3F289D">{{{modules.04_sample_data}}}</span></span>
+{{#each rows}}<div class="row" style="padding: 14px 0"><span style="width: 36px; height: 36px; flex: none; border-radius: 50%; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{{icon}}}"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 700; color: #101828">{{a}}</span><span class="s" style="font-size: 12px">{{b}}</span></span><span class="tag" style="background: {{tbg}}; color: {{tfg}}">{{t}}</span></div>{{/each}}
+</div>
+</div>
+</div>
+</div>{{/each}}
+</div>
+<div role="tablist" aria-label="{{modules.05_hr_suite_modules}}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px">
+{{#each modules}}<button type="button" role="tab" class="mtile" aria-selected="false" data-tab-group="modules" data-tab-index="{{$i}}">
+<span style="display: flex; width: 100%; justify-content: space-between; align-items: center"><span class="mi" style="width: 40px; height: 40px; border-radius: 12px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{{icon}}}"></path></svg></span><span style="font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: #98A2B3">{{cn}}</span></span>
+<span style="font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 600; color: #101828; letter-spacing: -0.01em">{{t}}</span>
+<span class="s" style="font-size: 13px">{{cat}}</span>
+</button>{{/each}}
+</div>
+</div>
+</section>
+
+<section id="lifecycle" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px"><div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px; max-width: 560px"><span class="kicker">{{{lifecycle.01_employee_lifecycle}}}</span><h2 class="t2">{{{lifecycle.02_from_day_one_to_every_day}}}</h2><p class="p">{{{lifecycle.03_every_employee_interaction_request_and_m}}}</p></div>
+<div class="seg" role="tablist" aria-label="{{lifecycle.04_lifecycle_stages}}" style="flex: 0 1 auto; flex-wrap: nowrap; max-width: 100%; overflow-x: auto; box-sizing: border-box">{{#each stages}}<button type="button" role="tab" aria-selected="false" data-tab-group="stages" data-tab-index="{{$i}}">{{short}}</button>{{/each}}</div></div>
+<div class="panel" style="padding: 12px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.28)">
+{{#each stages}}<div data-panel-group="stages" data-panel-index="{{$i}}" style="display: flex; flex-wrap: wrap; gap: 12px">
+<div style="flex: 1 1 360px; min-width: 0; min-height: 380px; position: relative; border-radius: 20px; overflow: hidden; background: #EFEAFF">
+{{#if img}}<img src="{{img}}" alt="{{alt}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block">{{/if}}
+<span class="panel" style="position: absolute; left: 14px; bottom: 14px; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: #101828">Stage {{$index}} of 5 · {{short}}</span></div>
+<div style="flex: 1.2 1 420px; min-width: 0; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: #3F289D">0{{$index}}</span>
+<h3 class="t3" style="font-size: 30px; line-height: 1.12">{{t}}</h3>
+<p class="p">{{d}}</p>
+<div aria-hidden="true" style="background: #F3F6FB; border-radius: 16px; padding: 6px 18px">{{#each rows}}<div class="row" style="border-top-color: #E4E9F2"><span style="flex: 1; min-width: 0; font-size: 14px; font-weight: 700; color: #101828">{{a}}</span><span class="tag" style="background: {{tbg}}; color: {{tfg}}">{{t}}</span></div>{{/each}}</div>
+</div>
+</div>{{/each}}
+</div>
+</div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="sec">
+<div class="wrap">
+<div class="panel" style="padding: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px"><span class="kicker">{{{estimator.01_time_back}}}</span><h2 class="t2" style="font-size: 40px">{{{estimator.02_how_much_time_could_your_organisation}}}</h2>
+<p class="p" style="font-size: 16px">{{{estimator.03_reduce_repetitive_hr_activities_simplify}}}</p>
+<span style="font-size: 14px; font-weight: 800; color: #101828">{{{estimator.04_your_company_size}}}</span>
+<div class="seg" role="tablist" aria-label="{{estimator.16_company_size}}">{{#each sizes}}<button type="button" role="tab" aria-selected="false" data-tab-group="sizes" data-tab-index="{{$i}}">{{label}}</button>{{/each}}</div>
+<p class="s" style="font-size: 12px">{{{estimator.05_illustrative_estimates_not_guaranteed_re}}}</p></div>
+<div aria-live="polite" style="flex: 1 1 340px; min-width: 0; border-radius: 24px; background: #EFEAFF; padding: 32px 36px; display: flex; flex-direction: column">
+<span class="s" style="font-size: 14px; font-weight: 700; color: #344054; padding-bottom: 8px">{{{estimator.06_estimated_savings_each_month}}}</span>
+{{#each sizes}}<div data-panel-group="sizes" data-panel-index="{{$i}}" style="display: flex; flex-direction: column">
+<div style="padding: 16px 0; border-top: 1px solid #D9CFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #3F289D">{{{estimator.07_hr_administrative_hours_saved}}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{hrs}}<span style="font-size: 20px; color: #475467"> {{{estimator.08_hrs_month}}}</span></span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.09_time_hr_spends_on_records_leave}}}</span></div>
+<div style="padding: 16px 0; border-top: 1px solid #D9CFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #3F289D">{{{estimator.10_fewer_manual_employee_requests}}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{requests}}<span style="font-size: 20px; color: #475467"> {{{estimator.11_requests_month}}}</span></span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.12_routine_questions_answered_through_self}}}</span></div>
+<div style="padding: 16px 0; border-top: 1px solid #D9CFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800; color: #3F289D">{{{estimator.13_faster_request_processing}}}</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1.05; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{approvals}}<span style="font-size: 20px; color: #475467"> {{{estimator.14_hrs_month}}}</span></span><span class="s" style="font-size: 13px; color: #475467">{{{estimator.15_approval_follow_up_saved_when_requests}}}</span></div>
+</div>{{/each}}
+</div>
+</div>
+</div>
+</section>
+
+<section id="connected" class="sec" style="background: #FFFFFF">
+<div class="wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px; margin-bottom: 36px"><span class="kicker">{{{connected.01_connected}}}</span><h2 class="t2">{{{connected.02_hr_doesn_t_work_alone_neither}}}</h2><p class="p">{{{connected.03_employees_interact_with_multiple_departm}}}</p></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 16px">
+<a href="/finance-suite" class="soft" style="padding: 28px; display: flex; align-items: flex-start; gap: 18px; text-decoration: none; color: #101828"><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span aria-hidden="true" style="flex: none; height: 52px; display: flex; align-items: center; color: #98A2B3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 800">{{{connected.04_hr_finance}}}</span><span style="display: flex; flex-direction: column; gap: 6px"><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #2E6B1E"></span>{{{connected.05_attendance_and_approved_leave_flow_into}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #2E6B1E"></span>{{{connected.06_approved_claims_move_to_reimbursement}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #2E6B1E"></span>{{{connected.07_exits_trigger_the_final_settlement}}}</span></span></span></a>
+<a href="/it-suite" class="soft" style="padding: 28px; display: flex; align-items: flex-start; gap: 18px; text-decoration: none; color: #101828"><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span aria-hidden="true" style="flex: none; height: 52px; display: flex; align-items: center; color: #98A2B3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #E3EFFC; color: #0058B0; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4zM2 20h20"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 800">{{{connected.08_hr_it}}}</span><span style="display: flex; flex-direction: column; gap: 6px"><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #0058B0"></span>{{{connected.09_a_new_joiner_starts_the_laptop}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #0058B0"></span>{{{connected.10_it_requests_are_linked_to_the}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #0058B0"></span>{{{connected.11_exits_trigger_asset_returns_and_access}}}</span></span></span></a>
+<a href="#modules" class="soft" style="padding: 28px; display: flex; align-items: flex-start; gap: 18px; text-decoration: none; color: #101828"><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span aria-hidden="true" style="flex: none; height: 52px; display: flex; align-items: center; color: #98A2B3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #FFF1DC; color: #8A4600; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v13H3zM8 7V4h8v3M3 12h18"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 800">{{{connected.12_hr_managers}}}</span><span style="display: flex; flex-direction: column; gap: 6px"><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #8A4600"></span>{{{connected.13_leave_and_shift_approvals_in_one}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #8A4600"></span>{{{connected.14_team_attendance_in_one_view}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #8A4600"></span>{{{connected.15_goals_and_reviews_for_direct_reports}}}</span></span></span></a>
+<a href="#ai" class="soft" style="padding: 28px; display: flex; align-items: flex-start; gap: 18px; text-decoration: none; color: #101828"><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span aria-hidden="true" style="flex: none; height: 52px; display: flex; align-items: center; color: #98A2B3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span style="width: 52px; height: 52px; flex: none; border-radius: 16px; background: #EFEAFF; color: #3F289D; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8"></path></svg></span><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 15px; font-weight: 800">{{{connected.16_hr_employees}}}</span><span style="display: flex; flex-direction: column; gap: 6px"><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #3F289D"></span>{{{connected.17_self_service_for_leave_attendance_and}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #3F289D"></span>{{{connected.18_policies_to_read_and_acknowledge}}}</span><span class="s" style="display: flex; gap: 8px"><span style="width: 5px; height: 5px; margin-top: 9px; flex: none; border-radius: 50%; background: #3F289D"></span>{{{connected.19_answers_and_actions_through_the_ai}}}</span></span></span></a>
+</div>
+<div style="margin-top: 16px; border-radius: 24px; background: #3F289D; padding: 30px 36px"><p style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 26px; line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; color: #FFFFFF">{{{connected.20_one_employee_multiple_departments_connec}}}</p></div>
+</div>
+</section>
+
+<section id="demo" class="sec" style="padding-top: 40px">
+<div class="wrap">
+<div class="panel" style="padding: 12px; display: flex; flex-wrap: wrap; gap: 12px; overflow: hidden">
+<div class="dots" style="flex: 1 1 420px; min-width: 0; border-radius: 20px; background-color: #F6F3FF; padding: 48px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box">
+<span class="kicker">{{{demo.01_book_a_demo}}}</span>
+<h2 class="t2">{{{demo.02_see_the_hr_suite_with}}} <span class="grad">{{{demo.03_your_own_team}}}</span></h2>
+<p class="p">{{{demo.04_tell_us_a_little_about_your}}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px"><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.05_30_minute_walkthrough}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.06_setup_help_included}}}</li><li style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: #101828"><span style="width: 22px; height: 22px; border-radius: 50%; background: #3F289D; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>{{{demo.07_1_click_live_demo_no_sign}}}</li></ul>
+<a href="https://hrms.tarunkyadari.in/login" style="margin-top: auto; font-weight: 700">{{{demo.08_or_open_the_live_demo}}}</a>
+</div>
+<div style="flex: 1 1 400px; min-width: 0; padding: 40px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+<div data-form-open>
+<form style="display: flex; flex-direction: column; gap: 16px; margin: 0" data-demo-form>
+<div class="field"><label for="dn">{{{demo.09_your_name}}}</label><input id="dn" class="in" type="text" placeholder="{{demo.26_priya_raman}}" autocomplete="name"></div>
+<div class="field"><label for="de">{{{demo.10_work_email}}}</label><input id="de" class="in" type="email" placeholder="{{demo.27_priya_company_com}}" autocomplete="email"></div>
+<div class="field"><label for="ds">{{{demo.11_company_size}}}</label><select id="ds" class="in"><option>{{{demo.12_1_50_employees}}}</option><option>{{{demo.13_51_200_employees}}}</option><option>{{{demo.14_201_1_000_employees}}}</option><option>{{{demo.15_1_000_employees}}}</option></select></div>
+<div class="field"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{demo.16_interested_in}}}</span><div class="seg" role="group" aria-label="{{demo.28_suites_of_interest}}"><button type="button" aria-pressed="true" data-toggle="1">{{{demo.17_hr}}}</button><button type="button" aria-pressed="false" data-toggle="1">{{{demo.18_it}}}</button><button type="button" aria-pressed="false" data-toggle="1">{{{demo.19_finance}}}</button></div></div>
+<button type="button" class="b b1" style="margin-top: 6px" data-send>{{{demo.20_request_my_demo}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+<p class="s" style="font-size: 12px">{{{demo.21_this_form_is_a_design_preview}}}</p>
+</form>
+</div>
+<div data-form-sent hidden style="margin: auto 0; display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
+<span style="width: 56px; height: 56px; border-radius: 50%; background: #E6F4E0; color: #2E6B1E; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<h3 class="t3" style="font-size: 28px">{{{demo.22_thanks_we_ll_be_in_touch}}}</h3>
+<p class="p">{{{demo.23_in_the_meantime_explore_everything_in}}}</p>
+<span style="display: flex; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">{{{demo.24_open_the_live_demo}}}</a><button type="button" class="b b2" data-reset>{{{demo.25_back_to_form}}}</button></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer style="padding: 24px 16px 32px">
+<div class="panel" style="max-width: 1180px; margin: 0 auto; padding: 0; overflow: hidden">
+<div aria-hidden="true" style="height: 4px; background: linear-gradient(90deg, #F0206E, #FF9609, #FFB50D, #51AD38, #0C898D, #0067CC)"></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 36px 40px; border-bottom: 1px solid #EEF2F7; background: #F8F6FF">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 560px"><span style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: #101828">{{{footer.01_bring_hr_it_and_finance_onto}}}</span><span class="s" style="font-size: 15px">{{{footer.02_explore_every_screen_in_the_live}}}</span></div>
+<span style="display: flex; flex-wrap: wrap; gap: 10px"><a href="https://hrms.tarunkyadari.in/login" class="b b1">{{{footer.03_open_the_live_demo}}}<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="/#demo" class="b b2">{{{footer.04_book_a_demo}}}</a></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 48px; padding: 48px 40px">
+<div style="flex: 1.4 1 280px; min-width: 0; max-width: 340px; display: flex; flex-direction: column; gap: 18px">
+<a href="/" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #101828"><img src="/logo-dark.png" alt="{{footer.44_uptrix}}" style="height: 32px; width: auto; display: block"></a>
+<p class="s" style="font-size: 15px; line-height: 1.6">{{{footer.05_hr_it_and_finance_suites_on}}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: #344054">
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 6l8 7 8-7"></path></svg></span><a href="mailto:[YOUR EMAIL]" style="color: #344054; text-decoration: none">{{{footer.06_your_email}}}</a></li>
+<li style="display: flex; align-items: center; gap: 10px"><span style="color: #3F289D; display: flex"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span><a href="tel:[YOUR PHONE]" style="color: #344054; text-decoration: none">{{{footer.07_your_phone}}}</a></li>
+<li style="display: flex; align-items: flex-start; gap: 10px"><span style="color: #3F289D; display: flex; margin-top: 2px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12zM12 7a3 3 0 1 0 0 6a3 3 0 1 0 0-6"></path></svg></span><span>{{{footer.08_your_office_address}}}</span></li>
+</ul>
+</div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.09_suites}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.10_hr_suite}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.11_it_suite}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.12_finance_suite}}}</a></li><li><a href="/services" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.13_services}}}</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.14_hr_modules}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.15_employee_records_hris}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.16_attendance}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.17_leave_management}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.18_shifts_rosters}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.19_performance_tracking}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.20_hr_policies}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.21_referral_bonus}}}</a></li><li><a href="/hr-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.22_ai_assistant}}}</a> <span style="margin-left: 6px; padding: 2px 7px; border-radius: 6px; background: #EFEAFF; color: #3F289D; font-size: 11px; font-weight: 800">{{{footer.23_new}}}</span></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.24_it_finance}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.25_it_hr_tickets}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.26_asset_management}}}</a></li><li><a href="/it-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.27_onboarding_offboarding}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.28_payslip_generator}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.29_loans_advances}}}</a></li><li><a href="/finance-suite" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.30_exit_f_f}}}</a></li></ul></div>
+<div style="flex: 1 1 150px; min-width: 140px; display: flex; flex-direction: column; gap: 14px"><span style="font-size: 13px; font-weight: 800; color: #101828">{{{footer.31_company}}}</span><ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 11px"><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.32_about_uptrix}}}</a></li><li><a href="#" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.33_careers}}}</a></li><li><a href="/#features" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.34_features}}}</a></li><li><a href="/#benefits" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.35_benefits}}}</a></li><li><a href="mailto:[YOUR EMAIL]" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.36_contact_us}}}</a></li><li><a href="https://hrms.tarunkyadari.in/login" style="font-size: 14px; color: #475467; text-decoration: none">{{{footer.37_log_in}}}</a></li></ul></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 40px; border-top: 1px solid #EEF2F7; background: #FBFCFE">
+<span class="s" style="font-size: 13px">{{{footer.38_2026_uptrix_all_rights_reserved}}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px"><a href="#" style="color: #667085; text-decoration: none">{{{footer.39_privacy_policy}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.40_terms_of_service}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.41_security}}}</a><a href="#" style="color: #667085; text-decoration: none">{{{footer.42_cookie_settings}}}</a></span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #344054"><span aria-hidden="true" style="width: 28px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #F0206E, #FF9609, #0067CC)"></span>{{{footer.43_made_for_hr_it_and_finance}}}</span>
+</div>
+</div>
+</footer>
+</div></div>
+<script>
+(function () {
+  // Tabs and panels: the group's first panel (or data-default) is shown; the rest are hidden.
+  function showPanel(group, index) {
+    document.querySelectorAll('[data-panel-group="' + group + '"]').forEach(function (p) {
+      p.hidden = Number(p.getAttribute('data-panel-index')) !== index;
+    });
+    document.querySelectorAll('[data-tab-group="' + group + '"]').forEach(function (t) {
+      var on = Number(t.getAttribute('data-tab-index')) === index;
+      t.setAttribute('aria-selected', String(on));
+      if (t.hasAttribute('data-tab-button')) t.setAttribute('aria-pressed', String(on));
+    });
+    current[group] = index;
+  }
+  function count(group) {
+    return document.querySelectorAll('[data-panel-group="' + group + '"]').length;
+  }
+  var current = {};
+  var groups = {};
+  document.querySelectorAll('[data-tab-group]').forEach(function (t) { groups[t.getAttribute('data-tab-group')] = true; });
+  Object.keys(groups).forEach(function (g) { showPanel(g, 0); });
+  // Estimator sizes start on the middle option.
+  if (groups.sizes) showPanel('sizes', 1);
+
+  document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-tab-group]');
+    if (tab) { showPanel(tab.getAttribute('data-tab-group'), Number(tab.getAttribute('data-tab-index'))); return; }
+    var toggle = e.target.closest('[data-toggle]');
+    if (toggle) {
+      var on = toggle.getAttribute('aria-pressed') === 'true';
+      toggle.setAttribute('aria-pressed', String(!on));
+      return;
+    }
+    if (e.target.closest('[data-send]')) {
+      document.querySelector('[data-form-open]').hidden = true;
+      document.querySelector('[data-form-sent]').hidden = false;
+      return;
+    }
+    if (e.target.closest('[data-reset]')) {
+      document.querySelector('[data-form-open]').hidden = false;
+      document.querySelector('[data-form-sent]').hidden = true;
+    }
+  });
+})();
+</script>
+</body>
+</html>

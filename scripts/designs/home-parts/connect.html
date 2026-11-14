@@ -1,0 +1,29 @@
+<!-- CONNECT -->
+<section id="connect" class="sec">
+<div class="wrap">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 680px"><span class="kicker">Connected workflows</span><h2 class="t2">When Departments Connect, Work Moves Faster.</h2><p class="p">An employee request shouldn't become a chain of emails between departments. Every team should have the information, visibility and workflow access they need.</p></div>
+</div>
+<div class="panel" style="padding: 28px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 40px 80px -40px rgba(16,24,40,.3)">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div class="seg" role="tablist" aria-label="Choose a request">{{#each flows}}<button type="button" role="tab" aria-selected="false" data-tab-group="flows" data-tab-index="{{$i}}">{{name}}</button>{{/each}}</div>
+</div>
+{{#each flows}}<div data-panel-group="flows" data-panel-index="{{$i}}" style="display: flex; flex-direction: column; gap: 24px">
+<span class="s" style="font-size: 14px; font-weight: 700; color: #344054">{{summary}}</span>
+<ol role="tabpanel" aria-live="polite" class="flow" style="margin: 0; padding: 0; list-style: none">
+{{#each steps}}<li style="position: relative; border-radius: 20px; background: {{bg}}; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #FFFFFF; color: {{fg}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{{icon}}}"></path></svg></span><span style="font-size: 13px; font-weight: 800; color: {{fg}}">{{team}}</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; color: {{fg}}">Step {{$index}}</span></span>
+<p style="margin: 0; font-size: 16px; line-height: 1.45; font-weight: 700; color: #101828">{{text}}</p>
+<span class="tag" style="margin-top: auto; align-self: flex-start; background: #FFFFFF; color: {{fg}}">{{tag}}</span>
+{{#if arrow}}<span aria-hidden="true" style="position: absolute; right: -15px; top: 50%; transform: translateY(-50%); z-index: 1; width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF; color: #3F289D; box-shadow: 0 4px 10px -4px rgba(16,24,40,.35); display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>{{/if}}
+</li>{{/each}}
+</ol>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<div style="flex: 1 1 320px; min-width: 0; border-radius: 16px; background: #F8FAFC; border: 1px dashed #D5DCE8; padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px"><span style="color: #A3124A; display: flex; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 6l8 7 8-7"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 800; color: #101828">Without a connected platform</span><span class="s">{{before}}</span></span></div>
+<div style="flex: 1 1 320px; min-width: 0; border-radius: 16px; background: #E6F4E0; padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px"><span style="color: #2E6B1E; display: flex; margin-top: 2px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 800; color: #101828">With Uptrix</span><span class="s" style="color: #344054">{{after}}</span></span></div>
+</div>
+</div>{{/each}}
+</div>
+</div>
+</section>
+
