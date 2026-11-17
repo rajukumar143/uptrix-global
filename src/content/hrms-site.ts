@@ -54,7 +54,7 @@ const suiteDefaults = {
     eyebrow: "HR Suite",
     h1: "Core HR that ",
     h1Accent: "runs itself.",
-    lead: "Records, attendance, leave, shifts, performance, policies, referrals and an AI assistant — all on one employee record.",
+    lead: "Records, attendance, leave, shifts, performance, policies, referrals and an AI assistant, all on one employee record.",
     accent: "#3F289D",
     soft: "#EFEAFF",
     heroBg: "linear-gradient(180deg, #EFEAFF 0%, #F3F6FB 100%)",
@@ -62,7 +62,7 @@ const suiteDefaults = {
     photo: { src: "/images/suites/hr-suite.png", alt: "An HR manager shaking hands with a new employee" },
     statsCaption: "This month at Demo Company",
     modulesTitle: "Eight modules, one record.",
-    modulesLead: "Pick a module — the board shows what it does and how it looks inside Uptrix.",
+    modulesLead: "Pick a module, the board shows what it does and how it looks inside Uptrix.",
     walkthroughTitle: "Riya’s first week at Demo Company.",
     minutesSaved: 25,
     estimatorBasis: "leave, attendance and HR questions",
@@ -229,7 +229,7 @@ const suiteDefaults = {
     seoDescription:
       "Uptrix IT Suite runs one helpdesk for IT and HR tickets, a register of every company asset, and day-one-to-last-day checklists.",
     eyebrow: "IT Suite",
-    h1: "Every request, every device — ",
+    h1: "Every request, every device - ",
     h1Accent: "handled.",
     lead: "One helpdesk for IT and HR tickets, a register of every company asset, and day-one-to-last-day checklists.",
     accent: "#0058B0",
@@ -239,7 +239,7 @@ const suiteDefaults = {
     photo: { src: "/images/suites/it-suite.png", alt: "Two colleagues working through an issue on a laptop" },
     statsCaption: "This month at Demo Company",
     modulesTitle: "Three modules for IT teams.",
-    modulesLead: "Pick a module — the board shows what it does and how it looks inside Uptrix.",
+    modulesLead: "Pick a module, the board shows what it does and how it looks inside Uptrix.",
     walkthroughTitle: "A broken charger, fixed before lunch.",
     minutesSaved: 10,
     estimatorBasis: "tickets, asset tracking and joiner/leaver setup",
@@ -265,7 +265,7 @@ const suiteDefaults = {
       {
         title: "Asset management",
         short: "Every laptop, phone and ID card",
-        text: "A register of every company asset — who has it, since when, and what must come back at exit.",
+        text: "A register of every company asset, who has it, since when, and what must come back at exit.",
         points: ["Serial numbers and warranties", "Assigned by employee", "Return linked to F&F"],
         screen: "Assets",
         icon: "laptop",
@@ -293,7 +293,7 @@ const suiteDefaults = {
       {
         time: "09:14",
         title: "Anil tells the AI his laptop won’t charge.",
-        text: "No forms to find — the AI Assistant raises a high-priority IT ticket with his laptop already attached.",
+        text: "No forms to find, the AI Assistant raises a high-priority IT ticket with his laptop already attached.",
         rows: [
           { a: "#1043 raised", b: "Via AI Assistant", t: "Open", tone: "wait" },
           { a: "Asset attached", b: "Dell Latitude 5440", t: "Linked", tone: "info" },
@@ -313,7 +313,7 @@ const suiteDefaults = {
       {
         time: "10:02",
         title: "A replacement is issued from Assets.",
-        text: "IT issues a spare charger from the asset register — and the record updates itself.",
+        text: "IT issues a spare charger from the asset register, and the record updates itself.",
         rows: [
           { a: "Charger #C-118", b: "Issued to Anil R.", t: "Assigned", tone: "info" },
           { a: "Old charger", b: "Marked faulty", t: "Logged", tone: "ok" },
@@ -327,7 +327,7 @@ const suiteDefaults = {
         rows: [
           { a: "Status", b: "Resolved", t: "Done", tone: "ok" },
           { a: "Rating", b: "5 ★ “Quick and painless”", t: "Rated", tone: "new" },
-          { a: "Time to fix", b: "51 minutes", t: "—", tone: "info" },
+          { a: "Time to fix", b: "51 minutes", t: "-", tone: "info" },
         ],
       },
     ],
@@ -351,7 +351,7 @@ const suiteDefaults = {
     photo: { src: "/images/suites/finance-suite.png", alt: "A person working out figures on a calculator" },
     statsCaption: "This month at Demo Company",
     modulesTitle: "Three modules for finance teams.",
-    modulesLead: "Pick a module — the board shows what it does and how it looks inside Uptrix.",
+    modulesLead: "Pick a module, the board shows what it does and how it looks inside Uptrix.",
     walkthroughTitle: "Month-end payroll, in four calm steps.",
     minutesSaved: 15,
     estimatorBasis: "payroll checks, loan tracking and settlements",
@@ -390,7 +390,7 @@ const suiteDefaults = {
       {
         title: "Employee exit & F&F",
         short: "Settlement, calculated for you",
-        text: "From resignation to final settlement — notice period, leave encashment, recoveries and asset return in one view.",
+        text: "From resignation to final settlement, notice period, leave encashment, recoveries and asset return in one view.",
         points: ["Notice and last working day", "Encashment and recoveries", "Settlement statement"],
         screen: "Manoj Patil · exit 15 Nov",
         icon: "building",
@@ -405,7 +405,7 @@ const suiteDefaults = {
       {
         time: "25 Nov",
         title: "Attendance is locked.",
-        text: "Paid days, approved leave and overtime for November are frozen — no more manual collection.",
+        text: "Paid days, approved leave and overtime for November are frozen, no more manual collection.",
         rows: [
           { a: "Paid days", b: "248 employees", t: "Locked", tone: "ok" },
           { a: "Approved leave", b: "61 days", t: "Applied", tone: "ok" },
@@ -435,7 +435,7 @@ const suiteDefaults = {
       {
         time: "30 Nov",
         title: "Payslips land on payday.",
-        text: "Every employee finds their payslip in their account — no PDFs to email.",
+        text: "Every employee finds their payslip in their account, no PDFs to email.",
         rows: [
           { a: "Payslips published", b: "248 of 248", t: "Done", tone: "ok" },
           { a: "Downloads", b: "193 so far", t: "Live", tone: "info" },
@@ -462,7 +462,7 @@ const ORBIT = [
 const DAY = [
   { time: "09:02", init: "AR", who: "Anil R.", role: "Engineering", what: "Checks in from his phone on the way to his desk.", suite: "HR Suite", accent: "hr", dot: "#3F289D" },
   { time: "10:15", init: "RS", who: "Riya S.", role: "New joiner", what: "Starts day one with her laptop, email and ID card ready.", suite: "IT Suite", accent: "it", dot: "#0067CC" },
-  { time: "11:30", init: "SK", who: "Sneha K.", role: "Sales", what: "Applies for Friday off — her manager approves in one tap.", suite: "HR Suite", accent: "hr", dot: "#3F289D" },
+  { time: "11:30", init: "SK", who: "Sneha K.", role: "Sales", what: "Applies for Friday off, her manager approves in one tap.", suite: "HR Suite", accent: "hr", dot: "#3F289D" },
   { time: "14:05", init: "MP", who: "Manoj P.", role: "Operations", what: "Raises a ticket: “VPN isn’t connecting.” IT picks it up in minutes.", suite: "IT Suite", accent: "it", dot: "#0067CC" },
   { time: "16:40", init: "FT", who: "Finance team", role: "Payroll", what: "Reviews four payroll exceptions instead of 248 payslips.", suite: "Finance Suite", accent: "finance", dot: "#51AD38" },
   { time: "18:30", init: "AR", who: "Anil R.", role: "Engineering", what: "Asks the AI how many leaves he has left. It answers instantly.", suite: "AI Assistant", accent: "ai", dot: "#FF9609" },
@@ -472,7 +472,7 @@ const DAY = [
 const ROLES = [
   {
     name: "Employee",
-    headline: "Everything you need from HR — without emailing HR.",
+    headline: "Everything you need from HR, without emailing HR.",
     screen: "My Uptrix",
     meta: "Anil Rao",
     points: [
@@ -489,7 +489,7 @@ const ROLES = [
   },
   {
     name: "Manager",
-    headline: "Your team at a glance — and approvals in one tap.",
+    headline: "Your team at a glance, and approvals in one tap.",
     screen: "My team · Sales",
     meta: "12 people",
     points: ["See who is in, late or out today", "Approve leave and shift swaps from anywhere", "Run reviews for your direct reports"],
@@ -557,17 +557,17 @@ const ROLES = [
 // From the PDF: the six questions on the home page.
 const QUESTIONS = [
   { q: "Who’s on leave today?", a: "A live list for every manager, with the reason and return date.", who: "Manager", module: "Leave", accent: "hr", top: "#3F289D" },
-  { q: "Why is my salary lower this month?", a: "One unpaid leave day on 21 Oct — shown line by line on the payslip.", who: "Employee", module: "Payslips", accent: "finance", top: "#51AD38" },
+  { q: "Why is my salary lower this month?", a: "One unpaid leave day on 21 Oct, shown line by line on the payslip.", who: "Employee", module: "Payslips", accent: "finance", top: "#51AD38" },
   { q: "Which laptop does Riya have?", a: "Dell Latitude 5440, assigned on day one, linked to her profile.", who: "IT", module: "Assets", accent: "it", top: "#0067CC" },
-  { q: "Has everyone read the new WFH policy?", a: "96% have acknowledged version 2 — reminders go to the rest.", who: "HR", module: "Policies", accent: "hr", top: "#3F289D" },
+  { q: "Has everyone read the new WFH policy?", a: "96% have acknowledged version 2, reminders go to the rest.", who: "HR", module: "Policies", accent: "hr", top: "#3F289D" },
   { q: "How much do we owe Manoj at exit?", a: "₹ 35,100 after leave encashment and loan recovery.", who: "Finance", module: "F&F", accent: "finance", top: "#51AD38" },
-  { q: "Which shift am I on next week?", a: "Morning, Monday to Friday — answered by the AI in a second.", who: "Employee", module: "AI Assistant", accent: "ai", top: "#FF9609" },
+  { q: "Which shift am I on next week?", a: "Morning, Monday to Friday, answered by the AI in a second.", who: "Employee", module: "AI Assistant", accent: "ai", top: "#FF9609" },
 ];
 
 // From the PDF: the three promises.
 const PRINCIPLES = [
   { n: "01", t: "One record for everyone", d: "An employee is entered once. HR, IT and Finance all work from that same record.", c: "#3F289D" },
-  { n: "02", t: "Every role, its own view", d: "Employees, managers, HR, IT and Finance each see exactly what they need — and only that.", c: "#0067CC" },
+  { n: "02", t: "Every role, its own view", d: "Employees, managers, HR, IT and Finance each see exactly what they need, and only that.", c: "#0067CC" },
   { n: "03", t: "Plain-language help", d: "The AI Assistant answers everyday questions in plain words, from your own data and policies.", c: "#FF9609" },
 ];
 
@@ -583,7 +583,7 @@ const SETUP = [
 // From the PDF: the sample interview. Replace with a real customer before launch.
 const INTERVIEW = [
   { q: "What changed first?", a: "Leave. Requests used to live in email threads and a spreadsheet nobody trusted. Now balances update themselves." },
-  { q: "How did employees react?", a: "They liked doing things themselves — checking in, downloading payslips, asking the assistant instead of us." },
+  { q: "How did employees react?", a: "They liked doing things themselves, checking in, downloading payslips, asking the assistant instead of us." },
   { q: "What about payroll?", a: "Attendance and approved leave flow straight in. We only look at the handful of exceptions each month." },
   { q: "Would you do anything differently?", a: "Start with the HR Suite, then add IT and Finance. That’s exactly how we rolled it out." },
 ];
@@ -593,10 +593,10 @@ const INTERVIEW = [
 const HOME_TEXT = {
   nav: { suites: "Suites", day: "A day in Uptrix", roles: "For every role", setup: "Get started", login: "Log in", demo: "Book a demo" },
   hero: {
-    eyebrow: "HR · IT · Finance — one platform",
+    eyebrow: "HR · IT · Finance, one platform",
     h1: "Everything about your people, ",
     h1Accent: "in one orbit.",
-    lead: "Uptrix keeps every employee’s record at the centre — and lets HR, IT and Finance work from it together. No re-typing, no lost spreadsheets.",
+    lead: "Uptrix keeps every employee’s record at the centre, and lets HR, IT and Finance work from it together. No re-typing, no lost spreadsheets.",
     primaryCta: "Explore the live demo",
     secondaryCta: "Book a demo",
     diagramLabel: "Diagram: one employee record at the centre, connected to the HR, IT and Finance suites",
@@ -607,14 +607,14 @@ const HOME_TEXT = {
     kicker: "Book a demo",
     title: "See Uptrix with",
     titleAccent: "your own team.",
-    lead: "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.",
+    lead: "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.",
     bullets: ["30-minute walkthrough", "Setup help included", "1-click live demo, no sign-up"],
     liveLink: "Or open the live demo →",
   },
   footer: {
     headline: "Bring HR, IT and Finance onto one record.",
-    lead: "Explore every screen in the live demo — 1-click logins, no sign-up.",
-    tagline: "HR, IT and Finance suites on one employee record — with an AI assistant that answers your team’s everyday questions.",
+    lead: "Explore every screen in the live demo, 1-click logins, no sign-up.",
+    tagline: "HR, IT and Finance suites on one employee record, with an AI assistant that answers your team’s everyday questions.",
     email: "[YOUR EMAIL]",
     phone: "[YOUR PHONE]",
     address: "[YOUR OFFICE ADDRESS]",
@@ -648,18 +648,18 @@ export const hrmsDefaults = {
   ...HOME_TEXT,
   submenu: SUBMENU,
   orbit: ORBIT,
-  dayHeading: { kicker: "A day in Uptrix", title: "One Tuesday at Demo Company.", lead: "Six moments, three teams, one record — scroll through a normal working day." },
+  dayHeading: { kicker: "A day in Uptrix", title: "One Tuesday at Demo Company.", lead: "Six moments, three teams, one record, scroll through a normal working day." },
   day: { items: DAY },
   rolesHeading: { kicker: "For every role", title: "See Uptrix through", titleAccent: "your eyes." },
   roles: { items: ROLES },
   questionsHeading: { kicker: "Questions it answers", title: "Questions, answered in seconds." },
   questions: { items: QUESTIONS },
-  promisesHeading: { kicker: "How we build", title: "Three promises behind every screen.", lead: "Uptrix is built around a few simple ideas — so it stays easy as your company grows." },
+  promisesHeading: { kicker: "How we build", title: "Three promises behind every screen.", lead: "Uptrix is built around a few simple ideas, so it stays easy as your company grows." },
   principles: { items: PRINCIPLES },
   interview: {
     kicker: "In conversation",
     heading: "“We stopped being the company’s help desk.”",
-    banner: "Sample interview — replace with a real customer before launch",
+    banner: "Sample interview, replace with a real customer before launch",
     customerName: "[Customer name]",
     customerRole: "[Head of HR], [Company] · [City]",
     photoAlt: "A team in a meeting room listening to a colleague present",

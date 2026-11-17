@@ -21,11 +21,8 @@ const ICON = {
 
 const CHATS = [
   { q: "I need leave for two days next week. Please apply for it.", a: "Sure! I found your leave balance and prepared a two-day leave request. Please confirm the dates before I submit it.", action: "Leave request ready for confirmation", icon: ICON.calendar },
-  { q: "How many leaves do I have?", a: "You have 12 annual, 6 casual and 8 sick leaves left this year. Would you like to apply for one?", action: "Leave balance checked", icon: ICON.calendar },
-  { q: "Show my latest payslip.", a: "Here’s your October payslip. Your net pay and deductions are listed line by line — would you like to download it?", action: "Payslip ready to download", icon: ICON.payslip },
-  { q: "Submit my travel reimbursement.", a: "I’ve drafted a travel claim for you. Attach your receipt and confirm — it will then go to your manager for approval.", action: "Claim ready for confirmation", icon: ICON.claim },
-  { q: "What is my attendance this month?", a: "You’ve been present 19 of 20 working days this month, with one late check-in. No attendance issues are pending.", action: "Attendance summary", icon: ICON.clock },
-  { q: "Raise an IT support request.", a: "I can do that. Tell me what’s wrong — device, software or access — and I’ll send the ticket to the IT team.", action: "IT ticket ready to submit", icon: ICON.ticket },
+  { q: "Show my latest payslip.", a: "Here’s your October payslip. Your net pay and deductions are listed line by line, would you like to download it?", action: "Payslip ready to download", icon: ICON.payslip },
+  { q: "Raise an IT support request.", a: "I can do that. Tell me what’s wrong (device, software or access) and I’ll send the ticket to the IT team.", action: "IT ticket ready to submit", icon: ICON.ticket },
 ];
 
 // Each step: the team (icon and colour), the step text and the tag shown under it.
@@ -35,7 +32,7 @@ const RAW_FLOWS = [
   {
     name: "New joiner",
     summary: "One record starts every task",
-    before: "HR emails IT for a laptop, Finance for bank details and the manager for a start plan — then chases each one.",
+    before: "HR emails IT for a laptop, Finance for bank details and the manager for a start plan, then chases each one.",
     after: "HR adds the joiner once. IT, Finance and the manager each get their task automatically, with the same details.",
     steps: [
       step("HR", ICON.hr, "P", "Adds the new joiner’s profile and documents", "Profile created"),
@@ -60,7 +57,7 @@ const RAW_FLOWS = [
     name: "Expense claim",
     summary: "From receipt to reimbursement",
     before: "Receipts sent by email, approvals lost in inboxes and employees asking when they’ll be paid.",
-    after: "One claim with the receipt attached — approved, paid and visible to the employee at every step.",
+    after: "One claim with the receipt attached, approved, paid and visible to the employee at every step.",
     steps: [
       step("Employee", ICON.employee, "P", "Submits a claim with the receipt attached", "Submitted"),
       step("Manager", ICON.manager, "O", "Reviews and approves the claim", "Approved"),
@@ -71,7 +68,7 @@ const RAW_FLOWS = [
   {
     name: "Employee exit",
     summary: "Every team signs off on one checklist",
-    before: "Separate emails for device returns, access removal and final settlement — easy to miss a step.",
+    before: "Separate emails for device returns, access removal and final settlement, easy to miss a step.",
     after: "One exit checklist that HR, IT, Finance and the manager all complete together.",
     steps: [
       step("HR", ICON.hr, "P", "Records the resignation and last working day", "Exit started"),

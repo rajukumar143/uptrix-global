@@ -137,7 +137,7 @@ export default function SuitePage({ suite, suites, shell }: { suite: Suite; suit
                 Connected
               </span>
               <h2 id="connected-title" className={`${h2} text-[clamp(30px,4vw,46px)]`}>
-                Data flows between suites — automatically.
+                Data flows between suites, automatically.
               </h2>
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-4">
@@ -172,7 +172,7 @@ export default function SuitePage({ suite, suites, shell }: { suite: Suite; suit
                   See the {suite.name} with your own team.
                 </h2>
                 <p className="text-base leading-relaxed text-[#475467]">
-                  Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.
+                  Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.
                 </p>
                 <ul className="flex flex-col gap-2.5">
                   {["30-minute walkthrough", "Setup help included", "1-click live demo, no sign-up"].map((t) => (

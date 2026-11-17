@@ -99,7 +99,7 @@ export default function RealEstateCrmFeatures() {
             <span className="text-[#6938ef]">Key Features</span> of Your CRM Tool
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
-            Everything real estate developers need to capture, manage, convert and collect — all in one place.
+            Everything real estate developers need to capture, manage, convert and collect, all in one place.
           </p>
         </header>
 
@@ -211,7 +211,7 @@ export default function RealEstateCrmFeatures() {
                         No switching between personal phones and spreadsheets.
                       </p>
                       <p>
-                        Every conversation is tied to the buyer profile, tower unit interest, and budget range — giving your sales architects instant context to book Saturday site visits.
+                        Every conversation is tied to the buyer profile, tower unit interest, and budget range, giving your sales architects instant context to book Saturday site visits.
                       </p>
                       <p>
                         And because chats become part of your unified telemetry, you can finally calculate true cost per walk-in across every campaign.
@@ -550,9 +550,9 @@ export default function RealEstateCrmFeatures() {
                 <span className="text-xs font-bold text-slate-800 block">Live Construction Milestone Ledger</span>
                 <div className="space-y-2 text-xs">
                   {[
-                    { milestone: "Foundation Plinth — Wing B", demand: "₹12.4 Cr", collected: "₹12.4 Cr", progress: "100%", status: "Reconciled" },
-                    { milestone: "Slab 8 Cast — Wing A", demand: "₹6.8 Cr", collected: "₹5.9 Cr", progress: "86%", status: "4 Reminders Left" },
-                    { milestone: "Brickwork & Electrical — Wing C", demand: "₹4.2 Cr", collected: "₹2.8 Cr", progress: "66%", status: "In-Progress" },
+                    { milestone: "Foundation Plinth - Wing B", demand: "₹12.4 Cr", collected: "₹12.4 Cr", progress: "100%", status: "Reconciled" },
+                    { milestone: "Slab 8 Cast - Wing A", demand: "₹6.8 Cr", collected: "₹5.9 Cr", progress: "86%", status: "4 Reminders Left" },
+                    { milestone: "Brickwork & Electrical - Wing C", demand: "₹4.2 Cr", collected: "₹2.8 Cr", progress: "66%", status: "In-Progress" },
                   ].map((m, idx) => (
                     <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
                       <div>

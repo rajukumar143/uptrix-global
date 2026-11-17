@@ -723,7 +723,7 @@ export default function CollegeLandingPage({ header, footer, content }: CollegeL
                   const fixes = [
                     "Sub-14s instant Meta API auto-capture",
                     "Official team WhatsApp inbox inside CRM",
-                    "One master cloud profile — zero duplicates",
+                    "One master cloud profile, zero duplicates",
                     "Unified handoff from lead to enrolled student",
                     "Direct UPI installment links & auto Tally sync",
                     "Complete marketing-to-placement tuition ROI",

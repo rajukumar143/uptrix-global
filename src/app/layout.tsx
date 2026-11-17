@@ -24,13 +24,13 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   // Your live address (set SITE_URL in .env.local), so link previews on WhatsApp/LinkedIn use the right domain
   metadataBase,
-  title: "Uptrix — HRMS & CRM for Growing Indian Businesses",
+  title: "Uptrix - HRMS & CRM for Growing Indian Businesses",
   description:
     "Uptrix offers HRMS and CRM software built for growing Indian businesses. Manage your people and your customers in one place.",
   openGraph: {
     type: "website",
     url: "/",
-    title: "Uptrix — HRMS & CRM for Growing Indian Businesses",
+    title: "Uptrix - HRMS & CRM for Growing Indian Businesses",
     description: "Manage your people and your customers in one place with Uptrix HRMS and Uptrix CRM.",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Uptrix HRMS and CRM" }],
   },

@@ -117,7 +117,7 @@ export default function RealEstateCrmIntelligence() {
             {/* Description Paragraph */}
             <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-5 font-normal max-w-[460px]">
               Every real estate business tracks different numbers. Pulse uses AI to create dashboards
-              around the metrics that matter to your project — lead velocity, site visits,
+              around the metrics that matter to your project, lead velocity, site visits,
               inventory absorption, broker commissions or milestone payments.
             </p>
 
@@ -455,7 +455,7 @@ export default function RealEstateCrmIntelligence() {
                 {activeTab === "inventory" && (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-xs pb-1 border-b border-slate-200">
-                      <span className="font-bold text-slate-800">Tower A — Stacking Matrix (Floors 12 to 14)</span>
+                      <span className="font-bold text-slate-800">Tower A - Stacking Matrix (Floors 12 to 14)</span>
                       <div className="flex items-center gap-3 text-[10px] font-bold">
                         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-emerald-500 inline-block" /> Available</span>
                         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded bg-amber-500 inline-block" /> 30m Hold</span>
@@ -552,9 +552,9 @@ export default function RealEstateCrmIntelligence() {
                     </div>
                     <div className="space-y-2 text-xs">
                       {[
-                        { milestone: "Slab 14 Completion — Tower A", total: "₹4.80 Cr", collected: "₹4.12 Cr", pending: "₹68 Lakh", status: "86% Cleared", date: "Due in 4 days" },
-                        { milestone: "Plinth Stage — Tower C", total: "₹8.20 Cr", collected: "₹8.20 Cr", pending: "₹0", status: "100% Cleared", date: "Reconciled" },
-                        { milestone: "Internal Plaster — Tower B", total: "₹3.50 Cr", collected: "₹2.10 Cr", pending: "₹1.40 Cr", status: "60% In-Progress", date: "WhatsApp Reminders Dispatched" },
+                        { milestone: "Slab 14 Completion - Tower A", total: "₹4.80 Cr", collected: "₹4.12 Cr", pending: "₹68 Lakh", status: "86% Cleared", date: "Due in 4 days" },
+                        { milestone: "Plinth Stage - Tower C", total: "₹8.20 Cr", collected: "₹8.20 Cr", pending: "₹0", status: "100% Cleared", date: "Reconciled" },
+                        { milestone: "Internal Plaster - Tower B", total: "₹3.50 Cr", collected: "₹2.10 Cr", pending: "₹1.40 Cr", status: "60% In-Progress", date: "WhatsApp Reminders Dispatched" },
                       ].map((m, i) => (
                         <div key={i} className="bg-white p-3 rounded-xl border border-slate-200/80 shadow-2xs flex items-center justify-between gap-3">
                           <div>

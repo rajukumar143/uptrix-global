@@ -36,7 +36,7 @@ export const SERVICES: Service[] = [
     bg: "#EEF2FF",
     fg: "#4f46e5",
     description:
-      "Web apps designed and built for your exact workflow — from employee and customer portals to approval tools and reporting dashboards.",
+      "Web apps designed and built for your exact workflow, from employee and customer portals to approval tools and reporting dashboards.",
     included: ["Requirements and UX design", "Responsive web front end", "Secure back end, APIs and database", "Cloud deployment and handover"],
     fit: [
       "Spreadsheets and email are running a key process",
@@ -59,7 +59,7 @@ export const SERVICES: Service[] = [
     bg: "#E8F1FF",
     fg: "#1f5fd6",
     description:
-      "Connect your CRM, HRMS, payroll and accounting systems so data moves automatically — no more copying between screens.",
+      "Connect your CRM, HRMS, payroll and accounting systems so data moves automatically, no more copying between screens.",
     included: ["CRM ↔ HRMS data sync", "Payroll and accounting connectors", "Single sign-on and user provisioning", "Error alerts and sync logs"],
     fit: [
       "Teams re-enter the same data in two or more systems",
@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
     bg: "#E6F6F6",
     fg: "#0f8b8d",
     description:
-      "Rebuild or migrate ageing desktop and on-premise apps to secure, cloud-ready web software — step by step, without stopping your business.",
+      "Rebuild or migrate ageing desktop and on-premise apps to secure, cloud-ready web software, step by step, without stopping your business.",
     included: ["Code and architecture assessment", "Phased migration plan", "Data migration and validation", "Modern, mobile-friendly interface"],
     fit: [
       "Your system is hard to change and few people understand it",
@@ -105,7 +105,7 @@ export const SERVICES: Service[] = [
     bg: "#FFF4E5",
     fg: "#c2410c",
     description:
-      "Ongoing care for the software you rely on — bug fixes, security updates, performance tuning and small improvements, under a clear support plan.",
+      "Ongoing care for the software you rely on, bug fixes, security updates, performance tuning and small improvements, under a clear support plan.",
     included: ["Bug fixes and security patches", "Uptime and performance monitoring", "Small enhancements each month", "Agreed response times"],
     fit: [
       "Your original developer is no longer available",
@@ -123,9 +123,9 @@ export const SERVICES: Service[] = [
 
 export const PROCESS = [
   { title: "Discover", text: "A short call to understand your goals, users, current tools and constraints.", icon: "M11 3a8 8 0 1 0 0 16a8 8 0 1 0 0-16M21 21l-4.3-4.3" },
-  { title: "Plan", text: "A written scope, timeline and estimate — agreed before any work starts.", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8" },
+  { title: "Plan", text: "A written scope, timeline and estimate, agreed before any work starts.", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8" },
   { title: "Build", text: "Regular releases you can see and test, with one point of contact throughout.", icon: "M16 18l6-6-6-6M8 6l-6 6 6 6" },
-  { title: "Support", text: "Launch, training and handover — then ongoing care if you want it.", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+  { title: "Support", text: "Launch, training and handover, then ongoing care if you want it.", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
 ];
 
 export const WHY = [

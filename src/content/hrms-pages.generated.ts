@@ -12,16 +12,15 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "08_modules": "Modules",
       "09_employee_lifecycle": "Employee lifecycle",
       "10_services": "Services",
-      "11_log_in": "Log in",
-      "12_book_a_demo": "Book a demo",
-      "13_uptrix": "Uptrix",
-      "14_primary": "Primary"
+      "11_book_a_demo": "Book a demo",
+      "12_uptrix": "Uptrix",
+      "13_primary": "Primary"
     },
     "hero": {
       "01_employee_operating_system": "Employee Operating System",
       "02_one_platform_every_employee": "One Platform. Every Employee.",
       "03_every_department": "Every Department.",
-      "04_from_onboarding_to_payroll_leave_managem": "From onboarding to payroll, leave management to performance, IT requests to employee claims — manage the entire employee lifecycle through one connected platform.",
+      "04_from_onboarding_to_payroll_leave_managem": "From onboarding to payroll, leave management to performance, IT requests to employee claims, manage the entire employee lifecycle through one connected platform.",
       "05_give_employees_everything_they_need_and": "Give employees everything they need and give every department the tools to manage, support and empower them.",
       "06_book_a_demo": "Book a Demo",
       "07_explore_features": "Explore Features",
@@ -52,7 +51,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "09_ai_assistant": "AI Assistant",
       "10_ask_anything_about_leave_pay_or": "Ask anything about leave, pay or IT…",
       "11_employees_can_simply_ask": "Employees can simply ask:",
-      "12_example_questions": "Example questions"
+      "12_hr_manager_using_the_uptrix_hrms": "HR manager using the Uptrix HRMS",
+      "13_example_questions": "Example questions"
     },
     "challenges": {
       "01_the_problem": "The problem",
@@ -85,7 +85,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "01_for_everyone": "For everyone",
       "02_one_platform_different_experiences": "One Platform. Different Experiences.",
       "03_one_connected_workforce": "One Connected Workforce.",
-      "04_whether_you_re_an_employee_requesting": "Whether you're an employee requesting leave, an HR manager managing people, a finance team processing payroll or an IT team handling access — everyone works from the same connected platform.",
+      "04_whether_you_re_an_employee_requesting": "Whether you're an employee requesting leave, an HR manager managing people, a finance team processing payroll or an IT team handling access, everyone works from the same connected platform.",
       "05_good_morning_anil": "Good morning, Anil",
       "06_general_shift_09_00_18_00": "General shift · 09:00–18:00",
       "07_00_43_50": "00:43:50",
@@ -237,7 +237,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "01_book_a_demo": "Book a demo",
       "02_see_the_hr_suite_with": "See the HR Suite with",
       "03_your_own_team": "your own team.",
-      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.",
+      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.",
       "05_30_minute_walkthrough": "30-minute walkthrough",
       "06_setup_help_included": "Setup help included",
       "07_1_click_live_demo_no_sign": "1-click live demo, no sign-up",
@@ -254,8 +254,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "18_it": "IT",
       "19_finance": "Finance",
       "20_request_my_demo": "Request my demo",
-      "21_this_form_is_a_design_preview": "This form is a design preview — connect it to your email or CRM before launch.",
-      "22_thanks_we_ll_be_in_touch": "Thanks — we’ll be in touch.",
+      "21_this_form_is_a_design_preview": "This form is a design preview, connect it to your email or CRM before launch.",
+      "22_thanks_we_ll_be_in_touch": "Thanks, we’ll be in touch.",
       "23_in_the_meantime_explore_everything_in": "In the meantime, explore everything in the live demo.",
       "24_open_the_live_demo": "Open the live demo",
       "25_back_to_form": "Back to form",
@@ -265,10 +265,10 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
     },
     "footer": {
       "01_one_platform_for_every_employee_and": "One platform for every employee and every department.",
-      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo — 1-click logins, no sign-up.",
+      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo, 1-click logins, no sign-up.",
       "03_open_the_live_demo": "Open the live demo",
       "04_book_a_demo": "Book a demo",
-      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record — with an AI assistant that answers your team’s everyday questions.",
+      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record, with an AI assistant that answers your team’s everyday questions.",
       "06_your_email": "[YOUR EMAIL]",
       "07_your_phone": "[YOUR PHONE]",
       "08_your_office_address": "[YOUR OFFICE ADDRESS]",
@@ -318,8 +318,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "52_uptrix_on_instagram_add_link": "Uptrix on Instagram (add link)"
     },
     "seo": {
-      "title": "Uptrix — The Employee Operating System",
-      "description": "One platform for every employee and every department — onboarding, payroll, leave, performance, IT requests and employee claims, with an AI employee assistant.",
+      "title": "Uptrix - The Employee Operating System",
+      "description": "One platform for every employee and every department, onboarding, payroll, leave, performance, IT requests and employee claims, with an AI employee assistant.",
       "keywords": "Uptrix HRMS, HR software, employee attendance, leave and payroll, employee records, IT asset management, employee onboarding"
     },
     "chats": [
@@ -330,32 +330,14 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
         "icon": "M3 6h18v15H3zM16 3v6M8 3v6M3 11h18"
       },
       {
-        "q": "How many leaves do I have?",
-        "a": "You have 12 annual, 6 casual and 8 sick leaves left this year. Would you like to apply for one?",
-        "action": "Leave balance checked",
-        "icon": "M3 6h18v15H3zM16 3v6M8 3v6M3 11h18"
-      },
-      {
         "q": "Show my latest payslip.",
-        "a": "Here’s your October payslip. Your net pay and deductions are listed line by line — would you like to download it?",
+        "a": "Here’s your October payslip. Your net pay and deductions are listed line by line, would you like to download it?",
         "action": "Payslip ready to download",
         "icon": "M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2zM8 8h8M8 12h8M8 16h5"
       },
       {
-        "q": "Submit my travel reimbursement.",
-        "a": "I’ve drafted a travel claim for you. Attach your receipt and confirm — it will then go to your manager for approval.",
-        "action": "Claim ready for confirmation",
-        "icon": "M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7M16 14h.01"
-      },
-      {
-        "q": "What is my attendance this month?",
-        "a": "You’ve been present 19 of 20 working days this month, with one late check-in. No attendance issues are pending.",
-        "action": "Attendance summary",
-        "icon": "M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20M12 6v6l4 2"
-      },
-      {
         "q": "Raise an IT support request.",
-        "a": "I can do that. Tell me what’s wrong — device, software or access — and I’ll send the ticket to the IT team.",
+        "a": "I can do that. Tell me what’s wrong (device, software or access) and I’ll send the ticket to the IT team.",
         "action": "IT ticket ready to submit",
         "icon": "M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4zM13 5v14"
       }
@@ -364,7 +346,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       {
         "name": "New joiner",
         "summary": "One record starts every task",
-        "before": "HR emails IT for a laptop, Finance for bank details and the manager for a start plan — then chases each one.",
+        "before": "HR emails IT for a laptop, Finance for bank details and the manager for a start plan, then chases each one.",
         "after": "HR adds the joiner once. IT, Finance and the manager each get their task automatically, with the same details.",
         "steps": [
           {
@@ -453,7 +435,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
         "name": "Expense claim",
         "summary": "From receipt to reimbursement",
         "before": "Receipts sent by email, approvals lost in inboxes and employees asking when they’ll be paid.",
-        "after": "One claim with the receipt attached — approved, paid and visible to the employee at every step.",
+        "after": "One claim with the receipt attached, approved, paid and visible to the employee at every step.",
         "steps": [
           {
             "team": "Employee",
@@ -496,7 +478,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       {
         "name": "Employee exit",
         "summary": "Every team signs off on one checklist",
-        "before": "Separate emails for device returns, access removal and final settlement — easy to miss a step.",
+        "before": "Separate emails for device returns, access removal and final settlement, easy to miss a step.",
         "after": "One exit checklist that HR, IT, Finance and the manager all complete together.",
         "steps": [
           {
@@ -551,10 +533,9 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "08_modules": "Modules",
       "09_employee_lifecycle": "Employee lifecycle",
       "10_services": "Services",
-      "11_log_in": "Log in",
-      "12_book_a_demo": "Book a demo",
-      "13_uptrix": "Uptrix",
-      "14_primary": "Primary"
+      "11_book_a_demo": "Book a demo",
+      "12_uptrix": "Uptrix",
+      "13_primary": "Primary"
     },
     "top": {
       "01_home": "Home",
@@ -563,7 +544,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "04_hr_suite": "HR Suite",
       "05_everything_your_employees_need_everythin": "Everything Your Employees Need. Everything HR Needs.",
       "06_one_platform": "One Platform.",
-      "07_from_employee_records_and_attendance_to": "From employee records and attendance to leave, performance, policies and AI-powered assistance — manage your entire employee experience through one connected HR platform.",
+      "07_from_employee_records_and_attendance_to": "From employee records and attendance to leave, performance, policies and AI-powered assistance, manage your entire employee experience through one connected HR platform.",
       "08_explore_hr_suite": "Explore HR Suite",
       "09_book_a_demo": "Book a Demo",
       "10_rs": "RS",
@@ -874,7 +855,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "01_book_a_demo": "Book a demo",
       "02_see_the_hr_suite_with": "See the HR Suite with",
       "03_your_own_team": "your own team.",
-      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.",
+      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.",
       "05_30_minute_walkthrough": "30-minute walkthrough",
       "06_setup_help_included": "Setup help included",
       "07_1_click_live_demo_no_sign": "1-click live demo, no sign-up",
@@ -891,8 +872,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "18_it": "IT",
       "19_finance": "Finance",
       "20_request_my_demo": "Request my demo",
-      "21_this_form_is_a_design_preview": "This form is a design preview — connect it to your email or CRM before launch.",
-      "22_thanks_we_ll_be_in_touch": "Thanks — we’ll be in touch.",
+      "21_this_form_is_a_design_preview": "This form is a design preview, connect it to your email or CRM before launch.",
+      "22_thanks_we_ll_be_in_touch": "Thanks, we’ll be in touch.",
       "23_in_the_meantime_explore_everything_in": "In the meantime, explore everything in the live demo.",
       "24_open_the_live_demo": "Open the live demo",
       "25_back_to_form": "Back to form",
@@ -902,10 +883,10 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
     },
     "footer": {
       "01_bring_hr_it_and_finance_onto": "Bring HR, IT and Finance onto one record.",
-      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo — 1-click logins, no sign-up.",
+      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo, 1-click logins, no sign-up.",
       "03_open_the_live_demo": "Open the live demo",
       "04_book_a_demo": "Book a demo",
-      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record — with an AI assistant that answers your team’s everyday questions.",
+      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record, with an AI assistant that answers your team’s everyday questions.",
       "06_your_email": "[YOUR EMAIL]",
       "07_your_phone": "[YOUR PHONE]",
       "08_your_office_address": "[YOUR OFFICE ADDRESS]",
@@ -947,8 +928,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "44_uptrix": "Uptrix"
     },
     "seo": {
-      "title": "Uptrix HR Suite — Everything your employees and HR need",
-      "description": "Employee records, attendance, leave, shifts, performance, policies and an AI employee assistant — the complete employee experience in one connected HR platform.",
+      "title": "Uptrix HR Suite - Everything your employees and HR need",
+      "description": "Employee records, attendance, leave, shifts, performance, policies and an AI employee assistant, the complete employee experience in one connected HR platform.",
       "keywords": "Uptrix HRMS, HR software, employee attendance, leave and payroll, employee records, IT asset management, employee onboarding"
     },
     "stages": [
@@ -1247,10 +1228,9 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "08_modules": "Modules",
       "09_employee_lifecycle": "Employee lifecycle",
       "10_services": "Services",
-      "11_log_in": "Log in",
-      "12_book_a_demo": "Book a demo",
-      "13_uptrix": "Uptrix",
-      "14_primary": "Primary"
+      "11_book_a_demo": "Book a demo",
+      "12_uptrix": "Uptrix",
+      "13_primary": "Primary"
     },
     "top": {
       "01_home": "Home",
@@ -1259,7 +1239,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "04_it_suite": "IT Suite",
       "05_every_device_every_it_request_every": "Every Device. Every IT Request. Every Employee Transition.",
       "06_one_platform": "One Platform.",
-      "07_manage_company_assets_resolve_employee_i": "Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding — all from one centralised platform.",
+      "07_manage_company_assets_resolve_employee_i": "Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding, all from one centralised platform.",
       "08_give_your_it_team_complete_visibility": "Give your IT team complete visibility into devices, support requests, asset allocation and employee access throughout the employee lifecycle.",
       "09_explore_it_suite": "Explore IT Suite",
       "10_book_a_demo": "Book a Demo",
@@ -1452,7 +1432,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "35_in_use": "In use",
       "36_iphone_13": "iPhone 13",
       "37_phn_3012": "PHN-3012",
-      "38_text": "—",
+      "38_text": "-",
       "39_store_room": "Store room",
       "40_available": "Available",
       "41_hp_laserjet_pro": "HP LaserJet Pro",
@@ -1563,7 +1543,7 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "01_book_a_demo": "Book a demo",
       "02_see_the_hr_suite_with": "See the HR Suite with",
       "03_your_own_team": "your own team.",
-      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.",
+      "04_tell_us_a_little_about_your": "Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.",
       "05_30_minute_walkthrough": "30-minute walkthrough",
       "06_setup_help_included": "Setup help included",
       "07_1_click_live_demo_no_sign": "1-click live demo, no sign-up",
@@ -1580,8 +1560,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "18_it": "IT",
       "19_finance": "Finance",
       "20_request_my_demo": "Request my demo",
-      "21_this_form_is_a_design_preview": "This form is a design preview — connect it to your email or CRM before launch.",
-      "22_thanks_we_ll_be_in_touch": "Thanks — we’ll be in touch.",
+      "21_this_form_is_a_design_preview": "This form is a design preview, connect it to your email or CRM before launch.",
+      "22_thanks_we_ll_be_in_touch": "Thanks, we’ll be in touch.",
       "23_in_the_meantime_explore_everything_in": "In the meantime, explore everything in the live demo.",
       "24_open_the_live_demo": "Open the live demo",
       "25_back_to_form": "Back to form",
@@ -1591,10 +1571,10 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
     },
     "footer": {
       "01_bring_hr_it_and_finance_onto": "Bring HR, IT and Finance onto one record.",
-      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo — 1-click logins, no sign-up.",
+      "02_explore_every_screen_in_the_live": "Explore every screen in the live demo, 1-click logins, no sign-up.",
       "03_open_the_live_demo": "Open the live demo",
       "04_book_a_demo": "Book a demo",
-      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record — with an AI assistant that answers your team’s everyday questions.",
+      "05_hr_it_and_finance_suites_on": "HR, IT and Finance suites on one employee record, with an AI assistant that answers your team’s everyday questions.",
       "06_your_email": "[YOUR EMAIL]",
       "07_your_phone": "[YOUR PHONE]",
       "08_your_office_address": "[YOUR OFFICE ADDRESS]",
@@ -1644,8 +1624,8 @@ export const HRMS_PAGE_DEFAULTS: Record<string, Record<string, unknown>> = {
       "52_uptrix_on_instagram_add_link": "Uptrix on Instagram (add link)"
     },
     "seo": {
-      "title": "Uptrix IT Suite — Devices, IT requests and employee transitions",
-      "description": "Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding — all from one centralised platform.",
+      "title": "Uptrix IT Suite - Devices, IT requests and employee transitions",
+      "description": "Manage company assets, resolve employee IT requests and automate IT onboarding and offboarding, all from one centralised platform.",
       "keywords": "Uptrix HRMS, HR software, employee attendance, leave and payroll, employee records, IT asset management, employee onboarding"
     },
     "tickets": [

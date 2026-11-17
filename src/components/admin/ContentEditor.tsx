@@ -31,9 +31,9 @@ const LABELS: Record<string, string> = {
   percent: "Percent of enquiries (%)",
   leads: "Number of leads",
   admissions: "Admissions (number)",
-  headingStart: "Heading — start",
-  headingHighlight: "Heading — highlighted words",
-  headingEnd: "Heading — end",
+  headingStart: "Heading, start",
+  headingHighlight: "Heading, highlighted words",
+  headingEnd: "Heading, end",
   photoDescription: "Photo description (placeholder)",
   screenshotLabel: "Screenshot placeholder text",
   trustBar: "Trusted by logos bar",
@@ -298,7 +298,7 @@ function Field({ name, path, value, defaults, onChange, hideLabel }: FieldProps)
           />
         )}
         {link && <p className="text-xs text-slate-500">A page on this site (/crm/pricing), a section (#demo), a full web address, mailto: or tel:.</p>}
-        {hasToken && <p className="text-xs text-slate-500">Keep the words in {"{curly brackets}"} — they are replaced with what the visitor typed.</p>}
+        {hasToken && <p className="text-xs text-slate-500">Keep the words in {"{curly brackets}"}, they are replaced with what the visitor typed.</p>}
       </div>
     );
   }

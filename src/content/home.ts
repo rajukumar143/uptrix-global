@@ -1,7 +1,7 @@
 // Default text for the home page (/). Everything here can be edited in the admin dashboard.
 export const homeDefaults = {
   seo: {
-    pageTitle: "Uptrix — HRMS & CRM for Growing Indian Businesses",
+    pageTitle: "Uptrix - HRMS & CRM for Growing Indian Businesses",
     metaDescription:
       "Uptrix offers HRMS and CRM software built for growing Indian businesses. Manage your people and your customers in one place.",
   },
@@ -35,7 +35,7 @@ export const homeDefaults = {
       headingStart: "Turn Leads Into ",
       headingHighlight: "Loyal Customers",
       headingEnd: "",
-      body: "Track every deal, automate follow-ups, and close faster — all from one simple CRM built for growing teams.",
+      body: "Track every deal, automate follow-ups, and close faster, all from one simple CRM built for growing teams.",
       primaryButtonLabel: "Discover CRM",
       primaryButtonLink: "/crm",
       secondaryButtonLabel: "",
@@ -67,7 +67,7 @@ export const homeDefaults = {
   hrmsSection: {
     tag: "HRMS",
     heading: "Simplify Your Entire HR in One Place",
-    body: "From hiring to payroll, manage your whole workforce effortlessly — so you can focus on growing your business, not paperwork.",
+    body: "From hiring to payroll, manage your whole workforce effortlessly, so you can focus on growing your business, not paperwork.",
     buttonLabel: "Explore HRMS",
     buttonLink: "#tour",
     screenshotLabel: "HRMS dashboard screenshot",

@@ -227,7 +227,7 @@ export default function ServicesPage() {
           <div className="mb-10 flex max-w-[700px] flex-col gap-3.5">
             <span className={kicker}>How we work</span>
             <h2 className={h2}>One clear process, whatever you need.</h2>
-            <p className={lead}>Every project — new build, integration, migration or support — follows the same four steps, so you always know what happens next.</p>
+            <p className={lead}>Every project, new build, integration, migration or support, follows the same four steps, so you always know what happens next.</p>
           </div>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-4">
             {PROCESS.map((p, i) => (
@@ -254,7 +254,7 @@ export default function ServicesPage() {
               <span className={kicker}>Why Uptrix</span>
               <h2 className={h2}>We build software we run ourselves.</h2>
               <p className={lead}>
-                The same team behind our HR, IT and Finance suites works on your project — so you get people who know employee data, approvals and payroll from the inside.
+                The same team behind our HR, IT and Finance suites works on your project, so you get people who know employee data, approvals and payroll from the inside.
               </p>
             </div>
             <div className="grid min-w-0 flex-[1.3_1_440px] grid-cols-[repeat(auto-fit,minmax(min(100%,210px),1fr))] gap-3">
@@ -339,7 +339,7 @@ export default function ServicesPage() {
               {status === "success" ? (
                 <div role="status" className="flex flex-col items-start gap-3 py-6">
                   <span aria-hidden className="grid h-12 w-12 place-items-center rounded-full bg-emerald-50 text-xl font-extrabold text-emerald-700">✓</span>
-                  <p className="font-display text-xl font-bold text-slate-900">Thanks — we’ll be in touch.</p>
+                  <p className="font-display text-xl font-bold text-slate-900">Thanks, we’ll be in touch.</p>
                   <p className="text-sm text-slate-600">We’ll review your note and reply with next steps.</p>
                 </div>
               ) : (

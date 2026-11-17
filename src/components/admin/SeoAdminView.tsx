@@ -212,7 +212,7 @@ ${sitemapEntries
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-semibold text-emerald-400">GET /robots.txt</span>
-                    <span className="text-[11px] text-slate-400">— Controls search crawler indexing permissions</span>
+                    <span className="text-[11px] text-slate-400">- Controls search crawler indexing permissions</span>
                   </div>
                   <div className="mt-1 font-mono text-xs text-slate-300 truncate">{`${siteUrl}/robots.txt`}</div>
                 </div>
@@ -238,7 +238,7 @@ ${sitemapEntries
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-semibold text-sky-400">GET /sitemap.xml</span>
-                    <span className="text-[11px] text-slate-400">— Full dynamic catalogue of public URLs</span>
+                    <span className="text-[11px] text-slate-400">- Full dynamic catalogue of public URLs</span>
                   </div>
                   <div className="mt-1 font-mono text-xs text-slate-300 truncate">{`${siteUrl}/sitemap.xml`}</div>
                 </div>
