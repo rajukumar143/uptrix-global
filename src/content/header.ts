@@ -7,7 +7,7 @@ export const headerDefaults = {
   // Each product appears in the Products drop-down. Sub links show underneath it (e.g. CRM -> EduTech CRM).
   products: [
     {
-      label: "Uptrix CRM",
+      label: "CRM",
       link: "/crm",
       description: "Capture every lead and automate follow-ups",
       subLinks: [
@@ -16,13 +16,14 @@ export const headerDefaults = {
       ],
     },
     {
-      label: "Uptrix HRMS",
+      label: "HRMS",
       link: HRMS_SUBDOMAIN_URL,
       description: "Payroll, attendance, leave and people records",
       subLinks: [],
     },
   ],
   menuLinks: [
+    { label: "Services", link: "/services" },
     { label: "Blog", link: "/blog" },
     { label: "Contact", link: "/crm/contact" },
   ],

@@ -94,7 +94,7 @@ export default function CollegeCrmIntelligence() {
             {/* Description Paragraph */}
             <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-5 font-normal max-w-[460px]">
               Every business tracks different numbers. Pulse uses AI to create dashboards
-              around the metrics that matter to your business — marketing, sales, revenue,
+              around the metrics that matter to your business, marketing, sales, revenue,
               customer engagement or operations.
             </p>
 

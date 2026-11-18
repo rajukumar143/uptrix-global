@@ -25,7 +25,7 @@ function Cell({ v, yes, no }: { v: CellValue; yes: string; no: string }) {
   if (!v.included)
     return (
       <span className="text-[#c4c7d8]">
-        <span aria-hidden>—</span>
+        <span aria-hidden>-</span>
         <span className="sr-only">{no}</span>
       </span>
     );

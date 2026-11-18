@@ -73,7 +73,7 @@ export default function RealEstateHubArchitecture() {
             <span className="text-[#6938ef]">One Account.</span> Unlimited Possibilities.
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
-            One central account for everything Uptrix — seamlessly connecting your portals, site lounges, broker apps, and milestone finance controls.
+            One central account for everything Uptrix, seamlessly connecting your portals, site lounges, broker apps, and milestone finance controls.
           </p>
         </header>
 

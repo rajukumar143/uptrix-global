@@ -85,7 +85,7 @@ export default function CollegeHubArchitecture() {
             <span className="text-[#6938ef]">One Account.</span> Unlimited Possibilities.
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
-            One central account for everything Uptrix — seamlessly connecting your apps, devices, and security controls across your entire campus.
+            One central account for everything Uptrix, seamlessly connecting your apps, devices, and security controls across your entire campus.
           </p>
         </header>
 

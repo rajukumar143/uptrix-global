@@ -175,12 +175,12 @@ export function Estimator({ suite }: { suite: Suite }) {
   const hours = Math.round((band.people * suite.minutesSaved) / 60);
 
   return (
-    <div className="flex flex-wrap items-center gap-12 rounded-[28px] bg-white p-8 shadow-[0_24px_48px_-24px_rgba(16,24,40,0.18)] sm:p-12">
+    <div className="flex flex-wrap items-center gap-8 rounded-[28px] bg-white p-6 lg:gap-12 shadow-[0_24px_48px_-24px_rgba(16,24,40,0.18)] sm:p-12">
       <div className="flex min-w-0 flex-[1_1_380px] flex-col gap-4">
         <span className="text-[13px] font-extrabold text-[#3F289D]" style={{ color: suite.accent }}>
           Time back
         </span>
-        <h2 className="font-semibold leading-[1.06] tracking-[-0.03em] text-[#101828]" style={{ fontSize: 40 }}>
+        <h2 className="font-semibold leading-[1.06] tracking-[-0.03em] text-[#101828]" style={{ fontSize: "clamp(30px, 6vw, 40px)" }}>
           How much time could your team get back?
         </h2>
         <span className="text-sm font-extrabold text-[#101828]">Your company size</span>

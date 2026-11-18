@@ -1127,7 +1127,7 @@ export default function RealEstateLandingPage({ header, footer, content }: RealE
               <blockquote className="p-4 rounded-2xl bg-emerald-50/50 border-l-4 border-emerald-500 italic text-slate-800 text-xs">
                 &quot;{selectedCaseStudyCard.quote}&quot;
                 <footer className="mt-1 font-bold text-slate-900 not-italic">
-                  — {selectedCaseStudyCard.author}, {selectedCaseStudyCard.role}
+ - {selectedCaseStudyCard.author}, {selectedCaseStudyCard.role}
                 </footer>
               </blockquote>
             </div>

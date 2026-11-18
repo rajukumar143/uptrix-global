@@ -4,6 +4,7 @@ import { collegeDefaults } from "./college";
 import { contactDefaults } from "./contact";
 import { crmDefaults, crmLayoutDefaults } from "./crm";
 import { headerDefaults } from "./header";
+import { hrmsDefaults } from "./hrms-site";
 import { homeDefaults } from "./home";
 import { realEstateDefaults } from "./industries";
 import { pricingDefaults } from "./pricing";
@@ -26,6 +27,7 @@ export const defaultContent = {
   blog: blogDefaults,
   crmLayout: crmLayoutDefaults,
   tracking: trackingDefaults,
+  hrms: hrmsDefaults,
 };
 
 export type SiteContent = typeof defaultContent;
@@ -69,6 +71,11 @@ export const pageInfo: Record<PageKey, { title: string; description: string; pat
     title: "Footer (CRM, blog & stories)",
     description: "The footer on the CRM pages, blog, case studies and video testimonials. The home page footer is edited in Home page.",
     paths: ["/crm", "/blog", "/case-studies"],
+  },
+  hrms: {
+    title: "HRMS subdomain (hrms.uptrixglobal.com)",
+    description: "The HRMS home page and the HR, IT and Finance suite pages: headings, copy, modules, steps, questions, setup checklist and footer.",
+    paths: ["/hr-suite", "/it-suite", "/finance-suite", "/hrms-home"],
   },
   tracking: {
     title: "Google & Meta Ads / GTM",

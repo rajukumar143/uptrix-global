@@ -4,27 +4,29 @@ import HrmsDemoForm from "@/components/hrms/HrmsDemoForm";
 import StickyDemoCta from "@/components/hrms/StickyDemoCta";
 import HrmsHeader from "@/components/hrms-home/HrmsHeader";
 import { APP_URL } from "@/content/hrms";
-import { SUITES, type Suite } from "@/content/suites";
+import type { Suite } from "@/content/suites";
 import { Estimator, ModuleBoard, Walkthrough } from "./SuiteInteractive";
 import { Glyph, sparkPoints } from "./parts";
 
 const container = "mx-auto w-full max-w-[1180px] px-5 sm:px-8";
-const sec = "scroll-mt-24 py-20 sm:py-28";
+const sec = "scroll-mt-24 py-16 sm:py-28";
 const kicker = "inline-flex items-center gap-2 text-[13px] font-extrabold";
 const h2 = "font-semibold leading-[1.06] tracking-[-0.03em] text-[#101828] text-balance";
 const panel = "rounded-[28px] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_48px_-24px_rgba(16,24,40,0.18)]";
 
-export default function SuitePage({ suite }: { suite: Suite }) {
-  const otherSuites = Object.values(SUITES).filter((s) => s.key !== suite.key);
+type Shell = { submenu: { label: string; href: string; description: string; icon: string; accent: { bg: string; fg: string } }[]; nav: { suites: string; day: string; roles: string; setup: string; login: string; demo: string }; footer: Parameters<typeof HrmsFooter>[0]["footer"] };
+
+export default function SuitePage({ suite, suites, shell }: { suite: Suite; suites: Suite[]; shell: Shell }) {
+  const otherSuites = suites.filter((s) => s.key !== suite.key);
 
   return (
     <div className="bg-[#F3F6FB] font-sans text-[#475467] antialiased">
-      <HrmsHeader tint={suite.soft} />
+      <HrmsHeader submenu={shell.submenu} nav={shell.nav} tint={suite.soft} />
 
       <main>
         {/* 1. HERO */}
-        <section id="hero" className="relative overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24" style={{ background: suite.heroBg }}>
-          <div className={`${container} flex flex-wrap items-center gap-14`}>
+        <section id="hero" className="relative overflow-x-clip pt-6 pb-12 sm:pt-10 sm:pb-24" style={{ background: suite.heroBg }}>
+          <div className={`${container} flex flex-wrap items-center gap-10 lg:gap-14`}>
             <div className="flex min-w-0 flex-[1_1_500px] flex-col gap-6">
               <nav aria-label="Breadcrumb" className="flex gap-2 text-[13px] text-[#667085]">
                 <Link href="/" className="hover:text-[#101828]">
@@ -135,7 +137,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
                 Connected
               </span>
               <h2 id="connected-title" className={`${h2} text-[clamp(30px,4vw,46px)]`}>
-                Data flows between suites — automatically.
+                Data flows between suites, automatically.
               </h2>
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] gap-4">
@@ -170,7 +172,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
                   See the {suite.name} with your own team.
                 </h2>
                 <p className="text-base leading-relaxed text-[#475467]">
-                  Tell us a little about your team and we’ll walk you through Uptrix with your own use cases — or jump straight into the live demo.
+                  Tell us a little about your team and we’ll walk you through Uptrix with your own use cases, or jump straight into the live demo.
                 </p>
                 <ul className="flex flex-col gap-2.5">
                   {["30-minute walkthrough", "Setup help included", "1-click live demo, no sign-up"].map((t) => (
@@ -203,7 +205,7 @@ export default function SuitePage({ suite }: { suite: Suite }) {
       </main>
 
       <StickyDemoCta label="Book a demo" />
-      <HrmsFooter />
+      <HrmsFooter submenu={shell.submenu} footer={shell.footer} />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 // The posts themselves are written in Admin → Blog posts.
 export const blogDefaults = {
   seo: {
-    pageTitle: "Blog | Uptrix — CRM, Admissions & HR Insights",
+    pageTitle: "Blog | Uptrix - CRM, Admissions & HR Insights",
     metaDescription:
       "Guides and ideas on lead management, admissions, follow-ups, CRM and HR for growing Indian businesses, from the Uptrix team.",
   },

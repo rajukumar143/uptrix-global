@@ -267,7 +267,7 @@ export default function LeadsAdminView({ initialLeads }: LeadsAdminViewProps) {
 
                     {/* 2. Company Name */}
                     <td className="px-4 py-3.5 font-semibold text-slate-700">
-                      {l.company || "—"}
+                      {l.company || "-"}
                     </td>
 
                     {/* 3. Gmail / Email */}
@@ -282,7 +282,7 @@ export default function LeadsAdminView({ initialLeads }: LeadsAdminViewProps) {
                           <span>{l.email}</span>
                         </a>
                       ) : (
-                        <span className="text-slate-400">—</span>
+                        <span className="text-slate-400">-</span>
                       )}
                     </td>
 
@@ -334,7 +334,7 @@ export default function LeadsAdminView({ initialLeads }: LeadsAdminViewProps) {
                           <span>↗</span>
                         </a>
                       ) : (
-                        <span className="text-slate-400 font-mono text-[10px]">—</span>
+                        <span className="text-slate-400 font-mono text-[10px]">-</span>
                       )}
                     </td>
 
@@ -407,7 +407,7 @@ export default function LeadsAdminView({ initialLeads }: LeadsAdminViewProps) {
                 <div className="rounded-xl bg-slate-50 p-3 border border-slate-100">
                   <span className="text-[10px] font-bold text-slate-400 uppercase block">Gmail / Email</span>
                   <a href={`mailto:${selectedLead.email}`} className="text-sm font-medium text-indigo-600 mt-0.5 block truncate hover:underline">
-                    {selectedLead.email || "—"}
+                    {selectedLead.email || "-"}
                   </a>
                 </div>
               </div>

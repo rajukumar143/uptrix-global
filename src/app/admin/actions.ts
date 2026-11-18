@@ -17,7 +17,8 @@ import {
   recordFailure,
   requireAdmin,
 } from "@/lib/admin-auth";
-import { resetPageContent, restoreBackup, savePageContent } from "@/lib/content-store";
+import { getPageContent, resetPageContent, restoreBackup, savePageContent } from "@/lib/content-store";
+import { isHrmsPart, storePart } from "@/content/hrms-parts";
 
 export type LoginState = { error?: string };
 
@@ -53,11 +54,16 @@ async function refreshSite(pageKey?: keyof typeof pageInfo) {
 
 export type SaveResult = { ok: true; savedAt: string } | { ok: false; error: string };
 
-export async function savePage(pageKey: string, value: unknown): Promise<SaveResult> {
+export async function savePage(pageKey: string, value: unknown, part?: string): Promise<SaveResult> {
   await requireAdmin();
   if (!isPageKey(pageKey)) return { ok: false, error: "Unknown page." };
   try {
-    await savePageContent(pageKey, value);
+    // A single HRMS part only holds its own keys, so merge it into the rest of the HRMS content.
+    let toSave = value;
+    if (pageKey === "hrms" && isHrmsPart(part) && value && typeof value === "object") {
+      toSave = storePart(getPageContent(pageKey) as Record<string, unknown>, value as Record<string, unknown>, part);
+    }
+    await savePageContent(pageKey, toSave);
   } catch (e) {
     console.error("Admin save failed", e);
     return { ok: false, error: "Could not save. Check that the server can write to the content folder." };

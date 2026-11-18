@@ -1,0 +1,22 @@
+<!-- ESTIMATOR -->
+<section class="sec" style="padding-top: 24px">
+<div class="wrap">
+<div class="panel" style="padding: 48px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px"><span class="kicker">Time back</span><h2 class="t2" style="font-size: 40px">How Much Time Could Your IT Team Save?</h2>
+<p class="p" style="font-size: 16px">Reduce manual ticket handling, asset tracking and employee IT setup activities with one connected IT operations platform.</p>
+<span style="font-size: 14px; font-weight: 800; color: #101828">Your company size</span>
+<div class="seg" role="tablist" aria-label="Company size">{{#each sizes}}<button type="button" role="tab" aria-selected="false" data-tab-group="sizes" data-tab-index="{{$i}}">{{label}}</button>{{/each}}</div>
+<p class="s" style="font-size: 12px">Illustrative estimates, not guaranteed savings. Assumes about 1 IT ticket per 2 employees each month with 10 minutes of handling saved per ticket; about 3 minutes saved per employee each month on asset allocation and tracking; and about 2% of employees joining or leaving each month, with 1 hour of IT setup or clearance work saved per transition. [Replace with your measured customer figures before launch.]</p></div>
+<div aria-live="polite" style="flex: 1 1 340px; min-width: 0; border-radius: 24px; background: #E3EFFC; padding: 32px 36px; display: flex; flex-direction: column">
+<span class="s" style="font-size: 14px; font-weight: 700; color: #344054; padding-bottom: 8px">Estimated IT time saved each month</span>
+{{#each sizes}}<div data-panel-group="sizes" data-panel-index="{{$i}}" style="display: flex; flex-direction: column">
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">Ticket management</span><span class="s" style="font-size: 13px; color: #475467">Logging, assigning and following up on requests</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{ticketHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">Asset allocation &amp; tracking</span><span class="s" style="font-size: 13px; color: #475467">Keeping the register and assignments up to date</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{assetHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding: 16px 0; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between; gap: 16px"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800; color: #0058B0">IT onboarding &amp; offboarding</span><span class="s" style="font-size: 13px; color: #475467">Setup and clearance checklists for joiners and leavers</span></span><span style="font-family: 'Outfit', sans-serif; font-size: 40px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: #101828; white-space: nowrap">{{onboardHrs}}<span style="font-size: 16px; color: #475467"> hrs</span></span></div>
+<div style="padding-top: 16px; border-top: 1px solid #C2DAF5; display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 15px; font-weight: 800; color: #101828">Total estimate</span><span style="font-family: 'Outfit', sans-serif; font-size: 48px; line-height: 1; font-weight: 600; letter-spacing: -0.04em; color: #101828">{{totalHrs}}<span style="font-size: 18px; color: #475467"> hrs / month</span></span></div>
+</div>{{/each}}
+</div>
+</div>
+</div>
+</section>
+

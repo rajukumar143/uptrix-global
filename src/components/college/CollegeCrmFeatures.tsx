@@ -133,7 +133,7 @@ export default function CollegeCrmFeatures() {
             <span className="text-[#6938ef]">Key Features</span> of Your CRM Tool
           </h2>
           <p className="text-slate-500 text-xs sm:text-sm lg:text-[15px] font-normal leading-relaxed mt-2.5 max-w-[640px] mx-auto">
-            Everything you need to capture, manage, convert and grow — all in one place.
+            Everything you need to capture, manage, convert and grow, all in one place.
           </p>
         </header>
 
@@ -1173,7 +1173,7 @@ export default function CollegeCrmFeatures() {
                     </h3>
                     <div className="space-y-3.5 text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                       <p>
-                        Gain crystal-clear visibility into where prospective students drop off—from initial click to verified fee deposit.
+                        Gain crystal-clear visibility into where prospective students drop off-from initial click to verified fee deposit.
                       </p>
                       <p>
                         Compare counsellor conversion rates, campus branches, and course popularity side-by-side with granular cohort tracking.
